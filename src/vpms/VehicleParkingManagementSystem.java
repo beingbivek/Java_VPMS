@@ -8,7 +8,7 @@ package vpms;
  *
  * @author being
  */
-public class VPMS {
+public class VehicleParkingManagementSystem {
 
     /**
      * @param args the command line arguments
