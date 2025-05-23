@@ -4,6 +4,8 @@
  */
 package vpms;
 
+import vpms.view.AdminLoginView;
+
 /**
  *
  * @author being
@@ -15,7 +17,8 @@ public class VehicleParkingManagementSystem {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+        AdminLoginView view = new AdminLoginView();
+        view.setVisible(true);
     }
     
 }
