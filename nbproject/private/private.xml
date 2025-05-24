@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/being/Documents/NetBeansProjects/VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/VPMS/src/vpms/database/DbConnection.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/VPMS/src/vpms/database/MySqlConnection.java</file>
@@ -11,6 +12,23 @@
             <file>file:/C:/Users/being/Documents/NetBeansProjects/VPMS/src/vpms/dao/UserDao.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/VPMS/src/vpms/view/AdminLoginView.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/VPMS/src/vpms/controller/AdminLoginController.java</file>
+=======
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminLoginController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminLoginView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/LoginRequest.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/DbConnection.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/MySqlConnection.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminDashboardView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/UserData.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ResetStaffPasswordView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/OtpVerificationView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/DefaultAdminSeeder.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/acec3192791626e7caf93a0d2203cd4c.jpg</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/ImagePicker/e56ae96f7a58c6ee5b5499ad5c8764ab.jpg</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/ImagePicker/fd145234a1b64639872697360429bce1.jpg</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
