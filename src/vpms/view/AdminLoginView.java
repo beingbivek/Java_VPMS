@@ -26,6 +26,7 @@ public class AdminLoginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+<<<<<<< HEAD
         jLabel6 = new javax.swing.JLabel();
         Jemail = new javax.swing.JLabel();
         JemailField = new javax.swing.JTextField();
@@ -34,6 +35,10 @@ public class AdminLoginView extends javax.swing.JFrame {
         Loginbutton = new javax.swing.JButton();
         Jforgotpass = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+=======
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+>>>>>>> bivek
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -75,11 +80,16 @@ public class AdminLoginView extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vpms/view/acec3192791626e7caf93a0d2203cd4c.jpg"))); // NOI18N
         jLabel3.setText("jLabe");
 
+        jTextField1.setText("jTextField1");
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -97,10 +107,18 @@ public class AdminLoginView extends javax.swing.JFrame {
                                 .addComponent(Loginbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)))))
                 .addGap(0, 105, Short.MAX_VALUE))
+=======
+                .addGap(134, 134, 134)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(191, Short.MAX_VALUE))
+>>>>>>> bivek
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addGap(82, 82, 82)
                 .addComponent(jLabel6)
                 .addGap(85, 85, 85)
@@ -119,6 +137,13 @@ public class AdminLoginView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel3))
+=======
+                .addGap(122, 122, 122)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(121, Short.MAX_VALUE))
+>>>>>>> bivek
         );
 
         pack();
@@ -174,6 +199,7 @@ public class AdminLoginView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+<<<<<<< HEAD
     private javax.swing.JLabel Jemail;
     private javax.swing.JTextField JemailField;
     private javax.swing.JLabel Jforgotpass;
@@ -182,7 +208,18 @@ public class AdminLoginView extends javax.swing.JFrame {
     private javax.swing.JButton Loginbutton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+=======
+    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField jTextField1;
+>>>>>>> bivek
     // End of variables declaration//GEN-END:variables
+                
+    public javax.swing.JTextField getEmailTextField(){
+        return jTextField1;
+    }
+//    public javax.swing.JPasswordField getPasswordField(){
+//        return passwordField;
+//    }
 }
 
 

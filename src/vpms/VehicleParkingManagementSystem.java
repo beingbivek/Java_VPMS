@@ -17,8 +17,15 @@ public class VehicleParkingManagementSystem {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+<<<<<<< HEAD
         AdminLoginView view = new AdminLoginView();
         view.setVisible(true);
+=======
+//        EntryView view = new EntryView();
+//        EntryController userController = new EntryController(view);
+//        userController.open();
+        
+>>>>>>> bivek
     }
     
 }
