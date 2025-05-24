@@ -63,6 +63,7 @@ public class StaffManagementView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Staff Management");
 
+        jTextField1.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         jTextField1.setText("Search                                        ");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +80,7 @@ public class StaffManagementView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Status", "Role", "Contact"
+                "ID", "Name", "Type", "Email", "Password", "Image"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -266,4 +267,9 @@ public class StaffManagementView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTable getUserTable(){
+        return jTable1;
+    }
 }
+
