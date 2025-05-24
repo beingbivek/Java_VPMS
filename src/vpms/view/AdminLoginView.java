@@ -3,29 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vpms.view;
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-
-
-
+import javax.swing.JToggleButton;
 
 /**
  *
- * @author being
+ * @author PRABHASH
  */
 public class AdminLoginView extends javax.swing.JFrame {
-     private boolean isPasswordVisible = false;
+    private boolean isPasswordVisible = false;
 
     /**
-     * Creates new form AdminLoginView
+     * Creates new form AdminLoginVieww
      */
     public AdminLoginView() {
         initComponents();
@@ -40,46 +34,28 @@ public class AdminLoginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< Updated upstream
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-=======
-        jLabel6 = new javax.swing.JLabel();
-        Jemail = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         JEmailField = new javax.swing.JTextField();
-        Jpassword = new javax.swing.JLabel();
         JPasswordField = new javax.swing.JPasswordField();
-        loginButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        loginButton = new javax.swing.JToggleButton();
         JForgotPassword = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         btnTogglePaassword = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 19)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(153, 0, 204));
-        jLabel6.setText("WELCOME ADMIN !");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Welcome Admin !");
 
-        Jemail.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        Jemail.setText("EMAIL ID");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Email ID");
 
-        JEmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JEmailFieldActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Password");
 
-        Jpassword.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        Jpassword.setText("Password");
-
-        JPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JPasswordFieldActionPerformed(evt);
-            }
-        });
-
-        loginButton.setBackground(new java.awt.Color(153, 102, 255));
-        loginButton.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        loginButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,10 +63,6 @@ public class AdminLoginView extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vpms/view/acec3192791626e7caf93a0d2203cd4c.jpg"))); // NOI18N
-
-        JForgotPassword.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        JForgotPassword.setForeground(new java.awt.Color(0, 153, 255));
         JForgotPassword.setText("Forgot Password?");
         JForgotPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -98,96 +70,82 @@ public class AdminLoginView extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/WhatsApp Image 2025-05-24 at 13.38.26_390adc7f.jpg"))); // NOI18N
+
         btnTogglePaassword.setText("Show");
         btnTogglePaassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTogglePaasswordActionPerformed(evt);
             }
         });
->>>>>>> Stashed changes
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< Updated upstream
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-=======
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Jpassword)
-                                    .addComponent(Jemail))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(JEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(JEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)))
+                        .addGap(1, 1, 1)
                         .addComponent(btnTogglePaassword)
-                        .addGap(0, 27, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JForgotPassword)
-                        .addGap(62, 62, 62))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(147, 147, 147))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(JForgotPassword)
+                                .addGap(47, 47, 47))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(jLabel6)
-                .addGap(85, 85, 85)
+                .addGap(120, 120, 120)
+                .addComponent(jLabel1)
+                .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Jemail))
-                .addGap(34, 34, 34)
+                    .addComponent(jLabel2)
+                    .addComponent(JEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Jpassword)
+                    .addComponent(jLabel3)
                     .addComponent(btnTogglePaassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JForgotPassword)
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addComponent(loginButton)
+                .addGap(4, 4, 4)
+                .addComponent(JForgotPassword)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
->>>>>>> Stashed changes
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< Updated upstream
-=======
-    private void JEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JEmailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JEmailFieldActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String email = getEmail();
-    String password = getPassword();
-    //JOptionPane.showMessageDialog(this, "Email: " + email + "\nPassword: " + password); might or mightnot use later. its just a pop up.
+    String Email = JEmailField.getText();
+    String Password = new String(JPasswordField.getPassword());
     }//GEN-LAST:event_loginButtonActionPerformed
-
-    private void JPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JPasswordFieldActionPerformed
 
     private void JForgotPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JForgotPasswordMouseClicked
     JOptionPane.showMessageDialog(this, "Forgot Password clicked!");
-
     }//GEN-LAST:event_JForgotPasswordMouseClicked
 
     private void btnTogglePaasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTogglePaasswordActionPerformed
@@ -200,10 +158,8 @@ public class AdminLoginView extends javax.swing.JFrame {
     btnTogglePaassword.setText("Hide");
     isPasswordVisible = true;
 }
-
     }//GEN-LAST:event_btnTogglePaasswordActionPerformed
 
->>>>>>> Stashed changes
     /**
      * @param args the command line arguments
      */
@@ -230,6 +186,7 @@ public class AdminLoginView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AdminLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -240,22 +197,17 @@ public class AdminLoginView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< Updated upstream
-=======
     private javax.swing.JTextField JEmailField;
     private javax.swing.JLabel JForgotPassword;
     private javax.swing.JPasswordField JPasswordField;
-    private javax.swing.JLabel Jemail;
-    private javax.swing.JLabel Jpassword;
     private javax.swing.JButton btnTogglePaassword;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JButton loginButton;
->>>>>>> Stashed changes
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JToggleButton loginButton;
     // End of variables declaration//GEN-END:variables
 
-
-    
     public String getEmail() {
     return JEmailField.getText();
 }
@@ -263,12 +215,8 @@ public class AdminLoginView extends javax.swing.JFrame {
 public String getPassword() {
     return new String(JPasswordField.getPassword());
 }
-
-    /**
-     *
-     * @return
-     */
-    public JButton getLoginButton() {
+    
+    public JToggleButton getLoginButton() {
     return loginButton;
 }
 
@@ -276,7 +224,7 @@ public String getPassword() {
     JForgotPassword.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
-        }
+        }  
     });
 }
     
@@ -290,15 +238,4 @@ public JTextField getEmailTextField() {
 public JPasswordField getPasswordField() {
     return JPasswordField; 
 }
-<<<<<<< Updated upstream
-=======
-
-
-
-
-
 }
-
-
-
->>>>>>> Stashed changes

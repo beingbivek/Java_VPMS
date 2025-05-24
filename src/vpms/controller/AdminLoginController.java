@@ -41,6 +41,16 @@ public class AdminLoginController {
         view.dispose();
     }
 
+    public static class DefaultAdminSeeder {
+
+        public static void insertDefaultAdminIfNotExists() {
+            
+        }
+
+        public DefaultAdminSeeder() {
+        }
+    }
+
     class LoginHandler implements ActionListener { //event handlers
         @Override
         public void actionPerformed(ActionEvent e) {
