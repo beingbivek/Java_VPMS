@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import vpms.controller.*;
+
 /**
  *
  * @author being
@@ -74,10 +76,6 @@ public class AdminLoginView extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vpms/view/acec3192791626e7caf93a0d2203cd4c.jpg"))); // NOI18N
         jLabel3.setText("jLabe");
-
-        jTextField1.setText("jTextField1");
-
-        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +163,7 @@ public class AdminLoginView extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AdminLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
