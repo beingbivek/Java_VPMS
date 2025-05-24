@@ -4,7 +4,7 @@
  */
 package vpms;
 
-import vpms.controller.AdminLoginView;
+import vpms.view.AdminLoginView;
 
 /**
  *
