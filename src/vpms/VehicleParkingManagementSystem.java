@@ -4,6 +4,7 @@
  */
 package vpms;
 
+import vpms.controller.AdminLoginController;
 import vpms.view.AdminLoginView;
 
 /**
@@ -20,10 +21,6 @@ public class VehicleParkingManagementSystem {
         AdminLoginView view = new AdminLoginView();
         AdminLoginController controller = new AdminLoginController(view);
         controller.open();
-
-        // TODO code application logic here
-        AdminLoginView view = new AdminLoginView();
-        view.setVisible(true);
     }
     
 
