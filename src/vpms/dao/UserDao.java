@@ -23,7 +23,7 @@ public class UserDao {
             + "type VARCHAR(20) NOT NULL, "
             + "email VARCHAR(100) UNIQUE NOT NULL, "
             + "password VARCHAR(255) NOT NULL, "
-            + "image BLOB NOT NULL"
+            + "image BLOB"
             + ")";
          String query=  "INSERT INTO vpmsUsers (name, type, email, password,image) VALUES (?,?, ?, ?,?)";
          

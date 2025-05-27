@@ -75,6 +75,10 @@ public class AdminLoginView extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vpms/view/acec3192791626e7caf93a0d2203cd4c.jpg"))); // NOI18N
         jLabel3.setText("jLabe");
 
+        jTextField1.setText("jTextField1");
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,6 +189,13 @@ public class AdminLoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
+                
+    public javax.swing.JTextField getEmailTextField(){
+        return jTextField1;
+    }
+//    public javax.swing.JPasswordField getPasswordField(){
+//        return passwordField;
+//    }
 }
 
 
