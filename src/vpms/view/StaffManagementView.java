@@ -147,6 +147,7 @@ public class StaffManagementView extends javax.swing.JFrame {
         jLabel2.setText("Search");
 
         jLabel3.setBackground(new java.awt.Color(210, 28, 28));
+        jLabel3.setForeground(new java.awt.Color(223, 13, 13));
         jLabel3.setText("Cancle");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
