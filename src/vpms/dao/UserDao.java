@@ -110,7 +110,7 @@ public class UserDao {
     
     public boolean checkEmail(String email){
         Connection conn = mySql.openConnection();
-        String query = "SELECT * FROM users WHERE email=?";
+        String query = "SELECT * FROM vpmsUsers WHERE email=?";
         try{
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setString(1,email);
@@ -125,7 +125,7 @@ public class UserDao {
     
     public boolean resetPassword(ResetPasswordRequest resetReq){
         Connection conn = mySql.openConnection();
-        String query = "UPDATE users SET fpassword = ? WHERE email = ?";
+        String query = "UPDATE vpmsUsers SET password = ? WHERE email = ?";
         try{
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setString(1,resetReq.getPassword());
