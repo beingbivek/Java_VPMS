@@ -3,11 +3,14 @@ package vpms.controller;
 import java.awt.event.ActionEvent;
 import vpms.view.StaffAndLoginView;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import vpms.dao.UserDao;
 import vpms.model.LoginRequest;
 import vpms.model.UserData;
 import vpms.view.AdminLoginView;
+import vpms.view.ResetStaffPasswordView;
 import vpms.view.StaffDashbaordView;
 
 /**
@@ -66,6 +69,34 @@ public class StaffAndLoginController {
             adminLoginController.open();
             close();
             
+        }
+        
+    }
+    
+    class ResetPassword implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            ResetStaffPasswordView view = new ResetStaffPasswordView();
+            ResetStaffPasswordController controller = new ResetStaffPasswordController(view);
+            controller.open();
+            close();
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
         }
         
     }
