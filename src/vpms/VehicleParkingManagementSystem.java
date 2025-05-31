@@ -4,6 +4,7 @@
  */
 package vpms;
 
+import vpms.controller.AdminLoginController;
 import vpms.view.AdminLoginView;
 
 /**
@@ -16,9 +17,23 @@ public class VehicleParkingManagementSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        AdminLoginController.DefaultAdminSeeder.insertDefaultAdminIfNotExists();
         AdminLoginView view = new AdminLoginView();
-        view.setVisible(true);
+        AdminLoginController controller = new AdminLoginController(view);
+        controller.open();
     }
     
+
+    
+    
+
+
+    
+    
+    
+
 }
+
+
+    
+

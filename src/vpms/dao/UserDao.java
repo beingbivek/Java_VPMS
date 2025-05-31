@@ -5,6 +5,8 @@
 package vpms.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import vpms.database.MySqlConnection;
 import vpms.model.LoginRequest;
 import vpms.model.UserData;
@@ -77,5 +79,33 @@ public class UserDao {
         }
         return null;
     }
+     
+    public List<UserData> showUsers() {
+    List<UserData> userList = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT * FROM vpmsUsers";
     
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            UserData user = new UserData(
+                result.getString("name"),
+                result.getString("type"),
+                result.getString("email"),
+                result.getString("password"),
+                result.getBytes("image")
+            );
+            user.setId(result.getInt("id"));
+            userList.add(user);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+
+    return userList;
 }
+
+}
+
