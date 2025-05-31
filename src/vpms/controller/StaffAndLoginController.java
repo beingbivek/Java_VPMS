@@ -8,7 +8,7 @@ import vpms.dao.UserDao;
 import vpms.model.LoginRequest;
 import vpms.model.UserData;
 import vpms.view.AdminLoginView;
-import vpms.view.StaffDashboardView;
+import vpms.view.StaffDashbaordView;
 
 /**
  *
@@ -47,7 +47,7 @@ public class StaffAndLoginController {
                 if(user == null){
                     JOptionPane.showMessageDialog(view, "Login failed");
                 }else{
-                    StaffDashboardView dashbaordView = new StaffDashboardView();
+                    StaffDashbaordView dashbaordView = new StaffDashbaordView();
                     StaffDashboardController dashboardController = new StaffDashboardController(dashbaordView,user);
                     dashboardController.open();
                     close();
