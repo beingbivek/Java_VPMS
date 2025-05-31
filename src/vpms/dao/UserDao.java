@@ -105,7 +105,38 @@ public class UserDao {
     }
 
     return userList;
-}
+    }
+    
+    public boolean checkEmail(String email){
+        Connection conn = mySql.openConnection();
+        String query = "SELECT * FROM users WHERE email=?";
+        try{
+            PreparedStatement stmnt = conn.prepareStatement(query);
+            stmnt.setString(1,email);
+            ResultSet result = stmnt.executeQuery();
+            return result.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            mySql.closeConnection(conn);
+        }
+    }
+    
+    public boolean resetPassword(ResetPasswordRequest resetReq){
+        Connection conn = mySql.openConnection();
+        String query = "UPDATE users SET fpassword = ? WHERE email = ?";
+        try{
+            PreparedStatement stmnt = conn.prepareStatement(query);
+            stmnt.setString(1,resetReq.getPassword());
+            stmnt.setString(2,resetReq.getEmail());
+            int result = stmnt.executeUpdate();
+            return result > 0;
+        }catch(Exception e){
+            return false;
+        }finally{
+            mySql.closeConnection(conn);
+        }
+    }
 
 }
 

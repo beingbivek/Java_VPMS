@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vpms.view;
-
+import java.awt.event.MouseListener;
 /**
  *
  * @author Rupes
@@ -43,7 +43,7 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         jEmail = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPassword = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        forgotPasswordLabel = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -106,9 +106,9 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         jPassword.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jPassword.setText("Password");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 153, 255));
-        jLabel8.setText(" Forgot password?");
+        forgotPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        forgotPasswordLabel.setForeground(new java.awt.Color(102, 153, 255));
+        forgotPasswordLabel.setText(" Forgot password?");
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCheckBox1.setText("Remember Me");
@@ -162,7 +162,7 @@ public class StaffAndLoginView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(forgotPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +211,7 @@ public class StaffAndLoginView extends javax.swing.JFrame {
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(forgotPasswordLabel)
                     .addComponent(jCheckBox1))
                 .addGap(28, 28, 28)
                 .addComponent(jButton2)
@@ -293,6 +293,7 @@ public class StaffAndLoginView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Checkbox Remember;
     private java.awt.Checkbox checkbox1;
+    private javax.swing.JLabel forgotPasswordLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -304,7 +305,6 @@ public class StaffAndLoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jPassword;
     private javax.swing.JPasswordField jPasswordField1;
@@ -317,4 +317,7 @@ public class StaffAndLoginView extends javax.swing.JFrame {
     private java.awt.Scrollbar scrollbar1;
     private java.awt.TextField textField2;
     // End of variables declaration//GEN-END:variables
+    public void forgotpassword(MouseListener listener){
+        forgotPasswordLabel.addMouseListener(listener);
+    }
 }
