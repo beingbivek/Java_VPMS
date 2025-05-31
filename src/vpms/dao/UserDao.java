@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vpms.database.MySqlConnection;
 import vpms.model.LoginRequest;
+import vpms.model.ResetPasswordRequest;
 import vpms.model.UserData;
 
 /**
