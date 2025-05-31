@@ -4,6 +4,7 @@
  */
 package vpms.view;
 
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 /**
@@ -33,7 +34,6 @@ public class OtpVerificationView extends javax.swing.JFrame {
         otpTextField = new javax.swing.JTextField();
         checkOTPButton = new javax.swing.JButton();
         backToLoginLabel = new javax.swing.JLabel();
-        otpTimerLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -56,12 +56,16 @@ public class OtpVerificationView extends javax.swing.JFrame {
 
         backToLoginLabel.setText("<html><u>Back to Login</u></html>");
 
-        otpTimerLabel.setText("<html><u>OTP sent, Try again after </u></html>");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backToLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkOTPButton))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(39, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,16 +74,7 @@ public class OtpVerificationView extends javax.swing.JFrame {
                         .addGap(88, 88, 88))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(otpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(otpTimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backToLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkOTPButton))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(31, 31, 31))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,9 +83,7 @@ public class OtpVerificationView extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(37, 37, 37)
                 .addComponent(otpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(otpTimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(36, 36, 36)
                 .addComponent(checkOTPButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backToLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +172,6 @@ public class OtpVerificationView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField otpTextField;
-    private javax.swing.JLabel otpTimerLabel;
     // End of variables declaration//GEN-END:variables
     public javax.swing.JTextField getOTPTextField(){
         return otpTextField;
@@ -187,8 +179,7 @@ public class OtpVerificationView extends javax.swing.JFrame {
     public void backToLoginListerner(MouseListener listener){
         backToLoginLabel.addMouseListener(listener);
     }
-    public javax.swing.JLabel setOTPTimerLabel(){
-        return otpTimerLabel;
+    public void verifyOTP (ActionListener listener){
+        checkOTPButton.addActionListener(listener);
     }
-    public void
 }

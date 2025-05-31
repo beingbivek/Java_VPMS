@@ -69,6 +69,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="backToLoginLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkOTPButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="39" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -80,19 +88,7 @@
                           <Component id="otpTextField" min="-2" pref="233" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="otpTimerLabel" min="-2" pref="181" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="backToLoginLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkOTPButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -103,9 +99,7 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="otpTextField" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="otpTimerLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="checkOTPButton" min="-2" pref="29" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="backToLoginLabel" min="-2" max="-2" attributes="0"/>
@@ -142,11 +136,6 @@
         <Component class="javax.swing.JLabel" name="backToLoginLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;u&gt;Back to Login&lt;/u&gt;&lt;/html&gt;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="otpTimerLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;u&gt;OTP sent, Try again after &lt;/u&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
       </SubComponents>

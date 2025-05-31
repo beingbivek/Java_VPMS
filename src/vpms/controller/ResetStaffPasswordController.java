@@ -12,6 +12,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import vpms.controller.mail.SMTPSMailSender;
 import vpms.dao.UserDao;
+import vpms.view.OtpVerificationView;
 import vpms.view.ResetStaffPasswordView;
 import vpms.view.StaffAndLoginView;
 
@@ -47,11 +48,15 @@ public class ResetStaffPasswordController {
                 }else{
                     Random random = new Random();
                     int otp = 100000 + random.nextInt(900000);
-                    boolean mailSent = SMTPSMailSender.sendMail(email,"Reset Password Verfication","The OTP to reset your password is "+otp);
+                    String OTP = String.valueOf(otp);
+                    boolean mailSent = SMTPSMailSender.sendMail(email,"Reset Password Verfication","The OTP to reset your password is "+OTP);
                     if(!mailSent){
                         JOptionPane.showMessageDialog(view, "Failed to send OTP. Try Again later!");
                     }else{
-                        
+                        OtpVerificationView view = new OtpVerificationView();
+                        OtpVerificationController controller = new OtpVerificationController(view,OTP,email);
+                        controller.open();
+                        close();
                     }
                 }
             }
