@@ -4,13 +4,10 @@
  */
 package vpms;
 
-import vpms.view.AdminLoginView;
 import vpms.controller.AdminLoginController;
+import vpms.view.AdminLoginView;
 
-
-
-/**D
-
+/**
  *
  * @author being
  */
@@ -24,9 +21,6 @@ public class VehicleParkingManagementSystem {
         AdminLoginView view = new AdminLoginView();
         AdminLoginController controller = new AdminLoginController(view);
         controller.open();
-
-        // TODO code application logic here
-        
     }
     
 
