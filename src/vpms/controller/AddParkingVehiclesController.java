@@ -44,14 +44,14 @@ public class AddParkingVehiclesController {
         String ownerContact = view.getTxtOwnerContact().getText().trim();
 
         
-        List<String> allowedTypes = Arrays.asList("Sedan", "SUV", "Hatchback", "Truck", "Bike", "EV");
+        List<String> allowedTypes = Arrays.asList("Car","Bike", "Van", "EV");
         if (!allowedTypes.contains(type)) {
-            JOptionPane.showMessageDialog(view, "Vehicle Type must be one of: Sedan, SUV, Hatchback, Truck, Bike, EV.");
+            JOptionPane.showMessageDialog(view, "Vehicle Type Must be one of: Car, Bike, Van or EV");
             return;
         }
 
         
-        if (!ownerContact.matches("\\  d{10}")) {
+        if (!ownerContact.matches("\\d{10}")) {
             JOptionPane.showMessageDialog(view, "Contact must be a 10-digit number.");
             return;
         }
