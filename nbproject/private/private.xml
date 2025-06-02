@@ -5,6 +5,11 @@
         <group>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffManagementView.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffDashbaordView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffManagementController.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffDashboardController.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/UserData.java</file>
         </group>
     </open-files>
 </project-private>
