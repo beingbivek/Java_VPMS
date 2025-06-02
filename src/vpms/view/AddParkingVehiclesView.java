@@ -35,7 +35,7 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        VehicleNumber = new javax.swing.JLabel();
         txtVehicleNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtType = new javax.swing.JTextField();
@@ -50,14 +50,15 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Add New Vehicle Type");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Vehicle Number");
+        VehicleNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        VehicleNumber.setText("Vehicle Number");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Vehicle Type");
@@ -98,6 +99,9 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Created at");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel2.setText("E.g. Ba 2 Cha 1234 or BA-2-CHA-1234");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,22 +118,25 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel5)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(txtVehicleNumber)
-                            .addComponent(txtOwnerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(txtOwnerName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(VehicleNumber)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel5)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                                    .addComponent(txtVehicleNumber)
+                                    .addComponent(txtOwnerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                                    .addComponent(txtOwnerName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))))))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,8 +151,10 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtVehicleNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(29, 29, 29)
+                    .addComponent(VehicleNumber))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtOwnerName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,7 +176,7 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(27, 27, 27)
                 .addComponent(btnSaveVehicle)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,6 +238,7 @@ public class AddParkingVehiclesView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel VehicleNumber;
     private javax.swing.JButton btnSaveVehicle;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;

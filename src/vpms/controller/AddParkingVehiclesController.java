@@ -49,6 +49,11 @@ public class AddParkingVehiclesController {
             JOptionPane.showMessageDialog(view, "Vehicle Type Must be one of: Car, Bike, Van or EV");
             return;
         }
+        
+        if (!vehicleNumber.matches("^[A-Za-z0-9 -]{6,20}$")) {
+            JOptionPane.showMessageDialog(view, "Vehicle number must be 6–20 characters.");
+            return;
+        }
 
         
         if (!ownerContact.matches("\\d{10}")) {
