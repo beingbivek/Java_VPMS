@@ -3,26 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminDashboardView.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffManagementView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffAndLoginView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffDashboardController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffAndLoginController.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffDashbaordView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/mail/SMTPSMailSender.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/ResetPasswordRequest.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ResetStaffPasswordView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ResetStaffPasswordController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/OtpVerificationView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/OtpVerificationController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/DefaultAdminSeeder.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminLoginController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/RegisterUserView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffManagementController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/EditUserView.java</file>
         </group>
     </open-files>
 </project-private>

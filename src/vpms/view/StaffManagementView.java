@@ -115,10 +115,10 @@ public class StaffManagementView extends javax.swing.JFrame {
         // TODO: Add search logic here
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO: Add delete logic here
         // TODO: Add user logic here
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }                                        
 
     /**
      * @param args the command line arguments
@@ -157,4 +157,7 @@ public class StaffManagementView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JTable getUserTable(){
+        return jTable1;
+    }
 }
