@@ -11,6 +11,30 @@ import java.sql.*;
  * @author sangyakoirala
  */
 public class MySqlConnection implements DbConnection{
+
+    public static Connection getConnection() {
+    try {
+        String username = "root";
+        String password = "coventry2019";
+        String database = "vpms_db";
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/" + database, username, password
+        );
+
+        if (connection == null) {
+            System.out.println(" Database connection failed.");
+        } else {
+            System.out.println(" Database connection success.");
+        }
+
+        return connection;
+
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+        return null;
+    }
+}
     
     @Override
     public Connection openConnection() {
