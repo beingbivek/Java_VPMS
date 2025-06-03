@@ -22,7 +22,7 @@ public class PaymentData {
     private String paymentStatus;
     private LocalDateTime paymentTime;
 
-public PaymentData (int payment_id, int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String paymentStatus, LocalDateTime paymentTime){
+public PaymentData (int payment_id, int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String extraCharge, String paymentStatus, LocalDateTime paymentTime){
    this.payment_id = payment_id;
    this.parking_id = parking_id;
    this.vehicle_id = vehicle_id;
@@ -34,7 +34,7 @@ public PaymentData (int payment_id, int parking_id, int vehicle_id, int staff_id
    this.paymentStatus = paymentStatus;
    this.paymentTime = paymentTime;  
 }
-public PaymentData (int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String paymentStatus, LocalDateTime paymentTime){
+public PaymentData (int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String extraCharge, String paymentStatus, LocalDateTime paymentTime){
    this.parking_id = parking_id;
    this.vehicle_id = vehicle_id;
    this.user_id = staff_id;

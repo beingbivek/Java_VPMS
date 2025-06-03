@@ -5,11 +5,6 @@
         <group>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/PaymentData.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/Payment_Dao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleTypeAndPriceDao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/VehicleTypeAndPriceData.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AddParkingVehiclesView.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleDao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AddParkingVehiclesController.java</file>
         </group>
     </open-files>
 </project-private>

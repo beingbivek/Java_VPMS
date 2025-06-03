@@ -28,7 +28,10 @@ public class Payment_Dao {
             + "reservation_price VARCHAR(10),"
             + "extra_charge VARCHAR(10), "
             + "payment_status VARCHAR(10),"
-            +"payment_time DATETIME"
+            +"payment_time DATETIME,"
+            + "FOREIGN KEY (parking_id) REFERENCES parking(parking_id),"
+            + "FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id),"
+            + "FOREIGN KEY (user_id) REFERENCES vpmsUsers(user_id)"
             + ")";
         try{
             PreparedStatement stmnt = conn.prepareStatement (createTableSQL);
