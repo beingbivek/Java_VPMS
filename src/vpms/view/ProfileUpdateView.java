@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author PRABHASH
@@ -28,7 +30,7 @@ public class ProfileUpdateView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         imageLabel = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        editprofileLabel = new javax.swing.JLabel();
         changePictureLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -36,11 +38,11 @@ public class ProfileUpdateView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jTextField3 = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
+        emailTextField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        conformPasswordField = new javax.swing.JPasswordField();
+        phoneTextField = new javax.swing.JTextField();
         typeComboBox = new javax.swing.JComboBox<>();
         updateButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -53,9 +55,9 @@ public class ProfileUpdateView extends javax.swing.JFrame {
         imageLabel.setForeground(new java.awt.Color(102, 255, 102));
         imageLabel.setText("image label");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Edit Profile");
+        editprofileLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        editprofileLabel.setForeground(new java.awt.Color(255, 255, 255));
+        editprofileLabel.setText("Edit Profile");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,7 +66,7 @@ public class ProfileUpdateView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(358, 358, 358)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
+                    .addComponent(editprofileLabel)
                     .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(382, Short.MAX_VALUE))
         );
@@ -72,7 +74,7 @@ public class ProfileUpdateView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addComponent(jLabel9)
+                .addComponent(editprofileLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -91,20 +93,20 @@ public class ProfileUpdateView extends javax.swing.JFrame {
 
         jLabel8.setText("Confirm Password:");
 
-        jTextField1.setText("Name");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nameTextField.setText("Name");
+        nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nameTextFieldActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("Email");
+        emailTextField.setText("Email");
 
-        jPasswordField1.setText("password");
+        passwordField.setText("password");
 
-        jPasswordField2.setText("password");
+        conformPasswordField.setText("password");
 
-        jTextField3.setText("Phone");
+        phoneTextField.setText("Phone");
 
         typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
         typeComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -147,9 +149,9 @@ public class ProfileUpdateView extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))))
+                                    .addComponent(phoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                                    .addComponent(nameTextField)
+                                    .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -159,8 +161,8 @@ public class ProfileUpdateView extends javax.swing.JFrame {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPasswordField1)
-                                    .addComponent(jPasswordField2)
+                                    .addComponent(passwordField)
+                                    .addComponent(conformPasswordField)
                                     .addComponent(typeComboBox, 0, 222, Short.MAX_VALUE)))
                             .addComponent(cancelButton))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -175,20 +177,20 @@ public class ProfileUpdateView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel8)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(conformPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
@@ -207,9 +209,9 @@ public class ProfileUpdateView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,6 +251,9 @@ public class ProfileUpdateView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel changePictureLabel;
+    private javax.swing.JPasswordField conformPasswordField;
+    private javax.swing.JLabel editprofileLabel;
+    private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -256,14 +261,35 @@ public class ProfileUpdateView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField phoneTextField;
     private javax.swing.JComboBox<String> typeComboBox;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
+public void updateProfile(ActionListener listener){
+  updateButton .addActionListener (listener);
+    
+}
+public javax.swing.JTextField getnameField(){
+    return nameTextField;
+}
+public javax.swing.JTextField getEmailField(){
+    return emailTextField;  
+}
+public javax.swing.JTextField getPhoneField(){
+    return phoneTextField;
+}
+public javax.swing.JComboBox<String> getTypeField(){
+    return typeComboBox;
+}
+public javax.swing.JPasswordField getPasswordField(){
+    return passwordField;
+    
+}
+public javax.swing.JPasswordField getConformField(){
+    return conformPasswordField;
+}
+
 }
