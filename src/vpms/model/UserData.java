@@ -15,7 +15,7 @@ public class UserData {
     private String email;
     private String password;
     private  byte[] image;
-    public UserData(String name,String type, String email, String password, byte[] image){
+    public UserData(String name, String type, String email, String password, byte[] image){
         this.name= name;
         this.type = type;
         this.email=email;

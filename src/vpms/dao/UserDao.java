@@ -64,18 +64,15 @@ public class UserDao {
                 UserData user  = new UserData(
                     result.getString("name"),
                     result.getString("type"),
-                    result.getString("email"),
-                    result.getString("password"),
-                    result.getBytes("image")                 
-                );
+                    result.getString("email"));
                 user.setId(result.getInt("id"));
-                
+);}
                 return user;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
-            mySql.closeConnection(conn);
+            mySql.closeConnection(conn); 
         }
         return null;
     }
@@ -91,10 +88,7 @@ public class UserDao {
             UserData user = new UserData(
                 result.getString("name"),
                 result.getString("type"),
-                result.getString("email"),
-                result.getString("password"),
-                result.getBytes("image")
-            );
+                result.getString("email"));
             user.setId(result.getInt("id"));
             userList.add(user);
         }
@@ -106,6 +100,29 @@ public class UserDao {
 
     return userList;
 }
+    public boolean deleteUser(int userId){
+        Connection conn = mySql.openConnection();
+        String query = "DELETE FROM vpmsUsers WHERE id = ?";
+        String sql = null;
+         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException ex) {
+            System.err.println("Error deleting user: " + ex.getMessage());
+            return false;
+        } finally {
+            mySql.closeConnection(conn);
+        }
+    }
 
+    public boolean updateUser(UserData updatedUser) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<UserData> searchUsers(String searchTerm) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }
 
