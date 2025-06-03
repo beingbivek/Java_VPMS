@@ -26,9 +26,10 @@ public class UserDao {
             + "type VARCHAR(20) NOT NULL, "
             + "email VARCHAR(100) UNIQUE NOT NULL, "
             + "password VARCHAR(255) NOT NULL, "
+            + "phone VARCHAR(10) NOT NULL "  
             + "image BLOB"
             + ")";
-         String query=  "INSERT INTO vpmsUsers (name, type, email, password,image) VALUES (?,?, ?, ?,?)";
+         String query=  "INSERT INTO vpmsUsers (name, type, email, password,phone,image) VALUES (?,?, ?, ?,?,?)";
          
         try {
             PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
@@ -42,7 +43,8 @@ public class UserDao {
             pstmt.setString(2, userData.getEmail());
             pstmt.setString(3, userData.getType());
             pstmt.setString(4, userData.getPassword());
-            pstmt.setBytes(5, userData.getImage());
+            pstmt.setString(5, userData.getPhone());
+            pstmt.setBytes(6, userData.getImage());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
@@ -67,6 +69,7 @@ public class UserDao {
                     result.getString("type"),
                     result.getString("email"),
                     result.getString("password"),
+                    result.getString("phone"),
                     result.getBytes("image")                 
                 );
                 user.setId(result.getInt("id"));
@@ -94,6 +97,7 @@ public class UserDao {
                 result.getString("type"),
                 result.getString("email"),
                 result.getString("password"),
+                result.getString("phone"),
                 result.getBytes("image")
             );
             user.setId(result.getInt("id"));
