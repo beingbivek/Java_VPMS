@@ -5,6 +5,9 @@
         <group>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ProfileUpdateController.java</file>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/RecordVechileExitView.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ExitView.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/EntryView.java</file>
         </group>
     </open-files>
 </project-private>
