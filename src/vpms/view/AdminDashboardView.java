@@ -26,28 +26,135 @@ public class AdminDashboardView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sidebarPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        vehicleAndPriceWindowButton = new javax.swing.JButton();
+        dashboardWindowButton = new javax.swing.JButton();
+        usersWindowButton = new javax.swing.JButton();
+        reportAndLogWindowButton = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        windowPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Dashboard");
+        sidebarPanel.setBackground(new java.awt.Color(153, 153, 255));
+        sidebarPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Welcome Admin!");
+
+        vehicleAndPriceWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        vehicleAndPriceWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vehicleAndPriceWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        vehicleAndPriceWindowButton.setText("Vehicle Type and Price");
+
+        dashboardWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        dashboardWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dashboardWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardWindowButton.setText("Dashboard");
+
+        usersWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        usersWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usersWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        usersWindowButton.setText("Users");
+
+        reportAndLogWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        reportAndLogWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        reportAndLogWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        reportAndLogWindowButton.setText("Reports and Logs");
+
+        jButton5.setBackground(new java.awt.Color(255, 102, 102));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Logout");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/adminperfectsize.png"))); // NOI18N
+
+        javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
+        sidebarPanel.setLayout(sidebarPanelLayout);
+        sidebarPanelLayout.setHorizontalGroup(
+            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidebarPanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(sidebarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(sidebarPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(dashboardWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(sidebarPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(usersWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        sidebarPanelLayout.setVerticalGroup(
+            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidebarPanelLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(145, 145, 145)
+                .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(sidebarPanelLayout.createSequentialGroup()
+                    .addGap(167, 167, 167)
+                    .addComponent(dashboardWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(396, Short.MAX_VALUE)))
+            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(sidebarPanelLayout.createSequentialGroup()
+                    .addGap(233, 233, 233)
+                    .addComponent(usersWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(330, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout windowPanelLayout = new javax.swing.GroupLayout(windowPanel);
+        windowPanel.setLayout(windowPanelLayout);
+        windowPanelLayout.setHorizontalGroup(
+            windowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1140, Short.MAX_VALUE)
+        );
+        windowPanelLayout.setVerticalGroup(
+            windowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addContainerGap(940, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(windowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addContainerGap(619, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(windowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -89,6 +196,14 @@ public class AdminDashboardView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton dashboardWindowButton;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton reportAndLogWindowButton;
+    private javax.swing.JPanel sidebarPanel;
+    private javax.swing.JButton usersWindowButton;
+    private javax.swing.JButton vehicleAndPriceWindowButton;
+    private javax.swing.JPanel windowPanel;
     // End of variables declaration//GEN-END:variables
 }
