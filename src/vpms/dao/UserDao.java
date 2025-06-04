@@ -18,24 +18,50 @@ import vpms.model.UserData;
  */
 public class UserDao {
     MySqlConnection mySql = new MySqlConnection();
-    public boolean registerUser(UserData userData){
+    
+    public void createTable(){
         Connection conn= mySql.openConnection();
-         String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
             + "id INT AUTO_INCREMENT PRIMARY KEY, "               
             + "name VARCHAR(50) NOT NULL, "
             + "type VARCHAR(20) NOT NULL, "
             + "email VARCHAR(100) UNIQUE NOT NULL, "
             + "password VARCHAR(255) NOT NULL, "
+            + "phone VARCHAR(10) NOT NULL, "  
             + "image BLOB"
             + ")";
-         String query=  "INSERT INTO vpmsUsers (name, type, email, password,image) VALUES (?,?, ?, ?,?)";
-         
         try {
             PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
             createtbl.executeUpdate();
         } catch (SQLException ex) {
+            System.out.println("Create table"+ex);
+            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+    }
+    public boolean registerUser(UserData userData){
+        
+        Connection conn= mySql.openConnection();
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
+            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
+            + "name VARCHAR(50) NOT NULL, "
+            + "type VARCHAR(20) NOT NULL, "
+            + "email VARCHAR(100) UNIQUE NOT NULL, "
+            + "password VARCHAR(255) NOT NULL, "
+            + "phone VARCHAR(10) NOT NULL, "  
+            + "image BLOB"
+            + ")";
+        try {
+            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
+            createtbl.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Create table"+ex);
             java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+         
+         String query=  "INSERT INTO vpmsUsers (name, type, email, password,phone,image) VALUES (?,?, ?, ?,?,?)";
+         
         
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, userData.getName());
@@ -46,7 +72,7 @@ public class UserDao {
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println("user insertion"+ex);
 
         } finally {
             mySql.closeConnection(conn);
@@ -70,13 +96,12 @@ public class UserDao {
                     result.getBytes("image")                 
                 );
                 user.setId(result.getInt("id"));
-                
                 return user;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
-            mySql.closeConnection(conn);
+            mySql.closeConnection(conn); 
         }
         return null;
     }
@@ -94,6 +119,62 @@ public class UserDao {
                 result.getString("type"),
                 result.getString("email"),
                 result.getString("password"),
+                result.getBytes("image")
+            );
+            user.setId(result.getInt("id"));
+            userList.add(user);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+
+    return userList;
+    }
+     public List<UserData> searchUsers(String data) {
+    List<UserData> userList = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT * FROM vpmsUsers WHERE name=?";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1,data);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            UserData user = new UserData(
+                result.getString("name"),
+                result.getString("type"),
+                result.getString("email"),
+                result.getString("password"),
+                result.getString("phone"),
+                result.getBytes("image")
+            );
+            user.setId(result.getInt("id"));
+            userList.add(user);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+
+    return userList;
+    }
+     public List<UserData> searchUsers(String data) {
+    List<UserData> userList = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT * FROM vpmsUsers WHERE name=?";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1,data);
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            UserData user = new UserData(
+                result.getString("name"),
+                result.getString("type"),
+                result.getString("email"),
+                result.getString("password"),
+                result.getString("phone"),
                 result.getBytes("image")
             );
             user.setId(result.getInt("id"));
@@ -132,6 +213,71 @@ public class UserDao {
             stmnt.setString(2,resetReq.getEmail());
             int result = stmnt.executeUpdate();
             return result > 0;
+        }catch(Exception e){
+            return false;
+        }finally{
+            mySql.closeConnection(conn);
+        }
+    }
+    
+    public UserData getUserFromId(int id){
+        Connection conn = mySql.openConnection();
+    String sql = "SELECT * FROM vpmsUsers WHERE id = ?";
+    
+    try {
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet result = pstmt.executeQuery();
+        UserData user = new UserData(
+            result.getInt("id"),
+            result.getString("name"),
+            result.getString("type"),
+            result.getString("email"),
+            result.getString("password"),
+            result.getString("phone"),
+            result.getBytes("image"));
+        return user;
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally{
+        mySql.closeConnection(conn);
+    }
+  
+    return null;
+    }
+    
+    public boolean updateUser(UserData userData) {
+    Connection conn = mySql.openConnection();
+    String query = "UPDATE vpmsUsers SET name=?, type=?, password=?, email=?, phone=?, image=? WHERE id=?";
+
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, userData.getName());
+        pstmt.setString(2, userData.getType());
+        pstmt.setString(3, userData.getPassword());
+        pstmt.setString(4, userData.getEmail());
+        pstmt.setString(5, userData.getPhone());
+        pstmt.setBytes(6, userData.getImage());
+        pstmt.setInt(7, userData.getId());
+
+        
+        int result = pstmt.executeUpdate();
+        return result > 0;
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        return false;
+    } finally {
+        mySql.closeConnection(conn);
+    }
+}
+
+    public boolean deleteUser(int userId){
+        Connection conn = mySql.openConnection();
+        String query = "DELETE FROM vpmsUsers WHERE id=?";
+        try{
+            PreparedStatement stmnt = conn.prepareStatement(query);
+            stmnt.setInt(1,userId);
+            ResultSet result = stmnt.executeQuery();
+            return result.next();
         }catch(Exception e){
             return false;
         }finally{
