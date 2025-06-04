@@ -93,6 +93,7 @@ public class UserDao {
                     result.getString("type"),
                     result.getString("email"),
                     result.getString("password"),
+                    result.getString("phone"),
                     result.getBytes("image")                 
                 );
                 user.setId(result.getInt("id"));
@@ -119,6 +120,7 @@ public class UserDao {
                 result.getString("type"),
                 result.getString("email"),
                 result.getString("password"),
+                result.getString("phone"),
                 result.getBytes("image")
             );
             user.setId(result.getInt("id"));
@@ -163,7 +165,7 @@ public class UserDao {
      public List<UserData> searchUsers(String data) {
     List<UserData> userList = new ArrayList<>();
     Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers WHERE name=?";
+    String sql = "SELECT * FROM vpmsUsers WHERE name LIKE ?";
     
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1,data);
