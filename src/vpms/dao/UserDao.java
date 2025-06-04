@@ -137,34 +137,6 @@ public class UserDao {
      public List<UserData> searchUsers(String data) {
     List<UserData> userList = new ArrayList<>();
     Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers WHERE name=?";
-    
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1,data);
-        ResultSet result = pstmt.executeQuery();
-        while (result.next()) {
-            UserData user = new UserData(
-                result.getString("name"),
-                result.getString("type"),
-                result.getString("email"),
-                result.getString("password"),
-                result.getString("phone"),
-                result.getBytes("image")
-            );
-            user.setId(result.getInt("id"));
-            userList.add(user);
-        }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
-    }
-
-    return userList;
-    }
-     public List<UserData> searchUsers(String data) {
-    List<UserData> userList = new ArrayList<>();
-    Connection conn = mySql.openConnection();
     String sql = "SELECT * FROM vpmsUsers WHERE name LIKE ?";
     
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
