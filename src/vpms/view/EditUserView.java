@@ -3,19 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vpms.view;
-import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.event.ActionListener;
 /**
  *
  * @author sahingurung
  */
-public class RegisterUserView extends javax.swing.JFrame {
-private File selectedFile;
+public class EditUserView extends javax.swing.JFrame {
     /**
      * Creates new form RegisterUserView
      */
-    public RegisterUserView() {
+    public EditUserView() {
         initComponents();
     }
 
@@ -38,9 +35,11 @@ private File selectedFile;
         jConfirmPassword = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jUploadButton = new javax.swing.JButton();
-        jRegisterButton = new javax.swing.JButton();
+        jUpdateButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jTypeField = new javax.swing.JComboBox<>();
+        jPhoneField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 153, 255));
@@ -93,11 +92,11 @@ private File selectedFile;
             }
         });
 
-        jRegisterButton.setBackground(new java.awt.Color(0, 153, 255));
-        jRegisterButton.setText("Register");
-        jRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+        jUpdateButton.setBackground(new java.awt.Color(0, 153, 255));
+        jUpdateButton.setText("Update");
+        jUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRegisterButtonActionPerformed(evt);
+                jUpdateButtonActionPerformed(evt);
             }
         });
 
@@ -110,37 +109,50 @@ private File selectedFile;
             }
         });
 
+        jPhoneField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPhoneFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        jLabel7.setText("Phone");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel9))
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPhoneField)
+                    .addComponent(jTypeField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(NameField)
                     .addComponent(jEmailIdField)
                     .addComponent(jPasswordField)
-                    .addComponent(jConfirmPassword)
-                    .addComponent(jUploadButton, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addComponent(jRegisterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTypeField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jConfirmPassword))
                 .addGap(180, 180, 180))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(189, 189, 189))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(jUploadButton, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,19 +171,23 @@ private File selectedFile;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jEmailIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(jConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jUploadButton)
                 .addGap(18, 18, 18)
-                .addComponent(jRegisterButton)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addComponent(jUpdateButton)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -193,9 +209,9 @@ private File selectedFile;
         // TODO add your handling code here:
     }//GEN-LAST:event_jConfirmPasswordActionPerformed
 
-    private void jRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterButtonActionPerformed
+    private void jUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUpdateButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRegisterButtonActionPerformed
+    }//GEN-LAST:event_jUpdateButtonActionPerformed
 
     private void jTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTypeFieldActionPerformed
         // TODO add your handling code here:
@@ -205,6 +221,10 @@ private File selectedFile;
        
   // TODO add your handling code here:
     }//GEN-LAST:event_jUploadButtonActionPerformed
+
+    private void jPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPhoneFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPhoneFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,20 +243,21 @@ private File selectedFile;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisterUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterUserView().setVisible(true);
+                new EditUserView().setVisible(true);
             }
         });
     }
@@ -250,10 +271,12 @@ private File selectedFile;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField jPasswordField;
-    private javax.swing.JButton jRegisterButton;
+    private javax.swing.JTextField jPhoneField;
     private javax.swing.JComboBox<String> jTypeField;
+    private javax.swing.JButton jUpdateButton;
     private javax.swing.JButton jUploadButton;
     // End of variables declaration//GEN-END:variables
     public javax.swing.JTextField getNameTextField(){
@@ -268,7 +291,16 @@ private File selectedFile;
     public javax.swing.JPasswordField getPasswordField(){
         return jPasswordField;
     }
+    public javax.swing.JTextField getPhoneTextField(){
+        return jPhoneField;
+    }
     public javax.swing.JComboBox<String> getTypeField(){
         return jTypeField;
+    }
+    public void uploadButtonListener(ActionListener listener){
+        jUploadButton.addActionListener(listener);
+    }
+    public void UpdateButtonListener(ActionListener listener){
+        jUpdateButton.addActionListener(listener);
     }
 }
