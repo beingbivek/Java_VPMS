@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author PRABHASH
  */
-public class Payment_Dao {
+public class PaymentDao {
     MySqlConnection mySql = new MySqlConnection();
     public boolean addPayment (PaymentData payment) {
         Connection conn = mySql.openConnection();
