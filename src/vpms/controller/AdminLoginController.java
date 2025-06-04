@@ -28,7 +28,7 @@ public class AdminLoginController {
     public AdminLoginController(AdminLoginView view) { //constructor
         this.view = view;
         this.userDao = new UserDao();
-
+//        DefaultAdminSeeder.insertDefaultAdminIfNotExists();
         this.view.addLoginButtonListener(new LoginHandler());
         this.view.addForgotPasswordListener(new ForgotPasswordHandler());
     }
@@ -41,15 +41,6 @@ public class AdminLoginController {
         view.dispose();
     }
 
-    public static class DefaultAdminSeeder {
-
-        public static void insertDefaultAdminIfNotExists() {
-            
-        }
-
-        public DefaultAdminSeeder() {
-        }
-    }
 
     class LoginHandler implements ActionListener { //event handlers
         @Override
