@@ -68,8 +68,7 @@ public class UserDao {
             pstmt.setString(2, userData.getEmail());
             pstmt.setString(3, userData.getType());
             pstmt.setString(4, userData.getPassword());
-            pstmt.setString(5, userData.getPhone());
-            pstmt.setBytes(6, userData.getImage());
+            pstmt.setBytes(5, userData.getImage());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
@@ -94,7 +93,6 @@ public class UserDao {
                     result.getString("type"),
                     result.getString("email"),
                     result.getString("password"),
-                    result.getString("phone"),
                     result.getBytes("image")                 
                 );
                 user.setId(result.getInt("id"));
@@ -114,6 +112,33 @@ public class UserDao {
     String sql = "SELECT * FROM vpmsUsers";
     
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            UserData user = new UserData(
+                result.getString("name"),
+                result.getString("type"),
+                result.getString("email"),
+                result.getString("password"),
+                result.getBytes("image")
+            );
+            user.setId(result.getInt("id"));
+            userList.add(user);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+
+    return userList;
+    }
+     public List<UserData> searchUsers(String data) {
+    List<UserData> userList = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT * FROM vpmsUsers WHERE name=?";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1,data);
         ResultSet result = pstmt.executeQuery();
         while (result.next()) {
             UserData user = new UserData(

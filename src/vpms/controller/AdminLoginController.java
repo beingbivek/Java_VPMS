@@ -55,9 +55,11 @@ public class AdminLoginController {
 
             LoginRequest request = new LoginRequest(email, password);
             UserData user = userDao.loginUser(request);
+            
+            
 
             if (user != null && "admin".equalsIgnoreCase(user.getType())) {
-                JOptionPane.showMessageDialog(view, "Login successful.");
+//                JOptionPane.showMessageDialog(view, "Login successful."); //POPUP. I don't think it is necessary.
                 view.dispose();
                 AdminDashboardView dashboard = new AdminDashboardView();
                 dashboard.setVisible(true);
