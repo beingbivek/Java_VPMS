@@ -20,8 +20,8 @@ public class AdminDashboardView extends javax.swing.JFrame {
     public AdminDashboardView() {
         initComponents();
 //        main.add(userViewPanel);
-        super.add(userViewPanel);
-        userViewPanel.setVisible(false);
+//        super.add(userViewPanel);
+//        userViewPanel.setVisible(false);
     }
 
     /**
@@ -41,7 +41,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
         reportAndLogWindowButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         pictureLabel = new javax.swing.JLabel();
-        windowPanel = new javax.swing.JPanel();
+        jDesktopPanel = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,14 +139,14 @@ public class AdminDashboardView extends javax.swing.JFrame {
                     .addContainerGap(330, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout windowPanelLayout = new javax.swing.GroupLayout(windowPanel);
-        windowPanel.setLayout(windowPanelLayout);
-        windowPanelLayout.setHorizontalGroup(
-            windowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
+        jDesktopPanel.setLayout(jDesktopPanelLayout);
+        jDesktopPanelLayout.setHorizontalGroup(
+            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1140, Short.MAX_VALUE)
         );
-        windowPanelLayout.setVerticalGroup(
-            windowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPanelLayout.setVerticalGroup(
+            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -157,7 +157,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(windowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDesktopPanel)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,7 +165,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(windowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDesktopPanel)
                 .addContainerGap())
         );
 
@@ -173,8 +173,11 @@ public class AdminDashboardView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void usersWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersWindowButtonActionPerformed
-        windowPanel.removeAll();
-        windowPanel.add(userViewPanel).setVisible(true);
+//        windowPanel.removeAll();
+//        windowPanel.add(userViewPanel).setVisible(true);
+        UsersTestView uView = new UsersTestView();
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(uView).setVisible(true);
     }//GEN-LAST:event_usersWindowButtonActionPerformed
 
     /**
@@ -214,6 +217,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dashboardWindowButton;
+    private javax.swing.JDesktopPane jDesktopPanel;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel pictureLabel;
     private javax.swing.JButton reportAndLogWindowButton;
@@ -221,7 +225,6 @@ public class AdminDashboardView extends javax.swing.JFrame {
     private javax.swing.JButton usersWindowButton;
     private javax.swing.JButton vehicleAndPriceWindowButton;
     private javax.swing.JLabel welcomeLabel;
-    private javax.swing.JPanel windowPanel;
     // End of variables declaration//GEN-END:variables
 //    public void userButtonListener(ActionListener listener){
 //        usersWindowButton.addActionListener(listener);

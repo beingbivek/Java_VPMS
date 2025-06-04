@@ -26,7 +26,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="sidebarPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="windowPanel" max="32767" attributes="0"/>
+              <Component id="jDesktopPanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -36,7 +36,7 @@
           <Component id="sidebarPanel" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="windowPanel" max="32767" attributes="0"/>
+              <Component id="jDesktopPanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -216,7 +216,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="windowPanel">
+    <Container class="javax.swing.JDesktopPane" name="jDesktopPanel">
 
       <Layout>
         <DimensionLayout dim="0">

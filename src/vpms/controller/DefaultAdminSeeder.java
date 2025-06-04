@@ -21,7 +21,7 @@ public class DefaultAdminSeeder {
         
         
         UserDao userDao = new UserDao();
-        userDao.createTable();
+//        userDao.createTable();
         UserData user = new UserData(defaultName,userType,defaultEmail,defaultPassword,defaultPhone,null);
         if(userDao.getUserFromId(1) == null){
             userDao.registerUser(user);
