@@ -3,35 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/VehicleTypeAndPriceView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/SlotDao.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/SlotData.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/VehicleTypeAndPriceData.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/model/UserData.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminLoginController.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/view/StaffManagementView.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/model/LoginRequest.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/database/MySqlConnection.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffManagementController.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/view/AdminLoginView.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/database/DbConnection.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/view/RegisterUserView.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/vpms/view/EditUserView.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/ImagePicker/ImageGUI.java</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/ImagePicker/e56ae96f7a58c6ee5b5499ad5c8764ab.jpg</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/ImagePicker/Screenshot%202025-05-23%20at%2018.52.23.png</file>
-            <file>file:/Users/sahingurung/NetBeansProjects/Java_VPMS/src/ImagePicker/acec3192791626e7caf93a0d2203cd4c.jpg</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffManagementView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffDashbaordView.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/RegisterUserView.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffManagementController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffDashboardController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/UserData.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleDao.java</file>
         </group>
     </open-files>
 </project-private>
