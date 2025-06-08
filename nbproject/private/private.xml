@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ProfileUpdateController.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/RecordVechileExitView.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/EntryView.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ParkingPaymentView.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminDashboardView.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ParkingFeeController.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ResetStaffPasswordController.java</file>
         </group>
     </open-files>
 </project-private>
