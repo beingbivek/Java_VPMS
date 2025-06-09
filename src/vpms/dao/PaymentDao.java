@@ -102,6 +102,32 @@ public class PaymentDao {
     }
      }
 
+    public boolean updatePayment(PaymentData payment) {
+    Connection conn = mySql.openConnection();
+    String sql = "UPDATE payment SET parking_id=?, vehicle_id=?, user_id=?, regular_price=?, demand_price=?, reservation_price=?, extra_charge=?, payment_status=?, payment_time=? WHERE payment_id=?";
+    
+    try {
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, payment.getParking_id());
+        stmt.setInt(2, payment.getVehicle_id());
+        stmt.setInt(3, payment.getUser_id());
+        stmt.setString(4, payment.getRegularPrice());
+        stmt.setString(5, payment.getDemandPrice());
+        stmt.setString(6, payment.getReservationPrice());
+        stmt.setString(7, payment.getExtraCharge());
+        stmt.setString(8, payment.getPaymentStatus());
+        stmt.setString(9, payment.getPaymentTime()); 
+        stmt.setInt(10, payment.getPayment_id());
+        int rows = stmt.executeUpdate();
+        return rows > 0;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    } finally {
+        mySql.closeConnection(conn);
+    }
+}
+
     
     }
 
