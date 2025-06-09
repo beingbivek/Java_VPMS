@@ -20,9 +20,9 @@ public class PaymentData {
     private String reservationPrice;
     private String extraCharge;
     private String paymentStatus;
-    private LocalDateTime paymentTime;
+    private String paymentTime;
 
-public PaymentData (int payment_id, int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String extraCharge, String paymentStatus, LocalDateTime paymentTime){
+public PaymentData (int payment_id, int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String extraCharge, String paymentStatus, String paymentTime){
    this.payment_id = payment_id;
    this.parking_id = parking_id;
    this.vehicle_id = vehicle_id;
@@ -34,7 +34,7 @@ public PaymentData (int payment_id, int parking_id, int vehicle_id, int staff_id
    this.paymentStatus = paymentStatus;
    this.paymentTime = paymentTime;  
 }
-public PaymentData (int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String extraCharge, String paymentStatus, LocalDateTime paymentTime){
+public PaymentData (int parking_id, int vehicle_id, int staff_id, String regularPrice, String demandPrice, String reservationPrice, String extraCharge, String paymentStatus, String paymentTime){
    this.parking_id = parking_id;
    this.vehicle_id = vehicle_id;
    this.user_id = staff_id;
@@ -118,11 +118,11 @@ public PaymentData (int parking_id, int vehicle_id, int staff_id, String regular
         this.paymentStatus = paymentStatus;
     }
 
-    public LocalDateTime getPaymentTime() {
+    public String getPaymentTime() {
         return paymentTime;
     }
 
-    public void setPaymentTime(LocalDateTime paymentTime) {
+    public void setPaymentTime(String paymentTime) {
         this.paymentTime = paymentTime;
     }
 

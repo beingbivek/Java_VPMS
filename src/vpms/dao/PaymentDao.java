@@ -7,7 +7,9 @@ package vpms.dao;
 import vpms.database.MySqlConnection;
 import vpms.model.PaymentData;
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -52,7 +54,7 @@ public class PaymentDao {
             stmnt.setString(7,payment.getReservationPrice());
             stmnt.setString(8,payment.getExtraCharge());
             stmnt.setString(9,payment.getPaymentStatus());
-            stmnt.setString(10, payment.getPaymentTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            stmnt.setString(10, payment.getPaymentTime());
 
      int  result = stmnt.executeUpdate();
                     return result>0;
@@ -64,6 +66,41 @@ public class PaymentDao {
             mySql.closeConnection(conn);
         }
     }
+
+    public List<PaymentData> showPayments() {
+    List<PaymentData> paymentList = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT * FROM vpmsUsers";
+        
+    try{
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+    
+        ResultSet result = pstmt.executeQuery();
+        
+        while (result.next()) {
+            PaymentData payment = new PaymentData(
+                result.getInt("payment_id"),
+                result.getInt("parking_id"),
+                result.getInt("vehicle_id"),
+                result.getInt("user_id"),
+                result.getString("regularPrice"),
+                result.getString("demandPrice"),
+                result.getString("reservationPrice"),
+                result.getString("extraCharge"),
+                result.getString("paymentStatus"),
+                result.getString("paymentTime")
+            );
+            payment.setPayment_id(result.getInt("payment_id"));
+            paymentList.add(payment);
+        
+        }
+            } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+            return paymentList;
+    }
+     }
 
     
     }
