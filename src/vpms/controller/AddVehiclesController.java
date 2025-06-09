@@ -5,7 +5,7 @@
 package vpms.controller;
 import vpms.dao.VehicleDao;
 import vpms.model.VehicleData;
-import vpms.view.AddParkingVehiclesView;
+import vpms.view.AddVehiclesView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -17,9 +17,9 @@ import java.util.Arrays;
  *
  * @author PRABHASH
  */
-public class AddParkingVehiclesController {
-    private AddParkingVehiclesView view;  
-    public AddParkingVehiclesController (AddParkingVehiclesView view) {
+public class AddVehiclesController {
+    private AddVehiclesView view;  
+    public AddVehiclesController (AddVehiclesView view) {
         this.view = view;
     }  
     public void open() {
