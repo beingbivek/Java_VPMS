@@ -15,7 +15,12 @@ import vpms.view.VehicleTypeAndPriceView;
  */
 public class VehicleTypeAndPriceController {
     
-    private VehicleTypeAndPriceView view;
-    private PaymentDao paymentdao;
+     private VehicleTypeAndPriceView view;
+    private PaymentDao paymentDao;
+
+    public VehicleTypeAndPriceController(VehicleTypeAndPriceView view) {
+        
+    }
+    
     
 }

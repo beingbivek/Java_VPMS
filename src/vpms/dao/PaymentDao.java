@@ -7,6 +7,7 @@ package vpms.dao;
 import vpms.database.MySqlConnection;
 import vpms.model.PaymentData;
 import java.sql.*;
+import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class PaymentDao {
             stmnt.setString(7,payment.getReservationPrice());
             stmnt.setString(8,payment.getExtraCharge());
             stmnt.setString(9,payment.getPaymentStatus());
-            stmnt.setString(10, payment.getPaymentTime());
+            stmnt.setString(10, payment.getPaymentTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
      int  result = stmnt.executeUpdate();
                     return result>0;
@@ -78,16 +79,16 @@ public class PaymentDao {
 
             while (result.next()) {
                 PaymentData payment = new PaymentData(
-                    result.getInt("payment_id"),
-                    result.getInt("parking_id"),
-                    result.getInt("vehicle_id"),
-                    result.getInt("user_id"),
-                    result.getString("regular_price"),
-                    result.getString("demand_price"),
-                    result.getString("reservation_price"),
-                    result.getString("extra_charge"),
-                    result.getString("payment_status"),
-                    result.getTimestamp("payment_time").toString() 
+                        result.getInt("payment_id"),
+                        result.getInt("parking_id"),
+                        result.getInt("vehicle_id"),
+                        result.getInt("user_id"),
+                        result.getString("regular_price"),
+                        result.getString("demand_price"),
+                        result.getString("reservation_price"),
+                        result.getString("extra_charge"),
+                        result.getString("payment_status"),
+                        result.getTimestamp("payment_time").toLocalDateTime() 
                 );
                 paymentList.add(payment);
             }
@@ -114,7 +115,7 @@ public class PaymentDao {
             stmt.setString(6, payment.getReservationPrice());
             stmt.setString(7, payment.getExtraCharge());
             stmt.setString(8, payment.getPaymentStatus());
-            stmt.setString(9, payment.getPaymentTime()); // or use Timestamp
+            stmt.setTimestamp(9, Timestamp.valueOf(payment.getPaymentTime())); // ✅ Timestamp
             stmt.setInt(10, payment.getPayment_id());
 
             int rows = stmt.executeUpdate();
