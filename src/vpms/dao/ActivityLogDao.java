@@ -4,11 +4,10 @@
  */
 package vpms.dao;
 
-import vpms.database.MySqlConnection;
-import vpms.model.ActivityLog;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import vpms.database.MySqlConnection;
+import vpms.model.ActivityLog;
 
 
 /**
