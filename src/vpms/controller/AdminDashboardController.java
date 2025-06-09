@@ -1,38 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// AdminDashboardController.java (Revised)
 package vpms.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
-import vpms.view.UsersView;
+import vpms.view.UsersTestView;
 
-/**
- *
- * @author being
- */
 public class AdminDashboardController {
-    AdminDashboardView view = new AdminDashboardView();
-    public AdminDashboardController(AdminDashboardView view){
+    private final AdminDashboardView view;
+    private UsersTestView usersView;
+
+    public AdminDashboardController(AdminDashboardView view) {
         this.view = view;
-//        this.view.userButtonListener(new OpenUserPanel());
+        initializeControllers();
+        attachListeners();
     }
-    public void open(){
-        this.view.setVisible(true);
+
+    private void initializeControllers() {
+        // Initialize sub-module controllers
+        usersView = new UsersTestView();
+        new UserTestController(usersView);
     }
-    public void close(){
-        this.view.dispose();
+
+    private void attachListeners() {
+        view.getUserWindowbtn().addActionListener(e -> showUsersPanel());
+        view.getDesktopWindowbtn().addActionListener(e -> showDashboard());
+        view.getLogoutBtn().addActionListener(e -> logout());
     }
-    
-//    class OpenUserPanel implements ActionListener{
-//        UsersView uView = new UsersView();
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            view.setWindowPanel(uView);
-//        }
-//        
-//    }
+
+    private void showUsersPanel() {
+        usersView.setVisible(true);
+        view.setWindowPanel(usersView);
+        usersView.toFront();
+        try {
+            usersView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void showDashboard() {
+        view.getWindowPanel().removeAll();
+        view.revalidate();
+        view.repaint();
+    }
+
+    private void logout() {
+        view.dispose();
+        // Add login screen activation logic here
+    }
+
+    public void open() {
+        view.setVisible(true);
+        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
 }

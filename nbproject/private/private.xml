@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/UsersTestView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminDashboardView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/DefaultAdminSeeder.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/UsersTestView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffManagementView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/UserTestController.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminDashboardController.java</file>
         </group>
     </open-files>
 </project-private>

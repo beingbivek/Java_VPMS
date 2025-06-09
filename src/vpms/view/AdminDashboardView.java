@@ -4,25 +4,48 @@
  */
 package vpms.view;
 
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
+import javax.swing.DefaultDesktopManager;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  *
  * @author PRABHASH
  */
 public class AdminDashboardView extends javax.swing.JFrame {
+    
+    public void configureDesktopPane() {
+    jDesktopPanel.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+    jDesktopPanel.setDesktopManager(new DefaultDesktopManager() {
+        @Override
+        public void activateFrame(JInternalFrame f) {
+            try {
+                f.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                ex.printStackTrace();
+            }
+        }
+    });
+}
+
+
 
     /**
      * Creates new form AdminDashboardView
      */
-    UsersView userViewPanel = new UsersView();
-    
+//    UsersView userViewPanel = new UsersView();
     public AdminDashboardView() {
         initComponents();
-//        main.add(userViewPanel);
-//        super.add(userViewPanel);
-//        userViewPanel.setVisible(false);
+        configureDesktopPane(); // Add this line
     }
+//    public AdminDashboardView() {
+//        initComponents();
+////        main.add(userViewPanel);
+////        super.add(userViewPanel);
+////        userViewPanel.setVisible(false);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -175,9 +198,9 @@ public class AdminDashboardView extends javax.swing.JFrame {
     private void usersWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersWindowButtonActionPerformed
 //        windowPanel.removeAll();
 //        windowPanel.add(userViewPanel).setVisible(true);
-        UsersTestView uView = new UsersTestView();
-        jDesktopPanel.removeAll();
-        jDesktopPanel.add(uView).setVisible(true);
+//        UsersTestView uView = new UsersTestView();
+//        jDesktopPanel.removeAll();
+//        jDesktopPanel.add(uView).setVisible(true);
     }//GEN-LAST:event_usersWindowButtonActionPerformed
 
     /**
@@ -229,10 +252,38 @@ public class AdminDashboardView extends javax.swing.JFrame {
 //    public void userButtonListener(ActionListener listener){
 //        usersWindowButton.addActionListener(listener);
 //    }
-//    public javax.swing.JPanel getWindowPanel(){
-//        return windowPanel;
-//    }
-//    public void setWindowPanel(javax.swing.JPanel myPanel){
-//        windowPanel = myPanel;
-//    }
+    public javax.swing.JButton getUserWindowbtn(){
+        return usersWindowButton;
+    }
+    public javax.swing.JDesktopPane getWindowPanel(){
+        return jDesktopPanel;
+    }
+    public javax.swing.JButton getDesktopWindowbtn(){
+        return dashboardWindowButton;
+    }
+    public javax.swing.JButton getLogoutBtn(){
+        return logoutButton;
+    }
+    public void setWindowPanel(javax.swing.JInternalFrame myPanel){
+        jDesktopPanel.removeAll(); // Remove previous frames
+        jDesktopPanel.repaint();   // Refresh the desktop pane
+
+        // Set size and location (centered)
+        int width = jDesktopPanel.getWidth();
+        int height = jDesktopPanel.getHeight();
+        int fWidth = 800;  // Or myPanel.getWidth() if already set
+        int fHeight = 600; // Or myPanel.getHeight() if already set
+        myPanel.setSize(fWidth, fHeight);
+        myPanel.setLocation((width - fWidth) / 2, (height - fHeight) / 2);
+
+        jDesktopPanel.add(myPanel);
+        myPanel.setVisible(true); // <-- CRITICAL!
+        try {
+            myPanel.setSelected(true); // Bring to front/focus
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    
 }

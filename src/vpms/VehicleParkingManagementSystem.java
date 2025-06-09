@@ -4,9 +4,11 @@
  */
 package vpms;
 
-import vpms.controller.AdminLoginController;
-import vpms.controller.DefaultAdminSeeder;
-import vpms.view.AdminLoginView;
+import vpms.controller.AdminDashboardController;
+//import vpms.controller.AdminLoginController;
+//import vpms.controller.DefaultAdminSeeder;
+import vpms.view.AdminDashboardView;
+//import vpms.view.AdminLoginView;
 
 /**
  *
@@ -18,10 +20,16 @@ public class VehicleParkingManagementSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        DefaultAdminSeeder.insertDefaultAdminIfNotExists();
-        AdminLoginView view = new AdminLoginView();
-        AdminLoginController controller = new AdminLoginController(view);
-        controller.open();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            AdminDashboardView view = new AdminDashboardView();
+            new AdminDashboardController(view).open();
+        }
+    });
+//        DefaultAdminSeeder.insertDefaultAdminIfNotExists();
+//        AdminLoginView view = new AdminLoginView();
+//        AdminLoginController controller = new AdminLoginController(view);
+//        controller.open();
     }
     
 
