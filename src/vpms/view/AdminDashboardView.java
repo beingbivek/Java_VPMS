@@ -284,6 +284,4 @@ public class AdminDashboardView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
-    
 }
