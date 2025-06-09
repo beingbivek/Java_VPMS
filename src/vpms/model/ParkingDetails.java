@@ -112,4 +112,8 @@ public ParkingDetails(int parkingId, String vehicleId, String entryTime, String 
         this.penaltyApplied = penaltyApplied;
     }
 
+    public String getEntryDate() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     }
