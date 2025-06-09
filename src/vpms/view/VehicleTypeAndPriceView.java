@@ -4,6 +4,10 @@
  */
 package vpms.view;
 
+import javax.swing.JButton;
+import javax.swing.JTable;
+
+
 /**
  *
  * @author being
@@ -31,12 +35,12 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        paymentsTable = new javax.swing.JTable();
         searchTextField = new javax.swing.JTextField();
         jCancelButton = new javax.swing.JButton();
-        jEditStaffButton = new javax.swing.JButton();
-        deleteUserButton = new javax.swing.JButton();
-        jAddUserButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 153));
@@ -63,7 +67,7 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        paymentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -71,7 +75,7 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
                 "VehicleID", "ParkingID", "PaymentID", "UserID", "Regular Price", "DemandPrice", "ReservationPrice", "ExtraCharge", "PaymentStatus", "PaymentTime"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(paymentsTable);
 
         searchTextField.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
         searchTextField.setText("Search                                        ");
@@ -88,19 +92,19 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
             }
         });
 
-        jEditStaffButton.setText("Edit Payments");
+        editButton.setText("Edit Payments");
 
-        deleteUserButton.setText("Delete");
-        deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteUserButtonActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
-        jAddUserButton.setText("Add Payments");
-        jAddUserButton.addActionListener(new java.awt.event.ActionListener() {
+        addButton.setText("Add Payments");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAddUserButtonActionPerformed(evt);
+                addButtonActionPerformed(evt);
             }
         });
 
@@ -113,19 +117,17 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
                 .addGap(201, 201, 201)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jEditStaffButton)
+                        .addComponent(addButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteUserButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(jAddUserButton)
-                        .addGap(64, 64, 64))))
+                        .addComponent(editButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,11 +135,11 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jEditStaffButton)
-                    .addComponent(deleteUserButton)
-                    .addComponent(jAddUserButton)
+                    .addComponent(editButton)
                     .addComponent(jCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton)
+                    .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(170, 170, 170))
@@ -154,13 +156,13 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCancelButtonActionPerformed
 
-    private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserButtonActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteUserButtonActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void jAddUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddUserButtonActionPerformed
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jAddUserButtonActionPerformed
+    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,14 +190,30 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteUserButton;
-    private javax.swing.JButton jAddUserButton;
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
     private javax.swing.JButton jCancelButton;
-    private javax.swing.JButton jEditStaffButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable paymentsTable;
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
+
+    public JTable getTable() {
+    return paymentsTable;
+}
+
+public JButton getAddButton() {
+    return addButton;
+}
+
+public JButton getEditButton() {
+    return editButton;
+}
+
+public JButton getDeleteButton() {
+    return deleteButton;
+}
 }
