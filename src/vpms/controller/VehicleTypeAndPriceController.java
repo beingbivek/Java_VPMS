@@ -30,9 +30,22 @@ public class VehicleTypeAndPriceController {
         this.paymentDao = new PaymentDao();
         loadTableData();
         attachListeners();
+        
+    }
+    
+    private void setupEditableTable() {
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{"payment_id", "parking_id", "vehicle_id", "user_id", "regular_price", "demand_price", "reservation_price", "extra_charge", "payment_status", "payment_time"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0 && column != 9;
+            }
+        };
+        view.getTable().setModel(model);
     }
     private void loadTableData() {
-        List<PaymentData> dataList = paymentDao.showPayments();
+         List<PaymentData> dataList = paymentDao.showPayments();
         DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
         model.setRowCount(0);
 
@@ -56,38 +69,33 @@ public class VehicleTypeAndPriceController {
 
     private void attachListeners() {
         view.getAddButton().addActionListener(e -> {
-            PaymentData payment = showPaymentInputDialog(null);
-            if (payment != null) {
-                boolean success = paymentDao.addPayment(payment);
-                showMessage(success, "added");
-                loadTableData();
-            }
-        });
+    DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
 
-        view.getEditButton().addActionListener(e -> {
-            int row = view.getTable().getSelectedRow();
-            if (row != -1) {
-                int paymentId = Integer.parseInt(view.getTable().getValueAt(row, 0).toString());
-                PaymentData oldData = extractDataFromRow(row);
-                oldData.setPayment_id(paymentId);
+    // Add a blank editable row (you’ll fill it then press Save)
+    model.addRow(new Object[]{
+            0,     // payment_id = 0 (will be ignored by DB if auto_increment)
+            "",    // parking_id
+            "",    // vehicle_id
+            "",    // user_id
+            "",    // regular_price
+            "",    // demand_price
+            "",    // reservation_price
+            "",    // extra_charge
+            "",    // payment_status
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+    });
 
-                PaymentData updated = showPaymentInputDialog(oldData);
-                if (updated != null) {
-                    updated.setPayment_id(paymentId);
-                    boolean success = paymentDao.updatePayment(updated);
-                    showMessage(success, "updated");
-                    loadTableData();
-                }
-            } else {
-                JOptionPane.showMessageDialog(view, "Select a row to edit.");
-            }
-        });
+    // Scroll to the new row and auto-select it
+    int newRow = model.getRowCount() - 1;
+    view.getTable().setRowSelectionInterval(newRow, newRow);
+});
 
+        // Optional: delete row
         view.getDeleteButton().addActionListener(e -> {
             int row = view.getTable().getSelectedRow();
             if (row != -1) {
                 int paymentId = Integer.parseInt(view.getTable().getValueAt(row, 0).toString());
-                int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to delete this payment?");
+                int confirm = JOptionPane.showConfirmDialog(view, "Are you sure?");
                 if (confirm == JOptionPane.YES_OPTION) {
                     boolean success = paymentDao.deletePayment(paymentId);
                     showMessage(success, "deleted");
@@ -97,57 +105,6 @@ public class VehicleTypeAndPriceController {
                 JOptionPane.showMessageDialog(view, "Select a row to delete.");
             }
         });
-    }
-
-    private PaymentData showPaymentInputDialog(PaymentData existing) {
-        try {
-            String parkingId = JOptionPane.showInputDialog(view, "Enter Parking ID:", existing != null ? existing.getParking_id() : "");
-            String vehicleId = JOptionPane.showInputDialog(view, "Enter Vehicle ID:", existing != null ? existing.getVehicle_id() : "");
-            String userId = JOptionPane.showInputDialog(view, "Enter User ID:", existing != null ? existing.getUser_id() : "");
-
-            if (parkingId == null || vehicleId == null || userId == null ||
-                parkingId.isBlank() || vehicleId.isBlank() || userId.isBlank()) {
-                JOptionPane.showMessageDialog(view, "Parking ID, Vehicle ID, and User ID are required.");
-                return null;
-            }
-
-            String regular = JOptionPane.showInputDialog(view, "Enter Regular Price:", existing != null ? existing.getRegularPrice() : "");
-            String demand = JOptionPane.showInputDialog(view, "Enter Demand Price:", existing != null ? existing.getDemandPrice() : "");
-            String reserve = JOptionPane.showInputDialog(view, "Enter Reservation Price:", existing != null ? existing.getReservationPrice() : "");
-            String extra = JOptionPane.showInputDialog(view, "Enter Extra Charge:", existing != null ? existing.getExtraCharge() : "");
-            String status = JOptionPane.showInputDialog(view, "Enter Payment Status:", existing != null ? existing.getPaymentStatus() : "");
-
-            return new PaymentData(
-                    0,
-                    Integer.parseInt(parkingId),
-                    Integer.parseInt(vehicleId),
-                    Integer.parseInt(userId),
-                    regular,
-                    demand,
-                    reserve,
-                    extra,
-                    status,
-                    LocalDateTime.now()
-            );
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Invalid input! Operation cancelled.");
-            return null;
-        }
-    }
-    private PaymentData extractDataFromRow(int row) {
-        JTable table = view.getTable();
-        return new PaymentData(
-                0,
-                Integer.parseInt(table.getValueAt(row, 1).toString()),
-                Integer.parseInt(table.getValueAt(row, 2).toString()),
-                Integer.parseInt(table.getValueAt(row, 3).toString()),
-                table.getValueAt(row, 4).toString(),
-                table.getValueAt(row, 5).toString(),
-                table.getValueAt(row, 6).toString(),
-                table.getValueAt(row, 7).toString(),
-                table.getValueAt(row, 8).toString(),
-                LocalDateTime.now()
-        );
     }
 
     private void showMessage(boolean success, String action) {
