@@ -114,4 +114,22 @@ public class VehicleTypeAndPriceDao {
             mySql.closeConnection(conn);
         }
     }
+    public boolean deleteVehicleTypeAndPrice(int id) {
+        Connection conn = mySql.openConnection();
+        String sql = "DELETE FROM vehicle_type_and_price WHERE id=?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            mySql.closeConnection(conn);
+        }
+    }
 }
