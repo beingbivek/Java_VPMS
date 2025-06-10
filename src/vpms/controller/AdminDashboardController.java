@@ -1,15 +1,17 @@
 // AdminDashboardController.java (Revised)
 package vpms.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
-import vpms.view.UsersTestView;
+import vpms.view.UserManagementView;
+import vpms.controller.UserManagementController;
+import vpms.view.StaffAndLoginView;
 
 public class AdminDashboardController {
     private final AdminDashboardView view;
-    private UsersTestView usersView;
+    private UserManagementView smView;
 
     public AdminDashboardController(AdminDashboardView view) {
         this.view = view;
@@ -19,8 +21,8 @@ public class AdminDashboardController {
 
     private void initializeControllers() {
         // Initialize sub-module controllers
-        usersView = new UsersTestView();
-        new UserTestController(usersView);
+        smView = new UserManagementView();
+        new UserManagementController(smView);
     }
 
     private void attachListeners() {
@@ -49,6 +51,10 @@ public class AdminDashboardController {
     private void logout() {
         view.dispose();
         // Add login screen activation logic here
+        StaffAndLoginView welcomeView = new StaffAndLoginView();
+        StaffAndLoginController controller = new StaffAndLoginController(welcomeView);
+        controller.open();
+        close();
     }
 
     public void open() {

@@ -4,13 +4,13 @@
  */
 package vpms;
 
-//import vpms.controller.AdminDashboardController;
-import vpms.controller.StripePaymentController;
-import vpms.model.StripePaymentModel;
+import vpms.controller.AdminDashboardController;
+//import vpms.controller.StripePaymentController;
+//import vpms.model.StripePaymentModel;
 //import vpms.controller.AdminLoginController;
 //import vpms.controller.DefaultAdminSeeder;
-//import vpms.view.AdminDashboardView;
-import vpms.view.StripePaymentView;
+import vpms.view.AdminDashboardView;
+//import vpms.view.StripePaymentView;
 //import vpms.view.AdminLoginView;
 
 /**
@@ -26,11 +26,11 @@ public class VehicleParkingManagementSystem {
         java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             // For dashbaord
-//            AdminDashboardView view = new AdminDashboardView();
-//            new AdminDashboardController(view).open();
-              StripePaymentView view = new StripePaymentView();
-              StripePaymentModel model = new StripePaymentModel();
-            new StripePaymentController(view,model).open();
+            AdminDashboardView view = new AdminDashboardView();
+            new AdminDashboardController(view).open();
+//              StripePaymentView view = new StripePaymentView();
+//              StripePaymentModel model = new StripePaymentModel();
+//            new StripePaymentController(view,model).open();
         }
     });
 //        DefaultAdminSeeder.insertDefaultAdminIfNotExists();

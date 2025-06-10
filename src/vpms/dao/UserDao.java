@@ -126,6 +126,7 @@ public class UserDao {
             user.setId(result.getInt("id"));
             userList.add(user);
         }
+        System.out.println(userList);
     } catch (SQLException ex) {
         System.out.println(ex);
     } finally {
