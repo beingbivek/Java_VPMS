@@ -27,14 +27,7 @@ public void open(){
 public void close(){
     this.view.dispose();
 }
-//public BigDecimal generateBill(int ticketId) throws SQLException {
-//        Parking ticket = dao.getTicketById(ticketId);
-//        if (ticket == null || ticket.getExitTime() == null) {
-//            throw new RuntimeException("Invalid ticket or vehicle not exited yet.");
-//        }
-//        ParkingRate rate = dao.getCurrentRate();
-//        return FeeCalculator.calculateFee(ticket, rate);
-//    }
+
 
 
 }
