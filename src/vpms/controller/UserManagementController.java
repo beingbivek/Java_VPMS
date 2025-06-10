@@ -5,19 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
-import vpms.view.StaffManagementView;
+import vpms.view.UserManagementView;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import vpms.view.EditUserView;
 
-public class StaffManagementController {
+public class UserManagementController {
 
-    private StaffManagementView view;
+    private UserManagementView view;
     private UserDao userDao;
 
-    public StaffManagementController(StaffManagementView view) {
+    public UserManagementController(UserManagementView view) {
         this.view = view;
         this.userDao = new UserDao();
         loadStaffData();
@@ -33,6 +33,7 @@ public class StaffManagementController {
 
     private void loadStaffData() {
         List<UserData> users = userDao.showUsers();
+        (users == null)?view.getUserTable()
 
         DefaultTableModel tableModel = (DefaultTableModel) view.getUserTable().getModel();
         tableModel.setRowCount(0); // Clear existing rows
@@ -79,7 +80,7 @@ public class StaffManagementController {
         }
     }
 
-    class EditStaffListener implements ActionListener {
+    class EditUserListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedRow = view.getUserTable().getSelectedRow();

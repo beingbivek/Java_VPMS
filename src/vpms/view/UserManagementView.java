@@ -5,18 +5,22 @@
 package vpms.view;
 
 import java.awt.event.ActionListener;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author being
  */
-public class StaffManagementView extends javax.swing.JInternalFrame {
+public class UserManagementView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form StaffManagementView1
      */
-    public StaffManagementView() {
+    public UserManagementView() {
         initComponents();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
     }
 
     /**
