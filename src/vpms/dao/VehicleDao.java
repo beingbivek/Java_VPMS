@@ -6,7 +6,10 @@ package vpms.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import vpms.database.MySqlConnection;
 import vpms.model.VehicleData;
 
@@ -52,5 +55,27 @@ public class VehicleDao {
             mySql.closeConnection(conn);
         }
           return false;
+          
+          
+          
+    }
+    public List<String> showVehicles() {
+    List<String> vehicleNumberList = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT vehicle_number FROM vehicles";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        ResultSet result = pstmt.executeQuery();
+        while (result.next()) {
+            String number = result.getString("vehicleNumber");
+            vehicleNumberList.add(number);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+
+    return vehicleNumberList;
     }
 }
