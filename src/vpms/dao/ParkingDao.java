@@ -20,7 +20,7 @@ public class ParkingDao {
     public boolean registerParkingUser(ParkingDetails parkingDetails) {
 
         Connection conn= mySql.openConnection();
-         String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
+         String createTableSQL = "CREATE TABLE IF NOT EXISTS parkings ("
         + "parkingId INT AUTO_INCREMENT PRIMARY KEY, "
         + "vehicleId INT(100), "
         + "slotId INT(100), "
@@ -60,11 +60,31 @@ public class ParkingDao {
         }
           return false;
     
-    
-//    public boolean registerParkingUser(ParkingDetails parkingDetails) {
-//        String query=  "INSERT INTO parkingDetails (parkingId,vehicleId,slotId,exitTime,exitNote,parkingtype) VALUES (?,?,?,?,?,?)";
     }
+          
+    public boolean vehicleExit(ParkingDetails parkingDetails) {
+        
+    
+        String query = "UPDATE parkings SET exitTime = ?, parkingStatus = ?, exitNote = ?, WHERE parkingId = ?"; 
+        Connection conn= mySql.openConnection();
+    try{
+            PreparedStatement stmnt = conn.prepareStatement(query);
+            stmnt.setString(1,parkingDetails.getVehicleId());
+            stmnt.setString(2,parkingDetails.getParkingStatus());
+            stmnt.setString(3,parkingDetails.getExitTime());
+            stmnt.setString(4,parkingDetails.getExitNote());
+            int result = stmnt.executeUpdate();
+            return result > 0;
+        }catch(Exception e){
+            return false;
+        }finally{
+            mySql.closeConnection(conn);
+    
+    
+    
+    }
+   }
+    
 }
     
-  
  
