@@ -31,8 +31,8 @@ public class StripePaymentModel {
                     SessionCreateParams.LineItem.builder()
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
-                                .setCurrency("usd")
-                                .setUnitAmount(2000L)  // $20.00 in cents
+                                .setCurrency("npr")
+                                .setUnitAmount(20000L)  // $20.00 in cents
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("Sample Product")  // Product name
