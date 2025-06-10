@@ -23,7 +23,7 @@ public class SlotDao {
             + "number_of_slot INT NOT NULL, "
             + "level_number INT NOT NULL "
             + ")";
-         String query=  "INSERT INTO vehicles (slot_id, vehicletandp, number_of_slot,level_number,) VALUES (?,?,?,?)";
+         String query=  "INSERT INTO vehicles (slot_id, vehicletandp, number_of_slot,level_number) VALUES (?,?,?,?)";
          
         try {
             PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
