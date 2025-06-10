@@ -32,11 +32,11 @@ public class AdminDashboardController {
     }
 
     private void showUsersPanel() {
-        usersView.setVisible(true);
-        view.setWindowPanel(usersView);
-        usersView.toFront();
+        smView.setVisible(true);
+        view.setWindowPanel(smView);
+        smView.toFront();
         try {
-            usersView.setSelected(true);
+            smView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
@@ -60,5 +60,9 @@ public class AdminDashboardController {
     public void open() {
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+    
+    public void close(){
+        view.dispose();
     }
 }
