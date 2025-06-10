@@ -23,7 +23,7 @@ public class SlotDao {
             + "number_of_slot INT NOT NULL, "
             + "level_number INT NOT NULL "
             + ")";
-         String query=  "INSERT INTO vehicles (slot_id, vehicletandp, number_of_slot,level_number) VALUES (?,?,?,?)";
+         String query=  "INSERT INTO vehicles (vehicletandp, number_of_slot,level_number) VALUES (?,?,?)";
          
         try {
             PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
@@ -33,10 +33,10 @@ public class SlotDao {
         }
         
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, vehicleData.getslot);
-            pstmt.setString(2, vehicleData.getVehicleNumber());
-            pstmt.setString(3, vehicleData.getOwnerName());
-            pstmt.setString(4, vehicleData.getOwnerContact());
+            pstmt.setInt(1, slotData.getVehicletandp());
+            pstmt.setInt(2, slotData.getNumber_of_slot());
+            pstmt.setInt(3, slotData.getLevel_number());
+            
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
