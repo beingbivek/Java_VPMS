@@ -15,97 +15,103 @@ import vpms.model.VehicleTypeAndPriceData;
  * @author PRABHASH
  */
 public class VehicleTypeAndPriceDao {
-    MySqlConnection mySql = new MySqlConnection();
+     MySqlConnection mySql = new MySqlConnection();
 
-    public VehicleTypeAndPriceDao() {
-        createTableIfNotExists();
-    }
+    public boolean addVehicleTypeAndPrice(VehicleTypeAndPriceData vehicle) {
+        Connection conn = mySql.openConnection();
 
-    private void createTableIfNotExists() {
-        String sql = "CREATE TABLE IF NOT EXISTS vehicle_type_price ("
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS vehicle_type_and_price ("
                 + "id INT AUTO_INCREMENT PRIMARY KEY, "
                 + "vehicle_type VARCHAR(50), "
                 + "reservation_price VARCHAR(10), "
                 + "regular_price VARCHAR(10), "
                 + "demand_price VARCHAR(10), "
                 + "extra_charge VARCHAR(10), "
-                + "status VARCHAR(10))";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+                + "status VARCHAR(20))";
 
-    public boolean insert(VehicleTypeAndPriceData data) {
-        String sql = "INSERT INTO vehicle_type_price (vehicle_type, reservation_price, regular_price, demand_price, extra_charge, status) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getVehicleType());
-            stmt.setString(2, data.getReservationPrice());
-            stmt.setString(3, data.getRegularPrice());
-            stmt.setString(4, data.getDemandPrice());
-            stmt.setString(5, data.getExtraCharge());
-            stmt.setString(6, data.getStatus());
-            return stmt.executeUpdate() > 0;
+        try {
+            PreparedStatement createStmt = conn.prepareStatement(createTableSQL);
+            createStmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+
+        String insertSQL = "INSERT INTO vehicle_type_and_price(vehicle_type, reservation_price, regular_price, demand_price, extra_charge, status) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(insertSQL);
+            stmt.setString(1, vehicle.getVehicleType());
+            stmt.setString(2, vehicle.getReservationPrice());
+            stmt.setString(3, vehicle.getRegularPrice());
+            stmt.setString(4, vehicle.getDemandPrice());
+            stmt.setString(5, vehicle.getExtraCharge());
+            stmt.setString(6, vehicle.getStatus());
+
+            int result = stmt.executeUpdate();
+            return result > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        } finally {
+            mySql.closeConnection(conn);
         }
     }
 
-    public List<VehicleTypeAndPriceData> getAll() {
+    public List<VehicleTypeAndPriceData> showVehicleTypeAndPrices() {
         List<VehicleTypeAndPriceData> list = new ArrayList<>();
-        String sql = "SELECT * FROM vehicle_type_price";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM vehicle_type_and_price";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet result = pstmt.executeQuery();
+
+            while (result.next()) {
                 VehicleTypeAndPriceData data = new VehicleTypeAndPriceData(
-                        rs.getInt("id"),
-                        rs.getString("vehicle_type"),
-                        rs.getString("reservation_price"),
-                        rs.getString("regular_price"),
-                        rs.getString("demand_price"),
-                        rs.getString("extra_charge"),
-                        rs.getString("status")
+                        result.getInt("id"),
+                        result.getString("vehicle_type"),
+                        result.getString("reservation_price"),
+                        result.getString("regular_price"),
+                        result.getString("demand_price"),
+                        result.getString("extra_charge"),
+                        result.getString("status")
                 );
                 list.add(data);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
+
         return list;
     }
 
-    public boolean update(VehicleTypeAndPriceData data) {
-        String sql = "UPDATE vehicle_type_price SET vehicle_type=?, reservation_price=?, regular_price=?, demand_price=?, extra_charge=?, status=? WHERE id=?";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, data.getVehicleType());
-            stmt.setString(2, data.getReservationPrice());
-            stmt.setString(3, data.getRegularPrice());
-            stmt.setString(4, data.getDemandPrice());
-            stmt.setString(5, data.getExtraCharge());
-            stmt.setString(6, data.getStatus());
-            stmt.setInt(7, data.getId());
-            return stmt.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    public boolean updateVehicleTypeAndPrice(VehicleTypeAndPriceData vehicle) {
+        Connection conn = mySql.openConnection();
+        String sql = "UPDATE vehicle_type_and_price SET vehicle_type=?, reservation_price=?, regular_price=?, demand_price=?, extra_charge=?, status=? WHERE id=?";
 
-    public boolean delete(int id) {
-        String sql = "DELETE FROM vehicle_type_price WHERE id=?";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            return stmt.executeUpdate() > 0;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, vehicle.getVehicleType());
+            stmt.setString(2, vehicle.getReservationPrice());
+            stmt.setString(3, vehicle.getRegularPrice());
+            stmt.setString(4, vehicle.getDemandPrice());
+            stmt.setString(5, vehicle.getExtraCharge());
+            stmt.setString(6, vehicle.getStatus());
+            stmt.setInt(7, vehicle.getId());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+
+        } finally {
+            mySql.closeConnection(conn);
         }
     }
 }
