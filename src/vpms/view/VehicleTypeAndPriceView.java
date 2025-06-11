@@ -4,9 +4,6 @@
  */
 package vpms.view;
 
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 
 
 /**
@@ -205,7 +202,6 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
     VehicleTypeAndPriceView view = new VehicleTypeAndPriceView();
-    new vpms.controller.VehicleTypeAndPriceController(view); 
     view.setVisible(true);
 });
     }
@@ -222,45 +218,5 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable vehicleTable;
     // End of variables declaration//GEN-END:variables
-
-    public JTable getTable() {
-    return vehicleTable;
-}
-
-public JTextField getVehicleTypeField() {
-    return vehicleTypeField;
-}
-
-public JTextField getReservationPriceField() {
-    return reservationPriceField;
-}
-
-public JTextField getRegularPriceField() {
-    return regularPriceField;
-}
-
-public JTextField getDemandPriceField() {
-    return demandPriceField;
-}
-
-public JTextField getExtraChargeField() {
-    return extraChargeField;
-}
-
-public JComboBox<String> getStatusComboBox() {
-    return statusComboBox;
-}
-
-public JButton getAddButton() {
-    return addButton;
-}
-
-public JButton getUpdateButton() {
-    return updateButton;
-}
-
-public JButton getDeleteButton() {
-    return deleteButton;
-}
 
 }
