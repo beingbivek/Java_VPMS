@@ -15,6 +15,18 @@
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/needed/ImageConverter.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
             <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/MySqlConnection.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/RegisterUserView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/PaymentData.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/ActivityLog.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ActivityLogDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/VehicleTypeAndPriceData.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/VehicleTypeAndPriceController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/VehicleTypeAndPriceView.java</file>
         </group>
     </open-files>
 </project-private>

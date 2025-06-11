@@ -9,6 +9,9 @@ import vpms.model.PaymentData;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -65,6 +68,83 @@ public class PaymentDao {
         }
     }
 
-    
+    public List<PaymentData> showPayments() {
+        List<PaymentData> paymentList = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM payment";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet result = pstmt.executeQuery();
+
+            while (result.next()) {
+                PaymentData payment = new PaymentData(
+                        result.getInt("payment_id"),
+                        result.getInt("parking_id"),
+                        result.getInt("vehicle_id"),
+                        result.getInt("user_id"),
+                        result.getString("regular_price"),
+                        result.getString("demand_price"),
+                        result.getString("reservation_price"),
+                        result.getString("extra_charge"),
+                        result.getString("payment_status"),
+                        result.getTimestamp("payment_time").toLocalDateTime() 
+                );
+                paymentList.add(payment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+
+        return paymentList;
     }
+
+    public boolean updatePayment(PaymentData payment) {
+        Connection conn = mySql.openConnection();
+        String sql = "UPDATE payment SET parking_id=?, vehicle_id=?, user_id=?, regular_price=?, demand_price=?, reservation_price=?, extra_charge=?, payment_status=?, payment_time=? WHERE payment_id=?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, payment.getParking_id());
+            stmt.setInt(2, payment.getVehicle_id());
+            stmt.setInt(3, payment.getUser_id());
+            stmt.setString(4, payment.getRegularPrice());
+            stmt.setString(5, payment.getDemandPrice());
+            stmt.setString(6, payment.getReservationPrice());
+            stmt.setString(7, payment.getExtraCharge());
+            stmt.setString(8, payment.getPaymentStatus());
+            stmt.setTimestamp(9, Timestamp.valueOf(payment.getPaymentTime())); // ✅ Timestamp
+            stmt.setInt(10, payment.getPayment_id());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            mySql.closeConnection(conn);
+        }
+    }
+
+    public boolean deletePayment(int paymentId) {
+        Connection conn = mySql.openConnection();
+        String sql = "DELETE FROM payment WHERE payment_id=?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, paymentId);
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            mySql.closeConnection(conn);
+        }
+    }
+}
+    
+    
 
