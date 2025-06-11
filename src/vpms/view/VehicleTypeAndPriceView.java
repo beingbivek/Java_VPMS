@@ -71,9 +71,17 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "VehicleID", "Regular Price", "DemandPrice", "ReservationPrice", "ExtraCharge", "PaymentStatus", "PaymentTime", "Type"
+                "VehicleID", "Type", "Regular Price", "DemandPrice", "ReservationPrice", "ExtraCharge", "PaymentStatus", "PaymentTime"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(vehicleTable);
 
         searchTextField.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
