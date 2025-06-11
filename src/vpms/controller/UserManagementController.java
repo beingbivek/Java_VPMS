@@ -137,32 +137,6 @@ public class UserManagementController {
         }
     }
 
-    // --- Navigation Listeners (Placeholders) ---
-    // You would create separate views and controllers for these.
-    /*
-    class DashboardListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Code to open DashboardView and close StaffManagementView
-            // new DashboardView().setVisible(true);
-            // view.dispose();
-            JOptionPane.showMessageDialog(view, "Navigating to Dashboard!");
-        }
-    }
-
-    class LogoutListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to logout?", "Confirm Logout", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Code to return to login screen or exit application
-                // new LoginView().setVisible(true);
-                view.dispose(); // Close current window
-                JOptionPane.showMessageDialog(view, "Logged out successfully!");
-            }
-        }
-    }
-    */
 }
     
     
