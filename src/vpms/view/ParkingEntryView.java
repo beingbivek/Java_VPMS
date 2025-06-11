@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Chandani
@@ -221,4 +223,7 @@ public void setEntryTimeValue(String value){
 public javax.swing.JTextPane getEntryNote(){
     return entryNotejTextField;
 }
+public void entryButtonListener (ActionListener listener){
+        vehicleEntryjButton.addActionListener(listener);
+    }
 }
