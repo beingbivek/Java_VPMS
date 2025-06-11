@@ -4,15 +4,16 @@
  */
 package vpms.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import vpms.dao.PaymentDao;
-import vpms.model.PaymentData;
+import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.VehicleTypeAndPriceView;
+
+
 
 
 
@@ -23,96 +24,119 @@ import vpms.view.VehicleTypeAndPriceView;
 public class VehicleTypeAndPriceController {
     
      private VehicleTypeAndPriceView view;
-    private PaymentDao paymentDao;
+    private VehicleTypeAndPriceDao dao;
+    private DefaultTableModel tableModel;
 
     public VehicleTypeAndPriceController(VehicleTypeAndPriceView view) {
         this.view = view;
-        this.paymentDao = new PaymentDao();
+        this.dao = new VehicleTypeAndPriceDao();
+
+        tableModel = (DefaultTableModel) view.getTable().getModel();
         loadTableData();
-        attachListeners();
-        
-    }
-    
-    private void setupEditableTable() {
-        DefaultTableModel model = new DefaultTableModel(
-                new Object[]{"payment_id", "parking_id", "vehicle_id", "user_id", "regular_price", "demand_price", "reservation_price", "extra_charge", "payment_status", "payment_time"}, 0
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column != 0 && column != 9;
-            }
-        };
-        view.getTable().setModel(model);
-    }
-    private void loadTableData() {
-         List<PaymentData> dataList = paymentDao.showPayments();
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        view.getAddButton().addActionListener(e -> addVehicleType());
+        view.getUpdateButton().addActionListener(e -> updateVehicleType());
+        view.getDeleteButton().addActionListener(e -> deleteVehicleType());
 
-        for (PaymentData data : dataList) {
-            model.addRow(new Object[]{
-                    data.getPayment_id(),
-                    data.getParking_id(),
-                    data.getVehicle_id(),
-                    data.getUser_id(),
-                    data.getRegularPrice(),
-                    data.getDemandPrice(),
-                    data.getReservationPrice(),
-                    data.getExtraCharge(),
-                    data.getPaymentStatus(),
-                    data.getPaymentTime().format(formatter)
-            });
-        }
-    }
-
-    private void attachListeners() {
-        view.getAddButton().addActionListener(e -> {
-    DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-
-    // Add a blank editable row (you’ll fill it then press Save)
-    model.addRow(new Object[]{
-            0,     // payment_id = 0 (will be ignored by DB if auto_increment)
-            "",    // parking_id
-            "",    // vehicle_id
-            "",    // user_id
-            "",    // regular_price
-            "",    // demand_price
-            "",    // reservation_price
-            "",    // extra_charge
-            "",    // payment_status
-            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-    });
-
-    // Scroll to the new row and auto-select it
-    int newRow = model.getRowCount() - 1;
-    view.getTable().setRowSelectionInterval(newRow, newRow);
-});
-
-        // Optional: delete row
-        view.getDeleteButton().addActionListener(e -> {
-            int row = view.getTable().getSelectedRow();
-            if (row != -1) {
-                int paymentId = Integer.parseInt(view.getTable().getValueAt(row, 0).toString());
-                int confirm = JOptionPane.showConfirmDialog(view, "Are you sure?");
-                if (confirm == JOptionPane.YES_OPTION) {
-                    boolean success = paymentDao.deletePayment(paymentId);
-                    showMessage(success, "deleted");
-                    loadTableData();
+        view.getTable().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = view.getTable().getSelectedRow();
+                if (selectedRow >= 0) {
+                    view.getVehicleTypeField().setText(tableModel.getValueAt(selectedRow, 1).toString());
+                    view.getReservationPriceField().setText(tableModel.getValueAt(selectedRow, 2).toString());
+                    view.getRegularPriceField().setText(tableModel.getValueAt(selectedRow, 3).toString());
+                    view.getDemandPriceField().setText(tableModel.getValueAt(selectedRow, 4).toString());
+                    view.getExtraChargeField().setText(tableModel.getValueAt(selectedRow, 5).toString());
+                    view.getStatusComboBox().setSelectedItem(tableModel.getValueAt(selectedRow, 6).toString());
                 }
-            } else {
-                JOptionPane.showMessageDialog(view, "Select a row to delete.");
             }
         });
     }
 
-    private void showMessage(boolean success, String action) {
-        if (success) {
-            JOptionPane.showMessageDialog(view, "Payment " + action + " successfully!");
-        } else {
-            JOptionPane.showMessageDialog(view, "Failed to " + action + " payment.");
+    private void loadTableData() {
+        tableModel.setRowCount(0); // clear
+        List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
+        for (VehicleTypeAndPriceData v : list) {
+            Object[] row = {
+                v.getId(),
+                v.getVehicleType(),
+                v.getReservationPrice(),
+                v.getRegularPrice(),
+                v.getDemandPrice(),
+                v.getExtraCharge(),
+                v.getStatus()
+            };
+            tableModel.addRow(row);
         }
+    }
+
+    private void addVehicleType() {
+        VehicleTypeAndPriceData vehicle = getFormData();
+        if (dao.addVehicleTypeAndPrice(vehicle)) {
+            JOptionPane.showMessageDialog(view, "Vehicle type added successfully!");
+            loadTableData();
+            clearForm();
+        } else {
+            JOptionPane.showMessageDialog(view, "Failed to add data.");
+        }
+    }
+
+    private void updateVehicleType() {
+        int selectedRow = view.getTable().getSelectedRow();
+        if (selectedRow >= 0) {
+            int id = (int) tableModel.getValueAt(selectedRow, 0);
+            VehicleTypeAndPriceData vehicle = getFormData();
+            vehicle.setId(id);
+
+            if (dao.updateVehicleTypeAndPrice(vehicle)) {
+                JOptionPane.showMessageDialog(view, "Vehicle type updated successfully!");
+                loadTableData();
+                clearForm();
+            } else {
+                JOptionPane.showMessageDialog(view, "Failed to update data.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(view, "Please select a row first.");
+        }
+    }
+
+    private void deleteVehicleType() {
+        int selectedRow = view.getTable().getSelectedRow();
+        if (selectedRow >= 0) {
+            int id = (int) tableModel.getValueAt(selectedRow, 0);
+            int confirm = JOptionPane.showConfirmDialog(view, "Are you sure?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                if (dao.deleteVehicleTypeAndPrice(id)) {
+                    JOptionPane.showMessageDialog(view, "Deleted successfully.");
+                    loadTableData();
+                    clearForm();
+                } else {
+                    JOptionPane.showMessageDialog(view, "Delete failed.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(view, "Please select a row first.");
+        }
+    }
+
+    private VehicleTypeAndPriceData getFormData() {
+        return new VehicleTypeAndPriceData(
+            view.getVehicleTypeField().getText(),
+            view.getReservationPriceField().getText(),
+            view.getRegularPriceField().getText(),
+            view.getDemandPriceField().getText(),
+            view.getExtraChargeField().getText(),
+            view.getStatusComboBox().getSelectedItem().toString()
+        );
+    }
+
+    private void clearForm() {
+        view.getVehicleTypeField().setText("");
+        view.getReservationPriceField().setText("");
+        view.getRegularPriceField().setText("");
+        view.getDemandPriceField().setText("");
+        view.getExtraChargeField().setText("");
+        view.getStatusComboBox().setSelectedIndex(0);
     }
 }
     

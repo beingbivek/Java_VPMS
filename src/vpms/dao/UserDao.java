@@ -134,7 +134,8 @@ public class UserDao {
 
     return userList;
     }
-     public List<UserData> searchUsers(String data) {
+    
+    public List<UserData> searchUsers(String data) {
     List<UserData> userList = new ArrayList<>();
     Connection conn = mySql.openConnection();
     String sql = "SELECT * FROM vpmsUsers WHERE name LIKE ?";
