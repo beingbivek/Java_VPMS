@@ -65,10 +65,11 @@ public class UserDao {
         
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, userData.getName());
-            pstmt.setString(2, userData.getEmail());
-            pstmt.setString(3, userData.getType());
+            pstmt.setString(2, userData.getType());
+            pstmt.setString(3, userData.getEmail());
             pstmt.setString(4, userData.getPassword());
-            pstmt.setBytes(5, userData.getImage());
+            pstmt.setString(5,userData.getPhone());
+            pstmt.setBytes(6, userData.getImage());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {

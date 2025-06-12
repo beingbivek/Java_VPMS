@@ -5,13 +5,11 @@
         <group>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleTypeAndPriceDao.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/VehicleTypeAndPriceController.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/VehicleTypeAndPriceData.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/VehicleTypeAndPriceView.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AddVehicleTypeAndPriceController.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/EditVehicleTypeAndPriceController.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AddVehicleTypeAndPriceView.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/EditVehicleTypeAndPriceView.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffManagementView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/DbConnection.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/MySqlConnection.java</file>
         </group>
     </open-files>
 </project-private>
