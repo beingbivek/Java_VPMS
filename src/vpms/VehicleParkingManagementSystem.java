@@ -4,12 +4,14 @@
  */
 package vpms;
 
-import vpms.controller.AdminDashboardController;
+//import vpms.controller.AdminDashboardController;
+import vpms.controller.StaffAndLoginController;
 //import vpms.controller.StripePaymentController;
 //import vpms.model.StripePaymentModel;
 //import vpms.controller.AdminLoginController;
 //import vpms.controller.DefaultAdminSeeder;
-import vpms.view.AdminDashboardView;
+//import vpms.view.AdminDashboardView;
+import vpms.view.StaffAndLoginView;
 //import vpms.view.StripePaymentView;
 //import vpms.view.AdminLoginView;
 
@@ -25,9 +27,11 @@ public class VehicleParkingManagementSystem {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
+            StaffAndLoginView view = new StaffAndLoginView();
+            new StaffAndLoginController(view).open();
             // For dashbaord
-            AdminDashboardView view = new AdminDashboardView();
-            new AdminDashboardController(view).open();
+//            AdminDashboardView view = new AdminDashboardView();
+//            new AdminDashboardController(view).open();
 //              StripePaymentView view = new StripePaymentView();
 //              StripePaymentModel model = new StripePaymentModel();
 //            new StripePaymentController(view,model).open();

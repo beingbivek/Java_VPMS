@@ -44,12 +44,12 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         emailTextField = new javax.swing.JTextField();
         jPassword = new javax.swing.JLabel();
         forgotPasswordLabel = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        rememberMeCheckBox = new javax.swing.JCheckBox();
         loginButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
-        signAdmin = new javax.swing.JButton();
+        signAdminButton = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -91,7 +91,7 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         jLabel1.setText("Vehicle Parking Management System");
 
         jLabel4.setFont(new java.awt.Font("SimSun", 1, 12)); // NOI18N
-        jLabel4.setText("Welcome back, Please Enter your Detail");
+        jLabel4.setText("Welcome! Please Enter your Detail");
 
         jEmail.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jEmail.setText("Email ID");
@@ -109,11 +109,11 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         forgotPasswordLabel.setForeground(new java.awt.Color(102, 153, 255));
         forgotPasswordLabel.setText(" Forgot password?");
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCheckBox1.setText("Remember Me");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        rememberMeCheckBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rememberMeCheckBox.setText("Remember Me");
+        rememberMeCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                rememberMeCheckBoxActionPerformed(evt);
             }
         });
 
@@ -129,9 +129,9 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         jLabel10.setText("Or  Continue");
 
-        signAdmin.setBackground(new java.awt.Color(51, 51, 51));
-        signAdmin.setForeground(new java.awt.Color(255, 255, 255));
-        signAdmin.setText("Sign in as Admin");
+        signAdminButton.setBackground(new java.awt.Color(51, 51, 51));
+        signAdminButton.setForeground(new java.awt.Color(255, 255, 255));
+        signAdminButton.setText("Sign in as Admin");
 
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,12 +165,6 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(112, 112, 112)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,30 +180,37 @@ public class StaffAndLoginView extends javax.swing.JFrame {
                                             .addComponent(jPassword))
                                         .addGap(236, 236, 236))
                                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 84, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
+                                .addComponent(rememberMeCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(forgotPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19))))
+                                .addGap(25, 25, 25))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loginButton)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(loginButton)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(83, 83, 83))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(signAdmin)))
-                .addContainerGap())
+                        .addGap(77, 77, 77))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(115, 115, 115)
+                                .addComponent(signAdminButton)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,16 +235,20 @@ public class StaffAndLoginView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(forgotPasswordLabel)
-                            .addComponent(jCheckBox1))
+                            .addComponent(rememberMeCheckBox))
                         .addGap(28, 28, 28)
                         .addComponent(loginButton)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(27, 27, 27)
-                        .addComponent(signAdmin))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(signAdminButton)
+                        .addGap(39, 39, 39))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -263,9 +268,9 @@ public class StaffAndLoginView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void rememberMeCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_rememberMeCheckBoxActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
@@ -316,7 +321,6 @@ public class StaffAndLoginView extends javax.swing.JFrame {
     private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel forgotPasswordLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jEmail;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -334,13 +338,13 @@ public class StaffAndLoginView extends javax.swing.JFrame {
     private java.awt.Label label2;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JCheckBox rememberMeCheckBox;
     private java.awt.Scrollbar scrollbar1;
-    private javax.swing.JButton signAdmin;
+    private javax.swing.JButton signAdminButton;
     private java.awt.TextField textField2;
     // End of variables declaration//GEN-END:variables
-    public void loginStaff(ActionListener listener){
-           loginButton.addActionListener(listener);
-        
+    public void loginUser(ActionListener listener){
+        loginButton.addActionListener(listener);
     }
     public javax.swing.JTextField getEmailField(){
         return emailTextField;
@@ -348,11 +352,13 @@ public class StaffAndLoginView extends javax.swing.JFrame {
     public  javax.swing.JPasswordField getPasswordField(){
         return passwordField;
     }
-    
-    public void addSignAdminListener(ActionListener listener){
-        signAdmin.addActionListener(listener);
+    public javax.swing.JCheckBox getRememberCheckBox(){
+        return rememberMeCheckBox;
     }
-    public void forgotpassword(MouseListener listener){
+    public void addSignAdminListener(ActionListener listener){
+        signAdminButton.addActionListener(listener);
+    }
+    public void forgotPassword(MouseListener listener){
         forgotPasswordLabel.addMouseListener(listener);
     }
 }
