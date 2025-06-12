@@ -59,7 +59,7 @@ public class VehicleDao {
           
           
     }
-    public List<String> showVehicles() {
+    public List<String> showVehicleNumbers() {
     List<String> vehicleNumberList = new ArrayList<>();
     Connection conn = mySql.openConnection();
     String sql = "SELECT vehicle_number FROM vehicles";
@@ -67,7 +67,7 @@ public class VehicleDao {
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
         ResultSet result = pstmt.executeQuery();
         while (result.next()) {
-            String number = result.getString("vehicleNumber");
+            String number = result.getString("vehicle_number");
             vehicleNumberList.add(number);
         }
     } catch (SQLException ex) {
