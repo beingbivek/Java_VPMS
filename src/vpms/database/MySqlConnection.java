@@ -1,17 +1,17 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+*/
 package vpms.database;
-
+ 
 import java.sql.*;
-
+ 
 /**
- *
- * @author sangyakoirala
- */
+*
+* @author sangyakoirala
+*/
 public class MySqlConnection implements DbConnection{
-
+ 
     public static Connection getConnection() {
     try {
         String username = "root";
@@ -21,21 +21,20 @@ public class MySqlConnection implements DbConnection{
         Connection connection = DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/" + database, username, password
         );
-
+ 
         if (connection == null) {
             System.out.println(" Database connection failed.");
         } else {
             System.out.println(" Database connection success.");
         }
-
+ 
         return connection;
-
+ 
     } catch (ClassNotFoundException | SQLException e) {
         System.out.println(e);
         return null;
     }
 }
-    
     @Override
     public Connection openConnection() {
         try{
@@ -58,7 +57,7 @@ public class MySqlConnection implements DbConnection{
             return null;
         }
     }
-
+ 
     @Override
     public void closeConnection(Connection conn) {
         try{
@@ -70,7 +69,7 @@ public class MySqlConnection implements DbConnection{
             System.out.println(e);
         }
     }
-
+ 
     @Override
     public ResultSet runQuery(Connection conn, String query) {
         try{
@@ -82,7 +81,7 @@ public class MySqlConnection implements DbConnection{
             return null;
         }
     }
-
+ 
     @Override
     public int executeUpdate(Connection conn, String query) {
           try{

@@ -5,15 +5,15 @@
 package vpms.controller;
 
 import vpms.model.UserData;
-import vpms.view.StaffDashbaordView;
+import vpms.view.StaffDashboardView;
 
 /**
  *
  * @author Chandani
  */
 public class StaffDashboardController {
-    private StaffDashbaordView view;
-    public StaffDashboardController(StaffDashbaordView view, UserData user){
+    private StaffDashboardView view;
+    public StaffDashboardController(StaffDashboardView view, UserData user){
         this.view = view;
     }
     public void open(){

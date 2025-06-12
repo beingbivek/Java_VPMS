@@ -16,7 +16,7 @@ public class UserData {
     private String password;
     private String phone;
     private  byte[] image;
-    public UserData(String name,String type, String email, String password,String phone, byte[] image){
+    public UserData(String name,String type, String email, String password, String phone, byte[] image){
         this.name= name;
         this.type = type;
         this.email=email;
@@ -24,7 +24,7 @@ public class UserData {
         this.phone = phone;
         this.image=image;
     }
-    public UserData(int id,String name,String type,String email, String password,String phone, byte[] image){
+    public UserData(int id,String name,String type,String email, String password, String phone, byte[] image){
         this.id=id;
         this.name= name;
         this.type = type;
@@ -67,7 +67,7 @@ public class UserData {
         return this.password;
     }
     public void setPhone(String phone){
-        this.phone=phone;
+        this.phone = phone;
     }
     public String getPhone(){
         return this.phone;
