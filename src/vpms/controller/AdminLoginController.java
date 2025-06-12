@@ -65,7 +65,7 @@ public class AdminLoginController {
                 dashboard.setVisible(true);
                 // TODO: Navigate to dashboard
             } else {
-                JOptionPane.showMessageDialog(view, "Invalid credentials or not an admin.");
+                JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
             }
         }
     }

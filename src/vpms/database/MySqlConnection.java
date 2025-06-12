@@ -17,7 +17,7 @@ public class MySqlConnection implements DbConnection{
         String username = "root";
         String password = "coventry2019";
         String database = "vpms_db";
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/" + database, username, password
         );

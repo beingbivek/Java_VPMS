@@ -20,7 +20,7 @@ public class ImageConverter {
 
     public ImageConverter(File uploadedImage){
         try {
-            String defaultPath = "../Icons/ProfileForLogin.jpg"; // Replace with your actual path
+            String defaultPath = new Constants().defaultImagePath();
             this.imageBytes = getImageOrDefault(uploadedImage, defaultPath);
         } catch (Exception e) {
             e.printStackTrace();

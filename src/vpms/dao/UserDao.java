@@ -19,70 +19,59 @@ import vpms.model.UserData;
 public class UserDao {
     MySqlConnection mySql = new MySqlConnection();
     
-    public void createTable(){
-        Connection conn= mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
-            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "name VARCHAR(50) NOT NULL, "
-            + "type VARCHAR(20) NOT NULL, "
-            + "email VARCHAR(100) UNIQUE NOT NULL, "
-            + "password VARCHAR(255) NOT NULL, "
-            + "phone VARCHAR(10) NOT NULL, "  
-            + "image BLOB"
-            + ")";
-        try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Create table"+ex);
-            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } finally {
-            mySql.closeConnection(conn);
-        }
+    public boolean createTableIfNotExists() {
+    Connection conn = mySql.openConnection();
+    String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsusers (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50) NOT NULL, `type` VARCHAR(20) NOT NULL, email VARCHAR(100) UNIQUE NOT NULL, `password` VARCHAR(255) NOT NULL, phone VARCHAR(10) NOT NULL, image BLOB);";
+    try {
+        PreparedStatement stmt = conn.prepareStatement(createTableSQL);
+        stmt.executeUpdate();
+        System.out.println("Table created or already exists.");
+        return true;
+    } catch (SQLException ex) {
+        System.out.println("Table creation failed: " + ex.getMessage());
+        ex.printStackTrace();
+    } catch (Exception ex){
+        System.out.println("Table creation failed: " + ex.getMessage());
+        ex.printStackTrace();
+    } finally {
+        mySql.closeConnection(conn);
     }
+    return false;
+}
+
+    
     public boolean registerUser(UserData userData){
         
         Connection conn= mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
-            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "name VARCHAR(50) NOT NULL, "
-            + "type VARCHAR(20) NOT NULL, "
-            + "email VARCHAR(100) UNIQUE NOT NULL, "
-            + "password VARCHAR(255) NOT NULL, "
-            + "phone VARCHAR(10) NOT NULL, "  
-            + "image BLOB"
-            + ")";
-        try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Create table"+ex);
-            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        if(createTableIfNotExists()){
+            System.out.println("Table creation failed: ");
         }
          
-         String query=  "INSERT INTO vpmsUsers (name, type, email, password,phone,image) VALUES (?,?, ?, ?,?,?)";
+        String query=  "INSERT INTO vpmsusers (name, type, email, password,phone,image) VALUES (?,?, ?, ?,?,?)";
          
         
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, userData.getName());
-            pstmt.setString(2, userData.getEmail());
-            pstmt.setString(3, userData.getType());
+            pstmt.setString(2, userData.getType());
+            pstmt.setString(3, userData.getEmail());
             pstmt.setString(4, userData.getPassword());
-            pstmt.setBytes(5, userData.getImage());
+            pstmt.setString(5, userData.getPhone());
+            pstmt.setBytes(6, userData.getImage());
             int result = pstmt.executeUpdate();
             return result > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println("user insertion"+ex);
 
         } finally {
             mySql.closeConnection(conn);
         }
-          return false;
+        return false;
+          
     }
     
     public UserData loginUser(LoginRequest loginData){
         Connection conn = mySql.openConnection();
-        String sql = "SELECT * FROM vpmsUsers where email = ? and password = ?";
+        String sql = "SELECT * FROM vpmsusers where email = ? and password = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, loginData.getEmail());
             pstmt.setString(2, loginData.getPassword());
@@ -110,7 +99,7 @@ public class UserDao {
     public List<UserData> showUsers() {
     List<UserData> userList = new ArrayList<>();
     Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers";
+    String sql = "SELECT * FROM vpmsusers";
     
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
         ResultSet result = pstmt.executeQuery();
@@ -139,7 +128,7 @@ public class UserDao {
      public List<UserData> searchUsers(String data) {
     List<UserData> userList = new ArrayList<>();
     Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers WHERE name LIKE ?";
+    String sql = "SELECT * FROM vpmsusers WHERE name LIKE ?";
     
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1,data);
@@ -167,7 +156,7 @@ public class UserDao {
     
     public boolean checkEmail(String email){
         Connection conn = mySql.openConnection();
-        String query = "SELECT * FROM vpmsUsers WHERE email=?";
+        String query = "SELECT * FROM vpmsusers WHERE email=?";
         try{
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setString(1,email);
@@ -182,7 +171,7 @@ public class UserDao {
     
     public boolean resetPassword(ResetPasswordRequest resetReq){
         Connection conn = mySql.openConnection();
-        String query = "UPDATE vpmsUsers SET password = ? WHERE email = ?";
+        String query = "UPDATE vpmsusers SET password = ? WHERE email = ?";
         try{
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setString(1,resetReq.getPassword());
@@ -198,7 +187,7 @@ public class UserDao {
     
     public UserData getUserFromId(int id){
         Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers WHERE id = ?";
+    String sql = "SELECT * FROM vpmsusers WHERE id = ?";
     
     try {
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -224,7 +213,7 @@ public class UserDao {
     
     public boolean updateUser(UserData userData) {
     Connection conn = mySql.openConnection();
-    String query = "UPDATE vpmsUsers SET name=?, type=?, password=?, email=?, phone=?, image=? WHERE id=?";
+    String query = "UPDATE vpmsusers SET name=?, type=?, password=?, email=?, phone=?, image=? WHERE id=?";
 
     try (PreparedStatement pstmt = conn.prepareStatement(query)) {
         pstmt.setString(1, userData.getName());
@@ -248,7 +237,7 @@ public class UserDao {
 
     public boolean deleteUser(int userId){
         Connection conn = mySql.openConnection();
-        String query = "DELETE FROM vpmsUsers WHERE id=?";
+        String query = "DELETE FROM vpmsusers WHERE id=?";
         try{
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setInt(1,userId);
