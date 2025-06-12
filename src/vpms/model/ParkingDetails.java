@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package vpms.model;
+
+
 /**
  *
  * @author Chandani
@@ -10,8 +12,8 @@ package vpms.model;
 public class ParkingDetails {
    private int parkingId;
     private String vehicleId;
-    private String entryTime;
-    private String exitTime;
+    private String entryDateTime;
+    private String exitDateTime;
     private String parkingStatus;
     private String entryNote;
     private String exitNote;
@@ -19,18 +21,29 @@ public class ParkingDetails {
     private String parkingtype;
     private boolean penaltyApplied;
 
-public ParkingDetails(int parkingId, String vehicleId, String entryTime, String exitTime,String entryNote,String exitNote,String slotId, String status,String type, boolean penaltyApplied) {
+public ParkingDetails(int parkingId, String vehicleId, String entryDateTime, String exitDateTime,String entryNote,String exitNote,String slotId, String status,String type, boolean penaltyApplied) {
         this.parkingId = parkingId;
         this.vehicleId = vehicleId;
         this.slotId = slotId;
-        this.entryTime = entryTime;
-        this.exitTime = exitTime;
+        this.entryDateTime = entryDateTime;
+        this.exitDateTime = exitDateTime;
         this.parkingStatus = status; 
         this.parkingtype = type;
         this.entryNote = exitNote;
         this.exitNote = exitNote;
         this.penaltyApplied = penaltyApplied;
+        
     }
+
+
+public ParkingDetails(String vehicleId, String slotId,String entryDateTime, String entryNote, boolean penaltyApplied) {
+        this.vehicleId = vehicleId;
+        this.slotId = slotId;
+        this.entryDateTime = entryDateTime;
+        this.entryNote = entryNote;
+        this.penaltyApplied = penaltyApplied;
+
+}
 
     public int getParkingId() {
         return parkingId;
@@ -48,28 +61,28 @@ public ParkingDetails(int parkingId, String vehicleId, String entryTime, String 
         this.vehicleId = vehicleId;
     }
 
-    public String getEntryTime() {
-        return entryTime;
+    public String getEntryDateTime() {
+        return entryDateTime;
     }
 
-    public void setEntryTime(String entryTime) {
-        this.entryTime = entryTime;
+    public void setEntryDateTime(String entryDateTime) {
+        this.entryDateTime = entryDateTime;
     }
 
-    public String getExitTime() {
-        return exitTime;
+    public String getExitDateTime() {
+        return exitDateTime;
     }
 
-    public void setExitTime(String exitTime) {
-        this.exitTime = exitTime;
+    public void setExitDateTime(String exitDateTime) {
+        this.exitDateTime = exitDateTime;
     }
 
     public String getParkingStatus() {
         return parkingStatus;
     }
 
-    public void setParkingStatus(String status) {
-        this.parkingStatus = status;
+    public void setParkingStatus(String parkingStatus) {
+        this.parkingStatus = parkingStatus;
     }
 
     public String getEntryNote() {
@@ -96,12 +109,12 @@ public ParkingDetails(int parkingId, String vehicleId, String entryTime, String 
         this.slotId = slotId;
     }
 
-    public String getParkingType() {
+    public String getParkingtype() {
         return parkingtype;
     }
 
-    public void setType(String type) {
-        this.parkingtype = type;
+    public void setParkingtype(String parkingtype) {
+        this.parkingtype = parkingtype;
     }
 
     public boolean isPenaltyApplied() {
@@ -111,9 +124,6 @@ public ParkingDetails(int parkingId, String vehicleId, String entryTime, String 
     public void setPenaltyApplied(boolean penaltyApplied) {
         this.penaltyApplied = penaltyApplied;
     }
-
-    public String getEntryDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    }
+    
+    

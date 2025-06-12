@@ -225,5 +225,7 @@ public javax.swing.JTextPane getEntryNote(){
 }
 public void entryButtonListener (ActionListener listener){
         vehicleEntryjButton.addActionListener(listener);
+    
+
     }
 }

@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import vpms.dao.ParkingDao;
+import vpms.model.ParkingDetails;
 import vpms.view.ParkingEntryView;
 
 /**
@@ -52,29 +53,23 @@ public class ParkingEntryController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Get current date
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String dateString = currentDate.format(dateFormatter);
-
-        // Get current time
-        LocalTime currentTime = LocalTime.now();
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String timeString = currentTime.format(timeFormatter);
             
             String vehicleNumber= view.getEntryVehicleNumber().getSelectedItem().toString();
             String slotNumber = view.getSlotNumber().getSelectedItem().toString();
-            view.setEntryDateValue(dateString);
-            view.setEntryTimeValue(timeString);
+            
             String entryNOte = view. getEntryNote().getText();
 
              if (vehicleNumber.isEmpty() || slotNumber.isEmpty()) {
                 JOptionPane.showMessageDialog(view, "Please fill in all fields.");
                 return;
-            }
+            } else{
+                 ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,);
+                 parkingDao.registerParkingUser(parkingDetail);
+             }
         }
 
        
         
     }
+    
 }

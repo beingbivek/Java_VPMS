@@ -24,16 +24,16 @@ public class ParkingDao {
         + "parkingId INT AUTO_INCREMENT PRIMARY KEY, "
         + "vehicleId INT(100), "
         + "slotId INT(100), "
-        + "entryDate DATETIME, "
-        + "entryTime DATETIME NOT NULL, "
+        + "entryDateTime DATETIME NOT NULL, "
         + "entryNote VARCHAR(200) NOT NULL, "
-        + "exitTime DATETIME, "
+        + "exitDateTime DATETIME, "
         + "parkingStatus VARCHAR(100), "
         + "parkingType VARCHAR(100), "
-        + "exitNote VARCHAR(200)"
+        + "exitNote VARCHAR(200),"
+        + "penaltyApplied BOOLEAN"
         + ")";
 
-         String query=  "INSERT INTO parkingDetails (parkingId,vehicleId,slotId,entryTime,entryNote,parkingStatus,parkingType) VALUES (?,?,?,?, ?,?,?)";
+         String query=  "INSERT INTO parkings (vehicleId,slotId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
          
         try {
             PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
@@ -45,11 +45,11 @@ public class ParkingDao {
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, parkingDetails.getVehicleId());
             pstmt.setString(2, parkingDetails.getSlotId());
-            pstmt.setString(3, parkingDetails.getEntryDate());
-            pstmt.setString(4, parkingDetails.getEntryTime());
+            pstmt.setString(3, parkingDetails.getEntryDateTime());
+            pstmt.setString(4, parkingDetails.getEntryNote());
             pstmt.setString(5, parkingDetails.getParkingStatus());
-            pstmt.setString(6, parkingDetails.getEntryNote());
-            pstmt.setString(7, parkingDetails.getParkingType());
+            pstmt.setString(6, parkingDetails.getParkingtype());
+            pstmt.setBoolean(7, parkingDetails.isPenaltyApplied());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
@@ -65,13 +65,13 @@ public class ParkingDao {
     public boolean vehicleExit(ParkingDetails parkingDetails) {
         
     
-        String query = "UPDATE parkings SET exitTime = ?, parkingStatus = ?, exitNote = ?, WHERE parkingId = ?"; 
+        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ?, WHERE parkingId = ?"; 
         Connection conn= mySql.openConnection();
     try{
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setString(1,parkingDetails.getVehicleId());
             stmnt.setString(2,parkingDetails.getParkingStatus());
-            stmnt.setString(3,parkingDetails.getExitTime());
+            stmnt.setString(3,parkingDetails.getExitDateTime());
             stmnt.setString(4,parkingDetails.getExitNote());
             int result = stmnt.executeUpdate();
             return result > 0;
