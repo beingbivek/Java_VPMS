@@ -70,19 +70,13 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
         );
 
         vehicleTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
+            new Object [][] {},
             new String [] {
-                "ID", "VehicleType", "Regular Price", "DemandPrice", "ReservationPrice", "ExtraCharge", "Status"
+                "ID", "Vehicle Type", "Regular Price", "Demand Price", "Reservation Price", "Extra Charge", "Status"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, true, true, true, true, true
-            };
-
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return false; // 🔒 disables editing
             }
         });
         jScrollPane1.setViewportView(vehicleTable);
