@@ -33,7 +33,7 @@ public class VehicleTypeAndPriceDao {
             PreparedStatement createStmt = conn.prepareStatement(createTableSQL);
             createStmt.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
 
         String insertSQL = "INSERT INTO vehicle_type_and_price(vehicle_type, reservation_price, regular_price, demand_price, extra_charge, status) VALUES (?, ?, ?, ?, ?, ?)";
@@ -53,6 +53,7 @@ public class VehicleTypeAndPriceDao {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+
         } finally {
             mySql.closeConnection(conn);
         }
@@ -64,8 +65,8 @@ public class VehicleTypeAndPriceDao {
         String sql = "SELECT * FROM vehicle_type_and_price";
 
         try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            ResultSet result = pstmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet result = stmt.executeQuery();
 
             while (result.next()) {
                 VehicleTypeAndPriceData data = new VehicleTypeAndPriceData(
@@ -86,7 +87,7 @@ public class VehicleTypeAndPriceDao {
             mySql.closeConnection(conn);
         }
 
-        return list;
+        return list.isEmpty() ? null : list;
     }
 
     public boolean updateVehicleTypeAndPrice(VehicleTypeAndPriceData vehicle) {
@@ -114,6 +115,7 @@ public class VehicleTypeAndPriceDao {
             mySql.closeConnection(conn);
         }
     }
+
     public boolean deleteVehicleTypeAndPrice(int id) {
         Connection conn = mySql.openConnection();
         String sql = "DELETE FROM vehicle_type_and_price WHERE id=?";
@@ -131,5 +133,39 @@ public class VehicleTypeAndPriceDao {
         } finally {
             mySql.closeConnection(conn);
         }
+    }
+
+    public List<VehicleTypeAndPriceData> searchVehicleTypes(String term) {
+        List<VehicleTypeAndPriceData> list = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM vehicle_type_and_price WHERE vehicle_type LIKE ? OR status LIKE ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + term + "%");
+            stmt.setString(2, "%" + term + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                VehicleTypeAndPriceData data = new VehicleTypeAndPriceData(
+                        rs.getInt("id"),
+                        rs.getString("vehicle_type"),
+                        rs.getString("reservation_price"),
+                        rs.getString("regular_price"),
+                        rs.getString("demand_price"),
+                        rs.getString("extra_charge"),
+                        rs.getString("status")
+                );
+                list.add(data);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+
+        return list.isEmpty() ? null : list;
     }
 }
