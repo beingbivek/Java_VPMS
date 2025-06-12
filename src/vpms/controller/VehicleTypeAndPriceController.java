@@ -35,6 +35,7 @@ public class VehicleTypeAndPriceController {
         this.view.addEditButtonListener(new EditVehicleListener());
         this.view.addDeleteButtonListener(new DeleteVehicleListener());
         this.view.addCancelButtonListener(new CancelActionListener());
+        this.view.addSearchButtonListener(new SearchListener());
     }
 
     public void open() {
@@ -131,6 +132,41 @@ public class VehicleTypeAndPriceController {
             loadVehicleTypeData();
         }
     }
+    class SearchListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String keyword = view.getSearchTextFieldValue().trim().toLowerCase();
+
+        if (keyword.isEmpty() || keyword.equals("search")) {
+            loadVehicleTypeData();
+            return;
+        }
+
+        List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
+        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+        model.setRowCount(0);
+
+        for (VehicleTypeAndPriceData data : list) {
+            String idStr = String.valueOf(data.getId());
+
+            if (idStr.contains(keyword) ||
+                data.getVehicleType().toLowerCase().contains(keyword) ||
+                data.getStatus().toLowerCase().contains(keyword)) {
+
+                Object[] row = {
+                    data.getId(),
+                    data.getVehicleType(),
+                    data.getRegularPrice(),
+                    data.getDemandPrice(),
+                    data.getReservationPrice(),
+                    data.getExtraCharge(),
+                    data.getStatus()
+                };
+                model.addRow(row);
+            }
+        }
+    }
+}
 }
     
 
