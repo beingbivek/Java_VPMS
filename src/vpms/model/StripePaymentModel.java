@@ -20,7 +20,7 @@ public class StripePaymentModel {
 
     public StripePaymentModel() {
         // Set Stripe API key
-        Stripe.apiKey = new APIKeys().getStripeAPI();
+        Stripe.apiKey = new APIKeys().getStripeKeys();
     }
 
     public String createCheckoutSession() {

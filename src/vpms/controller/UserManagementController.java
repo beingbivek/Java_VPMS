@@ -33,7 +33,6 @@ public class UserManagementController {
 
     private void loadStaffData() {
         List<UserData> users = userDao.showUsers();
-        (users == null)?view.getUserTable()
 
         DefaultTableModel tableModel = (DefaultTableModel) view.getUserTable().getModel();
         tableModel.setRowCount(0); // Clear existing rows
