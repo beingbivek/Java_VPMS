@@ -10,6 +10,9 @@
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/DbConnection.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/MySqlConnection.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffAndLoginView.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffAndLoginController.java</file>
+            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminLoginController.java</file>
         </group>
     </open-files>
 </project-private>

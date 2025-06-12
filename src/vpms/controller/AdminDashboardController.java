@@ -7,14 +7,17 @@ import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
 import vpms.controller.UserManagementController;
-import vpms.view.StaffAndLoginView;
+import vpms.model.UserData;
+import vpms.view.WelcomeAndLoginView;
 
 public class AdminDashboardController {
     private final AdminDashboardView view;
     private UserManagementView smView;
+    UserData user;
 
-    public AdminDashboardController(AdminDashboardView view) {
+    public AdminDashboardController(AdminDashboardView view,UserData user) {
         this.view = view;
+        this.user = user;
         initializeControllers();
         attachListeners();
     }
@@ -51,8 +54,8 @@ public class AdminDashboardController {
     private void logout() {
         view.dispose();
         // Add login screen activation logic here
-        StaffAndLoginView welcomeView = new StaffAndLoginView();
-        StaffAndLoginController controller = new StaffAndLoginController(welcomeView);
+        WelcomeAndLoginView welcomeView = new WelcomeAndLoginView();
+        WelcomeAndLoginController controller = new WelcomeAndLoginController(welcomeView);
         controller.open();
         close();
     }

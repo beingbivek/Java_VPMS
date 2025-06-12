@@ -8,6 +8,7 @@ package vpms.view;
 import java.beans.PropertyVetoException;
 import javax.swing.DefaultDesktopManager;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**

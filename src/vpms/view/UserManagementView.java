@@ -56,6 +56,11 @@ public class UserManagementView extends javax.swing.JInternalFrame {
         jEditStaffButton.setText("Edit Staff");
 
         jFilterButton.setText("Filter");
+        jFilterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFilterButtonActionPerformed(evt);
+            }
+        });
 
         deleteUserButton.setText("Delete");
         deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +156,10 @@ public class UserManagementView extends javax.swing.JInternalFrame {
     private void jCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCancelButtonActionPerformed
+
+    private void jFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFilterButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFilterButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
