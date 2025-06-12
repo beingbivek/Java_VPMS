@@ -9,12 +9,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
-import vpms.view.VehicleTypeAndPriceView;
 import vpms.view.AddVehicleTypeAndPriceView;
 import vpms.view.EditVehicleTypeAndPriceView;
+import vpms.view.VehicleTypeAndPriceView;
 
 
 /**
