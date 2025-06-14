@@ -7,11 +7,18 @@ package vpms.controller;
 //import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vpms.dao.UserDao;
 import vpms.model.LoginRequest;
 import vpms.model.UserData;
+import vpms.needed.Constants;
 import vpms.view.AdminDashboardView;
 import vpms.view.StaffDashboardView;
 import vpms.view.WelcomeAndLoginView;
@@ -33,6 +40,8 @@ public class WelcomeAndLoginController {
 //        this.view.setUndecorated(true); 
         this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.view.setResizable(false);
+        this.view.setEmailTextField(getSavedEmail());
+        this.view.viewPassword(new TogglePassword());
         
 //        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 //        int width = screenSize.width;
@@ -43,6 +52,35 @@ public class WelcomeAndLoginController {
     }
     public void close(){
         this.view.dispose();
+    }
+    
+    public void rememberEmail(String email){
+        try{
+            Path path = Paths.get(Constants.defaultFileAddress());
+            if (this.view.getRememberCheckBox().isSelected()){
+                if(Files.notExists(path)){
+                    Files.createFile(path);
+                }
+                Files.write(Paths.get(Constants.defaultFileAddress()), email.getBytes(StandardCharsets.UTF_8));
+            }else{
+                Files.deleteIfExists(path);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public String getSavedEmail(){
+        try{
+            Path path = Paths.get(Constants.defaultFileAddress());
+            if(Files.exists(path)){
+                return Files.readString(Paths.get(Constants.defaultFileAddress()));
+            }
+            return "";
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return "";
     }
     
     class LoginUser implements ActionListener{
@@ -63,21 +101,32 @@ public class WelcomeAndLoginController {
             if ("staff".equalsIgnoreCase(user.getType())){
                 StaffDashboardView dashboard = new StaffDashboardView();
                 new StaffDashboardController(dashboard,user).open();
+                rememberEmail(email);
                 close();
             }
             else if ("admin".equalsIgnoreCase(user.getType())) {
                 view.dispose();
                 AdminDashboardView dashboard = new AdminDashboardView();
                 new AdminDashboardController(dashboard,user).open();
+                rememberEmail(email);
                 close();
-            }  
-            else if(user != null){
-                JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
             } else {
-                JOptionPane.showMessageDialog(view, "You don't have account here!");
+                JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
             }
                                     
         }
         
+    }
+    
+    class TogglePassword implements ItemListener{
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if(view.getPasswordCheckBox().isSelected()){
+                view.getPasswordField().setEchoChar((char) 0);
+            } else {
+                view.getPasswordField().setEchoChar('*');
+            }
+        }
     }
 }

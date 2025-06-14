@@ -4,6 +4,7 @@
  */
 package vpms.view;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 /**
  *
@@ -332,11 +333,20 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
     public javax.swing.JTextField getEmailTextField(){
         return emailTextField;
     }
+    public void setEmailTextField(String email){
+        emailTextField.setText(email);
+    }
     public  javax.swing.JPasswordField getPasswordField(){
         return passwordField;
     }
     public javax.swing.JCheckBox getRememberCheckBox(){
         return rememberMeCheckBox;
+    }
+    public javax.swing.JCheckBox getPasswordCheckBox(){
+        return showPasswordCheckBox;
+    }
+    public void viewPassword(ItemListener listener){
+        showPasswordCheckBox.addItemListener(listener);
     }
     public void forgotPassword(MouseListener listener){
         forgotPasswordLabel.addMouseListener(listener);
