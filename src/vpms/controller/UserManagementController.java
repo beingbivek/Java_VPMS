@@ -60,7 +60,7 @@ public class UserManagementController {
             view.dispose();                                         // close list view
             RegisterUserView addView = new RegisterUserView();
             RegisterUserController addCtrl =
-                    new RegisterUserController(addView, UserManagementController.this);
+                    new RegisterUserController(addView);
             addCtrl.open();                                         // open “add” form
         }
     }
@@ -76,7 +76,7 @@ public class UserManagementController {
             int    id       = (int)    view.getTable().getValueAt(row,0);
             EditUserView editView = new EditUserView();
             EditUserController editCtrl =
-                    new EditUserController(editView,id,UserManagementController.this);
+                    new EditUserController(editView,id);
             view.dispose();
             editCtrl.open();
         }
