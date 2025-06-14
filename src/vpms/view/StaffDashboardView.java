@@ -15,7 +15,7 @@ import javax.swing.JInternalFrame;
  *
  * @author PRABHASH
  */
-public class AdminDashboardView extends javax.swing.JFrame {
+public class StaffDashboardView extends javax.swing.JFrame {
     
     public void configureDesktopPane() {
     jDesktopPanel.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
@@ -37,7 +37,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
      * Creates new form AdminDashboardView
      */
 //    UsersView userViewPanel = new UsersView();
-    public AdminDashboardView() {
+    public StaffDashboardView() {
         initComponents();
         configureDesktopPane(); // Add this line
     }
@@ -59,9 +59,9 @@ public class AdminDashboardView extends javax.swing.JFrame {
 
         sidebarPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
-        vehicleAndPriceWindowButton = new javax.swing.JButton();
+        paymentWindowButton = new javax.swing.JButton();
         dashboardWindowButton = new javax.swing.JButton();
-        usersWindowButton = new javax.swing.JButton();
+        reservationWindowButton = new javax.swing.JButton();
         reportAndLogWindowButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         pictureLabel = new javax.swing.JLabel();
@@ -76,23 +76,23 @@ public class AdminDashboardView extends javax.swing.JFrame {
         welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
         welcomeLabel.setText("Welcome Admin!");
 
-        vehicleAndPriceWindowButton.setBackground(new java.awt.Color(153, 153, 255));
-        vehicleAndPriceWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        vehicleAndPriceWindowButton.setForeground(new java.awt.Color(255, 255, 255));
-        vehicleAndPriceWindowButton.setText("Vehicle Type and Price");
+        paymentWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        paymentWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        paymentWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        paymentWindowButton.setText("Payments");
 
         dashboardWindowButton.setBackground(new java.awt.Color(0, 204, 204));
         dashboardWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dashboardWindowButton.setForeground(new java.awt.Color(255, 255, 255));
         dashboardWindowButton.setText("Dashboard");
 
-        usersWindowButton.setBackground(new java.awt.Color(153, 153, 255));
-        usersWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        usersWindowButton.setForeground(new java.awt.Color(255, 255, 255));
-        usersWindowButton.setText("Users");
-        usersWindowButton.addActionListener(new java.awt.event.ActionListener() {
+        reservationWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        reservationWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        reservationWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        reservationWindowButton.setText("Reservations");
+        reservationWindowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usersWindowButtonActionPerformed(evt);
+                reservationWindowButtonActionPerformed(evt);
             }
         });
 
@@ -124,7 +124,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
                         .addGap(0, 14, Short.MAX_VALUE)
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(paymentWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebarPanelLayout.createSequentialGroup()
@@ -134,7 +134,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebarPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(usersWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reservationWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         sidebarPanelLayout.setVerticalGroup(
@@ -145,7 +145,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pictureLabel)
                 .addGap(145, 145, 145)
-                .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(paymentWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
@@ -159,7 +159,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebarPanelLayout.createSequentialGroup()
                     .addGap(233, 233, 233)
-                    .addComponent(usersWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reservationWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(330, Short.MAX_VALUE)))
         );
 
@@ -196,13 +196,13 @@ public class AdminDashboardView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usersWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersWindowButtonActionPerformed
+    private void reservationWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationWindowButtonActionPerformed
 //        windowPanel.removeAll();
 //        windowPanel.add(userViewPanel).setVisible(true);
 //        UsersTestView uView = new UsersTestView();
 //        jDesktopPanel.removeAll();
 //        jDesktopPanel.add(uView).setVisible(true);
-    }//GEN-LAST:event_usersWindowButtonActionPerformed
+    }//GEN-LAST:event_reservationWindowButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,20 +221,21 @@ public class AdminDashboardView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminDashboardView().setVisible(true);
+                new StaffDashboardView().setVisible(true);
             }
         });
     }
@@ -243,18 +244,18 @@ public class AdminDashboardView extends javax.swing.JFrame {
     private javax.swing.JButton dashboardWindowButton;
     private javax.swing.JDesktopPane jDesktopPanel;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton paymentWindowButton;
     private javax.swing.JLabel pictureLabel;
     private javax.swing.JButton reportAndLogWindowButton;
+    private javax.swing.JButton reservationWindowButton;
     private javax.swing.JPanel sidebarPanel;
-    private javax.swing.JButton usersWindowButton;
-    private javax.swing.JButton vehicleAndPriceWindowButton;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 //    public void userButtonListener(ActionListener listener){
 //        usersWindowButton.addActionListener(listener);
 //    }
     public javax.swing.JButton getUserWindowbtn(){
-        return usersWindowButton;
+        return reservationWindowButton;
     }
     public javax.swing.JDesktopPane getWindowPanel(){
         return jDesktopPanel;
@@ -264,6 +265,9 @@ public class AdminDashboardView extends javax.swing.JFrame {
     }
     public javax.swing.JButton getLogoutBtn(){
         return logoutButton;
+    }
+    public void setWelcomeLabel(String name){
+        welcomeLabel.setText("Welcome "+name+"!");
     }
     public void setWindowPanel(javax.swing.JInternalFrame myPanel){
         jDesktopPanel.removeAll(); // Remove previous frames

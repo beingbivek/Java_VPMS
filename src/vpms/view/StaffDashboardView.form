@@ -70,7 +70,7 @@
                           <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                           <Component id="welcomeLabel" min="-2" pref="167" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="vehicleAndPriceWindowButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="paymentWindowButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -84,7 +84,7 @@
               <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="usersWindowButton" max="32767" attributes="0"/>
+                      <Component id="reservationWindowButton" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -98,7 +98,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="pictureLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-                  <Component id="vehicleAndPriceWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="paymentWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="reportAndLogWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace pref="122" max="32767" attributes="0"/>
@@ -115,7 +115,7 @@
               <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
-                      <Component id="usersWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="reservationWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace pref="330" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -134,7 +134,7 @@
             <Property name="text" type="java.lang.String" value="Welcome Admin!"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="vehicleAndPriceWindowButton">
+        <Component class="javax.swing.JButton" name="paymentWindowButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="99" red="99" type="rgb"/>
@@ -145,7 +145,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vehicle Type and Price"/>
+            <Property name="text" type="java.lang.String" value="Payments"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="dashboardWindowButton">
@@ -162,7 +162,7 @@
             <Property name="text" type="java.lang.String" value="Dashboard"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="usersWindowButton">
+        <Component class="javax.swing.JButton" name="reservationWindowButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="99" red="99" type="rgb"/>
@@ -173,10 +173,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Users"/>
+            <Property name="text" type="java.lang.String" value="Reservations"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usersWindowButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reservationWindowButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="reportAndLogWindowButton">
