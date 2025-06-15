@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -75,15 +75,9 @@
                       <Component id="usersWindowButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="slotWindowButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="paymentWindowButton" alignment="1" max="32767" attributes="0"/>
+                      <Component id="dashboardWindowButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dashboardWindowButton" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -94,7 +88,9 @@
                   <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="32767" attributes="0"/>
                   <Component id="pictureLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <Component id="dashboardWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="usersWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="vehicleWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
@@ -109,13 +105,6 @@
                   <EmptySpace pref="42" max="32767" attributes="0"/>
                   <Component id="logoutButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                      <Component id="dashboardWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
-                      <EmptySpace pref="396" max="32767" attributes="0"/>
-                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -224,7 +213,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Vehicle"/>
-            <Property name="actionCommand" type="java.lang.String" value="Vehicle"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="slotWindowButton">
@@ -267,7 +255,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="643" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
