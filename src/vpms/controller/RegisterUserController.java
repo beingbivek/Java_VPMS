@@ -1,87 +1,98 @@
 package vpms.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
 import vpms.view.RegisterUserView;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import javax.swing.JFileChooser;
+import vpms.needed.ImageConverter;
+
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
+/**
+ * Pop-up window (JFrame) for user registration.
+ * When launched from UserManagementController it refreshes
+ * the table after successful save.
+ */
 public class RegisterUserController {
-    private File selectedFile;
-    private RegisterUserView registerUser;
 
-    public RegisterUserController(RegisterUserView registerUser){
-        this.registerUser = registerUser;
-        
-        // Attach listeners
-        this.registerUser.registerButtonListener(new RegisterUser());
-        this.registerUser.uploadButtonListener(new UploadImageListener());
+    /* ---------- fields ---------- */
+    private final RegisterUserView         view;      // this is a JFrame
+    private final UserManagementController caller;    // may be null
+    private       File                     selected;   // image file
+    private final UserDao dao = new UserDao();
+
+    /* ---------- ctors ---------- */
+    public RegisterUserController(RegisterUserView view) {
+        this(view,null);
+    }
+    public RegisterUserController(RegisterUserView view,
+                                  UserManagementController caller) {
+        this.view   = view;
+        this.caller = caller;
+
+        view.uploadButtonListener  (new UploadListener());
+        view.registerButtonListener(new RegisterListener());
     }
 
-    public void open(){
-        this.registerUser.setVisible(true);
-    }
+    public void open()  { view.setLocationRelativeTo(null); view.setVisible(true); }
 
-    public void close(){
-        this.registerUser.dispose();
-    }
+    /* ===================================================== *
+     *  LISTENERS                                            *
+     * ===================================================== */
 
-    class UploadImageListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png");
-            fileChooser.setFileFilter(filter);
-
-            int result = fileChooser.showOpenDialog(registerUser);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                selectedFile = fileChooser.getSelectedFile();
-                JOptionPane.showMessageDialog(registerUser, "Image selected: " + selectedFile.getName());
+    /* --- choose image ------------------------------------- */
+    private class UploadListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
+            if (fc.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+                selected = fc.getSelectedFile();
+                JOptionPane.showMessageDialog(view,"Image: "+ selected.getName());
             }
         }
     }
 
-    class RegisterUser implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String name = registerUser.getNameTextField().getText();
-            String email = registerUser.getEmailTextField().getText();
-            String password = String.valueOf(registerUser.getPasswordField().getPassword());
-            String confirmPassword = String.valueOf(registerUser.getConfirmPasswordField().getPassword());
-            String phone = registerUser.getPhoneTextField().getText();
-            String type = registerUser.getTypeField().getSelectedItem().toString();
+    /* --- register user ------------------------------------ */
+    private class RegisterListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phone.isEmpty()) {
-                JOptionPane.showMessageDialog(registerUser, "Fill in all the fields");
-            } else if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(registerUser, "Passwords do not match");
-            } else if (selectedFile == null) {
-                JOptionPane.showMessageDialog(registerUser, "Please upload an image");
+            /* collect form data */
+            String name  = view.getNameTextField().getText().trim();
+            String email = view.getEmailTextField().getText().trim();
+            String phone = view.getPhoneTextField().getText().trim();
+            String type  = view.getTypeField().getSelectedItem().toString();
+            String pwd1  = String.valueOf(view.getPasswordField().getPassword());
+            String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
+
+            /* validate */
+            if (name.isEmpty()||email.isEmpty()||phone.isEmpty()||pwd1.isEmpty()||pwd2.isEmpty()) {
+                JOptionPane.showMessageDialog(view,"Fill in all the fields"); return;
+            }
+            if (!pwd1.equals(pwd2)) {
+                JOptionPane.showMessageDialog(view,"Passwords do not match"); return;
+            }
+
+            /* image (default handled by ImageConverter) */
+            byte[] img;
+            try { img = new ImageConverter(selected).returnByteArray(); }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(view,"Image error"); return;
+            }
+
+            /* save */
+            UserData u = new UserData(name,type,email,pwd1,phone,img);
+            if (dao.registerUser(u)) {
+                JOptionPane.showMessageDialog(view,"Registered successfully");
+
+                /* refresh list if we have a caller */
+                if (caller != null) caller.refreshTable();
+                view.dispose();
             } else {
-                try {
-                    byte[] imageBytes = Files.readAllBytes(selectedFile.toPath());
-
-                    UserData user = new UserData(name, type, email, password, phone, imageBytes);
-                    UserDao userDao = new UserDao();
-                    boolean result = userDao.registerUser(user);
-
-                    if (result) {
-                        JOptionPane.showMessageDialog(registerUser, "Registered Successfully");
-                        close();
-                    } else {
-                        JOptionPane.showMessageDialog(registerUser, "Failed to Register");
-                    }
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(registerUser, "Failed to read image file");
-                    ex.printStackTrace();
-                }
+                JOptionPane.showMessageDialog(view,"Registration failed",
+                                              "Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }

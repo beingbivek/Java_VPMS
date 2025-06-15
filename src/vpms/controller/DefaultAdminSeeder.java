@@ -14,7 +14,7 @@ import vpms.needed.ImageConverter;
  * @author PRABHASH
  */
 public class DefaultAdminSeeder {
-     public static void insertDefaultAdminIfNotExists() {
+     public static void insertDefaultAdminIfNotExists() throws Exception {
         String defaultEmail = "admin@vpms.com";
         String defaultPassword = "adminvpms123";
         String userType = "admin";

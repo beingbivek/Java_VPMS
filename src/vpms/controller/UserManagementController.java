@@ -1,143 +1,161 @@
-
 package vpms.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
-import vpms.view.UserManagementView;
+import vpms.view.*;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JOptionPane;
-import vpms.view.EditUserView;
 
+/**
+ * Lists, searches, adds, edits and deletes users.
+ * Receives the AdminDashboardView so it can open child
+ * internal-frames inside the SAME JDesktopPane.
+ */
 public class UserManagementController {
 
-    private UserManagementView view;
-    private UserDao userDao;
+    /* -------------- fields -------------- */
+    private final UserManagementView view;
+    private final UserDao dao = new UserDao();
 
+    /* -------------- ctor -------------- */
     public UserManagementController(UserManagementView view) {
-        this.view = view;
-        this.userDao = new UserDao();
-        loadStaffData();
-        DeleteUser deleteUser = new DeleteUser();
-        this.view.deleteUser(deleteUser);
-    }
-    public void open(){
-        this.view.setVisible(true);
-    }
-    public void close(){
-        this.view.dispose();
+        this.view      = view;
+
+        loadUserData();
+
+        /* hook all listeners coming from view */
+        view.addAddButtonListener   (new AddUserListener());
+        view.addEditButtonListener  (new EditUserListener());
+        view.addDeleteButtonListener(new DeleteUserListener());
+        view.addCancelButtonListener(new CancelActionListener());
+        view.addSearchButtonListener(new SearchListener());
     }
 
-    private void loadStaffData() {
-        List<UserData> users = userDao.showUsers();
+    public void open()  { view.setVisible(true); }
+    public void close() { view.dispose();        }
 
-        DefaultTableModel tableModel = (DefaultTableModel) view.getUserTable().getModel();
-        tableModel.setRowCount(0); // Clear existing rows
+    /* -------------- helper for other controllers -------------- */
+    public void refreshTable() { loadUserData(); }
+    public UserManagementView getView() { return view; }
 
-        for (UserData user : users) {
-            Object[] row = {
-                user.getId(),
-                user.getName(),
-                user.getType(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getImage() // This is byte[], you may customize this column if needed
-            };
-            tableModel.addRow(row);
+    /* -------------- table population -------------- */
+    private void loadUserData() {
+        List<UserData> users = dao.showUsers();
+        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+        model.setRowCount(0);
+
+        for (UserData u : users) {
+            model.addRow(new Object[]{
+                    u.getId(), u.getName(), u.getType(), u.getEmail(),
+                    u.getPassword(), u.getPhone(), u.getImage()
+            });
         }
     }
 
-    class DeleteUser implements ActionListener {
+    /* ===================================================== *
+     *  LISTENERS                                            *
+     * ===================================================== */
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int selectedRow = view.getUserTable().getSelectedRow();
-                if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(view, "User not selected", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to delete the selected user?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        int userId = (int) view.getUserTable().getValueAt(selectedRow, 0); // ID must be in column 0
-                        boolean success = userDao.deleteUser(userId);
-                        if (success) {
-                            JOptionPane.showMessageDialog(view, "User deleted successfully");
-                            loadStaffData(); // Refresh table
-                        } else {
-                            JOptionPane.showMessageDialog(view, "Failed to delete user", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                }
-        }
-        
-    }
-  class AddUserListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {   
+    class AddUserListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            RegisterUserView popup = new RegisterUserView();               // JFrame
+            new RegisterUserController(popup, UserManagementController.this)
+                    .open();                                               // opens as stand-alone window
         }
     }
 
+    /* ---- EDIT ----------------------------------------------- */
     class EditUserListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int selectedRow = view.getUserTable().getSelectedRow();
-            if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(view, "Please select a user to edit.", "No User Selected", JOptionPane.WARNING_MESSAGE);
-            } else {
-                // Get current data from the selected row
-                int id = (int) view.getUserTable().getValueAt(selectedRow, 0);
-                EditUserView editUserView = new EditUserView();
-                EditUserController controller = new EditUserController(editUserView,id);
-                controller.open();
-            }
+    @Override public void actionPerformed(ActionEvent e) {
+        int row = view.getTable().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view,"Select a user to edit."); return;
         }
+
+        /* Build a UserData from the current table row */
+        UserData selected = new UserData(
+            (int)    view.getTable().getValueAt(row,0),   // id
+            (String) view.getTable().getValueAt(row,1),   // name
+            (String) view.getTable().getValueAt(row,2),   // type
+            (String) view.getTable().getValueAt(row,3),   // email
+            (String) view.getTable().getValueAt(row,4),   // password
+            (String) view.getTable().getValueAt(row,5),   // phone
+            (byte[]) view.getTable().getValueAt(row,6)    // image
+        );
+
+        EditUserView popup = new EditUserView();          // JFrame
+        new EditUserController(popup, selected, UserManagementController.this)
+              .open();
     }
-
-    class FilterStaffListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String searchTerm =  view.getSearchText().getText().trim();
-            List<UserData> filteredUsers;
-            if (searchTerm.isEmpty() || searchTerm.equals("Search                                    ")) {
-                filteredUsers = userDao.showUsers(); // If search box is empty, show all users
-            } else {
-                filteredUsers = userDao.searchUsers(searchTerm);
-            }
-
-            DefaultTableModel tableModel = (DefaultTableModel) view.getUserTable().getModel();
-            tableModel.setRowCount(0); // Clear existing rows
-
-            if (filteredUsers.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "No users found matching the search criteria.", "No Results", JOptionPane.INFORMATION_MESSAGE);
-            }
-
-            for (UserData user : filteredUsers) {
-                Object[] row = {
-                    user.getId(),
-                    user.getName(),
-                    user.getType(),
-                    user.getEmail(),
-                    user.getPassword(),
-                    user.getImage()
-                };
-                tableModel.addRow(row);
-            }
-        }
-    }
-
-    class CancelActionListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Example: Clear the search text field and reload all data
-            view.setSearchTextFieldValue("Search...."); // Reset search text
-            loadStaffData(); // Reload all staff data
-        }
-    }
-
 }
-    
-    
- 
 
+
+    /* ---- DELETE --------------------------------------------- */
+    class DeleteUserListener implements ActionListener {
+    @Override public void actionPerformed(ActionEvent e) {
+        int row = view.getTable().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view, "Select a user first."); return;
+        }
+
+        if (JOptionPane.showConfirmDialog(view, "Delete selected user?",
+                "Confirm", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
+
+        int id = (int) view.getTable().getValueAt(row, 0);
+
+        try {
+            if (dao.deleteUser(id)) {
+                JOptionPane.showMessageDialog(view, "User deleted.");
+                loadUserData();                         // refresh table
+            } else {
+                JOptionPane.showMessageDialog(view,
+                        "No record was removed.\nThe user may already be deleted.",
+                        "Delete failed", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception ex) {
+            /* display exact DB reason */
+            JOptionPane.showMessageDialog(view,
+                    "Error deleting user:\n" + ex.getMessage(),
+                    "SQL Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();                       // keep log in console
+        }
+    }
+}
+
+    /* ---- CANCEL (reset search) ------------------------------ */
+    class CancelActionListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            view.setSearchTextFieldValue("");
+            loadUserData();
+        }
+    }
+
+    /* ---- SEARCH --------------------------------------------- */
+    class SearchListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            String kw = view.getSearchTextFieldValue().trim().toLowerCase();
+            if (kw.isEmpty()) { loadUserData(); return; }
+
+            List<UserData> users = dao.showUsers();
+            DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+            model.setRowCount(0);
+
+            for (UserData u : users) {
+                if ( String.valueOf(u.getId()).contains(kw) ||
+                     u.getName ().toLowerCase().contains(kw) ||
+                     u.getEmail().toLowerCase().contains(kw) ||
+                     u.getType ().toLowerCase().contains(kw)) {
+
+                    model.addRow(new Object[]{
+                            u.getId(), u.getName(), u.getType(), u.getEmail(),
+                            u.getPassword(), u.getPhone(), u.getImage()
+                    });
+                }
+            }
+        }
+    }
+}

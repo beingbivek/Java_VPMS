@@ -1,29 +1,23 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package vpms.view;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
-import vpms.controller.VehicleTypeAndPriceController;
-
-
+import java.awt.Color;
 
 /**
  *
  * @author being
  */
-public class VehicleTypeAndPriceView extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VehicleTypeAndPriceView.class.getName());
+public class VehicleTypeAndPriceView extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form VehicleTypeAndPriceView
+     * Creates new form VehicleTypeAndPriceView1
      */
     public VehicleTypeAndPriceView() {
         initComponents();
-        new VehicleTypeAndPriceController(this);    
     }
 
     /**
@@ -35,7 +29,6 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFileChooser1 = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -45,9 +38,6 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
         deleteButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 255, 153));
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -61,7 +51,7 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(1003, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +123,7 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteButton)
                     .addComponent(addButton)
@@ -182,77 +172,46 @@ public class VehicleTypeAndPriceView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-    VehicleTypeAndPriceView view = new VehicleTypeAndPriceView();
-    view.setVisible(true);
-});
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
-    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
     private javax.swing.JTable vehicleTable;
     // End of variables declaration//GEN-END:variables
-public void addAddButtonListener(ActionListener listener) {
-    addButton.addActionListener(listener);
-}
+    public void addAddButtonListener(ActionListener listener) {
+        addButton.addActionListener(listener);
+    }
 
-public void addEditButtonListener(ActionListener listener) {
-    editButton.addActionListener(listener);
-}
+    public void addEditButtonListener(ActionListener listener) {
+        editButton.addActionListener(listener);
+    }
 
-public void addDeleteButtonListener(ActionListener listener) {
-    deleteButton.addActionListener(listener);
-}
+    public void addDeleteButtonListener(ActionListener listener) {
+        deleteButton.addActionListener(listener);
+    }
 
-public void addCancelButtonListener(ActionListener listener) {
-    cancelButton.addActionListener(listener);
-}
-public javax.swing.JTable getTable() {
-    return vehicleTable;
+    public void addCancelButtonListener(ActionListener listener) {
+        cancelButton.addActionListener(listener);
+    }
+    public javax.swing.JTable getTable() {
+        return vehicleTable;
 
-}
-public void setSearchTextFieldValue(String text) {
-    searchField.setText(text);
+    }
+    public void setSearchTextFieldValue(String text) {
+        searchField.setText(text);
 
-}
-public String getSearchTextFieldValue() {
-    return searchField.getText(); 
-}
+    }
+    public String getSearchTextFieldValue() {
+        return searchField.getText(); 
+    }
 
-public void addSearchButtonListener(ActionListener l) {
-    searchField.addActionListener(l);
-}
-
-
+    public void addSearchButtonListener(ActionListener l) {
+        searchField.addActionListener(l);
+    }
 }

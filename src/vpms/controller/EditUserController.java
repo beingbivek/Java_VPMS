@@ -1,114 +1,123 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.controller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+
 import vpms.dao.UserDao;
 import vpms.model.UserData;
 import vpms.view.EditUserView;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import javax.swing.JFileChooser;
+import vpms.needed.ImageConverter;
+
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
 /**
- *
- * @author sahingurung
+ * Popup window for editing a user.
+ * • Receives the full UserData object – so no extra DB query is required.  
+ * • Keeps the old picture unless the operator selects a new one; if no
+ *   picture exists, falls back to the default image bundled in resources.  
+ * • Notifies the calling UserManagementController so the table refreshes
+ *   when the update succeeds.
  */
 public class EditUserController {
 
-    private EditUserView editUser;
-    private File selectedFile;
+    private final EditUserView            view;      // JFrame
+    private final UserManagementController caller;   // may be null
+    private final UserDao                 dao = new UserDao();
+    private       UserData                user;      // current record
+    private       File                    selected;  // new picture
 
-    public EditUserController(EditUserView editUser, int id) {
-        this.editUser = editUser;
-        UserDao userDao = new UserDao();
-        
-        UserData user = userDao.getUserFromId(id);
-        user.getName();
-        setDetails(user,editUser);
-        // Attach listeners
-        this.editUser.UpdateButtonListener(new UpdateUser());
-        this.editUser.uploadButtonListener(new UploadImageListener());
+    /* ---------- ctor ---------- */
+    public EditUserController(EditUserView view,
+                              UserData user,
+                              UserManagementController caller) {
+        this.view   = view;
+        this.user   = user;
+        this.caller = caller;
+
+        fillForm();                                      // show current data
+
+        view.uploadButtonListener (new UploadListener());
+        view.UpdateButtonListener(new SaveListener());
     }
 
-    public void open() {
-        this.editUser.setVisible(true);
+    public void open() { view.setLocationRelativeTo(null); view.setVisible(true); }
+
+    /* ---------- show data in form ---------- */
+    private void fillForm() {
+        if (user == null) {                              // safety-net
+            JOptionPane.showMessageDialog(view,"User not found");
+            view.dispose(); return;
+        }
+        view.getNameTextField()      .setText(user.getName());
+        view.getEmailTextField()     .setText(user.getEmail());
+        view.getPhoneTextField()     .setText(user.getPhone());
+        view.getTypeField()          .setSelectedItem(user.getType());
+        view.getPasswordField()      .setText(user.getPassword());
+        view.getConfirmPasswordField().setText(user.getPassword());
     }
 
-    public void close() {
-        this.editUser.dispose();
-    }
+    /* ===================================================== *
+     *  LISTENERS                                            *
+     * ===================================================== */
 
-    class UploadImageListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "jpeg", "png");
-            fileChooser.setFileFilter(filter);
-
-            int result = fileChooser.showOpenDialog(editUser);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                selectedFile = fileChooser.getSelectedFile();
-                JOptionPane.showMessageDialog(editUser, "Image selected: " + selectedFile.getName());
+    /* --- choose new picture (optional) -------------------- */
+    private class UploadListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
+            if (fc.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+                selected = fc.getSelectedFile();
+                JOptionPane.showMessageDialog(view,"Image: "+ selected.getName());
             }
         }
     }
- 
-    private static void setDetails(UserData user,EditUserView editUser) {
-        editUser.getNameTextField().setText(user.getName());
-        editUser.getEmailTextField().setText(user.getEmail());
-        editUser.getPasswordField().setText(user.getPassword());
-        editUser.getConfirmPasswordField().setText(user.getPassword());
-        editUser.getPhoneTextField().setText(user.getPhone());
-        editUser.getTypeField().setSelectedItem(user.getType());
-    
-}
 
-    class UpdateUser implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Get input values
-            String name = editUser.getNameTextField().getText();
-            String email = editUser.getEmailTextField().getText();
-            String password = String.valueOf(editUser.getPasswordField().getPassword());
-            String confirmPassword = String.valueOf(editUser.getConfirmPasswordField().getPassword());
-            String phone = editUser.getPhoneTextField().getText();
-            String type = editUser.getTypeField().getSelectedItem().toString();
+    /* --- save changes ------------------------------------- */
+    private class SaveListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phone.isEmpty()) {
-                JOptionPane.showMessageDialog(editUser, "Please fill in all the fields.");
-                return;
+            /* read fields */
+            String name  = view.getNameTextField().getText().trim();
+            String email = view.getEmailTextField().getText().trim();
+            String phone = view.getPhoneTextField().getText().trim();
+            String type  = view.getTypeField().getSelectedItem().toString();
+            String pwd1  = String.valueOf(view.getPasswordField().getPassword());
+            String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
+
+            /* basic validation */
+            if (name.isEmpty()||email.isEmpty()||phone.isEmpty()||pwd1.isEmpty()||pwd2.isEmpty()) {
+                JOptionPane.showMessageDialog(view,"Fill in all the fields"); return;
+            }
+            if (!pwd1.equals(pwd2)) {
+                JOptionPane.showMessageDialog(view,"Passwords do not match"); return;
             }
 
-            if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(editUser, "Passwords do not match.");
-                return;
-            }
-
-            byte[] imageBytes = null;
+            /* picture handling */
+            byte[] img;
             try {
-                if (selectedFile != null) {
-                    imageBytes = Files.readAllBytes(selectedFile.toPath());
+                if (selected != null) {                                  // new file
+                    img = new ImageConverter(selected).returnByteArray();
+                } else if (user.getImage() != null && user.getImage().length > 0) {
+                    img = user.getImage();                               // keep old
+                } else {
+                    img = new ImageConverter(null).returnByteArray();    // default
                 }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(editUser, "Error reading selected image.");
-                ex.printStackTrace();
-                return;
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(view,"Image error"); return;
             }
 
-            UserData user = new UserData(name, type, email, password, phone, imageBytes);
-            UserDao userDao = new UserDao();
-            boolean result = userDao.updateUser(user); // Make sure this method exists
+            /* build new object & persist */
+            user = new UserData(user.getId(), name, type, email, pwd1, phone, img);
+            boolean ok = dao.updateUser(user);
 
-            if (result) {
-                JOptionPane.showMessageDialog(editUser, "User updated successfully.");
-                close();
+            if (ok) {
+                JOptionPane.showMessageDialog(view,"User updated");
+                if (caller != null) caller.refreshTable();               // refresh list
+                view.dispose();
             } else {
-                JOptionPane.showMessageDialog(editUser, "Failed to update user.");
+                JOptionPane.showMessageDialog(view,"Update failed",
+                                              "Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }

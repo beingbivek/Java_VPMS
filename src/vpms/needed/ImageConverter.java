@@ -1,59 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.needed;
 
+import java.io.*;
+import java.nio.file.*;
 
-import java.io.File;
-import java.nio.file.Files;
-
-
-/**
- *
- * @author being
- */
 public class ImageConverter {
-    
-    private byte[] imageBytes;
-    
 
-    public ImageConverter(File uploadedImage){
-        try {
-            String defaultPath = new Constants().defaultImagePath();
-            this.imageBytes = getImageOrDefault(uploadedImage, defaultPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private final byte[] imageBytes;
+
+    public ImageConverter(File uploaded) throws Exception {
+        this.imageBytes = getImageOrDefault(uploaded, Constants.defaultImagePath());
     }
-    
-    public byte[] returnByteArray(){
-        return this.imageBytes;
-    }
-    
-    public static byte[] convertImageToByteArray(File imageFile) throws Exception {
-        return Files.readAllBytes(imageFile.toPath());
-    }
-        
-    /**
-     * Returns the byte array of the uploaded image, or the default image if null.
-     * @param uploadedImage the uploaded image file (can be null)
-     * @param defaultImagePath the path to the default image
-     * @return byte array of the image
-     * @throws IOException if file reading fails
-    
-     * @param uploadedImage
-     * @param defaultImagePath
-     * @return 
-     * @throws java.lang.Exception */
-    public static byte[] getImageOrDefault(File uploadedImage, String defaultImagePath) throws Exception {
-        if (uploadedImage != null && uploadedImage.exists()) {
-            return convertImageToByteArray(uploadedImage);
-        } else {
-            File defaultImage = new File(defaultImagePath);
-            return convertImageToByteArray(defaultImage);
-        }
+    public byte[] returnByteArray() { return imageBytes; }
+
+    public static byte[] convertImageToByteArray(File img) throws IOException {
+        return Files.readAllBytes(img.toPath());
     }
 
-    
+    /* tries uploaded → filesystem default → class-path default */
+    public static byte[] getImageOrDefault(File uploaded, String defaultPath) throws Exception {
+
+        /* 1) user-supplied */
+        if (uploaded != null && uploaded.exists()) {
+            return convertImageToByteArray(uploaded);
+        }
+
+        /* 2) default on filesystem (IDE run) */
+        Path p = Paths.get(defaultPath);
+        if (Files.exists(p)) {
+            return Files.readAllBytes(p);
+        }
+
+        /* 3) default inside the JAR (production run) */
+        try (InputStream in = ImageConverter.class.getResourceAsStream(defaultPath)) {
+            if (in != null) return in.readAllBytes();
+        }
+        /* never return null */
+        return new byte[0];
+    }
 }
