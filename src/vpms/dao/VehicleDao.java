@@ -59,8 +59,8 @@ public class VehicleDao {
           
           
     }
-    public List<String> showVehicleNumbers() {
-    List<String> vehicleNumberList = new ArrayList<>();
+    public String[] showVehicleNumbers() {
+    ArrayList<String> vehicleNumberList = new ArrayList<>();
     Connection conn = mySql.openConnection();
     String sql = "SELECT vehicle_number FROM vehicles";
     
@@ -75,7 +75,8 @@ public class VehicleDao {
     } finally {
         mySql.closeConnection(conn);
     }
+    String[] vnum = vehicleNumberList.toArray(new String[0]);
 
-    return vehicleNumberList;
+    return vnum;
     }
 }

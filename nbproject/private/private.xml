@@ -5,17 +5,13 @@
         <group>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ParkingEntryView.java</file>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ParkingExitView.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ParkingDao.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/ParkingDetails.java</file>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminLoginView.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleTypeAndPriceDao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/VehicleTypeAndPriceController.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/VehicleTypeAndPriceView.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/VehicleParkingManagementSystem.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/DbConnection.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/database/MySqlConnection.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/StaffAndLoginView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/StaffAndLoginController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminLoginController.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ParkingEntryController.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleDao.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/SlotDao.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/SlotData.java</file>
         </group>
     </open-files>
 </project-private>

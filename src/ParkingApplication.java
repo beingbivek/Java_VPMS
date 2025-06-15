@@ -7,7 +7,7 @@
  *
  * @author Chandani
  */
-public class ParkingDetails {
+public class ParkingApplication {
     
     
 }

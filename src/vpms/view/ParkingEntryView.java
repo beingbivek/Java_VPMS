@@ -5,6 +5,7 @@
 package vpms.view;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,8 +41,8 @@ public class ParkingEntryView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        entryVehicleNumberComboBox = new javax.swing.JComboBox<>();
-        slotNumberComboBox = new javax.swing.JComboBox<>();
+        entryVehicleNumberComboBox = new javax.swing.JComboBox<String>();
+        slotNumberComboBox = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,9 +70,9 @@ public class ParkingEntryView extends javax.swing.JFrame {
 
         jLabel7.setText("Entry Note : ");
 
-        entryVehicleNumberComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        entryVehicleNumberComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        slotNumberComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        slotNumberComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Slot 1", "Slot 2", "Slot 3", "Slot 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,9 +91,9 @@ public class ParkingEntryView extends javax.swing.JFrame {
                                 .addGap(33, 33, 33)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(slotNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(entryVehicleNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(entryDateValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(entryTimeLabel)))
+                                    .addComponent(entryTimeLabel)
+                                    .addComponent(entryVehicleNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(47, 47, 47)
@@ -101,7 +102,7 @@ public class ParkingEntryView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(240, 240, 240)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(vehicleEntryjButton)
@@ -211,6 +212,9 @@ public class ParkingEntryView extends javax.swing.JFrame {
 public javax.swing.JComboBox<String> getEntryVehicleNumber(){
     return entryVehicleNumberComboBox;
 }
+public void loadVehicleNumeberInComboBox(String[] vehicleNumbers){
+    entryVehicleNumberComboBox = new javax.swing.JComboBox<>(vehicleNumbers);
+}
 public javax.swing.JComboBox<String> getSlotNumber(){
     return slotNumberComboBox;
 }
@@ -228,4 +232,31 @@ public void entryButtonListener (ActionListener listener){
     
 
     }
+public void addParkingEntryListener(ActionListener listener){
+    vehicleEntryjButton.addActionListener(listener);
+}
+
+public void clearEntryFields(){
+    if (getEntryVehicleNumber().getItemCount() > 0){
+        getEntryVehicleNumber().setSelectedIndex(0);
+    }
+}
+//if (getSlotNumber().getItemCount() >0){
+//getSlotNumber().setSelectedIndex(0);
+//}
+//getEntryNote().setText("");
+public void updateParkingSlotDisplay(){
+    
+}
+//this.repaint();
+//this.revalidate();
+
+//public void setEntryDateValue(String date){
+//   entryDateValueLabel.setText(date);
+//    
+//}
+//public void setEntryTimeValue(String time){
+//    
+//    
+//}
 }

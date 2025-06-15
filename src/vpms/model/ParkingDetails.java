@@ -20,6 +20,7 @@ public class ParkingDetails {
     private String slotId;
     private String parkingtype;
     private boolean penaltyApplied;
+    
 
 public ParkingDetails(int parkingId, String vehicleId, String entryDateTime, String exitDateTime,String entryNote,String exitNote,String slotId, String status,String type, boolean penaltyApplied) {
         this.parkingId = parkingId;

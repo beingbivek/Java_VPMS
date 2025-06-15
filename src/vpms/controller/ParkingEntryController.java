@@ -11,6 +11,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import vpms.dao.ParkingDao;
+import vpms.dao.VehicleDao;
+
 import vpms.model.ParkingDetails;
 import vpms.view.ParkingEntryView;
 
@@ -38,10 +40,12 @@ public class ParkingEntryController {
         
         view.setEntryDateValue(dateString);
         view.setEntryTimeValue(timeString);
-}
+        
+     
     
     public void open() {
         view.setVisible(true);
+        this.view.loadVehicleNumeberInComboBox(new VehicleDao().showVehicleNumbers());
     }
 
     public void close() {
@@ -56,20 +60,44 @@ public class ParkingEntryController {
             
             String vehicleNumber= view.getEntryVehicleNumber().getSelectedItem().toString();
             String slotNumber = view.getSlotNumber().getSelectedItem().toString();
-            
-            String entryNOte = view. getEntryNote().getText();
+            String entryNote = view. getEntryNote().getText();
 
              if (vehicleNumber.isEmpty() || slotNumber.isEmpty()) {
                 JOptionPane.showMessageDialog(view, "Please fill in all fields.");
                 return;
-            } else{
-                 ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,);
-                 parkingDao.registerParkingUser(parkingDetail);
              }
+                String entryDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-mm-dd"));
+                String entryTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            
+                 ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,entryTime,entryNote,false);
+                 try{
+                 boolean success = parkingDao.registerParkingUser(parkingDetail);
+                 
+                 
+//              if(success){
+//                  view.clearEntryFields();
+//                  view.updateParkingSlotsDisplay();
+//                  JOptionPane.showMessageDialog(view,"Vehicle parked successfully in slot" + slotNumber);
+//                  
+//              } else{
+//                  JOptionPane.showMessageDialog(view,"Failed to park vehicle.","Error",JOptionPane.ERROR_MESSAGE);
+//              }
+//             }catch (ParkingSlotOccupiedException ex){
+//                     JOptionPane.showMessageDialog(view,
+//                             "Slot " + view.getSlotNumber().getSelectedItem() + " is already occupied.",
+//                             "Error", JOptionPane.ERROR_MESSAGE);
+//             }
+                     
+                     } catch (Exception ex) {
+                JOptionPane.showMessageDialog(view,
+                             "System error: " + ex.getMessage(),
+                             "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
 
        
         
     }
-    
 }
+

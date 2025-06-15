@@ -83,8 +83,16 @@ public class ParkingDao {
     
     
     }
-   }
-    
+    }
 }
+    
+    
+//    public interface Parkingdao{
+//    void registerParkingUser(ParkingDetails details)
+//            throws ParkingSlotOccupiedException,SQLException;
+//    }
+   
+    
+
     
  
