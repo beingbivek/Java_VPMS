@@ -4,101 +4,92 @@ import vpms.dao.UserDao;
 import vpms.model.UserData;
 import vpms.view.RegisterUserView;
 import vpms.needed.ImageConverter;
-import vpms.needed.Constants;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * Handles registration logic.  
- * – If the user selects a picture, store it.  
- * – If not, fall back to the default image defined in Constants.defaultImagePath().
+ * Pop-up window (JFrame) for user registration.
+ * When launched from UserManagementController it refreshes
+ * the table after successful save.
  */
 public class RegisterUserController {
 
-    /* ---------- instance fields ---------- */
-    private final RegisterUserView view;
-    private File selectedImage;                    // null until user picks one
-    private final UserDao userDao = new UserDao(); // DAO is reused
+    /* ---------- fields ---------- */
+    private final RegisterUserView         view;      // this is a JFrame
+    private final UserManagementController caller;    // may be null
+    private       File                     selected;   // image file
+    private final UserDao dao = new UserDao();
 
-    /* ---------- ctor ---------- */
+    /* ---------- ctors ---------- */
     public RegisterUserController(RegisterUserView view) {
-        this.view = view;
+        this(view,null);
+    }
+    public RegisterUserController(RegisterUserView view,
+                                  UserManagementController caller) {
+        this.view   = view;
+        this.caller = caller;
 
-        /* hook listeners provided by the View */
-        view.uploadButtonListener  (new UploadImageListener());
+        view.uploadButtonListener  (new UploadListener());
         view.registerButtonListener(new RegisterListener());
     }
 
-    public void open()  { view.setVisible(true); }
-    public void close() { view.dispose();        }
+    public void open()  { view.setLocationRelativeTo(null); view.setVisible(true); }
 
     /* ===================================================== *
      *  LISTENERS                                            *
      * ===================================================== */
 
-    /** Opens a JFileChooser and stores the chosen image file. */
-    private class UploadImageListener implements ActionListener {
+    /* --- choose image ------------------------------------- */
+    private class UploadListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
-
-            JFileChooser chooser = new JFileChooser();
-            chooser.setFileFilter(
-                    new FileNameExtensionFilter("Images","jpg","jpeg","png"));
-
-            if (chooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
-                selectedImage = chooser.getSelectedFile();
-                JOptionPane.showMessageDialog(
-                        view,"Image selected: " + selectedImage.getName());
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
+            if (fc.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+                selected = fc.getSelectedFile();
+                JOptionPane.showMessageDialog(view,"Image: "+ selected.getName());
             }
         }
     }
 
-    /** Validates input, converts (or falls-back) image, inserts user row. */
+    /* --- register user ------------------------------------ */
     private class RegisterListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
 
-            /* ---------- read form fields ---------- */
-            String name     = view.getNameTextField().getText().trim();
-            String email    = view.getEmailTextField().getText().trim();
-            String phone    = view.getPhoneTextField().getText().trim();
-            String type     = view.getTypeField().getSelectedItem().toString();
-            String pwd      = String.valueOf(view.getPasswordField().getPassword());
-            String pwdAgain = String.valueOf(view.getConfirmPasswordField().getPassword());
+            /* collect form data */
+            String name  = view.getNameTextField().getText().trim();
+            String email = view.getEmailTextField().getText().trim();
+            String phone = view.getPhoneTextField().getText().trim();
+            String type  = view.getTypeField().getSelectedItem().toString();
+            String pwd1  = String.valueOf(view.getPasswordField().getPassword());
+            String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
 
-            /* ---------- basic validation ---------- */
-            if (name.isEmpty() || email.isEmpty() || phone.isEmpty()
-                    || pwd.isEmpty() || pwdAgain.isEmpty()) {
-                JOptionPane.showMessageDialog(view,"Fill in all the fields");
-                return;
+            /* validate */
+            if (name.isEmpty()||email.isEmpty()||phone.isEmpty()||pwd1.isEmpty()||pwd2.isEmpty()) {
+                JOptionPane.showMessageDialog(view,"Fill in all the fields"); return;
             }
-            if (!pwd.equals(pwdAgain)) {
-                JOptionPane.showMessageDialog(view,"Passwords do not match");
-                return;
+            if (!pwd1.equals(pwd2)) {
+                JOptionPane.showMessageDialog(view,"Passwords do not match"); return;
             }
 
-            /* ---------- image handling (default support) ---------- */
-            byte[] imageBytes;
-            try {
-                // ImageConverter returns default image whenever selectedImage == null
-                imageBytes = new ImageConverter(selectedImage).returnByteArray();
-            } catch (Exception ex) {                       // IO / path errors
-                JOptionPane.showMessageDialog(view,"Could not read image file");
-                ex.printStackTrace();
-                return;
+            /* image (default handled by ImageConverter) */
+            byte[] img;
+            try { img = new ImageConverter(selected).returnByteArray(); }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(view,"Image error"); return;
             }
 
-            /* ---------- build model & persist ---------- */
-            UserData newUser = new UserData(name,type,email,pwd,phone,imageBytes);
-            boolean ok = userDao.registerUser(newUser);            // inserts row[1]
-
-            /* ---------- feedback ---------- */
-            if (ok) {
+            /* save */
+            UserData u = new UserData(name,type,email,pwd1,phone,img);
+            if (dao.registerUser(u)) {
                 JOptionPane.showMessageDialog(view,"Registered successfully");
-                close();
+
+                /* refresh list if we have a caller */
+                if (caller != null) caller.refreshTable();
+                view.dispose();
             } else {
                 JOptionPane.showMessageDialog(view,"Registration failed",
                                               "Error",JOptionPane.ERROR_MESSAGE);

@@ -1,125 +1,123 @@
-/*  EditUserController.java  – rewritten, fully functional  */
 package vpms.controller;
 
 import vpms.dao.UserDao;
 import vpms.model.UserData;
-import vpms.view.EditUserView;                   // exposes getters such as getNameTextField()[1]
-import vpms.needed.ImageConverter;              // handles default-image fallback
+import vpms.view.EditUserView;
+import vpms.needed.ImageConverter;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Popup window for editing a user.
+ * • Receives the full UserData object – so no extra DB query is required.  
+ * • Keeps the old picture unless the operator selects a new one; if no
+ *   picture exists, falls back to the default image bundled in resources.  
+ * • Notifies the calling UserManagementController so the table refreshes
+ *   when the update succeeds.
+ */
 public class EditUserController {
 
-    /* -------------------------------------------------- *
-     *  INSTANCE FIELDS                                   *
-     * -------------------------------------------------- */
-    private final EditUserView view;
-    private final UserDao      dao  = new UserDao();
-    private final int          userId;
+    private final EditUserView            view;      // JFrame
+    private final UserManagementController caller;   // may be null
+    private final UserDao                 dao = new UserDao();
+    private       UserData                user;      // current record
+    private       File                    selected;  // new picture
 
-    private File   selectedImage;   // newly chosen image file (may stay null)
-    private byte[] currentImage;    // image already stored in DB
-
-    /* -------------------------------------------------- *
-     *  CONSTRUCTOR                                       *
-     * -------------------------------------------------- */
-    public EditUserController(EditUserView view, int id) {
+    /* ---------- ctor ---------- */
+    public EditUserController(EditUserView view,
+                              UserData user,
+                              UserManagementController caller) {
         this.view   = view;
-        this.userId = id;
+        this.user   = user;
+        this.caller = caller;
 
-        populateForm();                                 // load user data into fields
+        fillForm();                                      // show current data
 
-        view.uploadButtonListener (new UploadImageListener());   // register listeners
-        view.UpdateButtonListener(new UpdateListener());
+        view.uploadButtonListener (new UploadListener());
+        view.UpdateButtonListener(new SaveListener());
     }
 
-    public void open()  { view.setVisible(true); }
-    private void close(){ view.dispose();         }
+    public void open() { view.setLocationRelativeTo(null); view.setVisible(true); }
 
-    /* -------------------------------------------------- *
-     *  INITIAL DATA FILL                                 *
-     * -------------------------------------------------- */
-    private void populateForm() {
-        UserData u = dao.getUserFromId(userId);         // fetch from DB
-        if (u == null) {                                // sanity-check
-            JOptionPane.showMessageDialog(view,"User not found.");
-            close(); return;
+    /* ---------- show data in form ---------- */
+    private void fillForm() {
+        if (user == null) {                              // safety-net
+            JOptionPane.showMessageDialog(view,"User not found");
+            view.dispose(); return;
         }
-        currentImage = u.getImage();                    // remember current image
-
-        view.getNameTextField()      .setText(u.getName());          // field names from EditUserView[1]
-        view.getEmailTextField()     .setText(u.getEmail());
-        view.getPasswordField()      .setText(u.getPassword());
-        view.getConfirmPasswordField().setText(u.getPassword());
-        view.getPhoneTextField()     .setText(u.getPhone());
-        view.getTypeField()          .setSelectedItem(u.getType());
+        view.getNameTextField()      .setText(user.getName());
+        view.getEmailTextField()     .setText(user.getEmail());
+        view.getPhoneTextField()     .setText(user.getPhone());
+        view.getTypeField()          .setSelectedItem(user.getType());
+        view.getPasswordField()      .setText(user.getPassword());
+        view.getConfirmPasswordField().setText(user.getPassword());
     }
 
-    /* -------------------------------------------------- *
-     *  LISTENERS                                         *
-     * -------------------------------------------------- */
+    /* ===================================================== *
+     *  LISTENERS                                            *
+     * ===================================================== */
 
-    /* choose a new picture (optional) */
-    private class UploadImageListener implements ActionListener {
+    /* --- choose new picture (optional) -------------------- */
+    private class UploadListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
-
-            if (chooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
-                selectedImage = chooser.getSelectedFile();
-                JOptionPane.showMessageDialog(view,"Image selected: " + selectedImage.getName());
+            JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
+            if (fc.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+                selected = fc.getSelectedFile();
+                JOptionPane.showMessageDialog(view,"Image: "+ selected.getName());
             }
         }
     }
 
-    /* validate form & persist updates */
-    private class UpdateListener implements ActionListener {
+    /* --- save changes ------------------------------------- */
+    private class SaveListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
 
-            /* ---------- gather input ---------- */
-            String name  = view.getNameTextField() .getText().trim();
+            /* read fields */
+            String name  = view.getNameTextField().getText().trim();
             String email = view.getEmailTextField().getText().trim();
             String phone = view.getPhoneTextField().getText().trim();
             String type  = view.getTypeField().getSelectedItem().toString();
-            String pwd   = String.valueOf(view.getPasswordField().getPassword());
+            String pwd1  = String.valueOf(view.getPasswordField().getPassword());
             String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
 
-            /* ---------- validate ---------- */
-            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || pwd.isEmpty() || pwd2.isEmpty()) {
-                JOptionPane.showMessageDialog(view,"Fill in all the fields."); return;
+            /* basic validation */
+            if (name.isEmpty()||email.isEmpty()||phone.isEmpty()||pwd1.isEmpty()||pwd2.isEmpty()) {
+                JOptionPane.showMessageDialog(view,"Fill in all the fields"); return;
             }
-            if (!pwd.equals(pwd2)) {
-                JOptionPane.showMessageDialog(view,"Passwords do not match."); return;
+            if (!pwd1.equals(pwd2)) {
+                JOptionPane.showMessageDialog(view,"Passwords do not match"); return;
             }
 
-            /* ---------- image handling ---------- */
-            byte[] imgBytes;
+            /* picture handling */
+            byte[] img;
             try {
-                if (selectedImage != null) {                           // user picked new photo
-                    imgBytes = new ImageConverter(selectedImage).returnByteArray();
-                } else if (currentImage != null) {                     // keep existing
-                    imgBytes = currentImage;
-                } else {                                               // fall back to default
-                    imgBytes = new ImageConverter(null).returnByteArray();
+                if (selected != null) {                                  // new file
+                    img = new ImageConverter(selected).returnByteArray();
+                } else if (user.getImage() != null && user.getImage().length > 0) {
+                    img = user.getImage();                               // keep old
+                } else {
+                    img = new ImageConverter(null).returnByteArray();    // default
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(view,"Could not read image."); ex.printStackTrace(); return;
+                JOptionPane.showMessageDialog(view,"Image error"); return;
             }
 
-            /* ---------- build DTO & update ---------- */
-            UserData updated = new UserData(userId,name,type,email,pwd,phone,imgBytes);
-            boolean ok = dao.updateUser(updated);
+            /* build new object & persist */
+            user = new UserData(user.getId(), name, type, email, pwd1, phone, img);
+            boolean ok = dao.updateUser(user);
 
-            /* ---------- feedback ---------- */
             if (ok) {
-                JOptionPane.showMessageDialog(view,"User updated successfully.");
-                close();
+                JOptionPane.showMessageDialog(view,"User updated");
+                if (caller != null) caller.refreshTable();               // refresh list
+                view.dispose();
             } else {
-                JOptionPane.showMessageDialog(view,"Failed to update user.","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view,"Update failed",
+                                              "Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }

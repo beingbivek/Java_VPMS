@@ -1,123 +1,143 @@
-/*  UserManagementController.java  –  rewritten to follow the same
- *  structure used in VehicleTypeAndPriceController
- *  (Add / Edit / Delete / Cancel / Search listeners registered
- *  in the constructor and all table-refresh logic in one place).
- */
 package vpms.controller;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import vpms.dao.UserDao;
 import vpms.model.UserData;
-import vpms.view.UserManagementView;              // JInternalFrame that contains the table and buttons[1]
-import vpms.view.RegisterUserView;
-import vpms.view.EditUserView;
+import vpms.view.*;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+/**
+ * Lists, searches, adds, edits and deletes users.
+ * Receives the AdminDashboardView so it can open child
+ * internal-frames inside the SAME JDesktopPane.
+ */
 public class UserManagementController {
 
+    /* -------------- fields -------------- */
     private final UserManagementView view;
-    private final UserDao            dao;
+    private final UserDao dao = new UserDao();
 
-    /* ---------- constructor ---------- */
+    /* -------------- ctor -------------- */
     public UserManagementController(UserManagementView view) {
-        this.view = view;
-        this.dao  = new UserDao();
+        this.view      = view;
 
-        loadUserData();                                      // fill table on start-up
+        loadUserData();
 
-        /* register all button / text-field listeners */
-        this.view.addAddButtonListener   (new AddUserListener());   // [1]
-        this.view.addEditButtonListener  (new EditUserListener());  // [1]
-        this.view.addDeleteButtonListener(new DeleteUserListener());// [1]
-        this.view.addCancelButtonListener(new CancelActionListener());
-        this.view.addSearchButtonListener(new SearchListener());
+        /* hook all listeners coming from view */
+        view.addAddButtonListener   (new AddUserListener());
+        view.addEditButtonListener  (new EditUserListener());
+        view.addDeleteButtonListener(new DeleteUserListener());
+        view.addCancelButtonListener(new CancelActionListener());
+        view.addSearchButtonListener(new SearchListener());
     }
 
-    public void open() { view.setVisible(true); }
+    public void open()  { view.setVisible(true); }
+    public void close() { view.dispose();        }
 
-    /* ---------- table refresh helper ---------- */
+    /* -------------- helper for other controllers -------------- */
+    public void refreshTable() { loadUserData(); }
+    public UserManagementView getView() { return view; }
+
+    /* -------------- table population -------------- */
     private void loadUserData() {
         List<UserData> users = dao.showUsers();
         DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);                                       // clear old rows
+        model.setRowCount(0);
 
         for (UserData u : users) {
-            Object[] row = {
-                u.getId(), u.getName(), u.getType(),
-                u.getEmail(), u.getPassword(), u.getImage()
-            };
-            model.addRow(row);
+            model.addRow(new Object[]{
+                    u.getId(), u.getName(), u.getType(), u.getEmail(),
+                    u.getPassword(), u.getPhone(), u.getImage()
+            });
         }
     }
 
-    /* ---------- ADD ---------- */
+    /* ===================================================== *
+     *  LISTENERS                                            *
+     * ===================================================== */
+
     class AddUserListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
-            view.dispose();                                         // close list view
-            RegisterUserView addView = new RegisterUserView();
-            RegisterUserController addCtrl =
-                    new RegisterUserController(addView);
-            addCtrl.open();                                         // open “add” form
+            RegisterUserView popup = new RegisterUserView();               // JFrame
+            new RegisterUserController(popup, UserManagementController.this)
+                    .open();                                               // opens as stand-alone window
         }
     }
 
-    /* ---------- EDIT ---------- */
+    /* ---- EDIT ----------------------------------------------- */
     class EditUserListener implements ActionListener {
-        @Override public void actionPerformed(ActionEvent e) {
-            int row = view.getTable().getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(view,"Please select a user to edit.");
-                return;
-            }
-            int    id       = (int)    view.getTable().getValueAt(row,0);
-            EditUserView editView = new EditUserView();
-            EditUserController editCtrl =
-                    new EditUserController(editView,id);
-            view.dispose();
-            editCtrl.open();
+    @Override public void actionPerformed(ActionEvent e) {
+        int row = view.getTable().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view,"Select a user to edit."); return;
         }
-    }
 
-    /* ---------- DELETE ---------- */
+        /* Build a UserData from the current table row */
+        UserData selected = new UserData(
+            (int)    view.getTable().getValueAt(row,0),   // id
+            (String) view.getTable().getValueAt(row,1),   // name
+            (String) view.getTable().getValueAt(row,2),   // type
+            (String) view.getTable().getValueAt(row,3),   // email
+            (String) view.getTable().getValueAt(row,4),   // password
+            (String) view.getTable().getValueAt(row,5),   // phone
+            (byte[]) view.getTable().getValueAt(row,6)    // image
+        );
+
+        EditUserView popup = new EditUserView();          // JFrame
+        new EditUserController(popup, selected, UserManagementController.this)
+              .open();
+    }
+}
+
+
+    /* ---- DELETE --------------------------------------------- */
     class DeleteUserListener implements ActionListener {
-        @Override public void actionPerformed(ActionEvent e) {
-            int row = view.getTable().getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(view,"Select a user first.");
-                return;
-            }
-            int choice = JOptionPane.showConfirmDialog(
-                    view,"Delete selected user?","Confirm",JOptionPane.YES_NO_OPTION);
-            if (choice != JOptionPane.YES_OPTION) return;
+    @Override public void actionPerformed(ActionEvent e) {
+        int row = view.getTable().getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(view, "Select a user first."); return;
+        }
 
-            int id = (int) view.getTable().getValueAt(row,0);
+        if (JOptionPane.showConfirmDialog(view, "Delete selected user?",
+                "Confirm", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
+
+        int id = (int) view.getTable().getValueAt(row, 0);
+
+        try {
             if (dao.deleteUser(id)) {
-                JOptionPane.showMessageDialog(view,"User deleted.");
-                loadUserData();                                     // refresh table
+                JOptionPane.showMessageDialog(view, "User deleted.");
+                loadUserData();                         // refresh table
             } else {
-                JOptionPane.showMessageDialog(view,"Delete failed.","Error",
-                                              JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view,
+                        "No record was removed.\nThe user may already be deleted.",
+                        "Delete failed", JOptionPane.WARNING_MESSAGE);
             }
+        } catch (Exception ex) {
+            /* display exact DB reason */
+            JOptionPane.showMessageDialog(view,
+                    "Error deleting user:\n" + ex.getMessage(),
+                    "SQL Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();                       // keep log in console
         }
     }
+}
 
-    /* ---------- CANCEL (reset search) ---------- */
+    /* ---- CANCEL (reset search) ------------------------------ */
     class CancelActionListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
-            view.setSearchTextFieldValue("");                       // clear search box
-            loadUserData();                                         // reload all rows
+            view.setSearchTextFieldValue("");
+            loadUserData();
         }
     }
 
-    /* ---------- SEARCH ---------- */
+    /* ---- SEARCH --------------------------------------------- */
     class SearchListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
-            String kw = view.getSearchTextFieldValue()
-                          .trim().toLowerCase();
+            String kw = view.getSearchTextFieldValue().trim().toLowerCase();
             if (kw.isEmpty()) { loadUserData(); return; }
 
             List<UserData> users = dao.showUsers();
@@ -126,22 +146,16 @@ public class UserManagementController {
 
             for (UserData u : users) {
                 if ( String.valueOf(u.getId()).contains(kw) ||
-                     u.getName().toLowerCase().contains(kw)        ||
-                     u.getEmail().toLowerCase().contains(kw)       ||
-                     u.getType().toLowerCase().contains(kw)) {
+                     u.getName ().toLowerCase().contains(kw) ||
+                     u.getEmail().toLowerCase().contains(kw) ||
+                     u.getType ().toLowerCase().contains(kw)) {
 
-                    Object[] row = {
-                        u.getId(), u.getName(), u.getType(),
-                        u.getEmail(), u.getPassword(), u.getImage()
-                    };
-                    model.addRow(row);
+                    model.addRow(new Object[]{
+                            u.getId(), u.getName(), u.getType(), u.getEmail(),
+                            u.getPassword(), u.getPhone(), u.getImage()
+                    });
                 }
             }
         }
     }
 }
-
-    
-    
- 
-

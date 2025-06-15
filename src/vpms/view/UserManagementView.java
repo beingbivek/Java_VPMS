@@ -52,8 +52,11 @@ public class UserManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        editButton.setBackground(new java.awt.Color(255, 255, 153));
         editButton.setText("Edit Staff");
 
+        deleteUserButton.setBackground(new java.awt.Color(255, 153, 102));
+        deleteUserButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteUserButton.setText("Delete");
         deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,11 +69,12 @@ public class UserManagementView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Name", "Type", "Email", "Password", "Image"
+                "ID", "Name", "Type", "Email", "Password", "Phone", "Image"
             }
         ));
         jScrollPane1.setViewportView(userTable);
 
+        addButton.setBackground(new java.awt.Color(51, 255, 0));
         addButton.setText("Add User");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,12 +98,12 @@ public class UserManagementView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(cancelButton)
-                        .addGap(153, 153, 153)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(editButton)
                         .addGap(18, 18, 18)
                         .addComponent(deleteUserButton))
@@ -120,8 +124,8 @@ public class UserManagementView extends javax.swing.JInternalFrame {
                     .addComponent(deleteUserButton)
                     .addComponent(addButton))
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
         pack();
