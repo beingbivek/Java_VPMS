@@ -266,21 +266,12 @@ public class AdminDashboardView extends javax.swing.JFrame {
         return logoutButton;
     }
     public void setWindowPanel(javax.swing.JInternalFrame myPanel){
-        jDesktopPanel.removeAll(); // Remove previous frames
-        jDesktopPanel.repaint();   // Refresh the desktop pane
-
-        // Set size and location (centered)
-        int width = jDesktopPanel.getWidth();
-        int height = jDesktopPanel.getHeight();
-        int fWidth = 800;  // Or myPanel.getWidth() if already set
-        int fHeight = 600; // Or myPanel.getHeight() if already set
-        myPanel.setSize(fWidth, fHeight);
-        myPanel.setLocation((width - fWidth) / 2, (height - fHeight) / 2);
-
+        jDesktopPanel.removeAll();
         jDesktopPanel.add(myPanel);
-        myPanel.setVisible(true); // <-- CRITICAL!
-        try {
-            myPanel.setSelected(true); // Bring to front/focus
+        myPanel.setVisible(true);
+
+        try {                                  // <- maximise
+            myPanel.setMaximum(true);            // full-screen inside the desktop
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
