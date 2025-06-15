@@ -32,7 +32,11 @@ public class WelcomeAndLoginController {
 
     public WelcomeAndLoginController(WelcomeAndLoginView welcomeView) {
         this.view = welcomeView;
-        DefaultAdminSeeder.insertDefaultAdminIfNotExists();
+        try {
+            DefaultAdminSeeder.insertDefaultAdminIfNotExists();
+        } catch (Exception ex) {
+            System.getLogger(WelcomeAndLoginController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
         this.view.loginUser(new LoginUser());
     }
     public void open(){
