@@ -4,18 +4,49 @@
  */
 package vpms.view;
 
+//import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
+import javax.swing.DefaultDesktopManager;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author PRABHASH
  */
 public class AdminDashboardView extends javax.swing.JFrame {
+    
+    public void configureDesktopPane() {
+    jDesktopPanel.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+    jDesktopPanel.setDesktopManager(new DefaultDesktopManager() {
+        @Override
+        public void activateFrame(JInternalFrame f) {
+            try {
+                f.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                ex.printStackTrace();
+            }
+        }
+    });
+}
+
+
 
     /**
      * Creates new form AdminDashboardView
      */
+//    UsersView userViewPanel = new UsersView();
     public AdminDashboardView() {
         initComponents();
+        configureDesktopPane(); // Add this line
     }
+//    public AdminDashboardView() {
+//        initComponents();
+////        main.add(userViewPanel);
+////        super.add(userViewPanel);
+////        userViewPanel.setVisible(false);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,50 +58,74 @@ public class AdminDashboardView extends javax.swing.JFrame {
     private void initComponents() {
 
         sidebarPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        welcomeLabel = new javax.swing.JLabel();
         vehicleAndPriceWindowButton = new javax.swing.JButton();
         dashboardWindowButton = new javax.swing.JButton();
         usersWindowButton = new javax.swing.JButton();
         reportAndLogWindowButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        windowPanel = new javax.swing.JPanel();
+        logoutButton = new javax.swing.JButton();
+        pictureLabel = new javax.swing.JLabel();
+        vehicleWindowButton = new javax.swing.JButton();
+        slotWindowButton = new javax.swing.JButton();
+        paymentWindowButton = new javax.swing.JButton();
+        jDesktopPanel = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         sidebarPanel.setBackground(new java.awt.Color(153, 153, 255));
         sidebarPanel.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Welcome Admin!");
+        welcomeLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        welcomeLabel.setText("Welcome Admin!");
 
         vehicleAndPriceWindowButton.setBackground(new java.awt.Color(153, 153, 255));
         vehicleAndPriceWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         vehicleAndPriceWindowButton.setForeground(new java.awt.Color(255, 255, 255));
         vehicleAndPriceWindowButton.setText("Vehicle Type and Price");
 
-        dashboardWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        dashboardWindowButton.setBackground(new java.awt.Color(0, 255, 153));
         dashboardWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        dashboardWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardWindowButton.setForeground(new java.awt.Color(0, 51, 153));
         dashboardWindowButton.setText("Dashboard");
 
         usersWindowButton.setBackground(new java.awt.Color(153, 153, 255));
         usersWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usersWindowButton.setForeground(new java.awt.Color(255, 255, 255));
         usersWindowButton.setText("Users");
+        usersWindowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usersWindowButtonActionPerformed(evt);
+            }
+        });
 
         reportAndLogWindowButton.setBackground(new java.awt.Color(153, 153, 255));
         reportAndLogWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         reportAndLogWindowButton.setForeground(new java.awt.Color(255, 255, 255));
         reportAndLogWindowButton.setText("Reports and Logs");
 
-        jButton5.setBackground(new java.awt.Color(255, 102, 102));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Logout");
+        logoutButton.setBackground(new java.awt.Color(255, 102, 102));
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Logout");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/adminperfectsize.png"))); // NOI18N
+        pictureLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/adminperfectsize.png"))); // NOI18N
+
+        vehicleWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        vehicleWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vehicleWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        vehicleWindowButton.setText("Vehicle");
+        vehicleWindowButton.setActionCommand("Vehicle");
+
+        slotWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        slotWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        slotWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        slotWindowButton.setText("Slot");
+
+        paymentWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        paymentWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        paymentWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        paymentWindowButton.setText("Payments");
 
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
@@ -78,63 +133,65 @@ public class AdminDashboardView extends javax.swing.JFrame {
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jLabel2)
+                .addComponent(pictureLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
                         .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(usersWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(slotWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paymentWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebarPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(dashboardWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
-            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(sidebarPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(usersWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addGap(145, 145, 145)
+                .addComponent(welcomeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pictureLabel)
+                .addGap(75, 75, 75)
+                .addComponent(usersWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(vehicleWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(slotWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(vehicleAndPriceWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addComponent(paymentWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebarPanelLayout.createSequentialGroup()
                     .addGap(167, 167, 167)
                     .addComponent(dashboardWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(396, Short.MAX_VALUE)))
-            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(sidebarPanelLayout.createSequentialGroup()
-                    .addGap(233, 233, 233)
-                    .addComponent(usersWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(330, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout windowPanelLayout = new javax.swing.GroupLayout(windowPanel);
-        windowPanel.setLayout(windowPanelLayout);
-        windowPanelLayout.setHorizontalGroup(
-            windowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
+        jDesktopPanel.setLayout(jDesktopPanelLayout);
+        jDesktopPanelLayout.setHorizontalGroup(
+            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1140, Short.MAX_VALUE)
         );
-        windowPanelLayout.setVerticalGroup(
-            windowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPanelLayout.setVerticalGroup(
+            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -145,7 +202,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(windowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDesktopPanel)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -153,12 +210,20 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(windowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDesktopPanel)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void usersWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersWindowButtonActionPerformed
+//        windowPanel.removeAll();
+//        windowPanel.add(userViewPanel).setVisible(true);
+//        UsersTestView uView = new UsersTestView();
+//        jDesktopPanel.removeAll();
+//        jDesktopPanel.add(uView).setVisible(true);
+    }//GEN-LAST:event_usersWindowButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,13 +262,42 @@ public class AdminDashboardView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dashboardWindowButton;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JDesktopPane jDesktopPanel;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JButton paymentWindowButton;
+    private javax.swing.JLabel pictureLabel;
     private javax.swing.JButton reportAndLogWindowButton;
     private javax.swing.JPanel sidebarPanel;
+    private javax.swing.JButton slotWindowButton;
     private javax.swing.JButton usersWindowButton;
     private javax.swing.JButton vehicleAndPriceWindowButton;
-    private javax.swing.JPanel windowPanel;
+    private javax.swing.JButton vehicleWindowButton;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
+//    public void userButtonListener(ActionListener listener){
+//        usersWindowButton.addActionListener(listener);
+//    }
+    public javax.swing.JButton getUserWindowbtn(){
+        return usersWindowButton;
+    }
+    public javax.swing.JDesktopPane getWindowPanel(){
+        return jDesktopPanel;
+    }
+    public javax.swing.JButton getDesktopWindowbtn(){
+        return dashboardWindowButton;
+    }
+    public javax.swing.JButton getLogoutBtn(){
+        return logoutButton;
+    }
+    public void setWindowPanel(javax.swing.JInternalFrame myPanel){
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(myPanel);
+        myPanel.setVisible(true);
+
+        try {                                  // <- maximise
+            myPanel.setMaximum(true);            // full-screen inside the desktop
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

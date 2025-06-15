@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package vpms.controller;
+import java.io.File;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
+import vpms.needed.ImageConverter;
 
 
 /**
@@ -12,7 +14,7 @@ import vpms.model.UserData;
  * @author PRABHASH
  */
 public class DefaultAdminSeeder {
-     public static void insertDefaultAdminIfNotExists() {
+     public static void insertDefaultAdminIfNotExists() throws Exception {
         String defaultEmail = "admin@vpms.com";
         String defaultPassword = "adminvpms123";
         String userType = "admin";
@@ -21,11 +23,11 @@ public class DefaultAdminSeeder {
         
         
         UserDao userDao = new UserDao();
-        userDao.createTable();
-        UserData user = new UserData(defaultName,userType,defaultEmail,defaultPassword,defaultPhone,null);
-        if(userDao.getUserFromId(1) == null){
+        File imgFile = new File("src/Icons/adminperfectsize.png");
+        ImageConverter img = new ImageConverter(imgFile);
+        UserData user = new UserData(defaultName,userType,defaultEmail,defaultPassword,defaultPhone,img.returnByteArray());
+        if(!userDao.checkEmail(defaultEmail)){
             userDao.registerUser(user);
         }
     }
-    
 }

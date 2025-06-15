@@ -5,16 +5,23 @@
 package vpms.controller;
 
 import vpms.model.UserData;
-import vpms.view.StaffDashbaordView;
+import vpms.view.StaffDashboardView;
 
 /**
  *
  * @author Chandani
  */
 public class StaffDashboardController {
-    private StaffDashbaordView view;
-    public StaffDashboardController(StaffDashbaordView view, UserData user){
+    private StaffDashboardView view;
+    private UserData user;
+    public StaffDashboardController(StaffDashboardView view, UserData user){
         this.view = view;
+        this.user = user;
+        // Setting up welcome label
+        String fullName = user.getName();
+        String[] nameParts = fullName.split(" ");
+        this.view.setWelcomeLabel(nameParts[0]);
+        
     }
     public void open(){
         view.setVisible(true);
@@ -22,4 +29,5 @@ public class StaffDashboardController {
     public void close(){
         view.dispose();
     }
+    
 }
