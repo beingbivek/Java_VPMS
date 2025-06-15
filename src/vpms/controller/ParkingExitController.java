@@ -25,46 +25,71 @@ public class ParkingExitController {
         this.view = view;
         this.parkingDao = new ParkingDao();
         
-            // Get current date
+            // Set current date
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateString = currentDate.format(dateFormatter);
 
-        // Get current time
+        // Set current time
         LocalTime currentTime = LocalTime.now();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timeString = currentTime.format(timeFormatter);
      
-        view.setExitTimeValue(timeString);
-}
-    
-    public void open() {
-        view.setVisible(true);
-    }
-
-    public void close() {
-        view.dispose();
-    }
-    
-    
-    class ParkingExitHandler implements ActionListener { 
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-     
-            
-            String parkingStatus= view.getParkingStatus().getSelectedItem().toString();
-            String parkingType = view.getParkingType().getSelectedItem().toString();
-          
-            String exitNote = view. getExitNote().getText();
-
-             if (parkingStatus.isEmpty() || parkingType.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Please fill in all fields.");
-                return;
-            }
+//        view.setExitDateValue(dateString);
+//        view.setExitTimeValue(timeString);
+//        
+//        view.addSearchVehicleListener(new SearchVehicleHandler());
+//        view.addVehicleExitListener(new VehicleExitHandler());
+//        
+//}
+//    
+//    public void open() {
+//        view.setVisible(true);
+//    
+//    view.loadParkedVehiclesInComboBox(parkingDao.getParkedVehicleNumbers());
+//    }
+//
+//    public void close() {
+//        view.dispose();
+//    }
+//    
+//    
+//    private class SearchVehicleHandler implements ActionListener{
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//     
+//            
+//            String vehicleNumber= view.getExitVehicleNumber().getSelectedItem().toString();
+//            
+//             if (vehicleNumber.isEmpty() || vehicleNumber.equals("Select Vehicle")){
+//              
+//                JOptionPane.showMessageDialog(view, "Please select a vehicle number.");
+//                return;
+//            }
+//             try{
+//                 ParkingDetails parkingDetail = ParkingDao.getParkingDetailsByVehicleNumber(vehicleNumber);
+//              
+//                 if (parkingDetail != null){
+//                     view.setSlotNumber(parkingDetail.getSlotNumber());
+//                     view.setEntryDate(parkingDetail.getEntryDate());
+//                     view.getParkingTime(parkingDetail.getEntryTime());
+//                     view.getParkingNote(parkingDetail.getEntryNote());
+//                     
+//                     calculateParkingFee(parkingDetail);
+//                     view.enableExitButton(true);
+//                 }else{
+//                     JOptionPane.showMessageDialog(view,"Vehicle not found in parking records"),"Not Found",
+//                     JOptionPane.(WARNING_MESSAGE);
+//                     view.clearExitFields();
+//                     view.enableExitButton(false);
+//                    
+//                     
+//                 }
+//             }catch (vehicleNotFoundException ex){
+//                 
+//             }
         }
 
        
         
     }
-}
