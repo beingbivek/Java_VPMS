@@ -231,19 +231,14 @@ public class UserDao {
     }
 }
  
-    public boolean deleteUser(int userId){
-        Connection conn = mySql.openConnection();
-        String query = "DELETE FROM vpmsUsers WHERE id=?";
-        try{
-            PreparedStatement stmnt = conn.prepareStatement(query);
-            stmnt.setInt(1,userId);
-            ResultSet result = stmnt.executeQuery();
-            return result.next();
-        }catch(Exception e){
-            return false;
-        }finally{
-            mySql.closeConnection(conn);
-        }
+    public boolean deleteUser(int id) throws SQLException {
+    String sql = "DELETE FROM vpmsusers WHERE id = ?";
+    
+    try (Connection conn = mySql.openConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, id);
+        return ps.executeUpdate() > 0;      // returns true only if a row was removed
     }
+}
  
 }
