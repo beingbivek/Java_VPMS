@@ -7,6 +7,8 @@ package vpms.controller;
 import vpms.model.UserData;
 import vpms.view.StaffDashboardView;
 
+import javax.swing.ImageIcon;
+import java.awt.Image;
 /**
  *
  * @author Chandani
@@ -18,9 +20,10 @@ public class StaffDashboardController {
         this.view = view;
         this.user = user;
         // Setting up welcome label
-        String fullName = user.getName();
-        String[] nameParts = fullName.split(" ");
-        this.view.setWelcomeLabel(nameParts[0]);
+        String firstName = user.getName().split(" ")[0];
+        view.setWelcomeLabel(firstName);
+        // For picture
+        setProfilePicture();
         
     }
     public void open(){
@@ -29,5 +32,28 @@ public class StaffDashboardController {
     public void close(){
         view.dispose();
     }
+    
+    private void setProfilePicture() {
+
+        byte[] imgBytes = user.getImage();          // may be null / empty
+        ImageIcon icon;
+
+        if (imgBytes != null && imgBytes.length > 0) {
+            icon = new ImageIcon(imgBytes);         // byte[] –> ImageIcon[6]
+        } else {
+            /* fallback to the default avatar bundled in resources */
+            icon = new ImageIcon(getClass()
+                     .getResource("/Icons/ProfileForLogin.jpg"));
+        }
+
+        /* scale to label size so it always fits */
+        int w = view.getPictureLabel().getWidth();
+        int h = view.getPictureLabel().getHeight();
+        Image scaled = icon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
+
+        view.getPictureLabel().setIcon(new ImageIcon(scaled));
+    }
+    
+    
     
 }
