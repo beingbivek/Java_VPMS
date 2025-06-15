@@ -114,7 +114,7 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
                             .addComponent(regularPriceField)
                             .addComponent(demandPriceField)
                             .addComponent(extraChargeField))))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +147,7 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(submitButton)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         pack();
