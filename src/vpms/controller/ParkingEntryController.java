@@ -40,13 +40,12 @@ public class ParkingEntryController {
         
         view.setEntryDateValue(dateString);
         view.setEntryTimeValue(timeString);
+   
+    }   
         
-     
-    
-    public void open() {
+    public void open(){
         view.setVisible(true);
-        this.view.loadVehicleNumeberInComboBox(new VehicleDao().showVehicleNumbers());
-    }
+}
 
     public void close() {
         view.dispose();
@@ -70,10 +69,10 @@ public class ParkingEntryController {
                 String entryTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             
                  ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,entryTime,entryNote,false);
-                 try{
-                 boolean success = parkingDao.registerParkingUser(parkingDetail);
-                 
-                 
+//                 try{
+//                 boolean success = parkingDao.registerParkingUser(parkingDetail);
+//                 
+//                 
 //              if(success){
 //                  view.clearEntryFields();
 //                  view.updateParkingSlotsDisplay();
@@ -87,17 +86,17 @@ public class ParkingEntryController {
 //                             "Slot " + view.getSlotNumber().getSelectedItem() + " is already occupied.",
 //                             "Error", JOptionPane.ERROR_MESSAGE);
 //             }
-                     
-                     } catch (Exception ex) {
-                JOptionPane.showMessageDialog(view,
-                             "System error: " + ex.getMessage(),
-                             "Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
-            }
+//                     
+//                     } catch (Exception ex) {
+//                JOptionPane.showMessageDialog(view,
+//                             "System error: " + ex.getMessage(),
+//                             "Error", JOptionPane.ERROR_MESSAGE);
+//                ex.printStackTrace();
+//    }
         }
 
        
         
     }
-}
 
+}
