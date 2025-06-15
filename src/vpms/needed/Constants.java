@@ -10,7 +10,7 @@ package vpms.needed;
  */
 public class Constants {
     public static String defaultImagePath(){
-        return "src/Icons/ProfileForLogin.jpg";
+        return "/Icons/ProfileForLogin.jpg";
     }
     public static String defaultFileAddress(){
         return "src/vpms/needed/rememberedEmail.txt";
