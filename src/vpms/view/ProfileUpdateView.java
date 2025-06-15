@@ -6,6 +6,8 @@ package vpms.view;
 
 import java.awt.event.ActionListener;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author being
@@ -27,6 +29,25 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        imageLabel = new javax.swing.JLabel();
+        editprofileLabel = new javax.swing.JLabel();
+        changePictureLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        nameTextField = new javax.swing.JTextField();
+        emailTextField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        conformPasswordField = new javax.swing.JPasswordField();
+        phoneTextField = new javax.swing.JTextField();
+        typeComboBox = new javax.swing.JComboBox<>();
+        updateButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         pictureLabel = new javax.swing.JLabel();
         jPhoneField = new javax.swing.JTextField();
