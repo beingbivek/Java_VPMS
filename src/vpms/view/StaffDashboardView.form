@@ -73,6 +73,7 @@
                       <Component id="paymentWindowButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="vehicleWindowButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="reservationWindowButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="updateProfileWindowButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -100,7 +101,9 @@
                   <Component id="vehicleWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Component id="reportAndLogWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="updateProfileWindowButton" min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="logoutButton" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
@@ -218,6 +221,20 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Vehicle"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="updateProfileWindowButton">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="99" red="99" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Update Profile"/>
           </Properties>
         </Component>
       </SubComponents>

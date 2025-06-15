@@ -8,7 +8,6 @@ package vpms.view;
 import java.beans.PropertyVetoException;
 import javax.swing.DefaultDesktopManager;
 import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -30,8 +29,6 @@ public class StaffDashboardView extends javax.swing.JFrame {
         }
     });
 }
-
-
 
     /**
      * Creates new form StaffDashboardView
@@ -66,6 +63,7 @@ public class StaffDashboardView extends javax.swing.JFrame {
         logoutButton = new javax.swing.JButton();
         pictureLabel = new javax.swing.JLabel();
         vehicleWindowButton = new javax.swing.JButton();
+        updateProfileWindowButton = new javax.swing.JButton();
         jDesktopPanel = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +112,11 @@ public class StaffDashboardView extends javax.swing.JFrame {
         vehicleWindowButton.setForeground(new java.awt.Color(255, 255, 255));
         vehicleWindowButton.setText("Vehicle");
 
+        updateProfileWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        updateProfileWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        updateProfileWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateProfileWindowButton.setText("Update Profile");
+
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
@@ -132,7 +135,8 @@ public class StaffDashboardView extends javax.swing.JFrame {
                         .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(paymentWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vehicleWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(reservationWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(reservationWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(updateProfileWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(sidebarPanelLayout.createSequentialGroup()
@@ -155,7 +159,9 @@ public class StaffDashboardView extends javax.swing.JFrame {
                 .addComponent(vehicleWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(18, 18, 18)
+                .addComponent(updateProfileWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
             .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,6 +257,7 @@ public class StaffDashboardView extends javax.swing.JFrame {
     private javax.swing.JButton reportAndLogWindowButton;
     private javax.swing.JButton reservationWindowButton;
     private javax.swing.JPanel sidebarPanel;
+    private javax.swing.JButton updateProfileWindowButton;
     private javax.swing.JButton vehicleWindowButton;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
@@ -271,6 +278,9 @@ public class StaffDashboardView extends javax.swing.JFrame {
     }
     public javax.swing.JLabel getPictureLabel() {
         return pictureLabel;          
+    }
+    public javax.swing.JButton getUpdateProfileWindowbtn(){
+        return updateProfileWindowButton;
     }
     public void setWindowPanel(javax.swing.JInternalFrame myPanel){
         jDesktopPanel.removeAll();

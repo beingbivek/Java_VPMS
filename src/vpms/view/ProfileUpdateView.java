@@ -1,14 +1,16 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package vpms.view;
 
+import java.awt.event.ActionListener;
+
 /**
  *
- * @author PRABHASH
+ * @author being
  */
-public class ProfileUpdateView extends javax.swing.JFrame {
+public class ProfileUpdateView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ProfileUpdateView
@@ -26,57 +28,201 @@ public class ProfileUpdateView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        pictureLabel = new javax.swing.JLabel();
+        jPhoneField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jEmailIdField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jPasswordField = new javax.swing.JPasswordField();
+        jConfirmPassword = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jUploadButton = new javax.swing.JButton();
+        jUpdateButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        NameField = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pictureLabel.setBackground(new java.awt.Color(255, 255, 255));
+        pictureLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/adminperfectsize.png"))); // NOI18N
+        pictureLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        getContentPane().add(pictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+
+        jPhoneField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPhoneFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jPhoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 320, -1));
+
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        jLabel3.setText("Email");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, -1, 21));
+
+        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        jLabel7.setText("Phone");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, 21));
+
+        jEmailIdField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEmailIdFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jEmailIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, 320, -1));
+
+        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        jLabel5.setText("Password");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, -1, 21));
+
+        jPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 320, -1));
+
+        jConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConfirmPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 320, -1));
+
+        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        jLabel6.setText("Confirm Password");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, 26));
+
+        jUploadButton.setBackground(new java.awt.Color(153, 102, 255));
+        jUploadButton.setForeground(new java.awt.Color(255, 255, 255));
+        jUploadButton.setText("Upload");
+        jUploadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUploadButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jUploadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 100, -1));
+
+        jUpdateButton.setBackground(new java.awt.Color(0, 255, 0));
+        jUpdateButton.setForeground(new java.awt.Color(153, 0, 255));
+        jUpdateButton.setText("Save");
+        jUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUpdateButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jUpdateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 212, -1));
+
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
+        jLabel2.setText("Name");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, 21));
+
+        NameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NameFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(NameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 320, -1));
+
+        jPanel1.setBackground(new java.awt.Color(204, 153, 255));
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Update Your Profile");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(660, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProfileUpdateView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProfileUpdateView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProfileUpdateView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProfileUpdateView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPhoneFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPhoneFieldActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProfileUpdateView().setVisible(true);
-            }
-        });
-    }
+    private void jEmailIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmailIdFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jEmailIdFieldActionPerformed
+
+    private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordFieldActionPerformed
+
+    private void jConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jConfirmPasswordActionPerformed
+
+    private void jUploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUploadButtonActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jUploadButtonActionPerformed
+
+    private void jUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUpdateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jUpdateButtonActionPerformed
+
+    private void NameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NameFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField NameField;
+    private javax.swing.JPasswordField jConfirmPassword;
+    private javax.swing.JTextField jEmailIdField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JTextField jPhoneField;
+    private javax.swing.JButton jUpdateButton;
+    private javax.swing.JButton jUploadButton;
+    private javax.swing.JLabel pictureLabel;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JTextField getNameTextField(){
+        return NameField;
+    }
+    public javax.swing.JPasswordField getConfirmPasswordField(){
+        return jConfirmPassword;
+    }
+    public javax.swing.JTextField getEmailTextField(){
+        return jEmailIdField;
+    }
+    public javax.swing.JPasswordField getPasswordField(){
+        return jPasswordField;
+    }
+    public javax.swing.JTextField getPhoneTextField(){
+        return jPhoneField;
+    }
+    public javax.swing.JLabel getPictureLabel() {
+        return pictureLabel;          
+    }
+    public void uploadButtonListener(ActionListener listener){
+        jUploadButton.addActionListener(listener);
+    }
+    public void UpdateButtonListener(ActionListener listener){
+        jUpdateButton.addActionListener(listener);
+    }
 }
