@@ -3,13 +3,14 @@ package vpms.controller;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
 import vpms.view.EditUserView;
-import vpms.needed.ImageConverter;
+import vpms.utils.ImageConverter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import vpms.view.ProfileUpdateView;
 
 /**
  * Popup window for editing a user.

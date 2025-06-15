@@ -3,7 +3,7 @@ package vpms.controller;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
 import vpms.view.RegisterUserView;
-import vpms.needed.ImageConverter;
+import vpms.utils.ImageConverter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

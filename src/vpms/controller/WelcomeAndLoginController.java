@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import vpms.dao.UserDao;
 import vpms.model.LoginRequest;
 import vpms.model.UserData;
-import vpms.needed.Constants;
+import vpms.utils.Constants;
 import vpms.view.AdminDashboardView;
 import vpms.view.StaffDashboardView;
 import vpms.view.WelcomeAndLoginView;
