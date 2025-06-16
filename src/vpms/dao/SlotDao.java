@@ -1,50 +1,137 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import vpms.database.MySqlConnection;
 import vpms.model.SlotData;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * DAO for the `slots` table
+ * Columns:
+ *   slot_id         INT  PK  AI
+ *   vehicletandp_id INT      NOT NULL   – FK → vehicle_type_and_price(id)
+ *   number_of_slot  INT      NOT NULL
+ *   level_number    INT      NOT NULL
  *
- * @author Rupes
+ * All methods throw SQLException so the caller can decide how to handle /
+ * display the error.
  */
 public class SlotDao {
-    MySqlConnection mySql = new MySqlConnection();
-    public boolean registerSlot(SlotData slotData){
-        Connection conn= mySql.openConnection();
-         String createTableSQL = "CREATE TABLE IF NOT EXISTS slots ("
-            + "slot_id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "vehicletandp_id INT NOT NULL, "
-            + "number_of_slot INT NOT NULL, "
-            + "level_number INT NOT NULL "
-            + ")";
-         String query=  "INSERT INTO vehicles (vehicletandp, number_of_slot,level_number) VALUES (?,?,?)";
-         
-        try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(SlotDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, slotData.getVehicletandp());
-            pstmt.setInt(2, slotData.getNumber_of_slot());
-            pstmt.setInt(3, slotData.getLevel_number());
-            
-            int result = pstmt.executeUpdate();
-            return result > 0;
-        } catch (SQLException ex) {
-            System.err.println(ex);
 
-        } finally {
-            mySql.closeConnection(conn);
+    private final MySqlConnection db = new MySqlConnection();
+
+    public SlotDao() throws SQLException {
+        createTableIfMissing();
+    }
+
+    /* ===================================================== *
+     *  C R E A T E                                          *
+     * ===================================================== */
+    public boolean insert(SlotData s) throws SQLException {
+        String sql = """
+            INSERT INTO slots (vehicletandp_id, number_of_slot, level_number)
+            VALUES (?,?,?)
+            """;
+        try (Connection c = db.openConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, s.getVehicletandp());
+            ps.setInt(2, s.getNumber_of_slot());
+            ps.setInt(3, s.getLevel_number());
+            return ps.executeUpdate() == 1;
         }
-          return false;
+    }
+
+    /* ===================================================== *
+     *  R E A D                                              *
+     * ===================================================== */
+    public SlotData findById(int id) throws SQLException {
+        String sql = "SELECT * FROM slots WHERE slot_id = ?";
+        try (Connection c = db.openConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return map(rs);
+            }
+        }
+        return null;   // not found
+    }
+
+    public List<SlotData> findAll() throws SQLException {
+        List<SlotData> list = new ArrayList<>();
+        String sql = "SELECT * FROM slots";
+        try (Connection c = db.openConnection();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) list.add(map(rs));
+        }
+        return list;
+    }
+
+    /* ===================================================== *
+     *  U P D A T E                                          *
+     * ===================================================== */
+    public boolean update(SlotData s) throws SQLException {
+        String sql = """
+            UPDATE slots SET
+                vehicletandp_id = ?,
+                number_of_slot  = ?,
+                level_number    = ?
+            WHERE slot_id = ?
+            """;
+        try (Connection c = db.openConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, s.getVehicletandp());
+            ps.setInt(2, s.getNumber_of_slot());
+            ps.setInt(3, s.getLevel_number());
+            ps.setInt(4, s.getSlot_id());
+            return ps.executeUpdate() == 1;
+        }
+    }
+
+    /* ===================================================== *
+     *  D E L E T E                                          *
+     * ===================================================== */
+    public boolean delete(int id) throws SQLException {
+        String sql = "DELETE FROM slots WHERE slot_id = ?";
+        try (Connection c = db.openConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            return ps.executeUpdate() == 1;
+        }
+    }
+
+    /* ===================================================== *
+     *  helpers                                              *
+     * ===================================================== */
+    private SlotData map(ResultSet rs) throws SQLException {
+        return new SlotData(
+                rs.getInt("slot_id"),
+                rs.getInt("vehicletandp_id"),
+                rs.getInt("number_of_slot"),
+                rs.getInt("level_number")
+        );
+    }
+
+    private void createTableIfMissing() throws SQLException {
+        String ddl = """
+            CREATE TABLE IF NOT EXISTS slots(
+              slot_id         INT AUTO_INCREMENT PRIMARY KEY,
+              vehicletandp_id INT NOT NULL,
+              number_of_slot  INT NOT NULL,
+              level_number    INT NOT NULL,
+              FOREIGN KEY (vehicletandp_id)
+                     REFERENCES vehicle_type_and_price(id)
+            )""";
+        try (Connection c = db.openConnection();
+             Statement st = c.createStatement()) {
+            st.executeUpdate(ddl);
+        }
     }
 }
