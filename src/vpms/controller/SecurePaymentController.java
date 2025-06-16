@@ -8,80 +8,39 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import vpms.model.SecurePaymentModel;
-import vpms.view.SecurePaymentView;
+import javax.swing.JOptionPane;
+import vpms.controller.StripePaymentController.HandlePaymentStripe;
+import vpms.model.StripePaymentModel;
+import vpms.view.StripePaymentView;
 
 /**
  *
  * @author Chandani
  */
 public class SecurePaymentController {
-
-//    private SecurePaymentView view;
-//    private SecurePaymentModel model;
-//
-//    public SecurePaymentController(SecurePaymentView view, SecurePaymentModel model) {
-//        this.view = view;
-//        this.model = model;
-//
-//        // Set action listener for the charge button
-//        view.getChargeButton().addActionListener(new HandlePaymentStripe());
-//    }
-//
-//    public void open() {
-//        view.setVisible(true); 
-//    }
-//
-//    public void close() {
-//        view.dispose();
-//    }
-//
-//    class HandleSecurePayment implements ActionListener {
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//
-//            // Show processing message
-//            view.displayMessage("Processing payment...");
-//
-//            // Call model to create the checkout session
-//            String sessionUrl = model.createCheckoutSession();
-//            System.out.println("Session URL: " + sessionUrl);
-//
-//            if (sessionUrl != null) {
-//                view.displayMessage("Redirecting to payment page...");
-//
-//                // Directly open the session URL
-//                try {
-//                    if (Desktop.isDesktopSupported()) {
-//                        Desktop.getDesktop().browse(new java.net.URI(sessionUrl));
-//                    }
-//                } catch (IOException | URISyntaxException ex) {
-//                    view.showPaymentFailure("Failed to open payment page.");
-//                    return;
-//                }
-//                boolean paymentStatus;
-//                try {
-//                    paymentStatus = model.checkPaymentStatus(sessionUrl); // Pass the session URL to check status
-//                if (paymentStatus) {
-//                    // If payment is successful
-//                    view.showPaymentSuccess();
-//                } else {
-//                    // If payment failed or was not completed
-//                    view.showPaymentFailure("Payment failed or not completed.");
-//                }
-//                 } catch (InterruptedException ex) {
-//                    Logger.getLogger(StripePaymentController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
-//                view.showPaymentFailure("Failed to create checkout session.");
-//            }
-//        }
-//    }
-}
-
     
-
+    private StripePaymentView view;
+    private StripePaymentModel model;
+    
+    public SecurePaymentController(StripePaymentView view, StripePaymentModel model) {
+        this.view = view;
+        this.model = model;
+        
+        // Set action listener for the charge button
+        //view.getChargeButton().addActionListener(new HandleSecurePayment());
+    }
+    
+    public void open() {
+        view.setVisible(true);
+    }
+    
+    public void close() {
+        view.dispose();
+    }
+    
+    
+}
