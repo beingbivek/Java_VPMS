@@ -6,8 +6,13 @@ package vpms.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import vpms.database.MySqlConnection;
 import vpms.model.ActivityLog;
+import vpms.model.UserData;
 
 
 /**
@@ -57,5 +62,30 @@ public class ActivityLogDao {
             mySql.closeConnection(conn);
         }
     }
+    
+    public List<ActivityLog> showActivities(){
+        List<ActivityLog> logList= new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM activity_log";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                ActivityLog log = new ActivityLog(
+                    result.getInt("user_id"),
+                    result.getString("user_type"),
+                    result.getString("action"),
+                    result.getString("timestamp")
+                );
+                log.setLog_id(result.getInt("id"));
+                logList.add(log);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+
+            return logList;
+        }
     
 }
