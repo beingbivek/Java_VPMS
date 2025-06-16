@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import vpms.utils.ImageHelper;
 import vpms.view.ProfileUpdateView;
+import vpms.view.StaffDashboardContentView;
 import vpms.view.WelcomeAndLoginView;
 /**
  *
@@ -23,6 +24,7 @@ public class StaffDashboardController {
     private StaffDashboardView view;
     private UserData user;
     private ProfileUpdateView puView;
+    private StaffDashboardContentView sdcView;
     public StaffDashboardController(StaffDashboardView view, UserData user){
         this.view = view;
         this.user = user;
@@ -36,12 +38,14 @@ public class StaffDashboardController {
         // Initialize sub-module controllers
         puView = new ProfileUpdateView();
         new ProfileUpdateController(puView,user,StaffDashboardController.this);
+        sdcView = new StaffDashboardContentView();
+        new StaffDashboardContentController(sdcView);
+        
     }
 
     private void attachListeners() {
         view.getUpdateProfileWindowbtn().addActionListener(e -> showUpdateProfilePanel());
-//        view.getDesktopWindowbtn().addActionListener(e -> showDashboard());
-        
+        view.getDesktopWindowbtn().addActionListener(e -> showDashboard());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
     
@@ -49,7 +53,7 @@ public class StaffDashboardController {
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         /* schedule picture setup AFTER layout is done */
-//        SwingUtilities.invokeLater(this::setProfilePicture);
+        SwingUtilities.invokeLater(this::setProfilePicture);
     }
     public void close(){
         view.dispose();
@@ -61,6 +65,17 @@ public class StaffDashboardController {
         puView.toFront();
         try {
             puView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showDashboard() {
+        sdcView.setVisible(true);
+        view.setWindowPanel(sdcView);
+        sdcView.toFront();
+        try {
+            sdcView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }

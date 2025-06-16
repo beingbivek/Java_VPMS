@@ -16,7 +16,7 @@ public class SMTPSMailSender {
 
     private static final String email = "240495@softwarica.edu.np";
 
-    private static String password = "jlnb sxmv fytl ejcp";
+    private static String password = "dlnscanjbgamfcwb";
 
 
 

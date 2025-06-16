@@ -28,12 +28,6 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-
         pictureLabel = new javax.swing.JLabel();
         jPhoneField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -50,56 +44,65 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         pictureLabel.setBackground(new java.awt.Color(255, 255, 255));
         pictureLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/adminperfectsize.png"))); // NOI18N
         pictureLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        getContentPane().add(pictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+        getContentPane().add(pictureLabel);
+        pictureLabel.setBounds(110, 90, 102, 102);
 
         jPhoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPhoneFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jPhoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 320, -1));
+        getContentPane().add(jPhoneField);
+        jPhoneField.setBounds(110, 330, 320, 22);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel3.setText("Email");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, -1, 21));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(570, 280, 29, 21);
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel7.setText("Phone");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, 21));
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(50, 330, 35, 21);
 
         jEmailIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEmailIdFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jEmailIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, 320, -1));
+        getContentPane().add(jEmailIdField);
+        jEmailIdField.setBounds(630, 280, 320, 22);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel5.setText("Password");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, -1, 21));
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(550, 330, 56, 21);
 
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 320, -1));
+        getContentPane().add(jPasswordField);
+        jPasswordField.setBounds(630, 330, 320, 22);
 
         jConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jConfirmPasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(jConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 320, -1));
+        getContentPane().add(jConfirmPassword);
+        jConfirmPassword.setBounds(630, 380, 320, 22);
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel6.setText("Confirm Password");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, 26));
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(500, 380, 104, 26);
 
         jUploadButton.setBackground(new java.awt.Color(153, 102, 255));
         jUploadButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,7 +112,8 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
                 jUploadButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jUploadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 100, -1));
+        getContentPane().add(jUploadButton);
+        jUploadButton.setBounds(110, 200, 100, 23);
 
         jUpdateButton.setBackground(new java.awt.Color(0, 255, 0));
         jUpdateButton.setForeground(new java.awt.Color(153, 0, 255));
@@ -119,18 +123,21 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
                 jUpdateButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jUpdateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 212, -1));
+        getContentPane().add(jUpdateButton);
+        jUpdateButton.setBounds(422, 480, 210, 40);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel2.setText("Name");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, 21));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(50, 280, 31, 21);
 
         NameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NameFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(NameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 320, -1));
+        getContentPane().add(NameField);
+        NameField.setBounds(110, 280, 320, 22);
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -145,7 +152,7 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(660, Short.MAX_VALUE))
+                .addContainerGap(1170, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +162,8 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, -1));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 1560, 142);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

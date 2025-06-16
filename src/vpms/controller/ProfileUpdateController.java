@@ -8,13 +8,16 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import vpms.dao.UserDao;
 import vpms.model.UserData;
 import vpms.utils.ImageConverter;
+import vpms.utils.ImageHelper;
 import vpms.view.ProfileUpdateView;
 
 /**
@@ -36,7 +39,7 @@ public class ProfileUpdateController {
         this.sdController = sdController;
 
         fillForm();                                      // show current data
-        setProfilePicture();
+        SwingUtilities.invokeLater(this::setProfilePicture);
         view.uploadButtonListener (new UploadListener());
         view.UpdateButtonListener(new SaveListener());
     }
@@ -57,25 +60,38 @@ public class ProfileUpdateController {
     }
     
     private void setProfilePicture() {
+        ImageIcon icon = null;
+        try {
+            icon = createUserIcon();
+        } catch (Exception ex) {
+            System.getLogger(ProfileUpdateController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        Icon scaled    = ImageHelper.scaleToLabel(icon, view.getPictureLabel());
+        view.getPictureLabel().setIcon(scaled);
+    }
+    private ImageIcon createUserIcon() throws Exception {
 
-        byte[] imgBytes = user.getImage();          // may be null / empty
-        ImageIcon icon;
+    byte[] imgBytes;                               // will hold final data
 
-        if (imgBytes != null && imgBytes.length > 0) {
-            icon = new ImageIcon(imgBytes);         // byte[] –> ImageIcon[6]
-        } else {
-            /* fallback to the default avatar bundled in resources */
-            icon = new ImageIcon(getClass()
-                     .getResource("/Icons/ProfileForLogin.jpg"));
+    try {
+        if (selected != null) {                    // user picked a new image
+            imgBytes = java.nio.file.Files.readAllBytes(selected.toPath());
+
+        } else if (user.getImage() != null && user.getImage().length > 0) {
+            imgBytes = user.getImage();            // keep existing picture
+
+        } else {                                   // fall-back to default avatar
+            imgBytes = new ImageConverter(null).returnByteArray();
         }
 
-        /* scale to label size so it always fits */
-        int w = view.getPictureLabel().getWidth();
-        int h = view.getPictureLabel().getHeight();
-        Image scaled = icon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
-
-        view.getPictureLabel().setIcon(new ImageIcon(scaled));
+    } catch (java.io.IOException ex) {             // any I/O problem
+        javax.swing.JOptionPane.showMessageDialog(
+                view, "Cannot read image file: " + ex.getMessage());
+        imgBytes = new ImageConverter(null).returnByteArray();
     }
+
+    return new javax.swing.ImageIcon(imgBytes);    // safe: constructor expects byte[]
+}
 
     /* ===================================================== *
      *  LISTENERS                                            *
@@ -88,9 +104,8 @@ public class ProfileUpdateController {
             fc.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
             if (fc.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
                 selected = fc.getSelectedFile();
-                JOptionPane.showMessageDialog(view,"Image: "+ selected.getName());
+                setProfilePicture();                    // refresh preview ✅
             }
-            setProfilePicture();
         }
     }
 
@@ -133,7 +148,7 @@ public class ProfileUpdateController {
             boolean ok = dao.updateUser(user);
 
             if (ok) {
-                JOptionPane.showMessageDialog(view,"User updated, Logout and Login to show latest updates.");
+                JOptionPane.showMessageDialog(view,"Profile updated!");
                 sdController.updatedUserModel(user);
             } else {
                 JOptionPane.showMessageDialog(view,"Update failed",

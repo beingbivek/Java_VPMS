@@ -8,11 +8,13 @@ import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
 import vpms.controller.UserManagementController;
 import vpms.model.UserData;
+import vpms.view.AdminDashboardContentView;
 import vpms.view.WelcomeAndLoginView;
 
 public class AdminDashboardController {
     private final AdminDashboardView view;
     private UserManagementView smView;
+    private AdminDashboardContentView adcView;
     UserData user;
 
     public AdminDashboardController(AdminDashboardView view,UserData user) {
@@ -26,11 +28,13 @@ public class AdminDashboardController {
         // Initialize sub-module controllers
         smView = new UserManagementView();
         new UserManagementController(smView);
+        adcView = new AdminDashboardContentView();
+        new AdminDashboardContentController(adcView);
     }
 
     private void attachListeners() {
         view.getUserWindowbtn().addActionListener(e -> showUsersPanel());
-        view.getDesktopWindowbtn().addActionListener(e -> showDashboard());
+        view.getAdminDashboardWindowbtn().addActionListener(e -> showDashboard());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
 
@@ -46,9 +50,14 @@ public class AdminDashboardController {
     }
 
     private void showDashboard() {
-        view.getWindowPanel().removeAll();
-        view.revalidate();
-        view.repaint();
+        adcView.setVisible(true);
+        view.setWindowPanel(adcView);
+        adcView.toFront();
+        try {
+            adcView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void logout() {

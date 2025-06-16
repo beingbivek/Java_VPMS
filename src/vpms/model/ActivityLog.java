@@ -23,7 +23,7 @@ public class ActivityLog {
     }
     
     
-    public ActivityLog (int userId, String userType, String action, String module, int relatedId) {
+    public ActivityLog (int userId, String userType, String action, String module) {
         this.user_id = userId;
         this.userType = userType;
         this.action = action;
