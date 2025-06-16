@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import vpms.model.SecurePaymentModel;
+//import vpms.model.SecurePaymentModel;
 import vpms.view.SecurePaymentView;
 
 /**
@@ -39,7 +39,7 @@ public class SecurePaymentController {
 //        view.dispose();
 //    }
 //
-//    class HandlePaymentStripe implements ActionListener {
+//    class HandleSecurePayment implements ActionListener {
 //
 //        @Override
 //        public void actionPerformed(ActionEvent e) {

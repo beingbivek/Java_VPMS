@@ -48,7 +48,7 @@ public class StripePaymentController {
             view.displayMessage("Processing payment...");
 
             // Call model to create the checkout session
-            String sessionUrl = model.createCheckoutSession();
+            String sessionUrl = model.createCheckoutSession(view.getOutputArea().getText());
             System.out.println("Session URL: " + sessionUrl);
 
             if (sessionUrl != null) {
