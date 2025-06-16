@@ -63,12 +63,6 @@ public class AddVehiclesView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Vehicle Type");
 
-        txtType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTypeActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Owner Contact");
 
@@ -82,11 +76,6 @@ public class AddVehiclesView extends javax.swing.JFrame {
         jLabel7.setText("Vehicle Owner");
 
         btnSaveVehicle.setText("Save");
-        btnSaveVehicle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveVehicleActionPerformed(evt);
-            }
-        });
 
         jComboBox2.setBackground(new java.awt.Color(230, 200, 255));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active ", "Inactive", " ", " " }));
@@ -182,22 +171,6 @@ public class AddVehiclesView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveVehicleActionPerformed
-     AddVehiclesController controller = new AddVehiclesController(this);
-    controller.handleSaveVehicle(); 
-    
-        
-    }//GEN-LAST:event_btnSaveVehicleActionPerformed
-
-    private void txtTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTypeActionPerformed
-        String type = txtType.getText().trim();
-        List<String>allowedTypes = Arrays.asList("Car","Bike", "Van", "EV");
-        if (!allowedTypes.contains(type)){
-            JOptionPane.showMessageDialog(this, "Vehicle Type Must be one of: Car, Bike, Van or EV");
-            return;
-        }
-    }//GEN-LAST:event_txtTypeActionPerformed
-
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
@@ -271,6 +244,9 @@ public javax.swing.JTextField getTxtOwnerName() {
 
 public javax.swing.JTextField getTxtOwnerContact() {
     return txtOwnerContact;
+}
+public javax.swing.JButton addSaveButtonListener(){
+    return btnSaveVehicle;
 }
 
 
