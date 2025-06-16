@@ -348,7 +348,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
     public void viewPassword(ItemListener listener){
         showPasswordCheckBox.addItemListener(listener);
     }
-    public void forgotPassword(MouseListener listener){
+    public void forgotPasswordListener(MouseListener listener){
         forgotPasswordLabel.addMouseListener(listener);
     }
 }
