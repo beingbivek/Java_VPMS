@@ -31,7 +31,7 @@ public class SecurePaymentController {
         this.model = model;
         
         // Set action listener for the charge button
-        //view.getChargeButton().addActionListener(new HandleSecurePayment());
+        view.getChargeButton().addActionListener(new HandleSecurePayment());
     }
     
     public void open() {
@@ -42,5 +42,31 @@ public class SecurePaymentController {
         view.dispose();
     }
     
-    
+    // Inner class to handle secure payment processing
+    private class HandleSecurePayment implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            // Show processing message
+            view.displayMessage("Processing payment...");
+            
+            // Get amount from input field (NOT from output area)
+            String amountText = view.getAmountField().getText().trim();
+            
+            if (amountText.isEmpty()) {
+                view.showPaymentFailure("Please enter an amount.");
+                return;
+            }
+            
+            try {
+                // Validate and convert amount
+                double amount = Double.parseDouble(amountText);
+                if (amount <= 0) {
+                    view.showPaymentFailure("Please enter a valid amount greater than 0.");
+                    return;
+                }
+                
+                
+    }
 }
