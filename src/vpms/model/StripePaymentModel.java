@@ -12,7 +12,7 @@ import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.exception.StripeException;
-import vpms.needed.APIKeys;
+import vpms.utils.APIKeys;
 
 public class StripePaymentModel {
 

@@ -1,48 +1,50 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package vpms.controller;
 
-import vpms.dao.UserDao;
-import vpms.model.UserData;
-import vpms.view.EditUserView;
-import vpms.utils.ImageConverter;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import vpms.dao.UserDao;
+import vpms.model.UserData;
+import vpms.utils.ImageConverter;
+import vpms.utils.ImageHelper;
 import vpms.view.ProfileUpdateView;
 
 /**
- * Popup window for editing a user.
- * • Receives the full UserData object – so no extra DB query is required.  
- * • Keeps the old picture unless the operator selects a new one; if no
- *   picture exists, falls back to the default image bundled in resources.  
- * • Notifies the calling UserManagementController so the table refreshes
- *   when the update succeeds.
+ *
+ * @author being
  */
-public class EditUserController {
-
-    private final EditUserView            view;      // JFrame
-    private final UserManagementController caller;   // may be null
+public class ProfileUpdateController {
+    private final ProfileUpdateView            view;
     private final UserDao                 dao = new UserDao();
     private       UserData                user;      // current record
     private       File                    selected;  // new picture
+    private StaffDashboardController sdController;
 
     /* ---------- ctor ---------- */
-    public EditUserController(EditUserView view,
-                              UserData user,
-                              UserManagementController caller) {
+    public ProfileUpdateController(ProfileUpdateView view,
+                              UserData user, StaffDashboardController sdController) {
         this.view   = view;
         this.user   = user;
-        this.caller = caller;
+        this.sdController = sdController;
 
         fillForm();                                      // show current data
-
+        SwingUtilities.invokeLater(this::setProfilePicture);
         view.uploadButtonListener (new UploadListener());
         view.UpdateButtonListener(new SaveListener());
     }
 
-    public void open() { view.setLocationRelativeTo(null); view.setVisible(true); }
+    public void open() { view.setVisible(true); }
 
     /* ---------- show data in form ---------- */
     private void fillForm() {
@@ -53,10 +55,43 @@ public class EditUserController {
         view.getNameTextField()      .setText(user.getName());
         view.getEmailTextField()     .setText(user.getEmail());
         view.getPhoneTextField()     .setText(user.getPhone());
-        view.getTypeField()          .setSelectedItem(user.getType());
         view.getPasswordField()      .setText(user.getPassword());
         view.getConfirmPasswordField().setText(user.getPassword());
     }
+    
+    private void setProfilePicture() {
+        ImageIcon icon = null;
+        try {
+            icon = createUserIcon();
+        } catch (Exception ex) {
+            System.getLogger(ProfileUpdateController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        Icon scaled    = ImageHelper.scaleToLabel(icon, view.getPictureLabel());
+        view.getPictureLabel().setIcon(scaled);
+    }
+    private ImageIcon createUserIcon() throws Exception {
+
+    byte[] imgBytes;                               // will hold final data
+
+    try {
+        if (selected != null) {                    // user picked a new image
+            imgBytes = java.nio.file.Files.readAllBytes(selected.toPath());
+
+        } else if (user.getImage() != null && user.getImage().length > 0) {
+            imgBytes = user.getImage();            // keep existing picture
+
+        } else {                                   // fall-back to default avatar
+            imgBytes = new ImageConverter(null).returnByteArray();
+        }
+
+    } catch (java.io.IOException ex) {             // any I/O problem
+        javax.swing.JOptionPane.showMessageDialog(
+                view, "Cannot read image file: " + ex.getMessage());
+        imgBytes = new ImageConverter(null).returnByteArray();
+    }
+
+    return new javax.swing.ImageIcon(imgBytes);    // safe: constructor expects byte[]
+}
 
     /* ===================================================== *
      *  LISTENERS                                            *
@@ -69,7 +104,7 @@ public class EditUserController {
             fc.setFileFilter(new FileNameExtensionFilter("Images","jpg","jpeg","png"));
             if (fc.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
                 selected = fc.getSelectedFile();
-                JOptionPane.showMessageDialog(view,"Image: "+ selected.getName());
+                setProfilePicture();                    // refresh preview ✅
             }
         }
     }
@@ -82,7 +117,7 @@ public class EditUserController {
             String name  = view.getNameTextField().getText().trim();
             String email = view.getEmailTextField().getText().trim();
             String phone = view.getPhoneTextField().getText().trim();
-            String type  = view.getTypeField().getSelectedItem().toString();
+            String type  = "Staff";
             String pwd1  = String.valueOf(view.getPasswordField().getPassword());
             String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
 
@@ -113,9 +148,8 @@ public class EditUserController {
             boolean ok = dao.updateUser(user);
 
             if (ok) {
-                JOptionPane.showMessageDialog(view,"User updated");
-                if (caller != null) caller.refreshTable();               // refresh list
-                view.dispose();
+                JOptionPane.showMessageDialog(view,"Profile updated!");
+                sdController.updatedUserModel(user);
             } else {
                 JOptionPane.showMessageDialog(view,"Update failed",
                                               "Error",JOptionPane.ERROR_MESSAGE);

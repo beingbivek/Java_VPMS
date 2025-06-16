@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,8 +20,9 @@ import javax.swing.JOptionPane;
 import vpms.dao.UserDao;
 import vpms.model.LoginRequest;
 import vpms.model.UserData;
-import vpms.needed.Constants;
+import vpms.utils.Constants;
 import vpms.view.AdminDashboardView;
+import vpms.view.ResetStaffPasswordView;
 import vpms.view.StaffDashboardView;
 import vpms.view.WelcomeAndLoginView;
 
@@ -38,6 +41,7 @@ public class WelcomeAndLoginController {
             System.getLogger(WelcomeAndLoginController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         this.view.loginUser(new LoginUser());
+        this.view.forgotPasswordListener(new ResetPassword());
     }
     public void open(){
         this.view.setVisible(true);
@@ -102,7 +106,10 @@ public class WelcomeAndLoginController {
             LoginRequest request = new LoginRequest(email, password);
             UserDao userDao = new UserDao();
             UserData user = userDao.loginUser(request);
-            if ("staff".equalsIgnoreCase(user.getType())){
+            if (user == null){
+                JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
+            }
+            else if ("staff".equalsIgnoreCase(user.getType())){
                 StaffDashboardView dashboard = new StaffDashboardView();
                 new StaffDashboardController(dashboard,user).open();
                 rememberEmail(email);
@@ -118,6 +125,33 @@ public class WelcomeAndLoginController {
                 JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
             }
                                     
+        }
+        
+    }
+    
+    class ResetPassword implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            ResetStaffPasswordView rpView = new ResetStaffPasswordView();
+            new ResetStaffPasswordController(rpView).open();
+            close();
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
         }
         
     }
