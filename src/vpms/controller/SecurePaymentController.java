@@ -67,6 +67,55 @@ public class SecurePaymentController {
                     return;
                 }
                 
+                // Convert to cents for Stripe (multiply by 100)
+                long amountInCents = Math.round(amount * 100);
                 
-    }
+                // Call model to create checkout session with correct parameter
+                String sessionUrl = model.createCheckoutSession(amountInCents);
+                System.out.println("Session URL: " + sessionUrl);
+                
+                if (sessionUrl != null && !sessionUrl.isEmpty()) {
+                    view.displayMessage("Redirecting to payment page...");
+                    
+                    // Open the payment URL in browser
+                    try {
+                        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                            Desktop.getDesktop().browse(new URI(sessionUrl));
+                            
+                            // Show success message
+                            JOptionPane.showMessageDialog(view, 
+                                "Payment page opened in browser.\nPlease complete your payment there.", 
+                                "Payment Initiated", 
+                                JOptionPane.INFORMATION_MESSAGE);
+                            
+                            // Clear the amount field
+                            view.getAmountField().setText("");
+                            view.displayMessage("Payment initiated successfully.");
+                            
+                        } else {
+                            view.showPaymentFailure("Cannot open browser automatically. Please copy this URL: " + sessionUrl);
+                        }
+                        
+                    } catch (IOException | URISyntaxException ex) {
+                        Logger.getLogger(SecurePaymentController.class.getName()).log(Level.SEVERE, null, ex);
+                        view.showPaymentFailure("Failed to open payment page: " + ex.getMessage());
+                        return;
+                    }
+                    
+                    // Check payment status after opening browser
+                    checkPaymentStatus(sessionUrl);
+                    
+                } else {
+                    view.showPaymentFailure("Failed to create checkout session.");
+                }
+                
+            } catch (NumberFormatException ex) {
+                view.showPaymentFailure("Please enter a valid numeric amount.");
+            } catch (Exception ex) {
+                Logger.getLogger(SecurePaymentController.class.getName()).log(Level.SEVERE, null, ex);
+                view.showPaymentFailure("Payment processing error: " + ex.getMessage());
+            }
+        }
+        
+            }
 }
