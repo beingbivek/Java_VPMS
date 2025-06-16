@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import vpms.model.StripePaymentModel;
-import vpms.view.StripePaymentView;
+import vpms.model.SecurePaymentModel;
+import vpms.view.SecurePaymentView;
 
 /**
  *
@@ -20,10 +20,10 @@ import vpms.view.StripePaymentView;
  */
 public class SecurePaymentController {
 
-//    private StripePaymentView view;
-//    private StripePaymentModel model;
+//    private SecurePaymentView view;
+//    private SecurePaymentModel model;
 //
-//    public StripePaymentController(StripePaymentView view, StripePaymentModel model) {
+//    public SecurePaymentController(SecurePaymentView view, SecurePaymentModel model) {
 //        this.view = view;
 //        this.model = model;
 //
