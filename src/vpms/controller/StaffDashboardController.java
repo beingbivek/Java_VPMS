@@ -49,7 +49,7 @@ public class StaffDashboardController {
         view.setVisible(true);
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         /* schedule picture setup AFTER layout is done */
-//        SwingUtilities.invokeLater(this::setProfilePicture);
+        SwingUtilities.invokeLater(this::setProfilePicture);
     }
     public void close(){
         view.dispose();
