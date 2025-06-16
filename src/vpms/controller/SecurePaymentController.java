@@ -117,5 +117,47 @@ public class SecurePaymentController {
             }
         }
         
+        // Helper method to check payment status
+        private void checkPaymentStatus(String sessionUrl) {
+            // Background thread to check payment status
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000); // Wait 3 seconds
+                    
+                    // Extract session ID from URL for status checking
+                    String sessionId = extractSessionIdFromUrl(sessionUrl);
+                    
+                    boolean paymentStatus = model.checkPaymentStatus(sessionId);
+                    
+                    // Update UI on Event Dispatch Thread
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        if (paymentStatus) {
+                            view.showPaymentSuccess();
+                        } else {
+                            view.showPaymentFailure("Payment was not completed or failed.");
+                        }
+                    });
+                    
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    Logger.getLogger(SecurePaymentController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(SecurePaymentController.class.getName()).log(Level.SEVERE, null, ex);
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        view.showPaymentFailure("Error checking payment status: " + ex.getMessage());
+                    });
+                }
+            }).start();
+        }
+        
+        // Helper method to extract session ID from URL
+        private String extractSessionIdFromUrl(String sessionUrl) {
+            // Extract session ID from the Stripe checkout URL
+            if (sessionUrl.contains("session_id=")) {
+                return sessionUrl.substring(sessionUrl.indexOf("session_id=") + 11);
             }
+            // If can't extract, return the full URL
+            return sessionUrl;
+        }
+    }
 }
