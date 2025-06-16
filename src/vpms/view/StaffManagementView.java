@@ -62,11 +62,23 @@ public class StaffManagementView extends javax.swing.JFrame {
         });
 
         jEditStaffButton.setText("Edit Staff");
+        jEditStaffButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditStaffButtonActionPerformed(evt);
+            }
+        });
 
         jFilterButton.setText("Filter");
+        jFilterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFilterButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
+            new Object [][] {
+
+            },
             new String [] {
                 "ID", "Name", "Type", "Email", "Password", "Image"
             }
@@ -208,16 +220,12 @@ public class StaffManagementView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -238,6 +246,14 @@ public class StaffManagementView extends javax.swing.JFrame {
     private void jCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCancelButtonActionPerformed
+
+    private void jEditStaffButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditStaffButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jEditStaffButtonActionPerformed
+
+    private void jFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFilterButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFilterButtonActionPerformed
 
     /**
      * @param args the command line arguments
