@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import vpms.database.MySqlConnection;
 import vpms.model.ParkingDetails;
+import java.sql.ResultSet;
+
 
 
 /**
@@ -17,10 +19,10 @@ import vpms.model.ParkingDetails;
  */
 public class ParkingDao {
     MySqlConnection mySql = new MySqlConnection();
-    public boolean registerParkingUser(ParkingDetails parkingDetails) {
 
+    public boolean registerParkingUser(ParkingDetails parkingDetails) {
         Connection conn= mySql.openConnection();
-         String createTableSQL = "CREATE TABLE IF NOT EXISTS parkings ("
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS parkings ("
         + "parkingId INT AUTO_INCREMENT PRIMARY KEY, "
         + "vehicleId INT(100), "
         + "slotId INT(100), "
@@ -33,15 +35,15 @@ public class ParkingDao {
         + "penaltyApplied BOOLEAN"
         + ")";
 
-         String query=  "INSERT INTO parkings (vehicleId,slotId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
-         
+        String query=  "INSERT INTO parkings (vehicleId,slotId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
+
         try {
             PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
             createtbl.executeUpdate();
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ParkingDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, parkingDetails.getVehicleId());
             pstmt.setString(2, parkingDetails.getSlotId());
@@ -58,42 +60,65 @@ public class ParkingDao {
         } finally {
             mySql.closeConnection(conn);
         }
-          return false;
-    
+        return false;
     }
-          
+
     public boolean vehicleExit(ParkingDetails parkingDetails) {
-        
-    
-        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ?, WHERE parkingId = ?"; 
+        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ? WHERE parkingId = ?";
         Connection conn= mySql.openConnection();
-    try{
+        try {
             PreparedStatement stmnt = conn.prepareStatement(query);
-            stmnt.setString(1,parkingDetails.getVehicleId());
-            stmnt.setString(2,parkingDetails.getParkingStatus());
-            stmnt.setString(3,parkingDetails.getExitDateTime());
-            stmnt.setString(4,parkingDetails.getExitNote());
+            stmnt.setString(1, parkingDetails.getExitDateTime());
+            stmnt.setString(2, parkingDetails.getParkingStatus());
+            stmnt.setString(3, parkingDetails.getExitNote());
+            stmnt.setString(4, parkingDetails.getVehicleId());
             int result = stmnt.executeUpdate();
             return result > 0;
-        }catch(Exception e){
+        } catch(Exception e) {
             return false;
-        }finally{
+        } finally {
             mySql.closeConnection(conn);
-    
-    
-    
+        }
     }
-    }
-    
-}
-    
-    
-//    public interface Parkingdao{
-//    void registerParkingUser(ParkingDetails details)
-//            throws ParkingSlotOccupiedException,SQLException;
-//    }
-   
-    
 
-    
+    public int getTotalVehicleEntryCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM parkings";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Vehicle entry count error: " + ex);
+        }
+        return count;
+    }
+
+    public int getCurrentlyParkedCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Parked'";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Currently parked count error: " + ex);
+        }
+        return count;
+    }
+
+    public int getExitedVehicleCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Exited'";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Exited vehicle count error: " + ex);
+        }
+        return count;
+    }
+} 
+
  
