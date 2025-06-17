@@ -144,6 +144,22 @@ public class PaymentDao {
             mySql.closeConnection(conn);
         }
     }
+    // Inside PaymentDao
+public double getTotalRevenue() {
+    double total = 0;
+    String sql = "SELECT SUM(amount) FROM vpmsPayment";
+    try (Connection conn = mySql.openConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+            total = rs.getDouble(1);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return total;
+}
+
 }
     
     

@@ -95,7 +95,7 @@ public class StaffDashboardController {
     private ImageIcon createUserIcon() {
         byte[] imgBytes = user.getImage();
         if (imgBytes != null && imgBytes.length > 0) return new ImageIcon(imgBytes);
-        return new ImageIcon(getClass().getResource("/Icons/ProfileForLogin.jpg"));
+        return new ImageIcon(getClass().getResource("/Icons/ProfileForLogin.png"));
     }
     
     public void updatedUserModel(UserData user){

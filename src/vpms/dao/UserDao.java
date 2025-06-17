@@ -240,5 +240,52 @@ public class UserDao {
         return ps.executeUpdate() > 0;      // returns true only if a row was removed
     }
 }
- 
+    public int getTotalUserCount() {
+    int count = 0;
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT COUNT(*) FROM vpmsUsers";
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        ResultSet result = pstmt.executeQuery();
+        if (result.next()) {
+            count = result.getInt(1);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+    return count;
+}
+ public int getTotalStaffCount() {
+    int count = 0;
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT COUNT(*) FROM vpmsUsers WHERE type = 'Staff'";
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        ResultSet result = pstmt.executeQuery();
+        if (result.next()) {
+            count = result.getInt(1);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+    return count;
+}
+ public int getActiveStaffCount() {
+    int count = 0;
+    Connection conn = mySql.openConnection();
+    String sql = "SELECT COUNT(*) FROM vpmsUsers WHERE type = 'Staff' AND status = 'Active'";
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        ResultSet result = pstmt.executeQuery();
+        if (result.next()) {
+            count = result.getInt(1);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex);
+    } finally {
+        mySql.closeConnection(conn);
+    }
+    return count;
+}
 }
