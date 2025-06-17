@@ -4,8 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ParkingDao.java</file>
-            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/SlotDao.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/SlotInstanceDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/UserData.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/UserManagementController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ProfileUpdateController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/RegisterUserController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/EditUserController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/DefaultAdminSeeder.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/UserManagementView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/RegisterUserView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/EditUserView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/SlotDao.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
         </group>
     </open-files>
 </project-private>
