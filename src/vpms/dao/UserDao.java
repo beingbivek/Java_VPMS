@@ -21,31 +21,34 @@ import vpms.model.UserData;
 */
 public class UserDao {
     MySqlConnection mySql = new MySqlConnection();
-    public void createTable(){
-        Connection conn= mySql.openConnection();
+
+    public void createTable() {
+        Connection conn = mySql.openConnection();
         String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
-            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "name VARCHAR(50) NOT NULL, "
-            + "type VARCHAR(20) NOT NULL, "
-            + "email VARCHAR(100) UNIQUE NOT NULL, "
-            + "password VARCHAR(255) NOT NULL, "
-            + "phone VARCHAR(10) NOT NULL, "  
-            + "image BLOB"
-            + ")";
+                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+                + "name VARCHAR(50) NOT NULL, "
+                + "type VARCHAR(20) NOT NULL, "
+                + "email VARCHAR(100) UNIQUE NOT NULL, "
+                + "password VARCHAR(255) NOT NULL, "
+                + "phone VARCHAR(10) NOT NULL, "
+                + "image BLOB, "
+                + "status VARCHAR(20) DEFAULT 'Active'"
+                + ")";
         try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
+            PreparedStatement createtbl = conn.prepareStatement(createTableSQL);
             createtbl.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Create table"+ex);
+            System.out.println("Create table" + ex);
             java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } finally {
             mySql.closeConnection(conn);
         }
     }
-    public boolean registerUser(UserData userData){
+
+    public boolean registerUser(UserData userData) {
         createTable();
-        Connection conn= mySql.openConnection();
-         String query=  "INSERT INTO vpmsUsers (name, type, email, password,phone,image) VALUES (?,?, ?, ?,?,?)";
+        Connection conn = mySql.openConnection();
+        String query = "INSERT INTO vpmsUsers (name, type, email, password, phone, image, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             String bcryptHashString = BCrypt.withDefaults().hashToString(12, userData.getPassword().toCharArray());
@@ -55,233 +58,244 @@ public class UserDao {
             pstmt.setString(4, bcryptHashString);
             pstmt.setString(5, userData.getPhone());
             pstmt.setBytes(6, userData.getImage());
+            pstmt.setString(7, userData.getStatus());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
-            System.err.println("user insertion"+ex);
- 
+            System.err.println("user insertion" + ex);
         } finally {
             mySql.closeConnection(conn);
         }
-          return false;
+        return false;
     }
-    public UserData loginUser(LoginRequest req){
+
+    public UserData loginUser(LoginRequest req) {
         Connection conn = mySql.openConnection();
         String sql = "SELECT * FROM vpmsUsers WHERE email = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, req.getEmail());
-            ResultSet rs = ps.executeQuery();
+            ResultSet result = ps.executeQuery();
 
-            if (rs.next()) {
-                String storedHash = rs.getString("password");
-                boolean ok = BCrypt.verifyer()
-                                   .verify(req.getPassword().toCharArray(),
-                                           storedHash.toCharArray())
-                                   .verified;
+            if (result.next()) {
+                String storedHash = result.getString("password");
+                boolean ok = BCrypt.verifyer().verify(req.getPassword().toCharArray(), storedHash.toCharArray()).verified;
                 if (ok) {
                     UserData u = new UserData(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("type"),
-                        rs.getString("email"),
+                        result.getInt("id"),
+                        result.getString("name"),
+                        result.getString("type"),
+                        result.getString("email"),
                         storedHash,
-                        rs.getString("phone"),
-                        rs.getBytes("image"));
+                        result.getString("phone"),
+                        result.getBytes("image"),
+                        result.getString("status")
+                    );
                     return u;
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally { mySql.closeConnection(conn); }
+        } finally {
+            mySql.closeConnection(conn);
+        }
         return null;
     }
 
     public List<UserData> showUsers() {
-    List<UserData> userList = new ArrayList<>();
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers";
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        ResultSet result = pstmt.executeQuery();
-        while (result.next()) {
-            UserData user = new UserData(
-                result.getString("name"),
-                result.getString("type"),
-                result.getString("email"),
-                result.getString("password"),
-                result.getString("phone"),
-                result.getBytes("image")
-            );
-            user.setId(result.getInt("id"));
-            userList.add(user);
+        List<UserData> userList = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM vpmsUsers";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                UserData user = new UserData(
+                    result.getInt("id"),
+                    result.getString("name"),
+                    result.getString("type"),
+                    result.getString("email"),
+                    result.getString("password"),
+                    result.getString("phone"),
+                    result.getBytes("image"),
+                    result.getString("status")
+                );
+                userList.add(user);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
+        return userList;
     }
- 
-    return userList;
-    }
+
     public List<UserData> searchUsers(String data) {
-    List<UserData> userList = new ArrayList<>();
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers WHERE name LIKE ?";
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1,data);
-        ResultSet result = pstmt.executeQuery();
-        while (result.next()) {
-            UserData user = new UserData(
-                result.getString("name"),
-                result.getString("type"),
-                result.getString("email"),
-                result.getString("password"),
-                result.getString("phone"),
-                result.getBytes("image")
-            );
-            user.setId(result.getInt("id"));
-            userList.add(user);
+        List<UserData> userList = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM vpmsUsers WHERE name LIKE ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, data);
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                UserData user = new UserData(
+                    result.getInt("id"),
+                    result.getString("name"),
+                    result.getString("type"),
+                    result.getString("email"),
+                    result.getString("password"),
+                    result.getString("phone"),
+                    result.getBytes("image"),
+                    result.getString("status")
+                );
+                userList.add(user);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
+        return userList;
     }
- 
-    return userList;
-    }
-    public boolean checkEmail(String email){
+
+    public boolean checkEmail(String email) {
         Connection conn = mySql.openConnection();
         String query = "SELECT * FROM vpmsUsers WHERE email=?";
-        try{
+        try {
             PreparedStatement stmnt = conn.prepareStatement(query);
-            stmnt.setString(1,email);
+            stmnt.setString(1, email);
             ResultSet result = stmnt.executeQuery();
             return result.next();
-        }catch(Exception e){
+        } catch (Exception e) {
             return false;
-        }finally{
+        } finally {
             mySql.closeConnection(conn);
         }
     }
-    public boolean resetPassword(ResetPasswordRequest resetReq){
+
+    public boolean resetPassword(ResetPasswordRequest resetReq) {
         Connection conn = mySql.openConnection();
         String query = "UPDATE vpmsUsers SET password = ? WHERE email = ?";
-        try{
+        try {
             PreparedStatement stmnt = conn.prepareStatement(query);
             String bcryptHashString = BCrypt.withDefaults().hashToString(12, resetReq.getPassword().toCharArray());
-            stmnt.setString(1,bcryptHashString);
-            stmnt.setString(2,resetReq.getEmail());
+            stmnt.setString(1, bcryptHashString);
+            stmnt.setString(2, resetReq.getEmail());
             int result = stmnt.executeUpdate();
             return result > 0;
-        }catch(Exception e){
+        } catch (Exception e) {
             return false;
-        }finally{
+        } finally {
             mySql.closeConnection(conn);
         }
     }
-    public UserData getUserFromId(int id){
+
+    public UserData getUserFromId(int id) {
         Connection conn = mySql.openConnection();
-    String sql = "SELECT * FROM vpmsUsers WHERE id = ?";
-    try {
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, id);
-        ResultSet result = pstmt.executeQuery();
-        UserData user = new UserData(
-            result.getInt("id"),
-            result.getString("name"),
-            result.getString("type"),
-            result.getString("email"),
-            result.getString("password"),
-            result.getString("phone"),
-            result.getBytes("image"));
-        return user;
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally{
-        mySql.closeConnection(conn);
+        String sql = "SELECT * FROM vpmsUsers WHERE id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet result = pstmt.executeQuery();
+            if (result.next()) {
+                UserData user = new UserData(
+                    result.getInt("id"),
+                    result.getString("name"),
+                    result.getString("type"),
+                    result.getString("email"),
+                    result.getString("password"),
+                    result.getString("phone"),
+                    result.getBytes("image"),
+                    result.getString("status")
+                );
+                return user;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return null;
     }
-    return null;
-    }
+
     public boolean updateUser(UserData userData) {
-    Connection conn = mySql.openConnection();
-    String query = "UPDATE vpmsUsers SET name=?, type=?, password=?, email=?, phone=?, image=? WHERE id=?";
- 
-    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-        pstmt.setString(1, userData.getName());
-        pstmt.setString(2, userData.getType());
-        String bcryptHashString = BCrypt.withDefaults().hashToString(12, userData.getPassword().toCharArray());
-        pstmt.setString(3, bcryptHashString);
-        pstmt.setString(4, userData.getEmail());
-        pstmt.setString(5, userData.getPhone());
-        pstmt.setBytes(6, userData.getImage());
-        pstmt.setInt(7, userData.getId());
- 
-        
-        int result = pstmt.executeUpdate();
-        return result > 0;
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        return false;
-    } finally {
-        mySql.closeConnection(conn);
+        Connection conn = mySql.openConnection();
+        String query = "UPDATE vpmsUsers SET name=?, type=?, password=?, email=?, phone=?, image=?, status=? WHERE id=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, userData.getName());
+            pstmt.setString(2, userData.getType());
+            String bcryptHashString = BCrypt.withDefaults().hashToString(12, userData.getPassword().toCharArray());
+            pstmt.setString(3, bcryptHashString);
+            pstmt.setString(4, userData.getEmail());
+            pstmt.setString(5, userData.getPhone());
+            pstmt.setBytes(6, userData.getImage());
+            pstmt.setString(7, userData.getStatus());
+            pstmt.setInt(8, userData.getId());
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        } finally {
+            mySql.closeConnection(conn);
+        }
     }
-}
- 
+
     public boolean deleteUser(int id) throws SQLException {
-    String sql = "DELETE FROM vpmsusers WHERE id = ?";
-    
-    try (Connection conn = mySql.openConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, id);
-        return ps.executeUpdate() > 0;      // returns true only if a row was removed
+        String sql = "DELETE FROM vpmsusers WHERE id = ?";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        }
     }
-}
+
     public int getTotalUserCount() {
-    int count = 0;
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT COUNT(*) FROM vpmsUsers";
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        ResultSet result = pstmt.executeQuery();
-        if (result.next()) {
-            count = result.getInt(1);
+        int count = 0;
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT COUNT(*) FROM vpmsUsers";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            if (result.next()) {
+                count = result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
+        return count;
     }
-    return count;
-}
- public int getTotalStaffCount() {
-    int count = 0;
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT COUNT(*) FROM vpmsUsers WHERE type = 'Staff'";
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        ResultSet result = pstmt.executeQuery();
-        if (result.next()) {
-            count = result.getInt(1);
+
+    public int getTotalStaffCount() {
+        int count = 0;
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT COUNT(*) FROM vpmsUsers WHERE type = 'Staff'";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            if (result.next()) {
+                count = result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
+        return count;
     }
-    return count;
-}
- public int getActiveStaffCount() {
-    int count = 0;
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT COUNT(*) FROM vpmsUsers WHERE type = 'Staff' AND status = 'Active'";
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        ResultSet result = pstmt.executeQuery();
-        if (result.next()) {
-            count = result.getInt(1);
+
+    public int getActiveStaffCount() {
+        int count = 0;
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT COUNT(*) FROM vpmsUsers WHERE type = 'Staff' AND status = 'Active'";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            if (result.next()) {
+                count = result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
+        return count;
     }
-    return count;
-}
 }
