@@ -4,6 +4,9 @@
 */
 package vpms.dao;
  
+//at.favre.lib.bytes.*;
+//at.favre.lib.crypto.bcrypt.*;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,30 +43,16 @@ public class UserDao {
         }
     }
     public boolean registerUser(UserData userData){
+        createTable();
         Connection conn= mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
-            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "name VARCHAR(50) NOT NULL, "
-            + "type VARCHAR(20) NOT NULL, "
-            + "email VARCHAR(100) UNIQUE NOT NULL, "
-            + "password VARCHAR(255) NOT NULL, "
-            + "phone VARCHAR(10) NOT NULL, "  
-            + "image BLOB"
-            + ")";
-        try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Create table"+ex);
-            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
          String query=  "INSERT INTO vpmsUsers (name, type, email, password,phone,image) VALUES (?,?, ?, ?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            String bcryptHashString = BCrypt.withDefaults().hashToString(12, userData.getPassword().toCharArray());
             pstmt.setString(1, userData.getName());
             pstmt.setString(2, userData.getType());
             pstmt.setString(3, userData.getEmail());
-            pstmt.setString(4, userData.getPassword());
+            pstmt.setString(4, bcryptHashString);
             pstmt.setString(5, userData.getPhone());
             pstmt.setBytes(6, userData.getImage());
             int result = pstmt.executeUpdate();
@@ -76,32 +65,37 @@ public class UserDao {
         }
           return false;
     }
-    public UserData loginUser(LoginRequest loginData){
+    public UserData loginUser(LoginRequest req){
         Connection conn = mySql.openConnection();
-        String sql = "SELECT * FROM vpmsUsers where email = ? and password = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, loginData.getEmail());
-            pstmt.setString(2, loginData.getPassword());
-            ResultSet result = pstmt.executeQuery();
-            if(result.next()){
-                UserData user  = new UserData(
-                    result.getString("name"),
-                    result.getString("type"),
-                    result.getString("email"),
-                    result.getString("password"),
-                    result.getString("phone"),
-                    result.getBytes("image")                 
-                );
-                user.setId(result.getInt("id"));
-                return user;
+        String sql = "SELECT * FROM vpmsUsers WHERE email = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, req.getEmail());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String storedHash = rs.getString("password");
+                boolean ok = BCrypt.verifyer()
+                                   .verify(req.getPassword().toCharArray(),
+                                           storedHash.toCharArray())
+                                   .verified;
+                if (ok) {
+                    UserData u = new UserData(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("type"),
+                        rs.getString("email"),
+                        storedHash,
+                        rs.getString("phone"),
+                        rs.getBytes("image"));
+                    return u;
+                }
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            mySql.closeConnection(conn); 
-        }
+            ex.printStackTrace();
+        } finally { mySql.closeConnection(conn); }
         return null;
     }
+
     public List<UserData> showUsers() {
     List<UserData> userList = new ArrayList<>();
     Connection conn = mySql.openConnection();
@@ -174,7 +168,8 @@ public class UserDao {
         String query = "UPDATE vpmsUsers SET password = ? WHERE email = ?";
         try{
             PreparedStatement stmnt = conn.prepareStatement(query);
-            stmnt.setString(1,resetReq.getPassword());
+            String bcryptHashString = BCrypt.withDefaults().hashToString(12, resetReq.getPassword().toCharArray());
+            stmnt.setString(1,bcryptHashString);
             stmnt.setString(2,resetReq.getEmail());
             int result = stmnt.executeUpdate();
             return result > 0;
@@ -214,7 +209,8 @@ public class UserDao {
     try (PreparedStatement pstmt = conn.prepareStatement(query)) {
         pstmt.setString(1, userData.getName());
         pstmt.setString(2, userData.getType());
-        pstmt.setString(3, userData.getPassword());
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12, userData.getPassword().toCharArray());
+        pstmt.setString(3, bcryptHashString);
         pstmt.setString(4, userData.getEmail());
         pstmt.setString(5, userData.getPhone());
         pstmt.setBytes(6, userData.getImage());
