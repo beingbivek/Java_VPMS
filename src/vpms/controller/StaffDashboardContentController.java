@@ -4,6 +4,7 @@
  */
 package vpms.controller;
 
+import java.sql.SQLException;
 import vpms.view.StaffDashboardContentView;
 
 /**
@@ -12,8 +13,9 @@ import vpms.view.StaffDashboardContentView;
  */
 public class StaffDashboardContentController {
     private final StaffDashboardContentView view;
-    public StaffDashboardContentController(StaffDashboardContentView view){
+    public StaffDashboardContentController(StaffDashboardContentView view) throws SQLException{
         this.view = view;
+        new SlotGridController(this.view);
     }
     public void open(){
         this.view.setVisible(true);

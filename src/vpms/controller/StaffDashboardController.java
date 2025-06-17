@@ -39,7 +39,7 @@ public class StaffDashboardController {
         puView = new ProfileUpdateView();
         new ProfileUpdateController(puView,user,StaffDashboardController.this);
         sdcView = new StaffDashboardContentView();
-        new StaffDashboardContentController(sdcView);
+//        new StaffDashboardContentController(sdcView);
         
     }
 
