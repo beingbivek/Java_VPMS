@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package vpms.controller.mail;
 
 import java.util.*;
@@ -14,9 +18,9 @@ public class SMTPSMailSender {
 
     private static final String port = "587"; 
 
-    private static final String email = "240495@softwarica.edu.np";
+    private static final String email = "beingbivek@gmail.com";
 
-    private static String password = "dlnscanjbgamfcwb";
+    private static String password = "hqyt wepm rgtt oksz";
 
 
 
@@ -89,3 +93,4 @@ public class SMTPSMailSender {
     }
 
 }
+
