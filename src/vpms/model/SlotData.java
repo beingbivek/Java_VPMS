@@ -1,72 +1,75 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.model;
 
 /**
- *
- * @author Rupes
+ * POJO for a parking slot.
+ * Database columns already present:
+ *    slot_id (PK), vehicletandp_id, number_of_slot, level_number
+ * Extra runtime columns for the UI grid:
+ *    slotIndex (0-based index inside its level)
+ *    status    (free, occupied, reserved, disabled)
+ *    vehicleTypeName (cached name, e.g. “Car”)
  */
 public class SlotData {
-//    slot_id, vehicletandp, number_of_slot,level_number
+
+    /* ------------ persistent fields ------------ */
     private int slot_id;
-    private int vehicletandp;
-    private int number_of_slot;
+    private int vehicletandp;      // FK → vehicle_type_and_price.id
+    private int number_of_slot;    // total slots of this VT on this level
     private int level_number;
-    
-    public SlotData(int vehicletandp,int number_of_slot,int level_number){
-        this.vehicletandp=vehicletandp;
-        this.number_of_slot= number_of_slot;
-        this.level_number=level_number;          
-    }
-    public SlotData(int slot_id,int vehicletandp,int number_of_slot,int level_number){
-        this.slot_id=slot_id;
-        this.vehicletandp=vehicletandp;
-        this.number_of_slot= number_of_slot;
-        this.level_number=level_number;  
-    }
-    public SlotData(){
-        
+
+    /* ------------ transient / UI fields -------- */
+    private int    slotIndex;          // 0 .. (number_of_slot-1)
+    private String status   = "free";  // default
+    private String vehicleTypeName;    // “Car”, “Bike”, “EV”… (optional cache)
+
+    /* ------------ constructors ------------ */
+    public SlotData() { }
+
+    /* for fresh inserts (id auto-generated) */
+    public SlotData(int vehicletandp, int number_of_slot, int level_number) {
+        this.vehicletandp = vehicletandp;
+        this.number_of_slot = number_of_slot;
+        this.level_number = level_number;
     }
 
-    public int getSlot_id() {
-        return slot_id;
-    }
-
-    public void setSlot_id(int slot_id) {
+    /* full constructor when row already exists */
+    public SlotData(int slot_id, int vehicletandp,
+                    int number_of_slot, int level_number) {
+        this(vehicletandp, number_of_slot, level_number);
         this.slot_id = slot_id;
     }
 
-    public int getVehicletandp() {
-        return vehicletandp;
-    }
+    /* ------------ getters & setters ------------ */
+    public int    getSlot_id()         { return slot_id; }
+    public void   setSlot_id(int id)   { this.slot_id = id; }
 
-    public void setVehicletandp(int vehicletandp) {
-        this.vehicletandp = vehicletandp;
-    }
+    public int    getVehicletandp()    { return vehicletandp; }
+    public void   setVehicletandp(int v){ this.vehicletandp = v; }
 
-    public int getNumber_of_slot() {
-        return number_of_slot;
-    }
+    public int    getNumber_of_slot()  { return number_of_slot; }
+    public void   setNumber_of_slot(int n){ this.number_of_slot = n; }
 
-    public void setNumber_of_slot(int number_of_slot) {
-        this.number_of_slot = number_of_slot;
-    }
+    public int    getLevel_number()    { return level_number; }
+    public void   setLevel_number(int l){ this.level_number = l; }
 
-    public int getLevel_number() {
-        return level_number;
-    }
+    /* extra UI helpers */
+    public int    getSlotIndex()       { return slotIndex; }
+    public void   setSlotIndex(int i)  { this.slotIndex = i; }
 
-    public void setLevel_number(int level_number) {
-        this.level_number = level_number;
+    public String getStatus()          { return status; }
+    public void   setStatus(String s)  { this.status = s; }
+
+    public String getVehicleTypeName()            { return vehicleTypeName; }
+    public void   setVehicleTypeName(String vName){ this.vehicleTypeName = vName; }
+
+    /* ------------ convenience ------------ */
+    @Override public String toString() {
+        return "SlotData{" +
+               "id="     + slot_id +
+               ", vt="   + vehicletandp +
+               ", lvl="  + level_number +
+               ", idx="  + slotIndex +
+               ", status="+ status +
+               '}';
     }
-    
-    
-            
-            
-            
-            
-    
-            
 }

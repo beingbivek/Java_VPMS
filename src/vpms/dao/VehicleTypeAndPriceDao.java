@@ -168,4 +168,25 @@ public class VehicleTypeAndPriceDao {
 
         return list.isEmpty() ? null : list;
     }
+    public VehicleTypeAndPriceData findById(int id) throws SQLException {
+    String sql = "SELECT * FROM vehicle_type_and_price WHERE id=?";
+    try (Connection c = mySql.openConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new VehicleTypeAndPriceData(
+                            rs.getInt("id"),
+                            rs.getString("vehicle_type"),
+                            rs.getString("regular_price"),
+                            rs.getString("demand_price"),
+                            rs.getString("reservation_price"),
+                            rs.getString("extra_charge"),
+                            rs.getString("status"));
+                }
+            }
+        }
+        throw new SQLException("VehicleType id not found: " + id);
+    }
 }
