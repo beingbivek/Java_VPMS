@@ -28,7 +28,6 @@ public class EditUserController {
     private       UserData                user;      // current record
     private       File                    selected;  // new picture
 
-    /* ---------- ctor ---------- */
     public EditUserController(EditUserView view,
                               UserData user,
                               UserManagementController caller) {
@@ -36,7 +35,7 @@ public class EditUserController {
         this.user   = user;
         this.caller = caller;
 
-        fillForm();                                      // show current data
+        fillForm();
 
         view.uploadButtonListener (new UploadListener());
         view.UpdateButtonListener(new SaveListener());
@@ -44,9 +43,8 @@ public class EditUserController {
 
     public void open() { view.setLocationRelativeTo(null); view.setVisible(true); }
 
-    /* ---------- show data in form ---------- */
     private void fillForm() {
-        if (user == null) {                              // safety-net
+        if (user == null) {
             JOptionPane.showMessageDialog(view,"User not found");
             view.dispose(); return;
         }
@@ -58,11 +56,6 @@ public class EditUserController {
         view.getConfirmPasswordField().setText(user.getPassword());
     }
 
-    /* ===================================================== *
-     *  LISTENERS                                            *
-     * ===================================================== */
-
-    /* --- choose new picture (optional) -------------------- */
     private class UploadListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
             JFileChooser fc = new JFileChooser();
@@ -74,11 +67,9 @@ public class EditUserController {
         }
     }
 
-    /* --- save changes ------------------------------------- */
     private class SaveListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
 
-            /* read fields */
             String name  = view.getNameTextField().getText().trim();
             String email = view.getEmailTextField().getText().trim();
             String phone = view.getPhoneTextField().getText().trim();
@@ -86,7 +77,6 @@ public class EditUserController {
             String pwd1  = String.valueOf(view.getPasswordField().getPassword());
             String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
 
-            /* basic validation */
             if (name.isEmpty()||email.isEmpty()||phone.isEmpty()||pwd1.isEmpty()||pwd2.isEmpty()) {
                 JOptionPane.showMessageDialog(view,"Fill in all the fields"); return;
             }
@@ -94,27 +84,25 @@ public class EditUserController {
                 JOptionPane.showMessageDialog(view,"Passwords do not match"); return;
             }
 
-            /* picture handling */
             byte[] img;
             try {
-                if (selected != null) {                                  // new file
+                if (selected != null) {
                     img = new ImageConverter(selected).returnByteArray();
                 } else if (user.getImage() != null && user.getImage().length > 0) {
-                    img = user.getImage();                               // keep old
+                    img = user.getImage();
                 } else {
-                    img = new ImageConverter(null).returnByteArray();    // default
+                    img = new ImageConverter(null).returnByteArray();
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(view,"Image error"); return;
             }
 
-            /* build new object & persist */
-            user = new UserData(user.getId(), name, type, email, pwd1, phone, img);
+            user = new UserData(user.getId(), name, type, email, pwd1, phone, img, user.getStatus());
             boolean ok = dao.updateUser(user);
 
             if (ok) {
                 JOptionPane.showMessageDialog(view,"User updated");
-                if (caller != null) caller.refreshTable();               // refresh list
+                if (caller != null) caller.refreshTable();
                 view.dispose();
             } else {
                 JOptionPane.showMessageDialog(view,"Update failed",
@@ -123,3 +111,4 @@ public class EditUserController {
         }
     }
 }
+
