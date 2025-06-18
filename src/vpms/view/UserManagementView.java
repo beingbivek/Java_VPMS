@@ -72,7 +72,6 @@ public class UserManagementView extends javax.swing.JInternalFrame {
                 "ID", "Name", "Type", "Email", "Password", "Phone", "Image"
             }
         ));
-        userTable.setEnabled(false);
         jScrollPane1.setViewportView(userTable);
 
         addButton.setBackground(new java.awt.Color(51, 255, 0));
