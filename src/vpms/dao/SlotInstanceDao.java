@@ -17,29 +17,19 @@ public class SlotInstanceDao {
     public SlotInstanceDao() throws SQLException { createTable(); }
 
     /* ---------- bulk create when a new slot collection is inserted ---------- */
-    public void bulkInsert(int slotId,
-                           int totalSlots,
-                           String typePrefix,
-                           int levelNumber) throws SQLException {
-
-        String sql = """
-            INSERT INTO slot_instances(slot_id, slot_index, code, status)
-            VALUES (?,?,?, 'free')
-            """;
-        try (Connection c = db.openConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            IntStream.range(0, totalSlots).forEach(i -> {
-                try {
-                    ps.setInt   (1, slotId);
-                    ps.setInt   (2, i);
-                    ps.setString(3, buildCode(typePrefix, levelNumber, i));
-                    ps.addBatch();
-                } catch (SQLException ex) { throw new RuntimeException(ex); }
-            });
-            ps.executeBatch();
+    public void bulkInsert(int slotId,int total,String pre,int lvl) throws SQLException{
+        String sql="INSERT INTO slot_instances(slot_id,slot_index,code,status) VALUES (?,?,?, 'free')";
+        try(Connection c=db.openConnection(); PreparedStatement ps=c.prepareStatement(sql)){
+            for(int i=0;i<total;i++){
+                ps.setInt(1,slotId);
+                ps.setInt(2,i);
+                ps.setString(3,pre+"-L"+lvl+"-S"+String.format("%02d",i));
+                ps.addBatch();
+            }
+            ps.executeBatch();          // single network round-trip[4]
         }
     }
+
 
     /* ---------- status update ---------- */
     public boolean updateStatus(int instanceId, String status) throws SQLException {
