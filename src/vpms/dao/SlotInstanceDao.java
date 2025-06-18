@@ -114,4 +114,29 @@ public class SlotInstanceDao {
         try (Connection c = db.openConnection();
              Statement st = c.createStatement()) { st.executeUpdate(ddl); }
     }
+    public int getTotalSlotCount() {
+    int count = 0;
+    String sql = "SELECT COUNT(*) FROM slot_instances";
+    try (Connection c = db.openConnection();
+         PreparedStatement ps = c.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) count = rs.getInt(1);
+    } catch (SQLException ex) {
+        System.out.println("Total slot count error: " + ex);
+    }
+    return count;
+}
+
+public int getAvailableSlotCount() {
+    int count = 0;
+    String sql = "SELECT COUNT(*) FROM slot_instances WHERE status = 'free'";
+    try (Connection c = db.openConnection();
+         PreparedStatement ps = c.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) count = rs.getInt(1);
+    } catch (SQLException ex) {
+        System.out.println("Available slot count error: " + ex);
+    }
+    return count;
+}
 }

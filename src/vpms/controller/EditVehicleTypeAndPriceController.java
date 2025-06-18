@@ -30,6 +30,7 @@ public class EditVehicleTypeAndPriceController {
 
         populateFields();
         this.view.addUpdateListener(new UpdateAction());
+        this.view.getCancelButton().addActionListener(new CancelAction());
     }
 
     public void open() {
@@ -56,7 +57,6 @@ public class EditVehicleTypeAndPriceController {
                 String extraCharge = view.getExtraCharge().trim();
                 String status = view.getStatus();
 
-                // Optional fallback: store empty as "0"
                 if (reservationPrice.isEmpty()) reservationPrice = "0";
                 if (regularPrice.isEmpty()) regularPrice = "0";
                 if (demandPrice.isEmpty()) demandPrice = "0";
@@ -71,7 +71,7 @@ public class EditVehicleTypeAndPriceController {
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type updated successfully.");
                     view.dispose();
-                    
+
                     VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
                     VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
                     controller.open();
@@ -86,6 +86,15 @@ public class EditVehicleTypeAndPriceController {
         }
     }
 
+    class CancelAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.dispose();
+            VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
+            VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
+            controller.open();
+        }
+    }
 }
     
 

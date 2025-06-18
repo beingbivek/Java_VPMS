@@ -25,7 +25,7 @@ public class DefaultAdminSeeder {
         UserDao userDao = new UserDao();
         File imgFile = new File("src/Icons/adminperfectsize.png");
         ImageConverter img = new ImageConverter(imgFile);
-        UserData user = new UserData(defaultName,userType,defaultEmail,defaultPassword,defaultPhone,img.returnByteArray());
+        UserData user = new UserData(defaultName, userType, defaultEmail, defaultPassword, defaultPhone, img.returnByteArray(), "Active");
         if(!userDao.checkEmail(defaultEmail)){
             userDao.registerUser(user);
         }

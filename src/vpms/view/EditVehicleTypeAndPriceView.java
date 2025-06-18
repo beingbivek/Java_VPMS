@@ -5,6 +5,7 @@
 package vpms.view;
 
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 /**
  *
@@ -42,6 +43,7 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
         regularPriceField = new javax.swing.JTextField();
         demandPriceField = new javax.swing.JTextField();
         extraChargeField = new javax.swing.JTextField();
+        cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +80,14 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Edit VehicleType  and VehiclePrice");
 
+        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,8 +110,10 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
                         .addGap(180, 180, 180))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelButton)
+                .addGap(18, 18, 18)
                 .addComponent(updateButton)
-                .addGap(216, 216, 216))
+                .addGap(156, 156, 156))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(146, 146, 146)
@@ -132,9 +144,11 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
                 .addComponent(extraChargeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(updateButton)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateButton)
+                    .addComponent(cancelButton))
+                .addContainerGap(125, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(123, 123, 123)
@@ -158,6 +172,10 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
     private void vehicleTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleTypeComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_vehicleTypeComboBoxActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,6 +213,7 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
     private javax.swing.JTextField demandPriceField;
     private javax.swing.JTextField extraChargeField;
     private javax.swing.JLabel jLabel1;
@@ -262,5 +281,8 @@ public String getVehicleType() {
     // Button Listener
     public void addUpdateListener(ActionListener listener) {
         updateButton.addActionListener(listener);
+    }
+    public JButton getCancelButton() {
+    return cancelButton;
     }
 }
