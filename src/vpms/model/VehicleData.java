@@ -6,7 +6,7 @@ package vpms.model;
 
 /**
  *
- * @author being
+ * @author PRABHASH
  */
 public class VehicleData {
     private String id;
@@ -26,7 +26,9 @@ public class VehicleData {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    public void VehicleData(String type,String vehicleNumber,String ownerName,String ownerContact, String createdAt,String updatedAt){
+
+    public VehicleData(String type,String vehicleNumber,String ownerName,String ownerContact, String createdAt,String updatedAt){
+
         this.type = type;
         this.vehicleNumber = vehicleNumber;
         this.ownerContact = ownerContact;

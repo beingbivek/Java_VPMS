@@ -28,7 +28,7 @@ public class AdminLoginController {
     public AdminLoginController(AdminLoginView view) { //constructor
         this.view = view;
         this.userDao = new UserDao();
-
+//        DefaultAdminSeeder.insertDefaultAdminIfNotExists();
         this.view.addLoginButtonListener(new LoginHandler());
         this.view.addForgotPasswordListener(new ForgotPasswordHandler());
     }
@@ -41,15 +41,6 @@ public class AdminLoginController {
         view.dispose();
     }
 
-    public static class DefaultAdminSeeder {
-
-        public static void insertDefaultAdminIfNotExists() {
-            
-        }
-
-        public DefaultAdminSeeder() {
-        }
-    }
 
     class LoginHandler implements ActionListener { //event handlers
         @Override
@@ -64,15 +55,17 @@ public class AdminLoginController {
 
             LoginRequest request = new LoginRequest(email, password);
             UserData user = userDao.loginUser(request);
+            
+            
 
             if (user != null && "admin".equalsIgnoreCase(user.getType())) {
-                JOptionPane.showMessageDialog(view, "Login successful.");
+//                JOptionPane.showMessageDialog(view, "Login successful."); //POPUP. I don't think it is necessary.
                 view.dispose();
                 AdminDashboardView dashboard = new AdminDashboardView();
                 dashboard.setVisible(true);
                 // TODO: Navigate to dashboard
             } else {
-                JOptionPane.showMessageDialog(view, "Invalid credentials or not an admin.");
+                JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
             }
         }
     }

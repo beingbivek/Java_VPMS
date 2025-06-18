@@ -1,0 +1,105 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package vpms.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import vpms.database.MySqlConnection;
+import vpms.model.ParkingDetails;
+import java.sql.ResultSet;
+
+
+
+/**
+ *
+ * @author Chandani
+ */
+public class ParkingDao {
+    MySqlConnection mySql = new MySqlConnection();
+
+    public boolean registerParkingUser(ParkingDetails parkingDetails) {
+        Connection conn= mySql.openConnection();
+
+        String query=  "INSERT INTO parkings (vehicleId,slotId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, parkingDetails.getVehicleId());
+            pstmt.setString(2, parkingDetails.getSlotId());
+            pstmt.setString(3, parkingDetails.getEntryDateTime());
+            pstmt.setString(4, parkingDetails.getEntryNote());
+            pstmt.setString(5, parkingDetails.getParkingStatus());
+            pstmt.setString(6, parkingDetails.getParkingtype());
+            pstmt.setBoolean(7, parkingDetails.isPenaltyApplied());
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            System.err.println(ex);
+
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return false;
+    }
+
+    public boolean vehicleExit(ParkingDetails parkingDetails) {
+        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ? WHERE parkingId = ?";
+        Connection conn= mySql.openConnection();
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(query);
+            stmnt.setString(1, parkingDetails.getExitDateTime());
+            stmnt.setString(2, parkingDetails.getParkingStatus());
+            stmnt.setString(3, parkingDetails.getExitNote());
+            stmnt.setString(4, parkingDetails.getVehicleId());
+            int result = stmnt.executeUpdate();
+            return result > 0;
+        } catch(Exception e) {
+            return false;
+        } finally {
+            mySql.closeConnection(conn);
+        }
+    }
+
+    public int getTotalVehicleEntryCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM parkings";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Vehicle entry count error: " + ex);
+        }
+        return count;
+    }
+
+    public int getCurrentlyParkedCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Parked'";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Currently parked count error: " + ex);
+        }
+        return count;
+    }
+
+    public int getExitedVehicleCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Exited'";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Exited vehicle count error: " + ex);
+        }
+        return count;
+    }
+} 
+
+ 

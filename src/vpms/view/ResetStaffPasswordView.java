@@ -4,9 +4,12 @@
  */
 package vpms.view;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+
 /**
  *
- * @author PRABHASH
+ * @author being
  */
 public class ResetStaffPasswordView extends javax.swing.JFrame {
 
@@ -28,11 +31,10 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        emailTextField = new javax.swing.JTextField();
+        sendOTPButton = new javax.swing.JButton();
+        backToLoginLabel = new javax.swing.JLabel();
+        sidePictureLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,12 +43,12 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Forgot Password");
 
-        jTextField1.setText("Email");
+        emailTextField.setText("Email");
 
-        jButton1.setBackground(new java.awt.Color(167, 53, 255));
-        jButton1.setText("Send OTP");
+        sendOTPButton.setBackground(new java.awt.Color(167, 53, 255));
+        sendOTPButton.setText("Send OTP");
 
-        jLabel4.setText("<html><u>Back to Login</u></html>");
+        backToLoginLabel.setText("<html><u>Back to Login</u></html>");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -55,8 +57,8 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sendOTPButton)
+                    .addComponent(backToLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(39, Short.MAX_VALUE)
@@ -65,7 +67,7 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(88, 88, 88))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -74,27 +76,22 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabel2)
                 .addGap(53, 53, 53)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sendOTPButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backToLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(84, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vpms/view/acec3192791626e7caf93a0d2203cd4c.jpg"))); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/WhatsApp Image 2025-05-24 at 13.38.26_390adc7f.jpg"))); // NOI18N
+        sidePictureLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/WhatsApp Image 2025-05-24 at 13.38.26_390adc7f.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3)
+                .addComponent(sidePictureLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
@@ -102,10 +99,9 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sidePictureLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))))
@@ -150,12 +146,20 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel backToLoginLabel;
+    private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton sendOTPButton;
+    private javax.swing.JLabel sidePictureLabel;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JTextField getEmailTextField(){
+        return emailTextField;
+    }
+    public void sendOTPListener(ActionListener listener){
+        sendOTPButton.addActionListener(listener);
+    }
+    public void backToLoginListerner(MouseListener listener){
+        backToLoginLabel.addMouseListener(listener);
+    }
 }
