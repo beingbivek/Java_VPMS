@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import vpms.model.VehicleTypeAndPriceData;
+
 /**
  *
  * @author being
@@ -39,8 +41,6 @@ public class AddSlotView extends javax.swing.JFrame {
 
         levelNoTF.setText("jTextField3");
 
-        vehicleTypecbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         addbutton.setText("save");
         addbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,11 +54,10 @@ public class AddSlotView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(213, 213, 213)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(levelNoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(noOfSlotTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(vehicleTypecbox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(levelNoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(noOfSlotTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vehicleTypecbox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addbutton))
                 .addContainerGap(312, Short.MAX_VALUE))
         );
@@ -112,6 +111,18 @@ public class AddSlotView extends javax.swing.JFrame {
     private javax.swing.JButton addbutton;
     private javax.swing.JTextField levelNoTF;
     private javax.swing.JTextField noOfSlotTF;
-    private javax.swing.JComboBox<String> vehicleTypecbox;
+    private javax.swing.JComboBox<VehicleTypeAndPriceData> vehicleTypecbox;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JComboBox<VehicleTypeAndPriceData> getVehicleTypeCombo(){
+        return vehicleTypecbox;
+    }
+    public javax.swing.JButton addSaveButtonListener(){
+        return addbutton;
+    }
+    public javax.swing.JTextField getTxtTotal(){
+        return noOfSlotTF;
+    }
+    public javax.swing.JTextField getTxtLevel(){
+        return levelNoTF;
+    }
 }
