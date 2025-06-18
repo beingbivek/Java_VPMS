@@ -22,26 +22,6 @@ public class PaymentDao {
 
     public boolean addPayment(PaymentData payment) {
         Connection conn = mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS payments ("
-            + "payment_id INT AUTO_INCREMENT PRIMARY KEY, "
-            + "parking_id INT , "
-            + "vehicle_id INT, "
-            + "user_id INT, "
-            + "regular_price VARCHAR(10), "
-            + "demand_price VARCHAR(10), "
-            + "reservation_price VARCHAR(10),"
-            + "extra_charge VARCHAR(10), "
-            + "payment_status VARCHAR(10),"
-            + "payment_time DATETIME,"
-            + "FOREIGN KEY (parking_id) REFERENCES parking(parking_id),"
-            + "FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id),"
-            + "FOREIGN KEY (user_id) REFERENCES vpmsUsers(user_id)"
-            + ")";
-        try {
-            PreparedStatement stmnt = conn.prepareStatement(createTableSQL);
-            stmnt.executeUpdate();
-        } catch (Exception e) {
-        }
 
         String query = "INSERT INTO payments (parking_id, vehicle_id, user_id, regular_price, demand_price, reservation_price, extra_charge, payment_status, payment_time) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {

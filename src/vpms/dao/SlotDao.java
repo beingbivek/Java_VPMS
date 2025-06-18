@@ -22,10 +22,6 @@ public class SlotDao {
 
     private final MySqlConnection db = new MySqlConnection();
 
-    public SlotDao() throws SQLException {
-        createTableIfMissing();
-    }
-
     /* ===================================================== *
      *  C R E A T E                                          *
      * ===================================================== */
@@ -119,21 +115,5 @@ public class SlotDao {
                 rs.getInt("number_of_slot"),
                 rs.getInt("level_number")
         );
-    }
-
-    private void createTableIfMissing() throws SQLException {
-        String ddl = """
-            CREATE TABLE IF NOT EXISTS slots(
-              slot_id         INT AUTO_INCREMENT PRIMARY KEY,
-              vehicletandp_id INT NOT NULL,
-              number_of_slot  INT NOT NULL,
-              level_number    INT NOT NULL,
-              FOREIGN KEY (vehicletandp_id)
-                     REFERENCES vehicle_type_and_price(id)
-            )""";
-        try (Connection c = db.openConnection();
-             Statement st = c.createStatement()) {
-            st.executeUpdate(ddl);
-        }
     }
 }

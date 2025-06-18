@@ -14,8 +14,6 @@ public class SlotInstanceDao {
 
     private final MySqlConnection db = new MySqlConnection();
 
-    public SlotInstanceDao() throws SQLException { createTable(); }
-
     /* ---------- bulk create when a new slot collection is inserted ---------- */
     public void bulkInsert(int slotId,int total,String pre,int lvl) throws SQLException{
         String sql="INSERT INTO slot_instances(slot_id,slot_index,code,status) VALUES (?,?,?, 'free')";
@@ -101,19 +99,6 @@ public class SlotInstanceDao {
         return prefix + "-L" + level + "-S" + String.format("%02d", idx);
     }
 
-    private void createTable() throws SQLException {
-        String ddl = """
-           CREATE TABLE IF NOT EXISTS slot_instances(
-             instance_id INT AUTO_INCREMENT PRIMARY KEY,
-             slot_id     INT NOT NULL,
-             slot_index  INT NOT NULL,
-             code        VARCHAR(15) UNIQUE,
-             status      VARCHAR(10) DEFAULT 'free',
-             FOREIGN KEY (slot_id) REFERENCES slots(slot_id)
-           )""";
-        try (Connection c = db.openConnection();
-             Statement st = c.createStatement()) { st.executeUpdate(ddl); }
-    }
     public int getTotalSlotCount() {
     int count = 0;
     String sql = "SELECT COUNT(*) FROM slot_instances";

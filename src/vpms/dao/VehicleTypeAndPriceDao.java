@@ -16,29 +16,6 @@ import vpms.model.VehicleTypeAndPriceData;
  */
 public class VehicleTypeAndPriceDao {
      MySqlConnection mySql = new MySqlConnection();
-     
-    public VehicleTypeAndPriceDao() throws SQLException { createTableIfExists(); }
-     
-    private void createTableIfExists(){
-        Connection conn = mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS vehicle_type_and_price ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY, "
-                + "vehicle_type VARCHAR(50), "
-                + "reservation_price VARCHAR(10), "
-                + "regular_price VARCHAR(10), "
-                + "demand_price VARCHAR(10), "
-                + "extra_charge VARCHAR(10), "
-                + "status VARCHAR(20))";
-
-        try {
-            PreparedStatement createStmt = conn.prepareStatement(createTableSQL);
-            createStmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally{
-            mySql.closeConnection(conn);
-        }
-    }
 
     public boolean addVehicleTypeAndPrice(VehicleTypeAndPriceData vehicle) {
         Connection conn = mySql.openConnection();

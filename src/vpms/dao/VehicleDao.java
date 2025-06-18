@@ -21,23 +21,7 @@ public class VehicleDao {
     MySqlConnection mySql = new MySqlConnection();
     public boolean registerVehicle(VehicleData vehicleData){
         Connection conn= mySql.openConnection();
-         String createTableSQL = "CREATE TABLE IF NOT EXISTS vehicles ("
-            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "type VARCHAR(50) NOT NULL, "
-            + "vehicle_number VARCHAR(100) NOT NULL, "
-            + "owner_name VARCHAR(100) NOT NULL, "
-            + "owner_contact VARCHAR(50) NOT NULL, "
-            + "created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, "
-            + "updated_at DATETIME"
-            + ")";
-         String query=  "INSERT INTO vehicles (type, vehicle_number, owner_name, owner_contact,created_at,updated_at) VALUES (?,?,?,?,?,?)";
-         
-        try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(VehicleDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        String query=  "INSERT INTO vehicles (vehicletandp_id, vehicle_number, owner_name, owner_contact,created_at,updated_at) VALUES (?,?,?,?,?,?)";
         
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, vehicleData.getType());

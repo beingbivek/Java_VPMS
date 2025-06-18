@@ -24,23 +24,6 @@ public class ActivityLogDao {
     public boolean logActivity(ActivityLog log) {
         Connection conn = mySql.openConnection();
 
-        // Create table if not exists
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS activity_log ("
-                + "log_id INT AUTO_INCREMENT PRIMARY KEY, "
-                + "user_id INT, "
-                + "user_type VARCHAR(20), "
-                + "action VARCHAR(255), "
-                + "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, "
-                + "FOREIGN KEY (user_id) REFERENCES vpmsUsers(user_id)"
-                + ")";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(createTableSQL);
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         // Insert log entry
         String query = "INSERT INTO activity_log (user_id, user_type, action) VALUES (?, ?, ?)";
 

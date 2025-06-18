@@ -23,26 +23,11 @@ public class ReservationDao {
 
     // Add reservation (with table creation and FK references)
     public void addReservation(ReservationData data) {
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS reservations ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY, "
-                + "user_id INT, "
-                + "vehicle_id INT, "
-                + "slot_id INT, "
-                + "reservation_time VARCHAR(50), "
-                + "status VARCHAR(20), "
-                + "duration VARCHAR(20), "
-                + "payment_status VARCHAR(20), "
-                + "FOREIGN KEY (user_id) REFERENCES vpmsUsers(id), "
-                + "FOREIGN KEY (vehicle_id) REFERENCES vehicles(id), "
-                + "FOREIGN KEY (slot_id) REFERENCES slot_instances(id))";
 
         String insertSQL = "INSERT INTO reservations (user_id, vehicle_id, slot_id, reservation_time, status, duration, payment_status) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = mySql.openConnection()) {
-            try (PreparedStatement createStmt = conn.prepareStatement(createTableSQL)) {
-                createStmt.executeUpdate();
-            }
 
             try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
                 pstmt.setInt(1, data.getUserId());
