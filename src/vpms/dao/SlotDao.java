@@ -29,19 +29,21 @@ public class SlotDao {
     /* ===================================================== *
      *  C R E A T E                                          *
      * ===================================================== */
-    public boolean insert(SlotData s) throws SQLException {
-        String sql = """
-            INSERT INTO slots (vehicletandp_id, number_of_slot, level_number)
-            VALUES (?,?,?)
-            """;
-        try (Connection c = db.openConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+    public int insertReturnId(SlotData s) throws SQLException {
+    String sql = "INSERT INTO slots(vehicletandp_id, number_of_slot, level_number) VALUES (?,?,?)";
+    try (Connection c = db.openConnection();
+         PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, s.getVehicletandp());
             ps.setInt(2, s.getNumber_of_slot());
             ps.setInt(3, s.getLevel_number());
-            return ps.executeUpdate() == 1;
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
+            }
         }
+        return 0;
     }
 
     /* ===================================================== *

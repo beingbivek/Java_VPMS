@@ -69,9 +69,10 @@ public class UserManagementView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Name", "Type", "Email", "Password", "Phone", "Image"
+                "ID", "Name", "Type", "Email", "Password", "Phone", "Image", "Status"
             }
         ));
+        userTable.setEnabled(false);
         jScrollPane1.setViewportView(userTable);
 
         addButton.setBackground(new java.awt.Color(51, 255, 0));
@@ -96,7 +97,7 @@ public class UserManagementView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 947, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -125,7 +126,7 @@ public class UserManagementView extends javax.swing.JInternalFrame {
                     .addComponent(addButton))
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         pack();

@@ -12,8 +12,6 @@ import vpms.view.AddVehiclesView;
 import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 
 public class AddVehiclesController {
 
@@ -60,12 +58,6 @@ public class AddVehiclesController {
             String ownerContact  = view.getTxtOwnerContact() .getText().trim();
 
             /* ---------- validate ---------- */
-            List<String> allowed = Arrays.asList("Car", "Bike", "Van", "EV");
-            if (!allowed.contains(type)) {
-                JOptionPane.showMessageDialog(view,
-                        "Vehicle Type must be one of: Car, Bike, Van or EV");
-                return;
-            }
             if (!vehicleNumber.matches("^[A-Za-z0-9 -]{6,20}$")) {
                 JOptionPane.showMessageDialog(view,
                         "Vehicle number must be 6–20 characters."); return;

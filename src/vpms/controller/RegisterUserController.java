@@ -83,7 +83,8 @@ public class RegisterUserController {
             }
 
             /* save */
-            UserData u = new UserData(name,type,email,pwd1,phone,img);
+            String status = view.getStatusField().getSelectedItem().toString();
+            UserData u = new UserData(name, type, email, pwd1, phone, img, status);
             if (dao.registerUser(u)) {
                 JOptionPane.showMessageDialog(view,"Registered successfully");
 
@@ -97,3 +98,4 @@ public class RegisterUserController {
         }
     }
 }
+

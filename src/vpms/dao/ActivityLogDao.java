@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import vpms.database.MySqlConnection;
 import vpms.model.ActivityLog;
-import vpms.model.UserData;
 
 
 /**
@@ -87,5 +86,9 @@ public class ActivityLogDao {
 
             return logList;
         }
+    
+    
+    
+    
     
 }

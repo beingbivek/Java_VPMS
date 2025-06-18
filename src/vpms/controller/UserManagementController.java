@@ -51,7 +51,7 @@ public class UserManagementController {
         for (UserData u : users) {
             model.addRow(new Object[]{
                     u.getId(), u.getName(), u.getType(), u.getEmail(),
-                    u.getPassword(), u.getPhone(), u.getImage()
+                    u.getPassword(), u.getPhone(), u.getImage(), u.getStatus()
             });
         }
     }
@@ -84,7 +84,8 @@ public class UserManagementController {
             (String) view.getTable().getValueAt(row,3),   // email
             (String) view.getTable().getValueAt(row,4),   // password
             (String) view.getTable().getValueAt(row,5),   // phone
-            (byte[]) view.getTable().getValueAt(row,6)    // image
+            (byte[]) view.getTable().getValueAt(row,6),   // image
+            (String) view.getTable().getValueAt(row,7)    // status
         );
 
         EditUserView popup = new EditUserView();          // JFrame
@@ -152,7 +153,7 @@ public class UserManagementController {
 
                     model.addRow(new Object[]{
                             u.getId(), u.getName(), u.getType(), u.getEmail(),
-                            u.getPassword(), u.getPhone(), u.getImage()
+                            u.getPassword(), u.getPhone(), u.getImage(), u.getStatus()
                     });
                 }
             }
