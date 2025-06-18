@@ -3,18 +3,21 @@ package vpms.controller;
 
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
 import vpms.controller.UserManagementController;
 import vpms.model.UserData;
 import vpms.view.AdminDashboardContentView;
+import vpms.view.SlotManagementView;
 import vpms.view.WelcomeAndLoginView;
 
 public class AdminDashboardController {
     private final AdminDashboardView view;
     private UserManagementView smView;
     private AdminDashboardContentView adcView;
+    private SlotManagementView sView;
     UserData user;
 
     public AdminDashboardController(AdminDashboardView view,UserData user) {
@@ -25,11 +28,17 @@ public class AdminDashboardController {
     }
 
     private void initializeControllers() {
-        // Initialize sub-module controllers
-        smView = new UserManagementView();
-        new UserManagementController(smView);
-        adcView = new AdminDashboardContentView();
-        new AdminDashboardContentController(adcView);
+        try {
+            // Initialize sub-module controllers
+            smView = new UserManagementView();
+            new UserManagementController(smView);
+            adcView = new AdminDashboardContentView();
+            new AdminDashboardContentController(adcView);
+            sView = new SlotManagementView();
+            new SlotManagementController(sView);
+        } catch (SQLException ex) {
+            System.getLogger(AdminDashboardController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     private void attachListeners() {
@@ -55,6 +64,17 @@ public class AdminDashboardController {
         adcView.toFront();
         try {
             adcView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showSlotsPanel() {
+        sView.setVisible(true);
+        view.setWindowPanel(sView);
+        sView.toFront();
+        try {
+            sView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }

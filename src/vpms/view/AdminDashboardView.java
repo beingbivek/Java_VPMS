@@ -278,6 +278,9 @@ public class AdminDashboardView extends javax.swing.JFrame {
     public javax.swing.JButton getAdminDashboardWindowbtn(){
         return dashboardWindowButton;
     }
+    public javax.swing.JButton getSlotWindowbtn(){
+        return slotWindowButton;
+    }
     public javax.swing.JButton getLogoutBtn(){
         return logoutButton;
     }
