@@ -5,6 +5,7 @@
 package vpms.view;
 
 import java.awt.event.ActionListener;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -17,6 +18,9 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
      */
     public SlotManagementView() {
         initComponents();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
     }
 
     /**

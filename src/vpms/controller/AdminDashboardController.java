@@ -37,13 +37,14 @@ public class AdminDashboardController {
             sView = new SlotManagementView();
             new SlotManagementController(sView);
         } catch (SQLException ex) {
-            System.getLogger(AdminDashboardController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            ex.printStackTrace();
         }
     }
 
     private void attachListeners() {
         view.getUserWindowbtn().addActionListener(e -> showUsersPanel());
         view.getAdminDashboardWindowbtn().addActionListener(e -> showDashboard());
+        view.getSlotWindowbtn().addActionListener(e -> showSlotsPanel());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
 
