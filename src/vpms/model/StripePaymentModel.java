@@ -23,16 +23,17 @@ public class StripePaymentModel {
         Stripe.apiKey = new APIKeys().getStripeKeys();
     }
 
-    public String createCheckoutSession() {
+    public String createCheckoutSession(Long money) {
         try {
             // Create the checkout session parameters
+            money = money * 100;
             SessionCreateParams params = SessionCreateParams.builder()
                 .addLineItem(
                     SessionCreateParams.LineItem.builder()
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("npr")
-                                .setUnitAmount(20000L)  // $20.00 in cents
+                                .setUnitAmount(money)  // $20.00 in cents
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("Sample Product")  // Product name
