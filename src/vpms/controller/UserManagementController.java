@@ -44,17 +44,28 @@ public class UserManagementController {
 
     /* -------------- table population -------------- */
     private void loadUserData() {
-        List<UserData> users = dao.showUsers();
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);
-
-        for (UserData u : users) {
-            model.addRow(new Object[]{
-                    u.getId(), u.getName(), u.getType(), u.getEmail(),
-                    u.getPassword(), u.getPhone(), u.getImage()
-            });
+    List<UserData> users = dao.showUsers();
+    // Create a non-editable table model
+    DefaultTableModel model = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
         }
+    };
+    // Set column names
+    model.setColumnIdentifiers(new String[] {
+        "ID", "Name", "Type", "Email", "Password", "Phone", "Image"
+    });
+    // Populate data
+    for (UserData u : users) {
+        model.addRow(new Object[]{
+            u.getId(), u.getName(), u.getType(), u.getEmail(),
+            u.getPassword(), u.getPhone(), u.getImage()
+        });
     }
+    view.getTable().setModel(model);
+}
+
 
     /* ===================================================== *
      *  LISTENERS                                            *
