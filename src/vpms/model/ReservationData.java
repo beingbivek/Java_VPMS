@@ -15,22 +15,30 @@ public class ReservationData {
     private int slotId;
     private String reservationTime;
     private String status;
+    private String duration;        
+    private String paymentStatus;
     
-    public ReservationData(int id, int userId, int vehicleId, int slotId, String reservationTime, String status) {
+    public ReservationData(int id, int userId, int vehicleId, int slotId, String reservationTime, String status, String duration, String paymentStatus) {
         this.id = id;
         this.userId = userId;
         this.vehicleId = vehicleId;
         this.slotId = slotId;
         this.reservationTime = reservationTime;
         this.status = status;
+        this.duration = duration;
+        this.paymentStatus = paymentStatus;
+        
     }
     
-    public ReservationData(int userId, int vehicleId, int slotId, String reservationTime, String status) {
+    public ReservationData(int userId, int vehicleId, int slotId, String reservationTime, String status, String duration, String paymentStatus) {
         this.userId = userId;
         this.vehicleId = vehicleId;
         this.slotId = slotId;
         this.reservationTime = reservationTime;
         this.status = status;
+        this.duration = duration;
+        this.paymentStatus = paymentStatus;
+        
     }
 
     public int getId() {
@@ -80,6 +88,22 @@ public class ReservationData {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     
 }
