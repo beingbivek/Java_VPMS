@@ -16,7 +16,7 @@ import vpms.view.VehicleTypeAndPriceView;
  * @author PRABHASH
  */
 public class AddVehicleTypeAndPriceController {
-     private AddVehicleTypeAndPriceView view;
+    private AddVehicleTypeAndPriceView view;
     private VehicleTypeAndPriceDao dao;
     private VehicleTypeAndPriceController mainController;
 
@@ -26,6 +26,7 @@ public class AddVehicleTypeAndPriceController {
         this.mainController = mainController;
 
         this.view.addSubmitListener(new SubmitAction());
+        this.view.getCancelButton().addActionListener(new CancelAction());
     }
 
     public void open() {
@@ -43,13 +44,11 @@ public class AddVehicleTypeAndPriceController {
                 String extraCharge = view.getExtraCharge().trim();
                 String status = view.getStatus();
 
-                
                 if (vehicleType.isEmpty() || regularPrice.isEmpty() || status.isEmpty()) {
                     JOptionPane.showMessageDialog(view, "Vehicle type, regular price, and status are required.");
                     return;
                 }
 
-                
                 if (reservationPrice.isEmpty()) reservationPrice = "0";
                 if (demandPrice.isEmpty()) demandPrice = "0";
                 if (extraCharge.isEmpty()) extraCharge = "0";
@@ -63,12 +62,10 @@ public class AddVehicleTypeAndPriceController {
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
                     view.dispose();
-                    
-                VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-                VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                controller.open();  
-    
-    
+
+                    VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
+                    VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
+                    controller.open();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to add vehicle type.");
                 }
@@ -77,6 +74,16 @@ public class AddVehicleTypeAndPriceController {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(view, "An error occurred while adding.");
             }
+        }
+    }
+
+    class CancelAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.dispose();
+            VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
+            VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
+            controller.open();
         }
     }
 }
