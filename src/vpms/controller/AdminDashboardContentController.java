@@ -7,10 +7,14 @@ package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import vpms.dao.ParkingDao;
 import vpms.dao.PaymentDao;
 import vpms.dao.SlotInstanceDao;
 import vpms.dao.UserDao;
+import vpms.model.AdminDashboardData;
+import vpms.model.UserData;
 import vpms.view.AdminDashboardContentView;
 import vpms.view.UserManagementView;
 
@@ -54,7 +58,28 @@ public class AdminDashboardContentController {
      
     }
     
+    private void loadDashboardData() {
+        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+        model.setRowCount(0);
+        
+        AdminDashboardData a = new AdminDashboardData(
+        2,
+        10,
+        30,
+        20,
+        "Rs.800"
+                
+        );
+
+        model.addRow(new Object[]{
+            a.getTotalActiveStaff(), a.getCurrentlyOccupiedSlots(), a.getVehiclesEnteredToday(), a.getVehiclesExitedToday(),
+            a.getTotalEarningsToday()
+            });
+        }
+    }
+
+    
+    
   
     
   
-}

@@ -29,7 +29,7 @@ public class AdminDashboardController {
         smView = new UserManagementView();
         new UserManagementController(smView);
         adcView = new AdminDashboardContentView();
-        new AdminDashboardContentController(adcView);
+        //new AdminDashboardContentController(adcView);
     }
 
     private void attachListeners() {

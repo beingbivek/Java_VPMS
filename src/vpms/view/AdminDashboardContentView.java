@@ -59,7 +59,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        recentActivitiewjTable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -67,7 +67,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        staffManagementjTable = new javax.swing.JTable();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Admin Dashboard");
@@ -407,7 +407,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setText("Recent Activities");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        recentActivitiewjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -418,7 +418,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
                 "Time", "Action", "Performed By"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(recentActivitiewjTable);
 
         jLabel23.setText("Ralph Anderson");
 
@@ -456,7 +456,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         jTextField2.setForeground(new java.awt.Color(0, 51, 204));
         jTextField2.setText("Cancel");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        staffManagementjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -467,7 +467,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
                 "Name", "ID", "Status"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(staffManagementjTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -580,10 +580,10 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable recentActivitiewjTable;
+    private javax.swing.JTable staffManagementjTable;
     private javax.swing.JLabel totalActiveStffsLabel;
     private javax.swing.JLabel totalEarningsTodayjLabel;
     private javax.swing.JLabel vehicleEnteredTodayjLabel;
@@ -604,4 +604,9 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
     public void totalEarningsTodayjLabel(String f){
         totalEarningsTodayjLabel.setText(f);
     }
+    public javax.swing.JTable getTable() {
+    return recentActivitiewjTable; 
+}
+    
+
 }
