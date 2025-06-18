@@ -25,7 +25,7 @@ public class AddVehicleTypeAndPriceController {
         this.view = view;
          try {
              this.dao = new VehicleTypeAndPriceDao();
-         } catch (SQLException ex) {
+         } catch (Exception ex) {
              System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
          }
         this.mainController = mainController;
