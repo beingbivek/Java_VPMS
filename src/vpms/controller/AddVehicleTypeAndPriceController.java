@@ -5,6 +5,7 @@
 package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import vpms.dao.VehicleTypeAndPriceDao;
@@ -22,7 +23,11 @@ public class AddVehicleTypeAndPriceController {
 
     public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController) {
         this.view = view;
-        this.dao = new VehicleTypeAndPriceDao();
+         try {
+             this.dao = new VehicleTypeAndPriceDao();
+         } catch (SQLException ex) {
+             System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+         }
         this.mainController = mainController;
 
         this.view.addSubmitListener(new SubmitAction());

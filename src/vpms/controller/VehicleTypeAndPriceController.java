@@ -6,6 +6,7 @@ package vpms.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,7 @@ public class VehicleTypeAndPriceController {
     private VehicleTypeAndPriceView view;
     private VehicleTypeAndPriceDao dao;
 
-    public VehicleTypeAndPriceController(VehicleTypeAndPriceView view) {
+    public VehicleTypeAndPriceController(VehicleTypeAndPriceView view) throws SQLException {
         this.view = view;
         this.dao = new VehicleTypeAndPriceDao();
 
@@ -95,8 +96,14 @@ public class VehicleTypeAndPriceController {
 
             view.dispose(); // close this view
             EditVehicleTypeAndPriceView editView = new EditVehicleTypeAndPriceView();
-            EditVehicleTypeAndPriceController controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this);
-            controller.open(); // go to edit page
+            EditVehicleTypeAndPriceController controller;
+            try {
+                controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this);
+                controller.open(); // go to edit page
+            } catch (SQLException ex) {
+                System.getLogger(VehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+            
         }
     }
 
