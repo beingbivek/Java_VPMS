@@ -4,9 +4,13 @@
  */
 package vpms.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import vpms.database.MySqlConnection;
 import vpms.model.ReservationData;
 
@@ -17,21 +21,23 @@ import vpms.model.ReservationData;
 public class ReservationDao {
     MySqlConnection mySql = new MySqlConnection();
 
-    // Add new reservation (also creates table if not exists)
+    // Add reservation (with table creation and FK references)
     public void addReservation(ReservationData data) {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS reservations ("
                 + "id INT AUTO_INCREMENT PRIMARY KEY, "
                 + "user_id INT, "
                 + "vehicle_id INT, "
                 + "slot_id INT, "
-                + "reservation_time DATETIME, "
+                + "reservation_time VARCHAR(50), "
                 + "status VARCHAR(20), "
+                + "duration VARCHAR(20), "
+                + "payment_status VARCHAR(20), "
                 + "FOREIGN KEY (user_id) REFERENCES vpmsUsers(id), "
                 + "FOREIGN KEY (vehicle_id) REFERENCES vehicles(id), "
-                + "FOREIGN KEY (slot_id) REFERENCES slots(id))";
+                + "FOREIGN KEY (slot_id) REFERENCES slot_instances(id))";
 
-        String insertSQL = "INSERT INTO reservations (user_id, vehicle_id, slot_id, reservation_time, status) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO reservations (user_id, vehicle_id, slot_id, reservation_time, status, duration, payment_status) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = mySql.openConnection()) {
             try (PreparedStatement createStmt = conn.prepareStatement(createTableSQL)) {
@@ -44,6 +50,8 @@ public class ReservationDao {
                 pstmt.setInt(3, data.getSlotId());
                 pstmt.setString(4, data.getReservationTime());
                 pstmt.setString(5, data.getStatus());
+                pstmt.setString(6, data.getDuration());
+                pstmt.setString(7, data.getPaymentStatus());
                 pstmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -51,7 +59,7 @@ public class ReservationDao {
         }
     }
 
-    // Show all reservations
+    // Get all reservations
     public List<ReservationData> getAllReservations() {
         List<ReservationData> list = new ArrayList<>();
         String query = "SELECT * FROM reservations";
@@ -61,13 +69,17 @@ public class ReservationDao {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("user_id");
+                int vehicleId = rs.getInt("vehicle_id");
+                int slotId = rs.getInt("slot_id");
+                String reservationTime = rs.getString("reservation_time");
+                String status = rs.getString("status");
+                String duration = rs.getString("duration");
+                String paymentStatus = rs.getString("payment_status");
+
                 ReservationData data = new ReservationData(
-                        rs.getInt("id"),
-                        rs.getInt("user_id"),
-                        rs.getInt("vehicle_id"),
-                        rs.getInt("slot_id"),
-                        rs.getString("reservation_time"),
-                        rs.getString("status")
+                        id, userId, vehicleId, slotId, reservationTime, status, duration, paymentStatus
                 );
                 list.add(data);
             }
@@ -78,22 +90,9 @@ public class ReservationDao {
         }
     }
 
-    // Delete reservation
-    public void deleteReservation(int id) {
-        String query = "DELETE FROM reservations WHERE id = ?";
-
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Update reservation (optional)
+    // Update reservation
     public void updateReservation(ReservationData data) {
-        String query = "UPDATE reservations SET user_id=?, vehicle_id=?, slot_id=?, reservation_time=?, status=? WHERE id=?";
+        String query = "UPDATE reservations SET user_id=?, vehicle_id=?, slot_id=?, reservation_time=?, status=?, duration=?, payment_status=? WHERE id=?";
 
         try (Connection conn = mySql.openConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -102,7 +101,22 @@ public class ReservationDao {
             pstmt.setInt(3, data.getSlotId());
             pstmt.setString(4, data.getReservationTime());
             pstmt.setString(5, data.getStatus());
-            pstmt.setInt(6, data.getId());
+            pstmt.setString(6, data.getDuration());
+            pstmt.setString(7, data.getPaymentStatus());
+            pstmt.setInt(8, data.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Delete reservation
+    public void deleteReservation(int id) {
+        String query = "DELETE FROM reservations WHERE id = ?";
+
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
