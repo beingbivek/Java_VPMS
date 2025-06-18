@@ -85,10 +85,14 @@ public class AddVehicleTypeAndPriceController {
     class CancelAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.dispose();
-            VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-            VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-            controller.open();
+            try {
+                view.dispose();
+                VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
+                VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
+                controller.open();
+            } catch (SQLException ex) {
+                System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
         }
     }
 }
