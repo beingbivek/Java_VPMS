@@ -65,12 +65,14 @@ public class ParkingDao {
     public int getTotalVehicleEntryCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM parkings";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) count = rs.getInt(1);
         } catch (SQLException ex) {
             System.out.println("Vehicle entry count error: " + ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
         return count;
     }
@@ -78,12 +80,14 @@ public class ParkingDao {
     public int getCurrentlyParkedCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Parked'";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) count = rs.getInt(1);
         } catch (SQLException ex) {
             System.out.println("Currently parked count error: " + ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
         return count;
     }
@@ -91,12 +95,14 @@ public class ParkingDao {
     public int getExitedVehicleCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Exited'";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) count = rs.getInt(1);
         } catch (SQLException ex) {
             System.out.println("Exited vehicle count error: " + ex);
+        } finally {
+            mySql.closeConnection(conn);
         }
         return count;
     }

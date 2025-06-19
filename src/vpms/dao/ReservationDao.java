@@ -26,10 +26,8 @@ public class ReservationDao {
 
         String insertSQL = "INSERT INTO reservations (user_id, vehicle_id, slot_id, reservation_time, status, duration, payment_status) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = mySql.openConnection()) {
-
-            try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
                 pstmt.setInt(1, data.getUserId());
                 pstmt.setInt(2, data.getVehicleId());
                 pstmt.setInt(3, data.getSlotId());
@@ -38,9 +36,10 @@ public class ReservationDao {
                 pstmt.setString(6, data.getDuration());
                 pstmt.setString(7, data.getPaymentStatus());
                 pstmt.executeUpdate();
-            }
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
     }
 
@@ -48,9 +47,8 @@ public class ReservationDao {
     public List<ReservationData> getAllReservations() {
         List<ReservationData> list = new ArrayList<>();
         String query = "SELECT * FROM reservations";
-
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -72,15 +70,16 @@ public class ReservationDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            mySql.closeConnection(conn);
         }
     }
 
     // Update reservation
     public void updateReservation(ReservationData data) {
         String query = "UPDATE reservations SET user_id=?, vehicle_id=?, slot_id=?, reservation_time=?, status=?, duration=?, payment_status=? WHERE id=?";
-
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, data.getUserId());
             pstmt.setInt(2, data.getVehicleId());
             pstmt.setInt(3, data.getSlotId());
@@ -92,19 +91,22 @@ public class ReservationDao {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            mySql.closeConnection(conn);
         }
     }
 
     // Delete reservation
     public void deleteReservation(int id) {
         String query = "DELETE FROM reservations WHERE id = ?";
-
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
     }
 }

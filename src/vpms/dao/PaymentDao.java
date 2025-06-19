@@ -125,14 +125,16 @@ public class PaymentDao {
     public double getTotalRevenue() {
         double total = 0;
         String sql = "SELECT SUM(CAST(regular_price AS DOUBLE)) + SUM(CAST(demand_price AS DOUBLE)) + SUM(CAST(reservation_price AS DOUBLE)) + SUM(CAST(extra_charge AS DOUBLE)) AS total FROM payments";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 total = rs.getDouble("total");
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
         return total;
     }
@@ -140,14 +142,16 @@ public class PaymentDao {
     public int getTotalPaymentCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM payments";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
         return count;
     }
