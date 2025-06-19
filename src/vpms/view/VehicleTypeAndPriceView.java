@@ -18,7 +18,7 @@ public class VehicleTypeAndPriceView extends javax.swing.JInternalFrame {
      */
     public VehicleTypeAndPriceView() {
         initComponents();
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +70,7 @@ public class VehicleTypeAndPriceView extends javax.swing.JInternalFrame {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
+
         });
         jScrollPane1.setViewportView(vehicleTable);
 
