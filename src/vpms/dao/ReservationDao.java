@@ -122,4 +122,38 @@ public class ReservationDao {
             e.printStackTrace();
         }
     }
+    
+    public List<ReservationData> searchReservations(String term) {
+    List<ReservationData> list = new ArrayList<>();
+    String sql = "SELECT * FROM reservations WHERE status LIKE ? OR payment_status LIKE ? OR reservation_time LIKE ?";
+
+    try (Connection conn = mySql.openConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, "%" + term + "%");
+        stmt.setString(2, "%" + term + "%");
+        stmt.setString(3, "%" + term + "%");
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                ReservationData data = new ReservationData(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("vehicle_id"),
+                        rs.getInt("slot_id"),
+                        rs.getString("reservation_time"),
+                        rs.getString("status"),
+                        rs.getString("duration"),
+                        rs.getString("payment_status")
+                );
+                list.add(data);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return list.isEmpty() ? null : list;
+}
+
 }
