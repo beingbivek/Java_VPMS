@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.EditVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceManagementView;
 /**
  *
  * @author PRABHASH
@@ -71,10 +70,7 @@ public class EditVehicleTypeAndPriceController {
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type updated successfully.");
                     view.dispose();
-
-                    VehicleTypeAndPriceManagementView mainView = new VehicleTypeAndPriceManagementView();
-                    VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                    controller.open();
+                    mainController.loadVehicleTypeData();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to update vehicle type.");
                 }
@@ -91,11 +87,8 @@ public class EditVehicleTypeAndPriceController {
         public void actionPerformed(ActionEvent e) {
             try {
                 view.dispose();
-                VehicleTypeAndPriceManagementView mainView = new VehicleTypeAndPriceManagementView();
-                VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                controller.open();
-            } catch (SQLException ex) {
-                System.getLogger(EditVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

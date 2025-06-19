@@ -5,13 +5,11 @@
 package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceManagementView;
 /**
  *
  * @author PRABHASH
@@ -67,10 +65,7 @@ public class AddVehicleTypeAndPriceController {
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
                     view.dispose();
-
-                    VehicleTypeAndPriceManagementView mainView = new VehicleTypeAndPriceManagementView();
-                    VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                    controller.open();
+                    mainController.loadVehicleTypeData();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to add vehicle type.");
                 }
@@ -87,11 +82,8 @@ public class AddVehicleTypeAndPriceController {
         public void actionPerformed(ActionEvent e) {
             try {
                 view.dispose();
-                VehicleTypeAndPriceManagementView mainView = new VehicleTypeAndPriceManagementView();
-                VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                controller.open();
-            } catch (SQLException ex) {
-                System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

@@ -46,6 +46,8 @@ public class VehicleTypeAndPriceController {
         List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
         DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
         model.setRowCount(0);
+        view.getTable().setDefaultEditor(Object.class, null);  // disables editing
+        view.getTable().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);  // single row selection
 
         if (list != null) {
             for (VehicleTypeAndPriceData data : list) {
@@ -66,7 +68,7 @@ public class VehicleTypeAndPriceController {
     class AddVehicleListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.dispose(); // close this page
+//            view.dispose(); // close this page
             AddVehicleTypeAndPriceView addView = new AddVehicleTypeAndPriceView();
             AddVehicleTypeAndPriceController controller = new AddVehicleTypeAndPriceController(addView, VehicleTypeAndPriceController.this);
             controller.open(); // go to add page
@@ -94,7 +96,7 @@ public class VehicleTypeAndPriceController {
                     id, vehicleType, reservationPrice, regularPrice, demandPrice, extraCharge, status
             );
 
-            view.dispose(); // close this view
+//            view.dispose(); // close this view
             EditVehicleTypeAndPriceView editView = new EditVehicleTypeAndPriceView();
             EditVehicleTypeAndPriceController controller;
             try {
