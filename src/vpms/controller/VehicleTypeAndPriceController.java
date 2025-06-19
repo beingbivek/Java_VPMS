@@ -14,7 +14,7 @@ import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
 import vpms.view.EditVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
+import vpms.view.VehicleTypeAndPriceManagementView;
 
 
 /**
@@ -22,10 +22,10 @@ import vpms.view.VehicleTypeAndPriceView;
  * @author PRABHASH
  */
 public class VehicleTypeAndPriceController {
-    private VehicleTypeAndPriceView view;
+    private VehicleTypeAndPriceManagementView view;
     private VehicleTypeAndPriceDao dao;
 
-    public VehicleTypeAndPriceController(VehicleTypeAndPriceView view) throws SQLException {
+    public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view) throws SQLException {
         this.view = view;
         this.dao = new VehicleTypeAndPriceDao();
 

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
+import vpms.view.VehicleTypeAndPriceManagementView;
 /**
  *
  * @author PRABHASH
@@ -68,7 +68,7 @@ public class AddVehicleTypeAndPriceController {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
                     view.dispose();
 
-                    VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
+                    VehicleTypeAndPriceManagementView mainView = new VehicleTypeAndPriceManagementView();
                     VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
                     controller.open();
                 } else {
@@ -87,7 +87,7 @@ public class AddVehicleTypeAndPriceController {
         public void actionPerformed(ActionEvent e) {
             try {
                 view.dispose();
-                VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
+                VehicleTypeAndPriceManagementView mainView = new VehicleTypeAndPriceManagementView();
                 VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
                 controller.open();
             } catch (SQLException ex) {
