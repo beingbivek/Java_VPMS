@@ -12,6 +12,8 @@ import javax.mail.internet.*;
 
 import javax.activation.*;
 
+import vpms.utils.APIKeys;
+
 public class SMTPSMailSender {
 
     private static final String host = "smtp.gmail.com";
@@ -20,7 +22,7 @@ public class SMTPSMailSender {
 
     private static final String email = "beingbivek@gmail.com";
 
-    private static String password = "hqyt wepm rgtt oksz";
+    private static String password = new APIKeys().getMailKeys();
 
 
 
