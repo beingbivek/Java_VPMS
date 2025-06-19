@@ -52,34 +52,34 @@ public class SlotInstanceDao {
 
     /* ---------- query by level for grid ---------- */
     public List<SlotInstanceData> findByLevel(int level) {
-        String sql = """
-            SELECT si.*, s.level_number, v.vehicle_type
-              FROM slot_instances si
-              JOIN slots s  ON si.slot_id = s.slot_id
-              JOIN vehicle_type_and_price v
-                   ON s.vehicletandp = v.id
-             WHERE s.level_number = ?
-             ORDER BY si.slot_index
-            """;
-        List<SlotInstanceData> list = new ArrayList<>();
-        Connection conn = mySql.openConnection();
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, level);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    list.add(map(rs));
-                }
+    String sql = """
+        SELECT si.*, s.level_number, v.vehicle_type
+          FROM slot_instances si
+          JOIN slots s  ON si.slot_id = s.slot_id
+          JOIN vehicle_type_and_price v
+               ON s.vehicletandp_id = v.id
+         WHERE s.level_number = ?
+         ORDER BY si.slot_index
+        """;
+    List<SlotInstanceData> list = new ArrayList<>();
+    Connection conn = mySql.openConnection();
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, level);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(map(rs));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            mySql.closeConnection(conn);
         }
-        return list;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        mySql.closeConnection(conn);
     }
+    return list;
+}
+
     
-    public Set<Integer> findLevels() throws SQLException {
+    public Set<Integer> findLevels() {
         Set<Integer> set = new HashSet<>();
         String sql = """
             SELECT DISTINCT s.level_number
@@ -90,7 +90,6 @@ public class SlotInstanceDao {
         Connection conn = mySql.openConnection();
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) set.add(rs.getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +98,7 @@ public class SlotInstanceDao {
         }
         return set;
     }
+
 
     /* ---------- helpers ---------- */
     private SlotInstanceData map(ResultSet rs){
