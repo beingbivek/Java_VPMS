@@ -43,7 +43,7 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         searchTextField.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        searchTextField.setText("Search                                        ");
+        searchTextField.setText("Search");
         searchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTextFieldActionPerformed(evt);
@@ -118,28 +118,27 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCancelButton)
-                        .addGap(18, 164, Short.MAX_VALUE)
-                        .addComponent(jEditSlotButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jAddSlotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteSlotButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(searchButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jCancelButton)
+                            .addGap(18, 189, Short.MAX_VALUE)
+                            .addComponent(jEditSlotButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jAddSlotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(deleteSlotButton))
+                        .addComponent(jScrollPane2)))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -150,7 +149,8 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
                     .addComponent(deleteSlotButton)
                     .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,19 +192,19 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable slotTable;
     // End of variables declaration//GEN-END:variables
-    public javax.swing.JButton addAddButtonListener(ActionListener listener){
+    public javax.swing.JButton addAddButtonListener(){
         return jAddSlotButton;
     }
-    public javax.swing.JButton addEditButtonListener(ActionListener listener){
+    public javax.swing.JButton addEditButtonListener(){
         return jEditSlotButton;
     }
-    public javax.swing.JButton addDeleteButtonListener(ActionListener listener){
+    public javax.swing.JButton addDeleteButtonListener(){
         return deleteSlotButton;
     }
-    public javax.swing.JButton addCancelButtonListener(ActionListener listener){
+    public javax.swing.JButton addCancelButtonListener(){
         return jCancelButton;
     }
-    public javax.swing.JButton addSearchButtonListener(ActionListener listener){
+    public javax.swing.JButton addSearchButtonListener(){
         return searchButton;
     }
     public javax.swing.JTable getSlotTable(){
