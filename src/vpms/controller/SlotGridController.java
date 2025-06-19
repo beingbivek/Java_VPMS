@@ -104,7 +104,7 @@ public class SlotGridController {
                         view, "Status change failed (DB returned 0 rows).",
                         "Update error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(view,
                     "Database error:\n" + ex.getMessage(),
                     "SQL Error", JOptionPane.ERROR_MESSAGE);

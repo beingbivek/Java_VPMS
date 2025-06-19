@@ -8,7 +8,6 @@ package vpms.view;
 import java.beans.PropertyVetoException;
 import javax.swing.DefaultDesktopManager;
 import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -280,6 +279,9 @@ public class AdminDashboardView extends javax.swing.JFrame {
     }
     public javax.swing.JButton getSlotWindowbtn(){
         return slotWindowButton;
+    }
+    public javax.swing.JButton getVehicleTypeandPriceWindowbtn(){
+        return vehicleAndPriceWindowButton;
     }
     public javax.swing.JButton getLogoutBtn(){
         return logoutButton;
