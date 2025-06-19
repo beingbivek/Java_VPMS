@@ -8,7 +8,6 @@ import vpms.model.UserData;
 import vpms.view.StaffDashboardView;
 
 import javax.swing.ImageIcon;
-import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -39,8 +38,7 @@ public class StaffDashboardController {
         puView = new ProfileUpdateView();
         new ProfileUpdateController(puView,user,StaffDashboardController.this);
         sdcView = new StaffDashboardContentView();
-//        new StaffDashboardContentController(sdcView);
-        
+        new StaffDashboardContentController(sdcView);
     }
 
     private void attachListeners() {
