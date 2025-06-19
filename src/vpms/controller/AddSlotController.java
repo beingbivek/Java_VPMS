@@ -25,7 +25,7 @@ public class AddSlotController {
     private final SlotManagementController parent;
     private final AddSlotView view;
 
-    public AddSlotController(AddSlotView v, SlotManagementController parent) throws SQLException{
+    public AddSlotController(AddSlotView v, SlotManagementController parent){
         this.slotDao = new SlotDao();
         this.siDao = new SlotInstanceDao();
         this.view   = v;
@@ -68,15 +68,40 @@ public class AddSlotController {
     
     private void fillVehicleTypes() {
         try {
-            var list = vtDao.showVehicleTypeAndPrices();              // SELECT *
-            DefaultComboBoxModel<VehicleTypeAndPriceData> model =
-                    new DefaultComboBoxModel<>(list.toArray(
-                            new VehicleTypeAndPriceData[0]));         // generic array[4]
-            view.getVehicleTypeCombo().setModel(model);               // names appear
+            var list = vtDao.showVehicleTypeAndPrices(); // SELECT *
+            DefaultComboBoxModel<VehicleTypeAndPriceData> model;
+
+            if (list == null || list.isEmpty()) {
+                // Show a placeholder if no data
+                model = new DefaultComboBoxModel<>();
+                model.addElement(new VehicleTypeAndPriceData() {
+                    @Override
+                    public String toString() {
+                        return "No vehicle types available";
+                    }
+                });
+                view.getVehicleTypeCombo().setModel(model);
+                view.getVehicleTypeCombo().setEnabled(false); // Optionally disable
+            } else {
+                model = new DefaultComboBoxModel<>(list.toArray(new VehicleTypeAndPriceData[0]));
+                view.getVehicleTypeCombo().setModel(model);
+                view.getVehicleTypeCombo().setEnabled(true);
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(view,
                     "Could not load vehicle types:\n" + ex.getMessage(),
                     "DB error", JOptionPane.ERROR_MESSAGE);
+            // Optionally clear and disable combo box on error
+            DefaultComboBoxModel<VehicleTypeAndPriceData> model = new DefaultComboBoxModel<>();
+            model.addElement(new VehicleTypeAndPriceData() {
+                @Override
+                public String toString() {
+                    return "No vehicle types available";
+                }
+            });
+            view.getVehicleTypeCombo().setModel(model);
+            view.getVehicleTypeCombo().setEnabled(false);
         }
     }
+
 }

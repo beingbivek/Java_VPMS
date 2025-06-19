@@ -34,6 +34,7 @@ public class VehicleTypeAndPriceData {
         this.extraCharge = extraCharge;
         this.status = status;
     }
+    public VehicleTypeAndPriceData(){}
 
     public int getId() {
         return id;
@@ -89,5 +90,10 @@ public class VehicleTypeAndPriceData {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    @Override
+    public String toString() {
+        return vehicleType; // or getVehicleType() if you use getters
     }
 }

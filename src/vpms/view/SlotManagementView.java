@@ -192,8 +192,8 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable slotTable;
     // End of variables declaration//GEN-END:variables
-    public javax.swing.JButton addAddButtonListener(){
-        return jAddSlotButton;
+    public void addAddButtonListener(ActionListener listener){
+        jAddSlotButton.addActionListener(listener);
     }
     public javax.swing.JButton addEditButtonListener(){
         return jEditSlotButton;
