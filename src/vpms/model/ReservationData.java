@@ -9,9 +9,11 @@ package vpms.model;
  * @author PRABHASH
  */
 public class ReservationData {
-    private int id;
+    private int reservationId;
     private int vehicleId;
+    private int userId;
     private int slotId;
+
     private String vehicleType;
     private String contact;
     private String entryTime;
@@ -19,22 +21,11 @@ public class ReservationData {
     private String duration;
     private String status;
     private String paymentStatus;
-    
-    public ReservationData(int id, int vehicleId, int slotId, String vehicleType, String contact, String entryTime, String exitTime, String duration, String status, String paymentStatus) {
-        this.id = id;
+
+    public ReservationData(int reservationId, int vehicleId, int userId, int slotId, String vehicleType, String contact, String entryTime, String exitTime, String duration, String status, String paymentStatus) {
+        this.reservationId = reservationId;
         this.vehicleId = vehicleId;
-        this.slotId = slotId;
-        this.vehicleType = vehicleType;
-        this.contact = contact;
-        this.entryTime = entryTime;
-        this.exitTime = exitTime;
-        this.duration = duration;
-        this.status = status;
-        this.paymentStatus = paymentStatus;
-    }
-    
-    public ReservationData(int vehicleId, int slotId, String vehicleType, String contact, String entryTime, String exitTime, String duration, String status, String paymentStatus) {
-        this.vehicleId = vehicleId;
+        this.userId = userId;
         this.slotId = slotId;
         this.vehicleType = vehicleType;
         this.contact = contact;
@@ -45,12 +36,25 @@ public class ReservationData {
         this.paymentStatus = paymentStatus;
     }
 
-    public int getId() {
-        return id;
+    public ReservationData(int vehicleId, int userId, int slotId, String vehicleType, String contact, String entryTime, String exitTime, String duration, String status, String paymentStatus) {
+        this.vehicleId = vehicleId;
+        this.userId = userId;
+        this.slotId = slotId;
+        this.vehicleType = vehicleType;
+        this.contact = contact;
+        this.entryTime = entryTime;
+        this.exitTime = exitTime;
+        this.duration = duration;
+        this.status = status;
+        this.paymentStatus = paymentStatus;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
     }
 
     public int getVehicleId() {
@@ -59,6 +63,14 @@ public class ReservationData {
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getSlotId() {
@@ -124,7 +136,4 @@ public class ReservationData {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-
-    
-    
 }
