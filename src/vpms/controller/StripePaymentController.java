@@ -39,6 +39,7 @@ public class StripePaymentController {
         view.dispose();
     }
 
+
     class HandlePaymentStripe implements ActionListener {
 
         @Override
@@ -47,38 +48,36 @@ public class StripePaymentController {
             // Show processing message
             view.displayMessage("Processing payment...");
 
-            // Call model to create the checkout session
-            String sessionUrl = model.createCheckoutSession();
-            System.out.println("Session URL: " + sessionUrl);
+            // Get amount from proper input field
+String amountText = view.getAmountField().getText().trim();
 
-            if (sessionUrl != null) {
-                view.displayMessage("Redirecting to payment page...");
+if (amountText.isEmpty()) {
+    view.displayMessage("Please enter an amount.");
+    return;
+}
 
-                // Directly open the session URL
-                try {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().browse(new java.net.URI(sessionUrl));
-                    }
-                } catch (IOException | URISyntaxException ex) {
-                    view.showPaymentFailure("Failed to open payment page.");
-                    return;
-                }
-                boolean paymentStatus;
-                try {
-                    paymentStatus = model.checkPaymentStatus(sessionUrl); // Pass the session URL to check status
-                if (paymentStatus) {
-                    // If payment is successful
-                    view.showPaymentSuccess();
-                } else {
-                    // If payment failed or was not completed
-                    view.showPaymentFailure("Payment failed or not completed.");
-                }
-                 } catch (InterruptedException ex) {
-                    Logger.getLogger(StripePaymentController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                view.showPaymentFailure("Failed to create checkout session.");
-            }
+try {
+    // Validate and convert amount
+    double amount = Double.parseDouble(amountText);
+    if (amount <= 0) {
+        view.displayMessage("Please enter a valid amount greater than 0.");
+        return;
+    }
+    
+    // Convert to cents for Stripe (multiply by 100)
+    long amountInCents = Math.round(amount * 100);
+    
+    // Now call with correct parameter
+    String sessionUrl = model.createCheckoutSession(amountInCents);
+    
+} catch (NumberFormatException ex) {
+    view.displayMessage("Please enter a valid numeric amount.");
+    return;
+}
         }
     }
-}
+        }
+    
+
+    
+        

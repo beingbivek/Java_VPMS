@@ -30,12 +30,15 @@ public class StripePaymentView extends javax.swing.JFrame {
 
         paymentButton = new javax.swing.JButton();
         outputArea = new javax.swing.JTextField();
+        amountTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         paymentButton.setText("PAY 20");
 
         outputArea.setText("jTextField1");
+
+        amountTextField1.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -44,11 +47,13 @@ public class StripePaymentView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(297, 297, 297)
-                        .addComponent(paymentButton))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(215, 215, 215)
-                        .addComponent(outputArea, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(outputArea, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(297, 297, 297)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(amountTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paymentButton))))
                 .addContainerGap(222, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -58,7 +63,9 @@ public class StripePaymentView extends javax.swing.JFrame {
                 .addComponent(outputArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(paymentButton)
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(amountTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
         pack();
@@ -90,6 +97,7 @@ public class StripePaymentView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField amountTextField1;
     private javax.swing.JTextField outputArea;
     private javax.swing.JButton paymentButton;
     // End of variables declaration//GEN-END:variables
@@ -113,4 +121,12 @@ public class StripePaymentView extends javax.swing.JFrame {
     public void showPaymentFailure(String message) {
         displayMessage("Payment Failed: " + message);
     }
+
+
+
+public javax.swing.JTextField getAmountField(){
+    return amountTextField1;
+    
 }
+} 
+

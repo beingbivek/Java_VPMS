@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.utils;
 
-import java.awt.Color;
-import java.awt.Insets;
-import javax.swing.JToggleButton;
 import vpms.model.SlotInstanceData;
+import javax.swing.*;
+import java.awt.*;
 
-/**
- *
- * @author being
- */
 public class SlotButton extends JToggleButton {
     private final SlotInstanceData bay;
+
     public SlotButton(SlotInstanceData bay) {
         super(bay.getCode());
         this.bay = bay;
@@ -25,17 +17,14 @@ public class SlotButton extends JToggleButton {
         applyColour();
     }
     public SlotInstanceData getBay() { return bay; }
-    public void setStatus(String s){
-        bay.setStatus(s);                            // ✔ setStatus()
-        applyColour();
-    }
+    public void setStatus(String s){ bay.setStatus(s); applyColour(); }
 
     private void applyColour(){
         switch (bay.getStatus()) {
-            case "occupied" -> setBackground(new Color(255,87,51));
-            case "reserved" -> setBackground(new Color(255,195,0));
-            case "disabled" -> setBackground(Color.DARK_GRAY);
-            default         -> setBackground(new Color(52,168,83));
+            case "occupied" -> setBackground(new Color(255,87,51));     // red
+            case "reserved" -> setBackground(new Color(255,195,0));     // yellow
+            case "disabled" -> setBackground(Color.DARK_GRAY);          // gray
+            default         -> setBackground(new Color(52,168,83));     // green (free)
         }
         setForeground(Color.WHITE);
     }

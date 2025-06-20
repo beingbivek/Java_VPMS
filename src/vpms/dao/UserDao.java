@@ -22,31 +22,7 @@ import vpms.model.UserData;
 public class UserDao {
     MySqlConnection mySql = new MySqlConnection();
 
-    public void createTable() {
-        Connection conn = mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS vpmsUsers ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY, "
-                + "name VARCHAR(50) NOT NULL, "
-                + "type VARCHAR(20) NOT NULL, "
-                + "email VARCHAR(100) UNIQUE NOT NULL, "
-                + "password VARCHAR(255) NOT NULL, "
-                + "phone VARCHAR(10) NOT NULL, "
-                + "image BLOB, "
-                + "status VARCHAR(20) DEFAULT 'Active'"
-                + ")";
-        try {
-            PreparedStatement createtbl = conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Create table" + ex);
-            java.util.logging.Logger.getLogger(UserDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } finally {
-            mySql.closeConnection(conn);
-        }
-    }
-
     public boolean registerUser(UserData userData) {
-        createTable();
         Connection conn = mySql.openConnection();
         String query = "INSERT INTO vpmsUsers (name, type, email, password, phone, image, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

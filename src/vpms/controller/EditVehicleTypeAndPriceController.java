@@ -5,12 +5,12 @@
 package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.EditVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
 /**
  *
  * @author PRABHASH
@@ -21,7 +21,7 @@ public class EditVehicleTypeAndPriceController {
     private VehicleTypeAndPriceController mainController;
     private VehicleTypeAndPriceData selectedData;
 
-    public EditVehicleTypeAndPriceController(EditVehicleTypeAndPriceView view, VehicleTypeAndPriceData selectedData, VehicleTypeAndPriceController mainController) {
+    public EditVehicleTypeAndPriceController(EditVehicleTypeAndPriceView view, VehicleTypeAndPriceData selectedData, VehicleTypeAndPriceController mainController) throws SQLException {
         this.view = view;
         this.dao = new VehicleTypeAndPriceDao();
         this.selectedData = selectedData;
@@ -70,10 +70,7 @@ public class EditVehicleTypeAndPriceController {
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type updated successfully.");
                     view.dispose();
-
-                    VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-                    VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                    controller.open();
+                    mainController.loadVehicleTypeData();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to update vehicle type.");
                 }
@@ -88,10 +85,11 @@ public class EditVehicleTypeAndPriceController {
     class CancelAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.dispose();
-            VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-            VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-            controller.open();
+            try {
+                view.dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

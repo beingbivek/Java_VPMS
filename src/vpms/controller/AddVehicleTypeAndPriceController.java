@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
 /**
  *
  * @author PRABHASH
@@ -22,7 +21,11 @@ public class AddVehicleTypeAndPriceController {
 
     public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController) {
         this.view = view;
-        this.dao = new VehicleTypeAndPriceDao();
+         try {
+             this.dao = new VehicleTypeAndPriceDao();
+         } catch (Exception ex) {
+             System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+         }
         this.mainController = mainController;
 
         this.view.addSubmitListener(new SubmitAction());
@@ -62,10 +65,7 @@ public class AddVehicleTypeAndPriceController {
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
                     view.dispose();
-
-                    VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-                    VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                    controller.open();
+                    mainController.loadVehicleTypeData();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to add vehicle type.");
                 }
@@ -80,10 +80,11 @@ public class AddVehicleTypeAndPriceController {
     class CancelAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.dispose();
-            VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-            VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-            controller.open();
+            try {
+                view.dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

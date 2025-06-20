@@ -6,6 +6,7 @@ package vpms.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +14,7 @@ import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
 import vpms.view.EditVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
+import vpms.view.VehicleTypeAndPriceManagementView;
 
 
 /**
@@ -21,10 +22,10 @@ import vpms.view.VehicleTypeAndPriceView;
  * @author PRABHASH
  */
 public class VehicleTypeAndPriceController {
-    private VehicleTypeAndPriceView view;
+    private VehicleTypeAndPriceManagementView view;
     private VehicleTypeAndPriceDao dao;
 
-    public VehicleTypeAndPriceController(VehicleTypeAndPriceView view) {
+    public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view) throws SQLException {
         this.view = view;
         this.dao = new VehicleTypeAndPriceDao();
 
@@ -45,6 +46,8 @@ public class VehicleTypeAndPriceController {
         List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
         DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
         model.setRowCount(0);
+        view.getTable().setDefaultEditor(Object.class, null);  // disables editing
+        view.getTable().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);  // single row selection
 
         if (list != null) {
             for (VehicleTypeAndPriceData data : list) {
@@ -65,7 +68,7 @@ public class VehicleTypeAndPriceController {
     class AddVehicleListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.dispose(); // close this page
+//            view.dispose(); // close this page
             AddVehicleTypeAndPriceView addView = new AddVehicleTypeAndPriceView();
             AddVehicleTypeAndPriceController controller = new AddVehicleTypeAndPriceController(addView, VehicleTypeAndPriceController.this);
             controller.open(); // go to add page
@@ -93,10 +96,16 @@ public class VehicleTypeAndPriceController {
                     id, vehicleType, reservationPrice, regularPrice, demandPrice, extraCharge, status
             );
 
-            view.dispose(); // close this view
+//            view.dispose(); // close this view
             EditVehicleTypeAndPriceView editView = new EditVehicleTypeAndPriceView();
-            EditVehicleTypeAndPriceController controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this);
-            controller.open(); // go to edit page
+            EditVehicleTypeAndPriceController controller;
+            try {
+                controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this);
+                controller.open(); // go to edit page
+            } catch (SQLException ex) {
+                System.getLogger(VehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+            
         }
     }
 

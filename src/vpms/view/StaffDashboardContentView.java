@@ -131,5 +131,4 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
     public javax.swing.JTabbedPane getTabLevels() {
         return tabLevels;
     }
-
 }
