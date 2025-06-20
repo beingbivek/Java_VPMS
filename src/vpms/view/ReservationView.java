@@ -5,6 +5,9 @@
 package vpms.view;
 
 import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 
 /**
@@ -70,6 +73,7 @@ public class ReservationView extends javax.swing.JInternalFrame {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
+
         });
         jScrollPane1.setViewportView(reservationTable);
 
@@ -182,15 +186,27 @@ public class ReservationView extends javax.swing.JInternalFrame {
     private javax.swing.JTable reservationTable;
     private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
-public javax.swing.JTable getReservationTable() {
-    return reservationTable;
-}
+public JTable getReservationTable() {
+        return reservationTable;
+    }
 
-public javax.swing.JTextField getSearchField() {
-    return searchField;
-}
+    public JTextField getSearchField() {
+        return searchField;
+    }
 
-public javax.swing.JButton getCancelButton() {
-    return cancelButton;
-}
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    public JButton getEditButton() {
+        return editButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
 }
