@@ -10,35 +10,39 @@ package vpms.model;
  */
 public class ReservationData {
     private int id;
-    private int userId;
     private int vehicleId;
     private int slotId;
-    private String reservationTime;
+    private String vehicleType;
+    private String contact;
+    private String entryTime;
+    private String exitTime;
+    private String duration;
     private String status;
-    private String duration;        
     private String paymentStatus;
     
-    public ReservationData(int id, int userId, int vehicleId, int slotId, String reservationTime, String status, String duration, String paymentStatus) {
+    public ReservationData(int id, int vehicleId, int slotId, String vehicleType, String contact, String entryTime, String exitTime, String duration, String status, String paymentStatus) {
         this.id = id;
-        this.userId = userId;
         this.vehicleId = vehicleId;
         this.slotId = slotId;
-        this.reservationTime = reservationTime;
-        this.status = status;
+        this.vehicleType = vehicleType;
+        this.contact = contact;
+        this.entryTime = entryTime;
+        this.exitTime = exitTime;
         this.duration = duration;
+        this.status = status;
         this.paymentStatus = paymentStatus;
-        
     }
     
-    public ReservationData(int userId, int vehicleId, int slotId, String reservationTime, String status, String duration, String paymentStatus) {
-        this.userId = userId;
+    public ReservationData(int vehicleId, int slotId, String vehicleType, String contact, String entryTime, String exitTime, String duration, String status, String paymentStatus) {
         this.vehicleId = vehicleId;
         this.slotId = slotId;
-        this.reservationTime = reservationTime;
-        this.status = status;
+        this.vehicleType = vehicleType;
+        this.contact = contact;
+        this.entryTime = entryTime;
+        this.exitTime = exitTime;
         this.duration = duration;
+        this.status = status;
         this.paymentStatus = paymentStatus;
-        
     }
 
     public int getId() {
@@ -47,14 +51,6 @@ public class ReservationData {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getVehicleId() {
@@ -73,20 +69,36 @@ public class ReservationData {
         this.slotId = slotId;
     }
 
-    public String getReservationTime() {
-        return reservationTime;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setReservationTime(String reservationTime) {
-        this.reservationTime = reservationTime;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
-    public String getStatus() {
-        return status;
+    public String getContact() {
+        return contact;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(String entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public String getExitTime() {
+        return exitTime;
+    }
+
+    public void setExitTime(String exitTime) {
+        this.exitTime = exitTime;
     }
 
     public String getDuration() {
@@ -97,6 +109,14 @@ public class ReservationData {
         this.duration = duration;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getPaymentStatus() {
         return paymentStatus;
     }
@@ -105,5 +125,6 @@ public class ReservationData {
         this.paymentStatus = paymentStatus;
     }
 
+    
     
 }
