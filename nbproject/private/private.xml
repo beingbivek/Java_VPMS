@@ -27,6 +27,9 @@
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/EditReservationView.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AddReservationView.java</file>
             <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/UsersView.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AddReservationController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/EditReservationController.java</file>
+            <file>file:/C:/Users/PRABHASH/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/VehicleTypeAndPriceController.java</file>
         </group>
     </open-files>
 </project-private>
