@@ -5,9 +5,7 @@
 package vpms.view;
 
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+
 
 
 /**
@@ -186,27 +184,39 @@ public class ReservationView extends javax.swing.JInternalFrame {
     private javax.swing.JTable reservationTable;
     private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
-public JTable getReservationTable() {
-        return reservationTable;
-    }
+public javax.swing.JTable getTable() {
+    return reservationTable;
+}
 
-    public JTextField getSearchField() {
-        return searchField;
-    }
+public javax.swing.table.DefaultTableModel getTableModel() {
+    return (javax.swing.table.DefaultTableModel) reservationTable.getModel();
+}
 
-    public JButton getCancelButton() {
-        return cancelButton;
-    }
+public void addAddButtonListener(java.awt.event.ActionListener listener) {
+    addButton.addActionListener(listener);
+}
 
-    public JButton getDeleteButton() {
-        return deleteButton;
-    }
+public void addEditButtonListener(java.awt.event.ActionListener listener) {
+    editButton.addActionListener(listener);
+}
 
-    public JButton getEditButton() {
-        return editButton;
-    }
+public void addDeleteButtonListener(java.awt.event.ActionListener listener) {
+    deleteButton.addActionListener(listener);
+}
 
-    public JButton getAddButton() {
-        return addButton;
-    }
+public void addCancelButtonListener(java.awt.event.ActionListener listener) {
+    cancelButton.addActionListener(listener);
+}
+
+public javax.swing.JTextField getSearchField() {
+    return searchField;
+}
+
+public void setSearchTextFieldValue(String text) {
+    searchField.setText(text);
+}
+
+public void addSearchFieldKeyListener(java.awt.event.KeyListener listener) {
+    searchField.addKeyListener(listener);
+}
 }
