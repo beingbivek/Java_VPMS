@@ -195,79 +195,47 @@ public class EditReservationView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField vehicleIdField;
     private javax.swing.JTextField vehicleTypeField;
     // End of variables declaration//GEN-END:variables
-public String getVehicleId() {
-    return vehicleIdField.getText();
+public javax.swing.JTextField getVehicleIdField() {
+    return vehicleIdField;
 }
 
-public String getVehicleType() {
-    return vehicleTypeField.getText();
+public javax.swing.JTextField getSlotIdField() {
+    return slotIdField;
 }
 
-public String getContact() {
-    return contactField.getText();
+public javax.swing.JTextField getVehicleTypeField() {
+    return vehicleTypeField;
 }
 
-public String getSlotId() {
-    return slotIdField.getText();
+public javax.swing.JTextField getContactField() {
+    return contactField;
 }
 
-public String getEntryTime() {
-    return entryTimeField.getText();
+public javax.swing.JTextField getEntryTimeField() {
+    return entryTimeField;
 }
 
-public String getExitTime() {
-    return exitTimeField.getText();
+public javax.swing.JTextField getExitTimeField() {
+    return exitTimeField;
 }
 
-public String getStatus() {
-    return (String) statusComboBox.getSelectedItem();
+public javax.swing.JLabel getDurationLabel() {
+    return durationLabel;
 }
 
-public String getPaymentStatus() {
-    return (String) paymentStatusComboBox.getSelectedItem();
+public javax.swing.JComboBox<String> getStatusComboBox() {
+    return statusComboBox;
 }
 
-public void setVehicleId(String text) {
-    vehicleIdField.setText(text);
+public javax.swing.JComboBox<String> getPaymentStatusComboBox() {
+    return paymentStatusComboBox;
 }
 
-public void setVehicleType(String text) {
-    vehicleTypeField.setText(text);
-}
-
-public void setContact(String text) {
-    contactField.setText(text);
-}
-
-public void setSlotId(String text) {
-    slotIdField.setText(text);
-}
-
-public void setEntryTime(String text) {
-    entryTimeField.setText(text);
-}
-
-public void setExitTime(String text) {
-    exitTimeField.setText(text);
-}
-
-public void setStatus(String status) {
-    statusComboBox.setSelectedItem(status);
-}
-
-public void setPaymentStatus(String status) {
-    paymentStatusComboBox.setSelectedItem(status);
-}
-
-public void setDurationLabel(String text) {
-    durationLabel.setText(text);
-}
-
-public JButton getSubmitButton() {
+public javax.swing.JButton getSaveButton() {
     return submitButton;
 }
 
-public JButton getCancelButton() {
+public javax.swing.JButton getCancelButton() {
     return cancelButton;
 }
 }
