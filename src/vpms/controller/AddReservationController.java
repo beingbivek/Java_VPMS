@@ -6,13 +6,10 @@ package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import java.time.Duration;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import vpms.dao.ReservationDao;
 import vpms.model.ReservationData;
 import vpms.view.AddReservationView;
+
 /**
  *
  * @author PRABHASH
@@ -20,57 +17,83 @@ import vpms.view.AddReservationView;
 public class AddReservationController {
     private AddReservationView view;
     private ReservationDao dao;
+    private ReservationController parentController;
 
-    public AddReservationController(AddReservationView view) {
+    public AddReservationController(AddReservationView view, ReservationController parentController) {
         this.view = view;
         this.dao = new ReservationDao();
+        this.parentController = parentController;
 
-        view.getSubmitButton().addActionListener(new SubmitAction());
-        view.getCancelButton().addActionListener(new CancelAction());
+        addSaveButtonListener();
+        addCancelButtonListener();
     }
 
-    class SubmitAction implements ActionListener {
+    public void open() {
+        this.view.setVisible(true);
+    }
+
+    private void addSaveButtonListener() {
+        view.getSaveButton().addActionListener(new SaveButtonListener());
+    }
+
+    private void addCancelButtonListener() {
+        view.getCancelButton().addActionListener(new CancelButtonListener());
+    }
+
+    class SaveButtonListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                int vehicleId = Integer.parseInt(view.getVehicleId());
-                String vehicleType = view.getVehicleType();
-                String contact = view.getContact();
-                int slotId = Integer.parseInt(view.getSlotId());
-                String entryTime = view.getEntryTime();
-                String exitTime = view.getExitTime();
-                String status = view.getStatus();  // should be 'Reserved'
-                String paymentStatus = view.getPaymentStatus();
+                int vehicleId = Integer.parseInt(view.getVehicleIdField().getText().trim());
+                int slotId    = Integer.parseInt(view.getSlotIdField().getText().trim());
 
-                // Calculate duration
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-                LocalTime start = LocalTime.parse(entryTime, formatter);
-                LocalTime end = LocalTime.parse(exitTime, formatter);
-                long minutes = Duration.between(start, end).toMinutes();
+                String vehicleType = view.getVehicleTypeField().getText().trim();
+                String contact     = view.getContactField().getText().trim();
+                String entryTime   = view.getEntryTimeField().getText().trim();
+                String exitTime    = view.getExitTimeField().getText().trim();
+                String duration    = view.getDurationLabel().getText().trim();
+                String status      = view.getStatusComboBox().getSelectedItem().toString();
+                String paymentStatus = view.getPaymentStatusComboBox().getSelectedItem().toString();
 
-                String duration = (minutes >= 60)
-                        ? (minutes / 60) + " hr " + (minutes % 60) + " min"
-                        : minutes + " min";
+                if (vehicleType.isEmpty() || contact.isEmpty() || entryTime.isEmpty() || exitTime.isEmpty()) {
+                    JOptionPane.showMessageDialog(view, "Please fill in all required fields.");
+                    return;
+                }
 
-                view.setDurationLabel(duration);
+                ReservationData data = new ReservationData(
+                        vehicleId,
+                        0, // userId skipped
+                        slotId,
+                        vehicleType,
+                        contact,
+                        entryTime,
+                        exitTime,
+                        duration,
+                        status,
+                        paymentStatus
+                );
 
-                // Build data object
-                ReservationData data = new ReservationData(vehicleId, slotId, vehicleType, contact,
-                        entryTime, exitTime, duration, status, paymentStatus);
+                boolean success = dao.addReservation(data);
 
-                dao.addReservation(data);
-                JOptionPane.showMessageDialog(view, "Reservation added successfully.");
-                view.dispose();
+                if (success) {
+                    JOptionPane.showMessageDialog(view, "Reservation added successfully.");
+                    view.dispose();
+                    parentController.loadReservationData();
+                } else {
+                    JOptionPane.showMessageDialog(view, "Failed to add reservation.");
+                }
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(view, "Please enter all fields correctly.");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "Invalid input: please enter valid numbers.");
             }
         }
     }
 
-    class CancelAction implements ActionListener {
+    class CancelButtonListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             view.dispose();
         }
     }
 }
+
