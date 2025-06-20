@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author PRABHASH
@@ -26,21 +28,246 @@ public class EditReservationView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        durationLabel = new javax.swing.JLabel();
+        submitButton = new javax.swing.JButton();
+        statusComboBox = new javax.swing.JComboBox<>();
+        paymentStatusComboBox = new javax.swing.JComboBox<>();
+        cancelButton = new javax.swing.JButton();
+        vehicleIdField = new javax.swing.JTextField();
+        vehicleTypeField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        contactField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        slotIdField = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        entryTimeField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        exitTimeField = new javax.swing.JTextField();
+
+        durationLabel.setText("jLabel10");
+
+        submitButton.setText("Submit");
+
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancelled", "Expired", "Reserved" }));
+
+        paymentStatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Unpaid", "Expired" }));
+
+        cancelButton.setText("Cancel");
+
+        jLabel6.setText("Exit Time");
+
+        contactField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Duration");
+
+        jLabel1.setText("VehicleID");
+
+        jLabel2.setText("Vehicle Type");
+
+        jLabel3.setText("Contact");
+
+        jLabel4.setText("Slot ID");
+
+        jLabel5.setText("Entry Time");
+
+        jLabel8.setText("Status");
+
+        jLabel9.setText("Payment Status");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paymentStatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vehicleIdField, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(vehicleTypeField)
+                            .addComponent(contactField)
+                            .addComponent(slotIdField)
+                            .addComponent(entryTimeField)
+                            .addComponent(exitTimeField)
+                            .addComponent(durationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(submitButton)
+                        .addGap(39, 39, 39)
+                        .addComponent(cancelButton)))
+                .addContainerGap(400, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 572, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(vehicleIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(vehicleTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(slotIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(entryTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(exitTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(durationLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(paymentStatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitButton)
+                    .addComponent(cancelButton))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void contactFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JTextField contactField;
+    private javax.swing.JLabel durationLabel;
+    private javax.swing.JTextField entryTimeField;
+    private javax.swing.JTextField exitTimeField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JComboBox<String> paymentStatusComboBox;
+    private javax.swing.JTextField slotIdField;
+    private javax.swing.JComboBox<String> statusComboBox;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JTextField vehicleIdField;
+    private javax.swing.JTextField vehicleTypeField;
     // End of variables declaration//GEN-END:variables
+public String getVehicleId() {
+    return vehicleIdField.getText();
+}
+
+public String getVehicleType() {
+    return vehicleTypeField.getText();
+}
+
+public String getContact() {
+    return contactField.getText();
+}
+
+public String getSlotId() {
+    return slotIdField.getText();
+}
+
+public String getEntryTime() {
+    return entryTimeField.getText();
+}
+
+public String getExitTime() {
+    return exitTimeField.getText();
+}
+
+public String getStatus() {
+    return (String) statusComboBox.getSelectedItem();
+}
+
+public String getPaymentStatus() {
+    return (String) paymentStatusComboBox.getSelectedItem();
+}
+
+public void setVehicleId(String text) {
+    vehicleIdField.setText(text);
+}
+
+public void setVehicleType(String text) {
+    vehicleTypeField.setText(text);
+}
+
+public void setContact(String text) {
+    contactField.setText(text);
+}
+
+public void setSlotId(String text) {
+    slotIdField.setText(text);
+}
+
+public void setEntryTime(String text) {
+    entryTimeField.setText(text);
+}
+
+public void setExitTime(String text) {
+    exitTimeField.setText(text);
+}
+
+public void setStatus(String status) {
+    statusComboBox.setSelectedItem(status);
+}
+
+public void setPaymentStatus(String status) {
+    paymentStatusComboBox.setSelectedItem(status);
+}
+
+public void setDurationLabel(String text) {
+    durationLabel.setText(text);
+}
+
+public JButton getSubmitButton() {
+    return submitButton;
+}
+
+public JButton getCancelButton() {
+    return cancelButton;
+}
 }
