@@ -5,10 +5,13 @@
         <group>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminDashboardContentView.java</file>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminDashboardContentController.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ActivityLogDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/UserManagementView.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ParkingDao.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/SlotInstanceDao.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
             <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/UserManagementController.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/AdminDashboardData.java</file>
+            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/VehicleTypeAndPriceView.java</file>
         </group>
     </open-files>
 </project-private>

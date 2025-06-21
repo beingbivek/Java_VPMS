@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import vpms.controller.AdminDashboardController;
+
 /**
  *
  * @author being
@@ -15,7 +17,10 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
      */
     public AdminDashboardContentView() {
         initComponents();
-    }
+        
+//            setVisible(true);
+//    new AdminDashboardController(this);
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -604,9 +609,11 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
     public void totalEarningsTodayjLabel(String f){
         totalEarningsTodayjLabel.setText(f);
     }
-    public javax.swing.JTable getTable() {
+    public javax.swing.JTable getActivityTable() {
     return recentActivitiewjTable; 
 }
     
-
+    public javax.swing.JTable getStaffTable() {
+    return staffManagementjTable; 
+    }
 }

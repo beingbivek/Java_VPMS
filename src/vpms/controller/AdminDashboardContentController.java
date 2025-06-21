@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import vpms.dao.ActivityLogDao;
 import vpms.dao.ParkingDao;
 import vpms.dao.PaymentDao;
 import vpms.dao.SlotInstanceDao;
 import vpms.dao.UserDao;
+import vpms.model.ActivityLog;
 import vpms.model.AdminDashboardData;
 import vpms.model.UserData;
 import vpms.view.AdminDashboardContentView;
@@ -28,6 +30,7 @@ public class AdminDashboardContentController {
     SlotInstanceDao sDao;
     ParkingDao pDao;
     PaymentDao paDao;
+    ActivityLogDao aDao;
     
     
     public AdminDashboardContentController(AdminDashboardContentView view) throws SQLException{
@@ -38,11 +41,14 @@ public class AdminDashboardContentController {
         this.pDao = new ParkingDao();
         this.pDao = new ParkingDao();
         this.paDao = new PaymentDao();
+        this.aDao = new ActivityLogDao();
     }
    
     public void open(){
         this.view.setVisible(true);
         insertDashboardData();
+        loadRecentActivities();
+        loadStaffTable();
     }
     public void close(){
         this.view.dispose();
@@ -58,24 +64,28 @@ public class AdminDashboardContentController {
      
     }
     
-    private void loadDashboardData() {
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);
-        
-        AdminDashboardData a = new AdminDashboardData(
-        2,
-        10,
-        30,
-        20,
-        "Rs.800"
-                
-        );
+    private void loadRecentActivities() {
+        DefaultTableModel m = (DefaultTableModel) view.getActivityTable().getModel();
+        m.setRowCount(0);
 
-        model.addRow(new Object[]{
-            a.getTotalActiveStaff(), a.getCurrentlyOccupiedSlots(), a.getVehiclesEnteredToday(), a.getVehiclesExitedToday(),
-            a.getTotalEarningsToday()
+        for (ActivityLog l : aDao.fetchLast(30)) {      
+            m.addRow(new Object[]{
+                    l.getTimestamp(),                        
+                    l.getAction(),                      
+                    l.getUserType() + " #" + l.getUser_id() 
             });
         }
+    }
+    private void loadStaffTable() {
+        DefaultTableModel m = (DefaultTableModel) view.getStaffTable().getModel();
+        m.setRowCount(0);
+
+        for (UserData u : uDao.showUsers()) {
+            if (!"Staff".equalsIgnoreCase(u.getType())) continue;
+            m.addRow(new Object[]{ u.getName(), u.getId(), u.getStatus() });
+        }
+    }
+
     }
 
     
