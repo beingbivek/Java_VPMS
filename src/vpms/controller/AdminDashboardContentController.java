@@ -64,27 +64,27 @@ public class AdminDashboardContentController {
      
     }
     
-    private void loadRecentActivities() {
-        DefaultTableModel m = (DefaultTableModel) view.getActivityTable().getModel();
-        m.setRowCount(0);
-
-        for (ActivityLog l : aDao.fetchLast(30)) {      
-            m.addRow(new Object[]{
-                    l.getTimestamp(),                        
-                    l.getAction(),                      
-                    l.getUserType() + " #" + l.getUser_id() 
-            });
-        }
-    }
-    private void loadStaffTable() {
-        DefaultTableModel m = (DefaultTableModel) view.getStaffTable().getModel();
-        m.setRowCount(0);
-
-        for (UserData u : uDao.showUsers()) {
-            if (!"Staff".equalsIgnoreCase(u.getType())) continue;
-            m.addRow(new Object[]{ u.getName(), u.getId(), u.getStatus() });
-        }
-    }
+//    private void loadRecentActivities() {
+//        DefaultTableModel m = (DefaultTableModel) view.getActivityTable().getModel();
+//        m.setRowCount(0);
+//
+//        for (ActivityLog l : aDao.fetchLast(30)) {      
+//            m.addRow(new Object[]{
+//                    l.getTimestamp(),                        
+//                    l.getAction(),                      
+//                    l.getUserType() + " #" + l.getUser_id() 
+//            });
+//        }
+//    }
+//    private void loadStaffTable() {
+//        DefaultTableModel m = (DefaultTableModel) view.getStaffTable().getModel();
+//        m.setRowCount(0);
+//
+//        for (UserData u : uDao.showUsers()) {
+//            if (!"Staff".equalsIgnoreCase(u.getType())) continue;
+//            m.addRow(new Object[]{ u.getName(), u.getId(), u.getStatus() });
+//        }
+//    }
 
     }
 
