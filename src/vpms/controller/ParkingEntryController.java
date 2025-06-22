@@ -86,7 +86,7 @@ public class ParkingEntryController {
                 boolean success = parkingDao.registerParkingUser(parkingDetail);
                 if(success){
                     SlotButton btn = new SlotButton(bay);
-                    changeStatus(bay,btn,"park","Vehicle parked successfully in slot: " + bay.getCode());
+                    changeStatus(bay,btn,"occupied","Vehicle parked successfully in slot: " + bay.getCode());
                     close();
               } else{
                   JOptionPane.showMessageDialog(view,"Failed to park vehicle.","Error",JOptionPane.ERROR_MESSAGE);
