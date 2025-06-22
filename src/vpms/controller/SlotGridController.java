@@ -4,17 +4,21 @@ import vpms.dao.SlotInstanceDao;
 import vpms.model.SlotInstanceData;
 import vpms.utils.SlotButton;
 import vpms.view.StaffDashboardContentView;
+import vpms.view.VehicleNumberCheckView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
+import vpms.dao.ParkingDao;
+import vpms.model.ParkedDetails;
 
 public class SlotGridController {
 
     private final StaffDashboardContentView view;
     private final SlotInstanceDao siDao = new SlotInstanceDao();
+    ParkingDao parkingDao = new ParkingDao();
 
     public SlotGridController(StaffDashboardContentView v) {
         this.view = v;
@@ -57,9 +61,45 @@ public class SlotGridController {
     private void handleClick(SlotButton btn) {
         SlotInstanceData bay = btn.getBay();
         switch (bay.getStatus()) {
-            case "free" -> changeStatus(bay, btn, "occupied", "Slot marked as occupied.");
+            case "free" -> {
+                //-> changeStatus(bay, btn, "occupied", "Slot marked as occupied.");
+                String[] options = {"Park", "Reserve", "Cancel"};
+                int choice = JOptionPane.showOptionDialog(
+                        view,
+                        "What would you like to do with this slot?",
+                        "Slot Action",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]
+                );
+                if (choice == 0) {
+                    // Park
+                    VehicleNumberCheckView numberCheck = new VehicleNumberCheckView();
+                    new VehicleNumberCheckController(numberCheck,bay).open();
+                } else if (choice == 1) {
+                    // Reserve
+//                    openReservationView(bay);
+                }
+                // else: Cancel, do nothing
+            }
+
             case "reserved" -> JOptionPane.showMessageDialog(view, "Slot is reserved.");
-            case "occupied" -> JOptionPane.showMessageDialog(view, "Slot already occupied.");
+            case "occupied" -> {
+                
+                ParkedDetails details = parkingDao.getActiveParkingBySlotInstanceId(bay.getInstanceId());
+                String info = String.format(
+                    "Entry Time: %s\nOwner: %s\nContact: %s\nVehicle: %s\nEntry Note: %s",
+                    details.getEntryDateTime(),
+                    details.getOwnerName(),
+                    details.getOwnerContact(),
+                    details.getVehicleNumber(),
+                    details.getEntryNote()
+                );
+                JOptionPane.showMessageDialog(view, info, "Parking Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+
             case "disabled" -> JOptionPane.showMessageDialog(view, "Slot is disabled.");
         }
     }
