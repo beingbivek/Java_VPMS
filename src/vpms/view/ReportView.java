@@ -32,7 +32,7 @@ public class ReportView extends javax.swing.JInternalFrame {
         fromjTextField = new javax.swing.JTextField();
         tojTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        TotaljTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         reportjTable = new javax.swing.JTable();
 
@@ -51,9 +51,9 @@ public class ReportView extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Total :");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        TotaljTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                TotaljTextFieldActionPerformed(evt);
             }
         });
 
@@ -92,7 +92,7 @@ public class ReportView extends javax.swing.JInternalFrame {
                         .addGap(353, 353, 353)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TotaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -115,7 +115,7 @@ public class ReportView extends javax.swing.JInternalFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TotaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -126,23 +126,29 @@ public class ReportView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fromjTextFieldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void TotaljTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotaljTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_TotaljTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TotaljTextField;
     private javax.swing.JTextField fromjTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable reportjTable;
     private javax.swing.JTextField tojTextField;
     // End of variables declaration//GEN-END:variables
 
+public javax.swing.JTable getReportTable(){
+    return reportjTable;
 
+}
+public javax.swing.JTextField getTotal(){
+    return TotaljTextField;
 
+}
 }
