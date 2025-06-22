@@ -4,10 +4,6 @@
  */
 package vpms.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import vpms.dao.ActivityLogDao;
 import vpms.dao.ParkingDao;
@@ -15,10 +11,8 @@ import vpms.dao.PaymentDao;
 import vpms.dao.SlotInstanceDao;
 import vpms.dao.UserDao;
 import vpms.model.ActivityLog;
-import vpms.model.AdminDashboardData;
 import vpms.model.UserData;
 import vpms.view.AdminDashboardContentView;
-import vpms.view.UserManagementView;
 
 /**
  *
@@ -33,7 +27,7 @@ public class AdminDashboardContentController {
     ActivityLogDao aDao;
     
     
-    public AdminDashboardContentController(AdminDashboardContentView view) throws SQLException{
+    public AdminDashboardContentController(AdminDashboardContentView view){
         this.view = view;
         this.uDao = new UserDao();
        
@@ -42,13 +36,14 @@ public class AdminDashboardContentController {
         this.pDao = new ParkingDao();
         this.paDao = new PaymentDao();
         this.aDao = new ActivityLogDao();
+        
+        insertDashboardData();
+        loadRecentActivities();
+        loadStaffTable();
     }
    
     public void open(){
         this.view.setVisible(true);
-        insertDashboardData();
-        loadRecentActivities();
-        loadStaffTable();
     }
     public void close(){
         this.view.dispose();
