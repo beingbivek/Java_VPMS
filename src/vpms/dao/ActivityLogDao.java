@@ -83,7 +83,6 @@ public class ActivityLogDao {
             while (result.next()) {
                 ActivityLog log = new ActivityLog(
                     result.getInt("user_id"),
-                    result.getString("user_type"),
                     result.getString("action"),
                     result.getString("timestamp")
                 );
@@ -98,6 +97,34 @@ public class ActivityLogDao {
 
             return logList;
         }
-     
+    public List<ActivityLog> searchActivities(String keyword) {
+        List<ActivityLog> logList = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM activity_log WHERE " +
+                "CAST(log_id AS CHAR) LIKE ? OR " +
+                "CAST(user_id AS CHAR) LIKE ? OR " +
+                "action LIKE ? OR " +
+                "DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i:%s') LIKE ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            String like = "%" + keyword + "%";
+            for (int i = 1; i <= 4; i++) pstmt.setString(i, like);
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                ActivityLog log = new ActivityLog(
+                    result.getInt("user_id"),
+                    result.getString("action"),
+                    result.getString("timestamp")
+                );
+                log.setLog_id(result.getInt("log_id"));
+                logList.add(log);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return logList;
+    }
+
     
 }

@@ -72,7 +72,7 @@ public class AdminDashboardContentController {
             m.addRow(new Object[]{
                     l.getTimestamp(),                        
                     l.getAction(),                      
-                    l.getUserType() + " #" + l.getUser_id() 
+                    l.getUser_id() 
             });
         }
     }

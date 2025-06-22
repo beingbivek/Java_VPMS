@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
 import vpms.model.UserData;
+import vpms.view.ActivityLogView;
 import vpms.view.AdminDashboardContentView;
+import vpms.view.ReportView;
 import vpms.view.SecurePaymentView;
 import vpms.view.SlotManagementView;
 import vpms.view.VehicleManagementView;
@@ -23,6 +25,8 @@ public class AdminDashboardController {
     private VehicleTypeAndPriceManagementView vtpView;
     private VehicleManagementView vView;
     private SecurePaymentView spView;
+    private ReportView rView;
+    private ActivityLogView alView;
     UserData user;
 
     public AdminDashboardController(AdminDashboardView view,UserData user) {
@@ -48,6 +52,10 @@ public class AdminDashboardController {
             new VehicleManagementController(vView,user.getId());
             spView = new SecurePaymentView();
             new SecurePaymentController(spView);
+            rView = new ReportView();
+            new ReportController(rView);
+            alView = new ActivityLogView();
+            new ActivityLogController(alView);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -60,6 +68,8 @@ public class AdminDashboardController {
         view.getVehicleTypeandPriceWindowbtn().addActionListener(e -> showVehicleTandPPanel());
         view.getVehicleWindowbtn().addActionListener(e -> showVehiclePanel());
         view.getPaymentWindowbtn().addActionListener(e -> showPaymentPanel());
+        view.getLogWindowbtn().addActionListener(e -> showLogPanel());
+        view.getReportWindowbtn().addActionListener(e -> showReportPanel());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
 
@@ -80,6 +90,28 @@ public class AdminDashboardController {
         spView.toFront();
         try {
             spView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showReportPanel() {
+        rView.setVisible(true);
+        view.setWindowPanel(rView);
+        rView.toFront();
+        try {
+            rView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showLogPanel() {
+        alView.setVisible(true);
+        view.setWindowPanel(alView);
+        alView.toFront();
+        try {
+            alView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
