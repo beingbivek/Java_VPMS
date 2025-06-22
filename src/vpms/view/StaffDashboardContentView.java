@@ -32,10 +32,6 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         ExitParkingIDCheckButton = new javax.swing.JButton();
         tabLevels = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
 
         dashboardUpperPanel.setBackground(new java.awt.Color(102, 204, 255));
 
@@ -82,17 +78,6 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("Avilable");
-        jPanel1.add(jLabel3);
-
-        jLabel4.setText("Parked");
-        jPanel1.add(jLabel4);
-
-        jLabel5.setText("Reserved");
-        jPanel1.add(jLabel5);
-
-        tabLevels.addTab("tab1", jPanel1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,9 +92,9 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(dashboardUpperPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(27, 27, 27)
                 .addComponent(tabLevels, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 48, Short.MAX_VALUE))
+                .addGap(0, 64, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,10 +106,6 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel dashboardUpperPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField parkingExitIdTextField;
     private javax.swing.JTabbedPane tabLevels;
     // End of variables declaration//GEN-END:variables
