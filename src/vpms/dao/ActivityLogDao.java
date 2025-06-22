@@ -83,7 +83,6 @@ public class ActivityLogDao {
             while (result.next()) {
                 ActivityLog log = new ActivityLog(
                     result.getInt("user_id"),
-                    result.getString("user_type"),
                     result.getString("action"),
                     result.getString("timestamp")
                 );
