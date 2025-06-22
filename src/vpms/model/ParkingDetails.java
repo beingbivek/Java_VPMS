@@ -102,7 +102,7 @@ public ParkingDetails(String vehicleId, String slotId,String entryDateTime, Stri
         this.exitNote = exitNote;
     }
 
-    public String getSlotId() {
+    public String getSlotInstanceId() {
         return slotId;
     }
 

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import vpms.database.MySqlConnection;
 import vpms.model.ParkingDetails;
 import java.sql.ResultSet;
+import vpms.model.ParkedDetails;
 
 
 
@@ -23,11 +24,11 @@ public class ParkingDao {
     public boolean registerParkingUser(ParkingDetails parkingDetails) {
         Connection conn= mySql.openConnection();
 
-        String query=  "INSERT INTO parkings (vehicleId,slotId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
+        String query=  "INSERT INTO parkings (vehicleId,slotInstanceId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, parkingDetails.getVehicleId());
-            pstmt.setString(2, parkingDetails.getSlotId());
+            pstmt.setString(2, parkingDetails.getSlotInstanceId());
             pstmt.setString(3, parkingDetails.getEntryDateTime());
             pstmt.setString(4, parkingDetails.getEntryNote());
             pstmt.setString(5, parkingDetails.getParkingStatus());
@@ -107,6 +108,37 @@ public class ParkingDao {
         return count;
     }
     
+    // In ParkingDao.java
+    public ParkedDetails getActiveParkingBySlotInstanceId(int instanceId) {
+        String sql = """
+            SELECT p.entryDateTime, p.entryNote, v.vehicle_number, v.owner_name, v.owner_contact
+            FROM parkings p
+            JOIN vehicles v ON p.vehicle_id = v.vehicle_id
+            WHERE p.instance_id = ? AND (p.parkingStatus = 'Parked' OR p.exitDateTime IS NULL)
+            ORDER BY p.entryDateTime DESC LIMIT 1
+        """;
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, instanceId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ParkedDetails details = new ParkedDetails();
+                    details.setEntryDateTime(rs.getString("entryDateTime"));
+                    details.setEntryNote(rs.getString("entryNote"));
+                    details.setVehicleNumber(rs.getString("vehicle_number"));
+                    details.setOwnerName(rs.getString("owner_name"));
+                    details.setOwnerContact(rs.getString("owner_contact"));
+                    return details;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return null;
+    }
+
 } 
 
  
