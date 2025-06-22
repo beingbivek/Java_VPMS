@@ -4,22 +4,28 @@
  */
 package vpms.dao;
 
-import com.sun.jdi.connect.spi.Connection;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
+
 import vpms.database.MySqlConnection;
 import vpms.model.ReportModel;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Connection;
 
 /**
  *
  * @author Chandani
  */
 public class ReportDao {
-    MySqlConnection mysql = new MySqlConnection();
+ 
+    MySqlConnection mySql = new MySqlConnection();
     
     public List<ReportModel> getReportByDate(LocalDateTime from, LocalDateTime to){
-        List<ReportModel> reporttList = new ArrayList<>();
+        List<ReportModel> reportList = new ArrayList<>();
         Connection conn = mySql.openConnection();
         
         String query = """
@@ -91,6 +97,3 @@ public class ReportDao {
 }
 
         
-    }
-    
-}

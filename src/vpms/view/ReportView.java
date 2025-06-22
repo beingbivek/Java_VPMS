@@ -35,6 +35,7 @@ public class ReportView extends javax.swing.JInternalFrame {
         TotaljTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         reportjTable = new javax.swing.JTable();
+        generateReportjButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Report");
@@ -70,6 +71,8 @@ public class ReportView extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(reportjTable);
 
+        generateReportjButton.setText("Generate Report");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,6 +100,10 @@ public class ReportView extends javax.swing.JInternalFrame {
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(122, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(generateReportjButton)
+                .addGap(132, 132, 132))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +113,9 @@ public class ReportView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fromjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(36, 36, 36)
+                .addGap(8, 8, 8)
+                .addComponent(generateReportjButton)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -134,6 +143,7 @@ public class ReportView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TotaljTextField;
     private javax.swing.JTextField fromjTextField;
+    private javax.swing.JButton generateReportjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -151,4 +161,17 @@ public javax.swing.JTextField getTotal(){
     return TotaljTextField;
 
 }
+public javax.swing.JTextField getTo(){
+    return tojTextField;
+
 }
+
+public javax.swing.JTextField getFrom(){
+    return fromjTextField;
+}
+
+public javax.swing.JButton getGenerateReport(){
+    return generateReportjButton;
+}
+}
+
