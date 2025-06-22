@@ -6,7 +6,6 @@ package vpms.controller;
 
 import vpms.dao.VehicleDao;
 import vpms.model.VehicleData;
-import vpms.model.UserData;
 import vpms.view.AddVehiclesView;
 
 import javax.swing.JOptionPane;
@@ -17,14 +16,12 @@ public class AddVehiclesController {
 
     /* ---------- fields ---------- */
     private final AddVehiclesView view;
-    private final UserData        user;          // logged-in user (passed by caller)
     private final VehicleDao      dao;
 
     /* ---------- ctor ---------- */
-    public AddVehiclesController(AddVehiclesView view, UserData user) {
+    public AddVehiclesController(AddVehiclesView view) {
         this.dao = new VehicleDao();
         this.view = view;
-        this.user = user;
         // If the Save button is in the form, register here, e.g.
         this.view.addSaveButtonListener().addActionListener(e -> handleSaveVehicle());
     }
