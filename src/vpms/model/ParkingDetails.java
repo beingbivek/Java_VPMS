@@ -11,21 +11,21 @@ package vpms.model;
  */
 public class ParkingDetails {
    private int parkingId;
-    private String vehicleId;
+    private int vehicleId;
     private String entryDateTime;
     private String exitDateTime;
     private String parkingStatus;
     private String entryNote;
     private String exitNote;
-    private String slotId;
+    private int slotInstanceId;
     private String parkingtype;
     private boolean penaltyApplied;
     
 
-public ParkingDetails(int parkingId, String vehicleId, String entryDateTime, String exitDateTime,String entryNote,String exitNote,String slotId, String status,String type, boolean penaltyApplied) {
+public ParkingDetails(int parkingId, int vehicleId, String entryDateTime, String exitDateTime,String entryNote,String exitNote,int slotInstanceId, String status,String type, boolean penaltyApplied) {
         this.parkingId = parkingId;
         this.vehicleId = vehicleId;
-        this.slotId = slotId;
+        this.slotInstanceId = slotInstanceId;
         this.entryDateTime = entryDateTime;
         this.exitDateTime = exitDateTime;
         this.parkingStatus = status; 
@@ -37,15 +37,25 @@ public ParkingDetails(int parkingId, String vehicleId, String entryDateTime, Str
     }
 
 
-public ParkingDetails(String vehicleId, String slotId,String entryDateTime, String entryNote, boolean penaltyApplied) {
+    public void ParkingEntryDetails(int vehicleId, int slotInstanceId,String entryDateTime, String entryNote, String status, String parkingtype) {
         this.vehicleId = vehicleId;
-        this.slotId = slotId;
+        this.slotInstanceId = slotInstanceId;
         this.entryDateTime = entryDateTime;
         this.entryNote = entryNote;
+        this.parkingStatus = status;
+        this.parkingtype = parkingtype;
+    }
+
+    public void ParkingExitDetails(String exitDateTime,String exitNote,String status, boolean penaltyApplied){
+        this.exitDateTime = exitDateTime;
+        this.exitNote = exitNote;
+        this.parkingStatus = status;
         this.penaltyApplied = penaltyApplied;
-
-}
-
+    }
+    
+    public ParkingDetails(){
+        
+    }
     public int getParkingId() {
         return parkingId;
     }
@@ -54,11 +64,11 @@ public ParkingDetails(String vehicleId, String slotId,String entryDateTime, Stri
         this.parkingId = parkingId;
     }
 
-    public String getVehicleId() {
+    public int getVehicleId() {
         return vehicleId;
     }
 
-    public void setVehicleId(String vehicleId) {
+    public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
     }
 
@@ -102,12 +112,12 @@ public ParkingDetails(String vehicleId, String slotId,String entryDateTime, Stri
         this.exitNote = exitNote;
     }
 
-    public String getSlotInstanceId() {
-        return slotId;
+    public int getSlotInstanceId() {
+        return slotInstanceId;
     }
 
-    public void setSlotId(String slotId) {
-        this.slotId = slotId;
+    public void setSlotId(int slotInstanceId) {
+        this.slotInstanceId = slotInstanceId;
     }
 
     public String getParkingtype() {

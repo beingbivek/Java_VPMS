@@ -73,7 +73,7 @@ public class VehicleDao {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     VehicleData v = new VehicleData(
-                        rs.getString("id"),
+                        rs.getInt("id"),
                         rs.getString("type"),
                         rs.getString("vehicle_number"),
                         rs.getString("owner_name"),

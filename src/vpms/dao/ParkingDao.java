@@ -24,16 +24,15 @@ public class ParkingDao {
     public boolean registerParkingUser(ParkingDetails parkingDetails) {
         Connection conn= mySql.openConnection();
 
-        String query=  "INSERT INTO parkings (vehicleId,slotInstanceId,entryDateTime,entryNote,parkingStatus,parkingType,penaltyApplied) VALUES (?,?,?,?, ?,?,?)";
+        String query=  "INSERT INTO parkings (vehicleId,slotInstanceId,entryDateTime,entryNote,parkingStatus,parkingType) VALUES (?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, parkingDetails.getVehicleId());
-            pstmt.setString(2, parkingDetails.getSlotInstanceId());
+            pstmt.setInt(1, parkingDetails.getVehicleId());
+            pstmt.setInt(2, parkingDetails.getSlotInstanceId());
             pstmt.setString(3, parkingDetails.getEntryDateTime());
             pstmt.setString(4, parkingDetails.getEntryNote());
             pstmt.setString(5, parkingDetails.getParkingStatus());
             pstmt.setString(6, parkingDetails.getParkingtype());
-            pstmt.setBoolean(7, parkingDetails.isPenaltyApplied());
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {
@@ -46,14 +45,15 @@ public class ParkingDao {
     }
 
     public boolean vehicleExit(ParkingDetails parkingDetails) {
-        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ? WHERE parkingId = ?";
+        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ?, penaltyApplied = ? WHERE parkingId = ?";
         Connection conn= mySql.openConnection();
         try {
             PreparedStatement stmnt = conn.prepareStatement(query);
             stmnt.setString(1, parkingDetails.getExitDateTime());
             stmnt.setString(2, parkingDetails.getParkingStatus());
             stmnt.setString(3, parkingDetails.getExitNote());
-            stmnt.setString(4, parkingDetails.getVehicleId());
+            stmnt.setBoolean(4, parkingDetails.isPenaltyApplied());
+            stmnt.setInt(5, parkingDetails.getParkingId());
             int result = stmnt.executeUpdate();
             return result > 0;
         } catch(Exception e) {
