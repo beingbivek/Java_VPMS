@@ -6,8 +6,10 @@ package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import vpms.dao.ActivityLogDao;
 
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
 /**
@@ -18,9 +20,11 @@ public class AddVehicleTypeAndPriceController {
     private AddVehicleTypeAndPriceView view;
     private VehicleTypeAndPriceDao dao;
     private VehicleTypeAndPriceController mainController;
+    int id;
 
-    public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController) {
+    public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController,int id) {
         this.view = view;
+        this.id = id;
          try {
              this.dao = new VehicleTypeAndPriceDao();
          } catch (Exception ex) {
@@ -64,6 +68,8 @@ public class AddVehicleTypeAndPriceController {
 
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
+                    ActivityLog log = new ActivityLog(id,"Vehicle Type Added");
+                    new ActivityLogDao().logActivity(log);
                     view.dispose();
                     mainController.loadVehicleTypeData();
                 } else {

@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import vpms.dao.ActivityLogDao;
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
 import vpms.view.EditVehicleTypeAndPriceView;
@@ -24,9 +26,11 @@ import vpms.view.VehicleTypeAndPriceManagementView;
 public class VehicleTypeAndPriceController {
     private VehicleTypeAndPriceManagementView view;
     private VehicleTypeAndPriceDao dao;
+    int id;
 
-    public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view) throws SQLException {
+    public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view,int id) throws SQLException {
         this.view = view;
+        this.id = id;
         this.dao = new VehicleTypeAndPriceDao();
 
         loadVehicleTypeData();
@@ -70,7 +74,7 @@ public class VehicleTypeAndPriceController {
         public void actionPerformed(ActionEvent e) {
 //            view.dispose(); // close this page
             AddVehicleTypeAndPriceView addView = new AddVehicleTypeAndPriceView();
-            AddVehicleTypeAndPriceController controller = new AddVehicleTypeAndPriceController(addView, VehicleTypeAndPriceController.this);
+            AddVehicleTypeAndPriceController controller = new AddVehicleTypeAndPriceController(addView, VehicleTypeAndPriceController.this,id);
             controller.open(); // go to add page
         }
     }
@@ -100,7 +104,7 @@ public class VehicleTypeAndPriceController {
             EditVehicleTypeAndPriceView editView = new EditVehicleTypeAndPriceView();
             EditVehicleTypeAndPriceController controller;
             try {
-                controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this);
+                controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this,id);
                 controller.open(); // go to edit page
             } catch (SQLException ex) {
                 System.getLogger(VehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -121,11 +125,13 @@ public class VehicleTypeAndPriceController {
             int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to delete this record?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
             if (confirm != JOptionPane.YES_OPTION) return;
 
-            int id = (int) view.getTable().getValueAt(row, 0);
-            boolean success = dao.deleteVehicleTypeAndPrice(id);
+            int delete_id = (int) view.getTable().getValueAt(row, 0);
+            boolean success = dao.deleteVehicleTypeAndPrice(delete_id);
 
             if (success) {
                 JOptionPane.showMessageDialog(view, "Record deleted successfully.");
+                ActivityLog log = new ActivityLog(id,"Vehicle Type Deleted, id: "+delete_id);
+                new ActivityLogDao().logActivity(log);
                 loadVehicleTypeData();
             } else {
                 JOptionPane.showMessageDialog(view, "Failed to delete record.");

@@ -100,7 +100,7 @@ public class SlotManagementController {
                     (int) view.getSlotTable().getValueAt(row,3)
             );
             EditSlotView popup = new EditSlotView();                       // similar to AddSlotView
-            new EditSlotController(popup, s, SlotManagementController.this).open();
+            new EditSlotController(popup, s, SlotManagementController.this,id).open();
         }
     }
 

@@ -50,7 +50,7 @@ public class EditSlotView extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Add Slot");
+        jLabel1.setText("Edit Slot");
 
         jLabel2.setText("Vehicle Type :");
 

@@ -7,8 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import vpms.dao.ActivityLogDao;
 
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.EditVehicleTypeAndPriceView;
 /**
@@ -20,12 +22,14 @@ public class EditVehicleTypeAndPriceController {
     private VehicleTypeAndPriceDao dao;
     private VehicleTypeAndPriceController mainController;
     private VehicleTypeAndPriceData selectedData;
+    int id;
 
-    public EditVehicleTypeAndPriceController(EditVehicleTypeAndPriceView view, VehicleTypeAndPriceData selectedData, VehicleTypeAndPriceController mainController) throws SQLException {
+    public EditVehicleTypeAndPriceController(EditVehicleTypeAndPriceView view, VehicleTypeAndPriceData selectedData, VehicleTypeAndPriceController mainController,int id) throws SQLException {
         this.view = view;
         this.dao = new VehicleTypeAndPriceDao();
         this.selectedData = selectedData;
         this.mainController = mainController;
+        this.id = id;
 
         populateFields();
         this.view.addUpdateListener(new UpdateAction());
@@ -69,6 +73,8 @@ public class EditVehicleTypeAndPriceController {
 
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type updated successfully.");
+                    ActivityLog log = new ActivityLog(id,"Vehicle type updated, id: "+selectedData.getId());
+                    new ActivityLogDao().logActivity(log);
                     view.dispose();
                     mainController.loadVehicleTypeData();
                 } else {
