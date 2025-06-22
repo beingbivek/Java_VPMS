@@ -44,23 +44,50 @@ public class VehicleDao {
           
     }
     public String[] showVehicleNumbers() {
-    ArrayList<String> vehicleNumberList = new ArrayList<>();
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT vehicle_number FROM vehicles";
-    
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        ResultSet result = pstmt.executeQuery();
-        while (result.next()) {
-            String number = result.getString("vehicle_number");
-            vehicleNumberList.add(number);
-        }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
-    }
-    String[] vnum = vehicleNumberList.toArray(new String[0]);
+        ArrayList<String> vehicleNumberList = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT vehicle_number FROM vehicles";
 
-    return vnum;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                String number = result.getString("vehicle_number");
+                vehicleNumberList.add(number);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        String[] vnum = vehicleNumberList.toArray(new String[0]);
+
+        return vnum;
     }
+    
+    public List<VehicleData> findByNumberLike(String number) {
+        List<VehicleData> list = new ArrayList<>();
+        String sql = "SELECT * FROM vehicles WHERE vehicle_number LIKE ?";
+        Connection c = mySql.openConnection();
+        try (PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, "%" + number + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    VehicleData v = new VehicleData(
+                        rs.getString("id"),
+                        rs.getString("type"),
+                        rs.getString("vehicle_number"),
+                        rs.getString("owner_name"),
+                        rs.getString("owner_contact")
+                    );
+                    list.add(v);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally{
+            mySql.closeConnection(c);
+        }
+        return list;
+    }
+
 }
