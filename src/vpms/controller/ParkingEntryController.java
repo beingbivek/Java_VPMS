@@ -6,16 +6,15 @@ package vpms.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import vpms.dao.ParkingDao;
-import vpms.dao.VehicleDao;
+import vpms.dao.SlotInstanceDao;
 
 import vpms.model.ParkingDetails;
 import vpms.model.SlotInstanceData;
 import vpms.model.VehicleData;
+import vpms.utils.DateAndTimeMethods;
+import vpms.utils.SlotButton;
 import vpms.view.ParkingEntryView;
 
 /**
@@ -23,28 +22,23 @@ import vpms.view.ParkingEntryView;
  * @author Chandani
  */
 public class ParkingEntryController {
-   private final ParkingEntryView view;
+    private final ParkingEntryView view;
     private final ParkingDao parkingDao;
+    private final String entrydateTimeString;
+    VehicleData vehicle;
+    SlotInstanceData bay;
 
     public ParkingEntryController(ParkingEntryView view,VehicleData selected, SlotInstanceData bay) { //constructor
         this.view = view;
         this.parkingDao = new ParkingDao();
-        
-            // Get current date
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String dateString = currentDate.format(dateFormatter);
-
-        // Get current time
-        LocalTime currentTime = LocalTime.now();
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String timeString = currentTime.format(timeFormatter);
-        
-        this.view.setEntryDateValue(dateString);
-        this.view.setEntryTimeValue(timeString);
+        this.vehicle = selected;
+        this.bay = bay;
+        this.entrydateTimeString = DateAndTimeMethods.getDateAndTime();
+        this.view.setEntryDateValue(DateAndTimeMethods.splitDateAndTime(entrydateTimeString)[0]);
+        this.view.setEntryTimeValue(DateAndTimeMethods.splitDateAndTime(entrydateTimeString)[1]);
         this.view.setVehicleNumber(selected.getVehicleNumber());
         this.view.setSlotNumber(bay.getCode());
-   
+        this.view.entryButtonListener(new ParkingEntryHandler());
     }   
         
     public void open(){
@@ -55,6 +49,24 @@ public class ParkingEntryController {
         view.dispose();
     }
     
+    public void changeStatus(SlotInstanceData bay, SlotButton btn, String newStatus, String message) {
+        try {
+            boolean ok = new SlotInstanceDao().updateStatus(bay.getInstanceId(), newStatus);
+            if (ok) {
+                btn.setStatus(newStatus);
+                JOptionPane.showMessageDialog(view, message);
+            } else {
+                JOptionPane.showMessageDialog(view,
+                        "Status change failed (DB returned 0 rows).",
+                        "Update error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(view,
+                    "Database error:\n" + ex.getMessage(),
+                    "SQL Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
     
     class ParkingEntryHandler implements ActionListener { 
 
@@ -62,39 +74,27 @@ public class ParkingEntryController {
         public void actionPerformed(ActionEvent e) {
             
             String entryNote = view. getEntryNote().getText();
-
-            String entryDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-mm-dd"));
-            String entryTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            String parkingType = view.getParkingType().getSelectedItem().toString();
             
-            ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,entryTime,entryNote,false);
-//                 try{
-//                 boolean success = parkingDao.registerParkingUser(parkingDetail);
-//                 
-//                 
-//              if(success){
-//                  view.clearEntryFields();
-//                  view.updateParkingSlotsDisplay();
-//                  JOptionPane.showMessageDialog(view,"Vehicle parked successfully in slot" + slotNumber);
-//                  
-//              } else{
-//                  JOptionPane.showMessageDialog(view,"Failed to park vehicle.","Error",JOptionPane.ERROR_MESSAGE);
-//              }
-//             }catch (ParkingSlotOccupiedException ex){
-//                     JOptionPane.showMessageDialog(view,
-//                             "Slot " + view.getSlotNumber().getSelectedItem() + " is already occupied.",
-//                             "Error", JOptionPane.ERROR_MESSAGE);
-//             }
-//                     
-//                     } catch (Exception ex) {
-//                JOptionPane.showMessageDialog(view,
-//                             "System error: " + ex.getMessage(),
-//                             "Error", JOptionPane.ERROR_MESSAGE);
-//                ex.printStackTrace();
-//    }
+            ParkingDetails parkingDetail = new ParkingDetails();
+            
+            parkingDetail.ParkingEntryDetails(vehicle.getId(), bay.getInstanceId(), entrydateTimeString, entryNote, "Occupied", parkingType);
+            
+            try{
+                boolean success = parkingDao.registerParkingUser(parkingDetail);
+                if(success){
+                    SlotButton btn = new SlotButton(bay);
+                    changeStatus(bay,btn,"park","Vehicle parked successfully in slot: " + bay.getCode());
+                    close();
+              } else{
+                  JOptionPane.showMessageDialog(view,"Failed to park vehicle.","Error",JOptionPane.ERROR_MESSAGE);
+              }
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(view,
+                        "Slot is already occupied.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
-
-       
-        
     }
-
 }

@@ -104,7 +104,7 @@ public class SlotGridController {
         }
     }
 
-    private void changeStatus(SlotInstanceData bay, SlotButton btn, String newStatus, String message) {
+    public void changeStatus(SlotInstanceData bay, SlotButton btn, String newStatus, String message) {
         try {
             boolean ok = siDao.updateStatus(bay.getInstanceId(), newStatus);
             if (ok) {
