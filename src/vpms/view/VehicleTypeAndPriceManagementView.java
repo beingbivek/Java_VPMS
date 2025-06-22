@@ -19,10 +19,7 @@ public class VehicleTypeAndPriceManagementView extends javax.swing.JInternalFram
      */
     public VehicleTypeAndPriceManagementView() {
         initComponents();
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
-        ui.setNorthPane(null);
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,6 +71,7 @@ public class VehicleTypeAndPriceManagementView extends javax.swing.JInternalFram
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
+
         });
         jScrollPane1.setViewportView(vehicleTable);
 
