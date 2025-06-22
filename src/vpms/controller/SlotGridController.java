@@ -6,7 +6,6 @@ import vpms.utils.SlotButton;
 import vpms.view.StaffDashboardContentView;
 import vpms.view.VehicleNumberCheckView;
 import vpms.view.ParkingExitView;
-import vpms.controller.ParkingExitController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,14 +81,11 @@ public class SlotGridController {
                     // Park
                     VehicleNumberCheckView numberCheck = new VehicleNumberCheckView();
                     new VehicleNumberCheckController(numberCheck,bay,id).open();
-                } else if (choice == 1) {
-                    // Reserve
-//                    openReservationView(bay);
                 }
                 // else: Cancel, do nothing
             }
 
-            case "reserved" -> JOptionPane.showMessageDialog(view, "Slot is reserved.");
+//            case "reserved" -> JOptionPane.showMessageDialog(view, "Slot is reserved.");
             case "occupied" -> {
                 
                 ParkedDetails details = parkingDao.getActiveParkedBySlotInstanceId(bay.getInstanceId());
@@ -108,7 +104,7 @@ public class SlotGridController {
                 }
             }
 
-            case "disabled" -> JOptionPane.showMessageDialog(view, "Slot is disabled.");
+//            case "disabled" -> JOptionPane.showMessageDialog(view, "Slot is disabled.");
         }
     }
 
