@@ -15,6 +15,8 @@ public class ParkingExitView extends javax.swing.JFrame {
      */
     public ParkingExitView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**

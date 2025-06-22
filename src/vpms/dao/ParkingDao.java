@@ -24,7 +24,7 @@ public class ParkingDao {
     public boolean registerParkingUser(ParkingDetails parkingDetails) {
         Connection conn= mySql.openConnection();
 
-        String query=  "INSERT INTO parkings (vehicleId,slotInstanceId,entryDateTime,entryNote,parkingStatus,parkingType) VALUES (?,?,?,?,?,?)";
+        String query=  "INSERT INTO parkings (vehicle_id,instance_id,entryDateTime,entryNote,parkingStatus,parkingType) VALUES (?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, parkingDetails.getVehicleId());

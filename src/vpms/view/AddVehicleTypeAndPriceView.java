@@ -19,6 +19,8 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
      */
     public AddVehicleTypeAndPriceView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**

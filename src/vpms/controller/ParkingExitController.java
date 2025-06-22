@@ -5,26 +5,21 @@
 package vpms.controller;
 
 import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vpms.dao.ParkingDao;
 import vpms.dao.PaymentDao;
+import vpms.dao.SlotInstanceDao;
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.ParkedDetails;
 import vpms.model.ParkingDetails;
 import vpms.model.PaymentData;
 import vpms.model.SlotInstanceData;
 import vpms.model.StripePaymentModel;
+import vpms.utils.SlotButton;
 import vpms.view.ParkingExitView;
 
 
@@ -212,6 +207,10 @@ public class ParkingExitController {
         exitDetails.setPenaltyApplied(false); // or true if you want
         parkingDao.vehicleExit(exitDetails);
         
+        // Change button status
+        SlotButton btn = new SlotButton(bay);
+        changeStatus(bay,btn,"free",bay.getCode()+" Slot is Free!");
+        
         JOptionPane.showMessageDialog(view, "Payment successful. Parking exited.");
         close();
     }
@@ -224,6 +223,25 @@ public class ParkingExitController {
                 view.setPayOnlineStatusLabel("Try Again!");
             }
         } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void changeStatus(SlotInstanceData bay, SlotButton btn, String newStatus, String message) {
+        try {
+            boolean ok = new SlotInstanceDao().updateStatus(bay.getInstanceId(), newStatus);
+            if (ok) {
+                btn.setStatus(newStatus);
+                JOptionPane.showMessageDialog(view, message);
+            } else {
+                JOptionPane.showMessageDialog(view,
+                        "Status change failed (DB returned 0 rows).",
+                        "Update error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(view,
+                    "Database error:\n" + ex.getMessage(),
+                    "SQL Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }

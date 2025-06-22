@@ -20,6 +20,7 @@ public class AddSlotView extends javax.swing.JFrame {
     public AddSlotView() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
     }
 
     /**

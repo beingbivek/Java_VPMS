@@ -18,6 +18,8 @@ public class ParkingEntryView extends javax.swing.JFrame {
      */
     public ParkingEntryView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**
