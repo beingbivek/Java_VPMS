@@ -14,6 +14,8 @@ import vpms.dao.ParkingDao;
 import vpms.dao.VehicleDao;
 
 import vpms.model.ParkingDetails;
+import vpms.model.SlotInstanceData;
+import vpms.model.VehicleData;
 import vpms.view.ParkingEntryView;
 
 /**
@@ -24,7 +26,7 @@ public class ParkingEntryController {
    private final ParkingEntryView view;
     private final ParkingDao parkingDao;
 
-    public ParkingEntryController(ParkingEntryView view) { //constructor
+    public ParkingEntryController(ParkingEntryView view,VehicleData selected, SlotInstanceData bay) { //constructor
         this.view = view;
         this.parkingDao = new ParkingDao();
         
@@ -38,8 +40,10 @@ public class ParkingEntryController {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timeString = currentTime.format(timeFormatter);
         
-        view.setEntryDateValue(dateString);
-        view.setEntryTimeValue(timeString);
+        this.view.setEntryDateValue(dateString);
+        this.view.setEntryTimeValue(timeString);
+        this.view.setVehicleNumber(selected.getVehicleNumber());
+        this.view.setSlotNumber(bay.getCode());
    
     }   
         
@@ -57,18 +61,12 @@ public class ParkingEntryController {
         @Override
         public void actionPerformed(ActionEvent e) {
             
-            String vehicleNumber= view.getEntryVehicleNumber().getSelectedItem().toString();
-            String slotNumber = view.getSlotNumber().getSelectedItem().toString();
             String entryNote = view. getEntryNote().getText();
 
-             if (vehicleNumber.isEmpty() || slotNumber.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Please fill in all fields.");
-                return;
-             }
-                String entryDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-mm-dd"));
-                String entryTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            String entryDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-mm-dd"));
+            String entryTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             
-                 ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,entryTime,entryNote,false);
+            ParkingDetails parkingDetail = new ParkingDetails(vehicleNumber,slotNumber,entryTime,entryNote,false);
 //                 try{
 //                 boolean success = parkingDao.registerParkingUser(parkingDetail);
 //                 
