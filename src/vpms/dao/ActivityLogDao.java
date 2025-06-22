@@ -70,6 +70,34 @@ public class ActivityLogDao {
     
     
     
-    
+   public List<ActivityLog> fetchLast(int number){
+        List<ActivityLog> logList= new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT * FROM activity_log LIMIT ?";
+        
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, number);
+
+           
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                ActivityLog log = new ActivityLog(
+                    result.getInt("user_id"),
+                    result.getString("user_type"),
+                    result.getString("action"),
+                    result.getString("timestamp")
+                );
+                log.setLog_id(result.getInt("id"));
+                logList.add(log);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+
+            return logList;
+        }
+     
     
 }
