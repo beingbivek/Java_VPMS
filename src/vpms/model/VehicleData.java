@@ -17,10 +17,11 @@ public class VehicleData {
     private String createdAt;
     private String updatedAt;
     
-    public void VehicleData(String id,String type,String vehicleNumber,String ownerName,String ownerContact, String createdAt,String updatedAt){
+    public VehicleData(String id,String type,String vehicleNumber,String ownerName,String ownerContact, String createdAt,String updatedAt){
         this.id = id;
         this.type = type;
         this.vehicleNumber = vehicleNumber;
+        this.ownerName = ownerName;
         this.ownerContact = ownerContact;
         this.ownerName = ownerName;
         this.createdAt = createdAt;
@@ -35,6 +36,15 @@ public class VehicleData {
         this.ownerName = ownerName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+    
+    public VehicleData(String id,String type,String vehicleNumber,String ownerName,String ownerContact){
+        this.id = id;
+        this.type = type;
+        this.vehicleNumber = vehicleNumber;
+        this.ownerName = ownerName;
+        this.ownerContact = ownerContact;
+        this.ownerName = ownerName;
     }
     
     public void setId(String id){
