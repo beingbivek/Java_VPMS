@@ -7,9 +7,11 @@ package vpms.controller;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import vpms.dao.ActivityLogDao;
 import vpms.dao.SlotDao;
 import vpms.dao.SlotInstanceDao;
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.SlotData;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddSlotView;
@@ -24,12 +26,14 @@ public class AddSlotController {
     private final VehicleTypeAndPriceDao vtDao = new VehicleTypeAndPriceDao();
     private final SlotManagementController parent;
     private final AddSlotView view;
+    int id;
 
-    public AddSlotController(AddSlotView v, SlotManagementController parent){
+    public AddSlotController(AddSlotView v, SlotManagementController parent,int id){
         this.slotDao = new SlotDao();
         this.siDao = new SlotInstanceDao();
         this.view   = v;
         this.parent = parent;
+        this.id = id;
         fillVehicleTypes();
         view.addSaveButtonListener().addActionListener(e -> save());
     }
@@ -51,7 +55,9 @@ public class AddSlotController {
 
             JOptionPane.showMessageDialog(view,"Slots created.");
             parent.refresh();        // refresh JTable
-            view.dispose();
+            ActivityLog log = new ActivityLog(id,"Slot Added");
+            new ActivityLogDao().logActivity(log);
+            close();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(view,"Error: "+ex.getMessage());
             ex.printStackTrace();

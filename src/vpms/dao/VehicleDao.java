@@ -89,5 +89,67 @@ public class VehicleDao {
         }
         return list;
     }
+    
+    public boolean deleteVehicleById(int id) {
+        Connection conn = mySql.openConnection();
+        String sql = "DELETE FROM vehicles WHERE vehicle_id=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return false;
+    }
+    
+    // Get vehicle by ID
+    public VehicleData getVehicleById(int id) {
+        String sql = "SELECT * FROM vehicles WHERE vehicle_id = ?";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new VehicleData(
+                        rs.getInt("vehicle_id"),
+                        String.valueOf(rs.getInt("vehicletandp_id")),
+                        rs.getString("vehicle_number"),
+                        rs.getString("owner_name"),
+                        rs.getString("owner_contact"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at")
+                    );
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return null;
+    }
 
-}
+    // Update vehicle
+    public boolean updateVehicle(VehicleData vehicle) {
+        String sql = "UPDATE vehicles SET vehicletandp_id=?, vehicle_number=?, owner_name=?, owner_contact=?, updated_at=? WHERE vehicle_id=?";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, vehicle.getType());
+            ps.setString(2, vehicle.getVehicleNumber());
+            ps.setString(3, vehicle.getOwnerName());
+            ps.setString(4, vehicle.getOwnerContact());
+            ps.setString(5, vehicle.getUpdatedAt());
+            ps.setInt(6, vehicle.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return false;
+    }
+
+
+    }

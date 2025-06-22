@@ -13,20 +13,24 @@ import java.security.Timestamp;
 public class ActivityLog {
     private int log_id;
     private int user_id;
-    private String userType;
     private String action;
-    private Timestamp timestamp;
+    private String timestamp;
     
     
     public ActivityLog() {
         
     }
     
-    
-    public ActivityLog (int userId, String userType, String action, String module) {
+    public ActivityLog (int userId, String action) {
         this.user_id = userId;
-        this.userType = userType;
         this.action = action;
+    }
+
+    
+    public ActivityLog (int userId, String action, String timestamp) {
+        this.user_id = userId;
+        this.action = action;
+        this.timestamp = timestamp;
     }
 
     public int getLog_id() {
@@ -45,14 +49,6 @@ public class ActivityLog {
         this.user_id = user_id;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
     public String getAction() {
         return action;
     }
@@ -61,11 +57,11 @@ public class ActivityLog {
         this.action = action;
     }
 
-    public Timestamp getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

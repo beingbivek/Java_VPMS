@@ -277,8 +277,14 @@ public class AdminDashboardView extends javax.swing.JFrame {
     public javax.swing.JButton getAdminDashboardWindowbtn(){
         return dashboardWindowButton;
     }
+    public javax.swing.JButton getVehicleWindowbtn(){
+        return vehicleWindowButton;
+    }
     public javax.swing.JButton getSlotWindowbtn(){
         return slotWindowButton;
+    }
+    public javax.swing.JButton getPaymentWindowbtn(){
+        return paymentWindowButton;
     }
     public javax.swing.JButton getVehicleTypeandPriceWindowbtn(){
         return vehicleAndPriceWindowButton;

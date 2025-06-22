@@ -9,9 +9,11 @@ import vpms.view.StaffDashboardContentView;
 
 public class StaffDashboardContentController {
     private final StaffDashboardContentView view;
-    public StaffDashboardContentController(StaffDashboardContentView view) {
+    int id;
+    public StaffDashboardContentController(StaffDashboardContentView view,int id) {
         this.view = view;
-        new SlotGridController(this.view); // builds the grid tabs
+        this.id = id;
+        new SlotGridController(this.view,this.id); // builds the grid tabs
     }
     public void open(){
         this.view.setVisible(true);

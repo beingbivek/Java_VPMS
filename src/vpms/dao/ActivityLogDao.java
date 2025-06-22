@@ -25,13 +25,12 @@ public class ActivityLogDao {
         Connection conn = mySql.openConnection();
 
         // Insert log entry
-        String query = "INSERT INTO activity_log (user_id, user_type, action) VALUES (?, ?, ?)";
+        String query = "INSERT INTO activity_log (user_id, action) VALUES (?, ?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, log.getUser_id());
-            stmt.setString(2, log.getUserType());
-            stmt.setString(3, log.getAction());
+            stmt.setString(2, log.getAction());
 
             int result = stmt.executeUpdate();
             return result > 0;
@@ -54,7 +53,6 @@ public class ActivityLogDao {
             while (result.next()) {
                 ActivityLog log = new ActivityLog(
                     result.getInt("user_id"),
-                    result.getString("user_type"),
                     result.getString("action"),
                     result.getString("timestamp")
                 );

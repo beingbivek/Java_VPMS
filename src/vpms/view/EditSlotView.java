@@ -10,14 +10,14 @@ import vpms.model.VehicleTypeAndPriceData;
  *
  * @author being
  */
-public class AddSlotView extends javax.swing.JFrame {
+public class EditSlotView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddSlotView.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditSlotView.class.getName());
 
     /**
      * Creates new form AddSlotView
      */
-    public AddSlotView() {
+    public EditSlotView() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -135,7 +135,7 @@ public class AddSlotView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AddSlotView().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new EditSlotView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

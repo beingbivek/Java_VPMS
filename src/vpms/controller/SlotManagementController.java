@@ -10,6 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 /**
  * Lists, adds, edits and deletes slot-collections (rows in table **slots**).
@@ -20,13 +22,15 @@ public class SlotManagementController {
     /* ------------ fields ------------ */
     private final SlotManagementView view;
     // CRUD for “slots”
-    private final SlotDao            slotDao;        
+    private final SlotDao            slotDao;       
+    int id;
 //    private final SlotInstanceDao    instanceDao;
 
     /* ------------ ctor ------------ */
-    public SlotManagementController(SlotManagementView view) throws SQLException {
+    public SlotManagementController(SlotManagementView view,int id) throws SQLException {
         this.slotDao = new SlotDao();
         this.view = view;
+        this.id = id;
 //        this.instanceDao  = new SlotInstanceDao(); // bulkInsert …
 
         loadSlotTable();                                 // fill table on start-up
@@ -72,7 +76,7 @@ public class SlotManagementController {
             AddSlotView popup = new AddSlotView();
             try {
                 System.out.println("Add slot popup");
-                new AddSlotController(popup, SlotManagementController.this).open();
+                new AddSlotController(popup, SlotManagementController.this,id).open();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -82,23 +86,23 @@ public class SlotManagementController {
     /* ===================================================== *
      *  EDIT                                                 *
      * ===================================================== */
-//    private class EditListener implements ActionListener {
-//        @Override public void actionPerformed(ActionEvent e) {
-//            int row = view.getSlotTable().getSelectedRow();
-//            if (row == -1) {
-//                JOptionPane.showMessageDialog(view,"Select a slot first."); return;
-//            }
-//            /* Build SlotData from table */
-//            SlotData s = new SlotData(
-//                    (int) view.getSlotTable().getValueAt(row,0),
-//                    (int) view.getSlotTable().getValueAt(row,1),
-//                    (int) view.getSlotTable().getValueAt(row,2),
-//                    (int) view.getSlotTable().getValueAt(row,3)
-//            );
-//            EditSlotView popup = new EditSlotView();                       // similar to AddSlotView
-//            new EditSlotController(popup, s, SlotManagementController.this).open();
-//        }
-//    }
+    private class EditListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            int row = view.getSlotTable().getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(view,"Select a slot first."); return;
+            }
+            /* Build SlotData from table */
+            SlotData s = new SlotData(
+                    (int) view.getSlotTable().getValueAt(row,0),
+                    (int) view.getSlotTable().getValueAt(row,1),
+                    (int) view.getSlotTable().getValueAt(row,2),
+                    (int) view.getSlotTable().getValueAt(row,3)
+            );
+            EditSlotView popup = new EditSlotView();                       // similar to AddSlotView
+            new EditSlotController(popup, s, SlotManagementController.this).open();
+        }
+    }
 
     /* ===================================================== *
      *  DELETE                                               *
@@ -115,6 +119,8 @@ public class SlotManagementController {
             try {
                 if (slotDao.delete(slotId)) {
                     JOptionPane.showMessageDialog(view,"Slot deleted.");
+                    ActivityLog log = new ActivityLog(id,"Slot deleted, id: "+slotId);
+                    new ActivityLogDao().logActivity(log);
                     loadSlotTable();
                 } else {
                     JOptionPane.showMessageDialog(view,"Delete failed – row not found.");

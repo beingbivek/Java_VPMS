@@ -131,7 +131,6 @@ public final class CreateAllTables {
             CREATE TABLE IF NOT EXISTS activity_log (
                 log_id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT,
-                user_type VARCHAR(20),
                 action VARCHAR(255),
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES vpmsUsers(id)

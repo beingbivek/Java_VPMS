@@ -71,42 +71,7 @@ public class ReservationController {
         }
     }
 
-    class AddReservationListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            AddReservationView addView = new AddReservationView();
-            addView.setVisible(true); // Controller will be added later
-        }
-    }
-
-    class EditReservationListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int row = view.getTable().getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(view, "Please select a record to edit.");
-                return;
-            }
-
-            int reservationId  = (int) view.getTable().getValueAt(row, 0);
-            int vehicleId      = (int) view.getTable().getValueAt(row, 1);
-            int userId         = (int) view.getTable().getValueAt(row, 2);
-            int slotId         = (int) view.getTable().getValueAt(row, 3);
-            String vehicleType = (String) view.getTable().getValueAt(row, 4);
-            String contact     = (String) view.getTable().getValueAt(row, 5);
-            String entryTime   = (String) view.getTable().getValueAt(row, 6);
-            String exitTime    = (String) view.getTable().getValueAt(row, 7);
-            String duration    = (String) view.getTable().getValueAt(row, 8);
-            String status      = (String) view.getTable().getValueAt(row, 9);
-            String paymentStatus = (String) view.getTable().getValueAt(row, 10);
-
-            ReservationData selectedData = new ReservationData(reservationId, vehicleId, userId, slotId,
-                    vehicleType, contact, entryTime, exitTime, duration, status, paymentStatus);
-
-            EditReservationView editView = new EditReservationView();
-            editView.setVisible(true); // Controller will be added later
-        }
-    }
+    
 
     class DeleteReservationListener implements ActionListener {
         @Override
@@ -218,7 +183,7 @@ public class ReservationController {
                 duration, status, paymentStatus
         );
 
-        EditReservationView editView = new EditReservationView(selectedData);
+        EditReservationView editView = new EditReservationView();
         EditReservationController controller = new EditReservationController(editView, selectedData, ReservationController.this);
         controller.open();
     }

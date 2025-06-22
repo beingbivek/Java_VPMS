@@ -10,6 +10,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 /**
  * Pop-up window (JFrame) for user registration.
@@ -23,15 +25,13 @@ public class RegisterUserController {
     private final UserManagementController caller;    // may be null
     private       File                     selected;   // image file
     private final UserDao dao = new UserDao();
-
-    /* ---------- ctors ---------- */
-    public RegisterUserController(RegisterUserView view) {
-        this(view,null);
-    }
+    int id;
+    
     public RegisterUserController(RegisterUserView view,
-                                  UserManagementController caller) {
+                                  UserManagementController caller, int id) {
         this.view   = view;
         this.caller = caller;
+        this.id = id;
 
         view.uploadButtonListener  (new UploadListener());
         view.registerButtonListener(new RegisterListener());
@@ -87,6 +87,8 @@ public class RegisterUserController {
             UserData u = new UserData(name, type, email, pwd1, phone, img, status);
             if (dao.registerUser(u)) {
                 JOptionPane.showMessageDialog(view,"Registered successfully");
+                ActivityLog log = new ActivityLog(id,"User Registered, Obj: "+u);
+                new ActivityLogDao().logActivity(log);
 
                 /* refresh list if we have a caller */
                 if (caller != null) caller.refreshTable();

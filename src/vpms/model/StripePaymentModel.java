@@ -23,7 +23,7 @@ public class StripePaymentModel {
         Stripe.apiKey = new APIKeys().getStripeKeys();
     }
 
-    public String createCheckoutSession(Long money) {
+    public String createCheckoutSession(long money) {
         try {
             // Create the checkout session parameters
             money = money * 100;
@@ -69,8 +69,8 @@ public class StripePaymentModel {
             System.out.println("Invalid session ID extracted.");
             return false;
         }
-        System.out.println("Waiting 60 seconds before checking payment status...");
-            Thread.sleep(60000);
+//        System.out.println("Waiting 60 seconds before checking payment status...");
+//            Thread.sleep(60000);
         // Retrieve the session details from Stripe using session ID
         Session session = Session.retrieve(sessionId);
         System.out.println("ID"+session);

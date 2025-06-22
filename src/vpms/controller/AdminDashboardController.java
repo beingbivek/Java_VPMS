@@ -9,7 +9,9 @@ import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
 import vpms.model.UserData;
 import vpms.view.AdminDashboardContentView;
+import vpms.view.SecurePaymentView;
 import vpms.view.SlotManagementView;
+import vpms.view.VehicleManagementView;
 import vpms.view.VehicleTypeAndPriceManagementView;
 import vpms.view.WelcomeAndLoginView;
 
@@ -19,6 +21,8 @@ public class AdminDashboardController {
     private AdminDashboardContentView adcView;
     private SlotManagementView sView;
     private VehicleTypeAndPriceManagementView vtpView;
+    private VehicleManagementView vView;
+    private SecurePaymentView spView;
     UserData user;
 
     public AdminDashboardController(AdminDashboardView view,UserData user) {
@@ -26,19 +30,24 @@ public class AdminDashboardController {
         this.user = user;
         initializeControllers();
         attachListeners();
+        showDashboard();
     }
 
     private void initializeControllers() {
         try {
             // Initialize sub-module controllers
             smView = new UserManagementView();
-            new UserManagementController(smView);
+            new UserManagementController(smView,user.getId());
             adcView = new AdminDashboardContentView();
             new AdminDashboardContentController(adcView);
             sView = new SlotManagementView();
-            new SlotManagementController(sView);
+            new SlotManagementController(sView,user.getId());
             vtpView = new VehicleTypeAndPriceManagementView();
-            new VehicleTypeAndPriceController(vtpView);
+            new VehicleTypeAndPriceController(vtpView,user.getId());
+            vView = new VehicleManagementView();
+            new VehicleManagementController(vView,user.getId());
+            spView = new SecurePaymentView();
+            new SecurePaymentController(spView);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -49,6 +58,8 @@ public class AdminDashboardController {
         view.getAdminDashboardWindowbtn().addActionListener(e -> showDashboard());
         view.getSlotWindowbtn().addActionListener(e -> showSlotsPanel());
         view.getVehicleTypeandPriceWindowbtn().addActionListener(e -> showVehicleTandPPanel());
+        view.getVehicleWindowbtn().addActionListener(e -> showVehiclePanel());
+        view.getPaymentWindowbtn().addActionListener(e -> showPaymentPanel());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
 
@@ -58,6 +69,17 @@ public class AdminDashboardController {
         smView.toFront();
         try {
             smView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showPaymentPanel() {
+        spView.setVisible(true);
+        view.setWindowPanel(spView);
+        spView.toFront();
+        try {
+            spView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
@@ -91,6 +113,17 @@ public class AdminDashboardController {
         vtpView.toFront();
         try {
             vtpView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showVehiclePanel() {
+        vView.setVisible(true);
+        view.setWindowPanel(vView);
+        vView.toFront();
+        try {
+            vView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }

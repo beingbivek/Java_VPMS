@@ -109,7 +109,7 @@ public class ParkingDao {
     }
     
     // In ParkingDao.java
-    public ParkedDetails getActiveParkingBySlotInstanceId(int instanceId) {
+    public ParkedDetails getActiveParkedBySlotInstanceId(int instanceId) {
         String sql = """
             SELECT p.entryDateTime, p.entryNote, v.vehicle_number, v.owner_name, v.owner_contact
             FROM parkings p
@@ -138,6 +138,42 @@ public class ParkingDao {
         }
         return null;
     }
+    
+    public ParkingDetails getActiveParkingDetailsBySlotInstanceId(int instanceId) {
+        String sql = """
+            SELECT p.parking_id, p.vehicle_id, p.entryDateTime, p.exitDateTime, p.parkingStatus, 
+                   p.entryNote, p.exitNote, p.instance_id, p.parkingType, p.penaltyApplied
+            FROM parkings p
+            WHERE p.instance_id = ? AND (p.parkingStatus = 'Parked' OR p.exitDateTime IS NULL)
+            ORDER BY p.entryDateTime DESC LIMIT 1
+        """;
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, instanceId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ParkingDetails details = new ParkingDetails();
+                    details.setParkingId(rs.getInt("parking_id"));
+                    details.setVehicleId(rs.getInt("vehicle_id"));
+                    details.setEntryDateTime(rs.getString("entryDateTime"));
+                    details.setExitDateTime(rs.getString("exitDateTime"));
+                    details.setParkingStatus(rs.getString("parkingStatus"));
+                    details.setEntryNote(rs.getString("entryNote"));
+                    details.setExitNote(rs.getString("exitNote"));
+                    details.setSlotId(rs.getInt("instance_id"));
+                    details.setParkingtype(rs.getString("parkingType"));
+                    details.setPenaltyApplied(rs.getBoolean("penaltyApplied"));
+                    return details;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return null;
+    }
+
 
 } 
 

@@ -28,24 +28,12 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
 
         dashboardUpperPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        parkingExitIdTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        ExitParkingIDCheckButton = new javax.swing.JButton();
         tabLevels = new javax.swing.JTabbedPane();
 
         dashboardUpperPanel.setBackground(new java.awt.Color(102, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Dashboard");
-
-        parkingExitIdTextField.setToolTipText("");
-        parkingExitIdTextField.setName(""); // NOI18N
-
-        jLabel2.setText("Exit Parking ID:");
-
-        ExitParkingIDCheckButton.setBackground(new java.awt.Color(255, 204, 102));
-        ExitParkingIDCheckButton.setText("Check");
-        ExitParkingIDCheckButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(51, 204, 0), null, new java.awt.Color(204, 51, 255)));
 
         javax.swing.GroupLayout dashboardUpperPanelLayout = new javax.swing.GroupLayout(dashboardUpperPanel);
         dashboardUpperPanel.setLayout(dashboardUpperPanelLayout);
@@ -54,27 +42,13 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
             .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(parkingExitIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ExitParkingIDCheckButton)
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dashboardUpperPanelLayout.setVerticalGroup(
             dashboardUpperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
-                .addGroup(dashboardUpperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
-                    .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(dashboardUpperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(parkingExitIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(ExitParkingIDCheckButton))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -102,11 +76,8 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ExitParkingIDCheckButton;
     private javax.swing.JPanel dashboardUpperPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField parkingExitIdTextField;
     private javax.swing.JTabbedPane tabLevels;
     // End of variables declaration//GEN-END:variables
     public javax.swing.JTabbedPane getTabLevels() {

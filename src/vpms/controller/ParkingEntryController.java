@@ -27,12 +27,14 @@ public class ParkingEntryController {
     private final String entrydateTimeString;
     VehicleData vehicle;
     SlotInstanceData bay;
+    int id;
 
-    public ParkingEntryController(ParkingEntryView view,VehicleData selected, SlotInstanceData bay) { //constructor
+    public ParkingEntryController(ParkingEntryView view,VehicleData selected, SlotInstanceData bay, int id) { //constructor
         this.view = view;
         this.parkingDao = new ParkingDao();
         this.vehicle = selected;
         this.bay = bay;
+        this.id = id;
         this.entrydateTimeString = DateAndTimeMethods.getDateAndTime();
         this.view.setEntryDateValue(DateAndTimeMethods.splitDateAndTime(entrydateTimeString)[0]);
         this.view.setEntryTimeValue(DateAndTimeMethods.splitDateAndTime(entrydateTimeString)[1]);
@@ -78,7 +80,7 @@ public class ParkingEntryController {
             
             ParkingDetails parkingDetail = new ParkingDetails();
             
-            parkingDetail.ParkingEntryDetails(vehicle.getId(), bay.getInstanceId(), entrydateTimeString, entryNote, "Occupied", parkingType);
+            parkingDetail.ParkingEntryDetails(vehicle.getId(), bay.getInstanceId(), entrydateTimeString, entryNote, "Parked", parkingType);
             
             try{
                 boolean success = parkingDao.registerParkingUser(parkingDetail);

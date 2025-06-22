@@ -16,12 +16,12 @@ import vpms.controller.AddVehiclesController;
  *
  * @author PRABHASH
  */
-public class AddVehiclesView extends javax.swing.JFrame {
+public class EditVehiclesView extends javax.swing.JFrame {
 
     /**
      * Creates new form AddParkingVehiclesView
      */
-    public AddVehiclesView() {
+    public EditVehiclesView() {
         initComponents();
     }
 
@@ -42,14 +42,14 @@ public class AddVehiclesView extends javax.swing.JFrame {
         txtOwnerContact = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtOwnerName = new javax.swing.JTextField();
-        btnSaveVehicle = new javax.swing.JButton();
+        btnUpdateVehicle = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        vehicleTypeCombobox = new javax.swing.JComboBox<>();
+        vehicleTypeComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Add New Vehicle Type");
+        jLabel1.setText("Edit Vehicle");
 
         VehicleNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         VehicleNumber.setText("Vehicle Number");
@@ -63,16 +63,16 @@ public class AddVehiclesView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Vehicle Owner");
 
-        btnSaveVehicle.setText("Save");
+        btnUpdateVehicle.setText("Save");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel2.setText("E.g. Ba 2 Cha 1234 or BA-2-CHA-1234");
 
-        vehicleTypeCombobox.setBackground(new java.awt.Color(230, 200, 255));
-        vehicleTypeCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active ", "Inactive", " ", " " }));
-        vehicleTypeCombobox.addActionListener(new java.awt.event.ActionListener() {
+        vehicleTypeComboBox.setBackground(new java.awt.Color(230, 200, 255));
+        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active ", "Inactive", " ", " " }));
+        vehicleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vehicleTypeComboboxActionPerformed(evt);
+                vehicleTypeComboBoxActionPerformed(evt);
             }
         });
 
@@ -100,11 +100,11 @@ public class AddVehiclesView extends javax.swing.JFrame {
                                     .addComponent(txtVehicleNumber)
                                     .addComponent(txtOwnerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                                     .addComponent(txtOwnerName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                                    .addComponent(vehicleTypeCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(vehicleTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(228, 228, 228)
-                        .addComponent(btnSaveVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(106, Short.MAX_VALUE))
+                        .addGap(231, 231, 231)
+                        .addComponent(btnUpdateVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +114,7 @@ public class AddVehiclesView extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(vehicleTypeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vehicleTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtVehicleNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -129,17 +129,17 @@ public class AddVehiclesView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtOwnerContact, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addComponent(btnSaveVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(btnUpdateVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void vehicleTypeComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleTypeComboboxActionPerformed
+    private void vehicleTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleTypeComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_vehicleTypeComboboxActionPerformed
+    }//GEN-LAST:event_vehicleTypeComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,28 +158,30 @@ public class AddVehiclesView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditVehiclesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddVehiclesView().setVisible(true);
+                new EditVehiclesView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel VehicleNumber;
-    private javax.swing.JButton btnSaveVehicle;
+    private javax.swing.JButton btnUpdateVehicle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -188,14 +190,14 @@ public class AddVehiclesView extends javax.swing.JFrame {
     private javax.swing.JTextField txtOwnerContact;
     private javax.swing.JTextField txtOwnerName;
     private javax.swing.JTextField txtVehicleNumber;
-    private javax.swing.JComboBox<String> vehicleTypeCombobox;
+    private javax.swing.JComboBox<String> vehicleTypeComboBox;
     // End of variables declaration//GEN-END:variables
-    public javax.swing.JButton getBtnSaveVehicle() { return btnSaveVehicle; }
-    public javax.swing.JComboBox<String> getVehicleTypeCombobox() { return vehicleTypeCombobox; }
+
+    public javax.swing.JButton getBtnUpdateVehicle() { return btnUpdateVehicle; }
+    public javax.swing.JComboBox<String> getVehicleTypeComboBox() { return vehicleTypeComboBox; }
     public javax.swing.JTextField getTxtVehicleNumber() { return txtVehicleNumber; }
     public javax.swing.JTextField getTxtOwnerName() { return txtOwnerName; }
     public javax.swing.JTextField getTxtOwnerContact() { return txtOwnerContact; }
-
 
 
 }

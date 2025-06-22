@@ -123,28 +123,29 @@ public class SlotInstanceDao {
     }
 
     public int getTotalSlotCount() {
-    int count = 0;
-    String sql = "SELECT COUNT(*) FROM slot_instances";
-    try (Connection conn = mySql.openConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        if (rs.next()) count = rs.getInt(1);
-    } catch (SQLException ex) {
-        System.out.println("Total slot count error: " + ex);
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM slot_instances";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Total slot count error: " + ex);
+        }
+        return count;
     }
-    return count;
-}
 
-public int getAvailableSlotCount() {
-    int count = 0;
-    String sql = "SELECT COUNT(*) FROM slot_instances WHERE status = 'free'";
-    try (Connection conn = mySql.openConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        if (rs.next()) count = rs.getInt(1);
-    } catch (SQLException ex) {
-        System.out.println("Available slot count error: " + ex);
+    public int getAvailableSlotCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM slot_instances WHERE status = 'free'";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) count = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Available slot count error: " + ex);
+        }
+        return count;
     }
-    return count;
-}
+
 }
