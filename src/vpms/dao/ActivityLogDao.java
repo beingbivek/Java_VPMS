@@ -56,7 +56,7 @@ public class ActivityLogDao {
                     result.getString("action"),
                     result.getString("timestamp")
                 );
-                log.setLog_id(result.getInt("id"));
+                log.setLog_id(result.getInt("log_id"));
                 logList.add(log);
             }
         } catch (SQLException ex) {
@@ -86,7 +86,7 @@ public class ActivityLogDao {
                     result.getString("action"),
                     result.getString("timestamp")
                 );
-                log.setLog_id(result.getInt("id"));
+                log.setLog_id(result.getInt("log_id"));
                 logList.add(log);
             }
         } catch (SQLException ex) {
