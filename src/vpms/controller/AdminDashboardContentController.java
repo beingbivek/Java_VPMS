@@ -44,6 +44,9 @@ public class AdminDashboardContentController {
    
     public void open(){
         this.view.setVisible(true);
+        insertDashboardData();
+        loadRecentActivities();
+        loadStaffTable();
     }
     public void close(){
         this.view.dispose();

@@ -79,7 +79,6 @@ public class VehicleNumberCheckController {
         public void actionPerformed(ActionEvent e) {
             AddVehiclesView addView = new AddVehiclesView();
             new AddVehiclesController(addView,id).open();
-            view.dispose();
         }
     }
 }

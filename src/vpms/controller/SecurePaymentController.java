@@ -18,6 +18,11 @@ public class SecurePaymentController {
         view.getSearchTextField().addActionListener(e -> filterPayments());
         view.getCancelButton().addActionListener(e -> {view.getSearchTextField().setText(""); loadPaymentsTable();});
     }
+    
+    public void open(){
+        this.view.setVisible(true);
+        loadPaymentsTable();
+    }
 
     private void loadPaymentsTable() {
         List<PaymentData> paymentList = paymentDao.showPayments();
