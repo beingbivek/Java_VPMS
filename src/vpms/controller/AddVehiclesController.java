@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 public class AddVehiclesController {
     private final AddVehiclesView view;
@@ -69,6 +71,8 @@ public class AddVehiclesController {
             boolean success = vehicleDao.registerVehicle(vehicle);
             if (success) {
                 JOptionPane.showMessageDialog(view, "Vehicle added successfully!");
+                ActivityLog log = new ActivityLog(id,"VehicleData added, Obj: "+vehicle);
+                new ActivityLogDao().logActivity(log);
                 close();
             } else {
                 JOptionPane.showMessageDialog(view, "Failed to add vehicle.");
