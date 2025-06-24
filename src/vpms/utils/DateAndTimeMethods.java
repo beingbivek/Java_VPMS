@@ -39,4 +39,23 @@ public class DateAndTimeMethods {
         return dateTime.format(formatter);
     }
     
+    // Converts a date string (yyyy-MM-dd) to "yyyy-MM-dd 00:00:00"
+    public static String toStartOfDay(String dateStr) {
+        LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return date.atStartOfDay().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    // Converts a date string (yyyy-MM-dd) to "yyyy-MM-dd 23:59:59"
+    public static String toEndOfDay(String dateStr) {
+        LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+        return endOfDay.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    
+    // Converts LocalDateTime to "yyyy-MM-dd 00:00:00"
+    public String toStartOfDayFromDateTime(LocalDateTime dt) {
+        LocalDateTime startOfDay = dt.toLocalDate().atStartOfDay();
+        return startOfDay.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    
 }
