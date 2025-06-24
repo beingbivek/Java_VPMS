@@ -428,6 +428,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
 
         jTextField1.setText("Search");
 
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(0, 51, 204));
         jTextField2.setText("Cancel");
 
