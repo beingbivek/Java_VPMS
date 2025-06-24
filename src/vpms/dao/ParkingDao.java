@@ -108,6 +108,28 @@ public class ParkingDao {
         return count;
     }
     
+    public int getInstanceIdFromParkingId(int parkingId){
+        String sql = """
+                     SELECT instance_id 
+                     FROM parkings 
+                     WHERE parking_id = ? AND (p.parkingStatus = 'Parked' OR p.exitDateTime IS NULL)
+                     ORDER BY p.entryDateTime DESC LIMIT 1
+                     """;
+        Connection conn = mySql.openConnection();
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, parkingId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("instance_id");
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return -1;
+    }
+    
     // In ParkingDao.java
     public ParkedDetails getActiveParkedBySlotInstanceId(int instanceId) {
         String sql = """

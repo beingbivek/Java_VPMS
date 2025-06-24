@@ -28,12 +28,20 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
 
         dashboardUpperPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        ticketIdCheckTextField = new javax.swing.JTextField();
+        checkTicketIDButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         tabLevels = new javax.swing.JTabbedPane();
 
         dashboardUpperPanel.setBackground(new java.awt.Color(102, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Dashboard");
+
+        checkTicketIDButton.setBackground(new java.awt.Color(204, 204, 0));
+        checkTicketIDButton.setText("Check");
+
+        jLabel2.setText("Ticket ID");
 
         javax.swing.GroupLayout dashboardUpperPanelLayout = new javax.swing.GroupLayout(dashboardUpperPanel);
         dashboardUpperPanel.setLayout(dashboardUpperPanelLayout);
@@ -42,13 +50,27 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
             .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ticketIdCheckTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkTicketIDButton)
+                .addGap(8, 8, 8))
         );
         dashboardUpperPanelLayout.setVerticalGroup(
             dashboardUpperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addGroup(dashboardUpperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(dashboardUpperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ticketIdCheckTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkTicketIDButton)
+                            .addComponent(jLabel2))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -76,11 +98,20 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton checkTicketIDButton;
     private javax.swing.JPanel dashboardUpperPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane tabLevels;
+    private javax.swing.JTextField ticketIdCheckTextField;
     // End of variables declaration//GEN-END:variables
     public javax.swing.JTabbedPane getTabLevels() {
         return tabLevels;
+    }
+    public javax.swing.JTextField getTicketIdNumber(){
+        return ticketIdCheckTextField;
+    }
+    public javax.swing.JButton getTicketButton(){
+        return checkTicketIDButton;
     }
 }
