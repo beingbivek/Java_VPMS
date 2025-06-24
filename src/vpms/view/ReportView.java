@@ -42,7 +42,11 @@ public class ReportView extends javax.swing.JInternalFrame {
         reportjTable = new javax.swing.JTable();
         generateReportjButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 102));
         jLabel1.setText("Report");
 
         jLabel2.setText("From :");
@@ -55,6 +59,8 @@ public class ReportView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("Total :");
 
         TotaljTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +82,9 @@ public class ReportView extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(reportjTable);
 
+        generateReportjButton.setBackground(new java.awt.Color(102, 102, 255));
+        generateReportjButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        generateReportjButton.setForeground(new java.awt.Color(255, 255, 255));
         generateReportjButton.setText("Generate Report");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

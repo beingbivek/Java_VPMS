@@ -56,6 +56,9 @@ public class AddVehiclesView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Vehicle Owner");
 
+        btnSaveVehicle.setBackground(new java.awt.Color(51, 51, 255));
+        btnSaveVehicle.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSaveVehicle.setForeground(new java.awt.Color(255, 255, 255));
         btnSaveVehicle.setText("Save");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N

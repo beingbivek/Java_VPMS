@@ -89,6 +89,7 @@ public class EditUserView extends javax.swing.JFrame {
         jLabel6.setText("Confirm Password");
 
         jUploadButton.setBackground(new java.awt.Color(153, 102, 255));
+        jUploadButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jUploadButton.setText("Upload Image");
         jUploadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +98,7 @@ public class EditUserView extends javax.swing.JFrame {
         });
 
         jUpdateButton.setBackground(new java.awt.Color(0, 153, 255));
+        jUpdateButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jUpdateButton.setText("Update");
         jUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

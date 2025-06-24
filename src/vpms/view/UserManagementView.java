@@ -4,7 +4,9 @@
  */
 package vpms.view;
 
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -18,6 +20,9 @@ public class UserManagementView extends javax.swing.JInternalFrame {
      */
     public UserManagementView() {
         initComponents();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/ImagePicker/profile1.jpg"));
+            Image img = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+            parkingIconjLabel.setIcon(new ImageIcon(img));
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
@@ -40,8 +45,12 @@ public class UserManagementView extends javax.swing.JInternalFrame {
         userTable = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        parkingIconjLabel = new javax.swing.JLabel();
+        userIconjLabel = new javax.swing.JLabel();
 
-        viewNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        setBackground(new java.awt.Color(235, 193, 152));
+
+        viewNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         viewNameLabel.setText("User Management");
 
         searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
@@ -53,9 +62,11 @@ public class UserManagementView extends javax.swing.JInternalFrame {
         });
 
         editButton.setBackground(new java.awt.Color(255, 255, 153));
+        editButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         editButton.setText("Edit Staff");
 
-        deleteUserButton.setBackground(new java.awt.Color(255, 153, 102));
+        deleteUserButton.setBackground(new java.awt.Color(255, 0, 0));
+        deleteUserButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         deleteUserButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteUserButton.setText("Delete");
         deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +86,7 @@ public class UserManagementView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(userTable);
 
         addButton.setBackground(new java.awt.Color(51, 255, 0));
+        addButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         addButton.setText("Add User");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +94,9 @@ public class UserManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        cancelButton.setBackground(new java.awt.Color(255, 102, 102));
+        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,43 +104,66 @@ public class UserManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        parkingIconjLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/Screenshot 2025-06-24 185943.png"))); // NOI18N
+
+        userIconjLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/Screenshot 2025-06-24 214706.png"))); // NOI18N
+        userIconjLabel.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 947, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(cancelButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userIconjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(viewNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(editButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteUserButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(viewNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(editButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteUserButton))
+                            .addComponent(parkingIconjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(viewNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(parkingIconjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(userIconjLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(viewNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editButton)
                     .addComponent(deleteUserButton)
-                    .addComponent(addButton))
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 38, Short.MAX_VALUE))
+                    .addComponent(editButton)
+                    .addComponent(addButton)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
 
         pack();
@@ -154,7 +192,9 @@ public class UserManagementView extends javax.swing.JInternalFrame {
     private javax.swing.JButton deleteUserButton;
     private javax.swing.JButton editButton;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel parkingIconjLabel;
     private javax.swing.JTextField searchField;
+    private javax.swing.JLabel userIconjLabel;
     private javax.swing.JTable userTable;
     private javax.swing.JLabel viewNameLabel;
     // End of variables declaration//GEN-END:variables
@@ -187,5 +227,5 @@ public class UserManagementView extends javax.swing.JInternalFrame {
     public void addSearchButtonListener(ActionListener l) {
         searchField.addActionListener(l);
     }
-
+  
 }
