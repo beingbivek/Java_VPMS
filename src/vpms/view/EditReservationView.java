@@ -51,12 +51,18 @@ public class EditReservationView extends javax.swing.JInternalFrame {
 
         durationLabel.setText("jLabel10");
 
+        submitButton.setBackground(new java.awt.Color(153, 153, 255));
+        submitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancelled", "Expired", "Reserved" }));
 
         paymentStatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Unpaid", "Expired" }));
 
+        cancelButton.setBackground(new java.awt.Color(255, 153, 153));
+        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
 
         jLabel6.setText("Exit Time");

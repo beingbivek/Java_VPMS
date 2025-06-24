@@ -69,8 +69,14 @@ public class AddReservationView extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Payment Status");
 
+        submitButton.setBackground(new java.awt.Color(0, 204, 0));
+        submitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
 
+        cancelButton.setBackground(new java.awt.Color(255, 51, 51));
+        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reserved", " " }));

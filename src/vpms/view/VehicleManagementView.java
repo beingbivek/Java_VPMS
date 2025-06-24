@@ -49,7 +49,7 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
         editButton.setBackground(new java.awt.Color(255, 255, 153));
         editButton.setText("Edit Vehicle");
 
-        deleteUserButton.setBackground(new java.awt.Color(255, 153, 102));
+        deleteUserButton.setBackground(new java.awt.Color(255, 51, 51));
         deleteUserButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteUserButton.setText("Delete");
         deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
             }
         });
 
-        cancelButton.setBackground(new java.awt.Color(255, 0, 0));
+        cancelButton.setBackground(new java.awt.Color(255, 102, 51));
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {

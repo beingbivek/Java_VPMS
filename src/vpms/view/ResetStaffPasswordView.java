@@ -46,6 +46,7 @@ public class ResetStaffPasswordView extends javax.swing.JFrame {
         emailTextField.setText("Email");
 
         sendOTPButton.setBackground(new java.awt.Color(167, 53, 255));
+        sendOTPButton.setForeground(new java.awt.Color(255, 255, 255));
         sendOTPButton.setText("Send OTP");
 
         backToLoginLabel.setText("<html><u>Back to Login</u></html>");

@@ -54,6 +54,8 @@ public class ReportView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("Total :");
 
         TotaljTextField.addActionListener(new java.awt.event.ActionListener() {

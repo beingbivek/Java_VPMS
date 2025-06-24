@@ -75,7 +75,7 @@ public class VehicleTypeAndPriceManagementView extends javax.swing.JInternalFram
         });
         jScrollPane1.setViewportView(vehicleTable);
 
-        cancelButton.setBackground(new java.awt.Color(255, 0, 0));
+        cancelButton.setBackground(new java.awt.Color(255, 102, 102));
         cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
@@ -85,6 +85,9 @@ public class VehicleTypeAndPriceManagementView extends javax.swing.JInternalFram
             }
         });
 
+        editButton.setBackground(new java.awt.Color(51, 51, 255));
+        editButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit");
 
         deleteButton.setBackground(new java.awt.Color(255, 0, 51));
@@ -97,6 +100,9 @@ public class VehicleTypeAndPriceManagementView extends javax.swing.JInternalFram
             }
         });
 
+        addButton.setBackground(new java.awt.Color(0, 204, 0));
+        addButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
