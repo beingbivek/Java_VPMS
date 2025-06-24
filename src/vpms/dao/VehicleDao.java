@@ -77,7 +77,9 @@ public class VehicleDao {
                         rs.getString("vehicletandp_id"),
                         rs.getString("vehicle_number"),
                         rs.getString("owner_name"),
-                        rs.getString("owner_contact")
+                        rs.getString("owner_contact"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at")
                     );
                     list.add(v);
                 }
