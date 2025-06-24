@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import vpms.database.MySqlConnection;
 import vpms.model.ParkingDetails;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import vpms.model.ParkedDetails;
 
 
@@ -194,6 +196,32 @@ public class ParkingDao {
             mySql.closeConnection(conn);
         }
         return null;
+    }
+    
+    public List<ParkingDetails> getParkingHistoryByVehicleId(int vehicleId) {
+        List<ParkingDetails> history = new ArrayList<>();
+        String sql = "SELECT * FROM parkings WHERE vehicle_id = ? ORDER BY entryDateTime DESC";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, vehicleId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ParkingDetails details = new ParkingDetails();
+                details.setEntryDateTime(rs.getString("entryDateTime"));
+                details.setExitDateTime(rs.getString("exitDateTime"));
+                details.setParkingStatus(rs.getString("parkingStatus"));
+                details.setEntryNote(rs.getString("entryNote"));
+                details.setExitNote(rs.getString("exitNote"));
+                details.setSlotId(rs.getInt("instance_id"));
+                // Add other fields as needed
+                history.add(details);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return history;
     }
 
 

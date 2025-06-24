@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.List;
+import vpms.dao.ParkingDao;
+import vpms.model.ParkingDetails;
 import vpms.view.AddVehiclesView;
 import vpms.view.EditVehiclesView;
 
@@ -20,7 +22,6 @@ public class VehicleManagementController {
         this.view = view;
         this.id = id;
         loadVehicleTable();
-
         // Listeners
         view.getAddButton().addActionListener(e -> addVehicle());
         view.getEditButton().addActionListener(e -> editVehicle());
@@ -59,6 +60,14 @@ public class VehicleManagementController {
             }
         }
         view.getVehicleTable().setModel(model);
+        
+        
+        view.getVehicleTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        view.getVehicleTable().getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                showSelectedVehicleParkingHistory();
+            }
+        });
     }
 
     /** Add vehicle (open dialog or new view as needed) */
@@ -122,4 +131,61 @@ public class VehicleManagementController {
             }
         }
     }
+    
+    private void showSelectedVehicleParkingHistory() {
+        int row = view.getVehicleTable().getSelectedRow();
+        if (row == -1) {
+            view.getSelectedVehicleLabel().setText("Selected Vehicle Parking History");
+            clearParkingHistoryTable();
+            return;
+        }
+
+        int vehicleId = (int) view.getVehicleTable().getValueAt(row, 0);
+        String vehicleNumber = (String) view.getVehicleTable().getValueAt(row, 3); // Vehicle Number column
+
+        // Update label
+        view.getSelectedVehicleLabel().setText(vehicleNumber + " parking history");
+
+        // Fetch parking history
+        List<ParkingDetails> history = new ParkingDao().getParkingHistoryByVehicleId(vehicleId);
+
+        // Build non-editable model
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"Entry Time", "Exit Time", "Status", "Entry Note", "Exit Note", "Slot Instance ID"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        for (ParkingDetails p : history) {
+            model.addRow(new Object[]{
+                p.getEntryDateTime(),
+                p.getExitDateTime(),
+                p.getParkingStatus(),
+                p.getEntryNote(),
+                p.getExitNote(),
+                p.getSlotInstanceId()
+            });
+        }
+        view.getVehicleParkingHistoryTable().setModel(model);
+        view.getVehicleParkingHistoryTable().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        view.getVehicleParkingHistoryTable().setFillsViewportHeight(true);
+    }
+    
+    //Helper
+    private void clearParkingHistoryTable() {
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"Entry Time", "Exit Time", "Status", "Entry Note", "Exit Note", "Slot Instance ID"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        view.getVehicleParkingHistoryTable().setModel(model);
+    }
+
+
 }

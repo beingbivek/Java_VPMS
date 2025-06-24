@@ -37,7 +37,7 @@ public class StaffDashboardContentController {
        if(instance_id != -1){
            SlotInstanceData bay = new SlotInstanceDao().findByInstanceId(instance_id);
            ParkingExitView peView = new ParkingExitView();
-           new ParkingExitController(peView,bay,id).open();
+           new ParkingExitController(peView,bay,id,StaffDashboardContentController.this).open();
        } else {
            JOptionPane.showMessageDialog(view, "This Ticket ID is Invalid!");
        }
