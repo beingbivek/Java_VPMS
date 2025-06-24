@@ -19,7 +19,6 @@ public class VehicleManagementController {
     public VehicleManagementController(VehicleManagementView view,int id) {
         this.view = view;
         this.id = id;
-        setupTable();
         loadVehicleTable();
 
         // Listeners
@@ -29,18 +28,21 @@ public class VehicleManagementController {
         view.getCancelButton().addActionListener(e -> loadVehicleTable());
         view.getSearchField().addActionListener(e -> searchVehicle());
     }
-
-    /** Make table non-editable but row-selectable */
-    private void setupTable() {
-        view.getVehicleTable().setDefaultEditor(Object.class, null);
-        view.getVehicleTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-
     /** Load all vehicles into the table */
-    private void loadVehicleTable() {
+    public void loadVehicleTable() {
         List<VehicleData> list = dao.findByNumberLike(""); // Loads all
-        DefaultTableModel model = (DefaultTableModel) view.getVehicleTable().getModel();
-        model.setRowCount(0);
+        
+        // Create a non-editable table model
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        // Set column names
+        model.setColumnIdentifiers(new String[] {
+            "ID", "Owner Name", "Vehicle Type", "Vehicle Number", "Contact", "Created At", "Updated At"
+        });
 
         if (list != null && !list.isEmpty()) {
             for (VehicleData v : list) {
@@ -56,12 +58,13 @@ public class VehicleManagementController {
                 model.addRow(row);
             }
         }
+        view.getVehicleTable().setModel(model);
     }
 
     /** Add vehicle (open dialog or new view as needed) */
     private void addVehicle() {
         AddVehiclesView avView = new AddVehiclesView();
-        new AddVehiclesController(avView,id).open();
+        new AddVehiclesController(avView,id,VehicleManagementController.this).open();
     }
 
     /** Edit selected vehicle */
@@ -73,7 +76,7 @@ public class VehicleManagementController {
         }
         int editid = (int) view.getVehicleTable().getValueAt(row, 0);
         EditVehiclesView editView = new EditVehiclesView();
-        new EditVehicleController(editView, editid,id).open();
+        new EditVehicleController(editView, editid,id,VehicleManagementController.this).open();
     }
 
     /** Delete selected vehicle */

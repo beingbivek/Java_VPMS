@@ -41,14 +41,15 @@ public class StaffDashboardController {
     
     private void initializeControllers() {
         // Initialize sub-module controllers
-        puView = new ProfileUpdateView();
-        new ProfileUpdateController(puView,user,StaffDashboardController.this);
-        sdcView = new StaffDashboardContentView();
-        new StaffDashboardContentController(sdcView,user.getId());
-        pView = new SecurePaymentView();
-        new SecurePaymentController(pView);
         vView = new VehicleManagementView();
-        new VehicleManagementController(vView,user.getId());
+        VehicleManagementController vmController = new VehicleManagementController(vView,user.getId());
+        puView = new ProfileUpdateView();
+        ProfileUpdateController puController = new ProfileUpdateController(puView,user,StaffDashboardController.this);
+        sdcView = new StaffDashboardContentView();
+        StaffDashboardContentController sdcController = new StaffDashboardContentController(sdcView,user.getId(),vmController);
+        pView = new SecurePaymentView();
+        SecurePaymentController spController = new SecurePaymentController(pView);
+        
     }
 
     private void attachListeners() {

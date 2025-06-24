@@ -20,11 +20,13 @@ public class SlotGridController {
     private final StaffDashboardContentView view;
     private final SlotInstanceDao siDao = new SlotInstanceDao();
     ParkingDao parkingDao = new ParkingDao();
+    private final VehicleManagementController vmController;
     int id;
 
-    public SlotGridController(StaffDashboardContentView v,int id) {
+    public SlotGridController(StaffDashboardContentView v,int id,VehicleManagementController vmController) {
         this.view = v;
         this.id = id;
+        this.vmController = vmController;
         try {
             buildTabs();
         } catch (SQLException ex) {
@@ -80,7 +82,7 @@ public class SlotGridController {
                 if (choice == 0) {
                     // Park
                     VehicleNumberCheckView numberCheck = new VehicleNumberCheckView();
-                    new VehicleNumberCheckController(numberCheck,bay,id).open();
+                    new VehicleNumberCheckController(numberCheck,bay,id,vmController).open();
                 }
                 // else: Cancel, do nothing
             }

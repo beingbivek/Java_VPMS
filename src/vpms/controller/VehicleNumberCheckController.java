@@ -19,13 +19,13 @@ public class VehicleNumberCheckController {
     private SlotInstanceData bay;
     int id;
 
-    public VehicleNumberCheckController(VehicleNumberCheckView view,SlotInstanceData bay,int id) {
+    public VehicleNumberCheckController(VehicleNumberCheckView view,SlotInstanceData bay,int id, VehicleManagementController vmController) {
         this.view = view;
         this.bay = bay;
         this.id = id;
         this.view.addSearchButtonListener(new SearchListener());
         this.view.addSelectButtonListener(new SelectListener());
-        this.view.addAddVehicleButtonListener(new AddVehicleListener());
+        this.view.getAddVehicleButtonListener().addActionListener(e -> AddVehicleListener(vmController));
     }
     
     public void open(){
@@ -74,11 +74,8 @@ public class VehicleNumberCheckController {
         }
     }
 
-    class AddVehicleListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            AddVehiclesView addView = new AddVehiclesView();
-            new AddVehiclesController(addView,id).open();
-        }
+    public void AddVehicleListener(VehicleManagementController vmController){
+        AddVehiclesView addView = new AddVehiclesView();
+        new AddVehiclesController(addView,id,vmController).open();
     }
 }
