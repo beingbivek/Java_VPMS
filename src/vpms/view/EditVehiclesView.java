@@ -63,6 +63,8 @@ public class EditVehiclesView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Vehicle Owner");
 
+        btnUpdateVehicle.setBackground(new java.awt.Color(0, 51, 255));
+        btnUpdateVehicle.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdateVehicle.setText("Save");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N

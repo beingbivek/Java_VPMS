@@ -76,6 +76,8 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        cancelButton.setBackground(new java.awt.Color(255, 0, 0));
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

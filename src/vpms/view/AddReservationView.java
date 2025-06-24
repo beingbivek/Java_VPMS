@@ -49,6 +49,8 @@ public class AddReservationView extends javax.swing.JInternalFrame {
         statusComboBox = new javax.swing.JComboBox<>();
         paymentStatusComboBox = new javax.swing.JComboBox<>();
 
+        setBackground(new java.awt.Color(246, 196, 196));
+
         jLabel1.setText("VehicleID");
 
         jLabel2.setText("Vehicle Type");

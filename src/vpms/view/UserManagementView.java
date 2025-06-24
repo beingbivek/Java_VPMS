@@ -41,6 +41,8 @@ public class UserManagementView extends javax.swing.JInternalFrame {
         addButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(235, 193, 152));
+
         viewNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewNameLabel.setText("User Management");
 
@@ -82,6 +84,8 @@ public class UserManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        cancelButton.setBackground(new java.awt.Color(255, 51, 51));
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

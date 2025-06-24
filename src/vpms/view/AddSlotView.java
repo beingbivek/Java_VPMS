@@ -42,6 +42,9 @@ public class AddSlotView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        addbutton.setBackground(new java.awt.Color(51, 51, 255));
+        addbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addbutton.setForeground(new java.awt.Color(255, 255, 255));
         addbutton.setText("save");
         addbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,7 +52,7 @@ public class AddSlotView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Add Slot");
 
         jLabel2.setText("Vehicle Type :");
