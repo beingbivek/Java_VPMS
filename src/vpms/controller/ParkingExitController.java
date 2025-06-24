@@ -192,7 +192,7 @@ public class ParkingExitController {
             String.valueOf(totalPrice), // regular price
             "0", // demand price
             "0", // reservation price
-            view.getExtraPrice().getText(), // extra charge
+            ("".equals(view.getExtraPrice().getText()))?"0":view.getExtraPrice().getText(), // extra charge
             method,
             java.time.LocalDateTime.now()
         );
