@@ -16,7 +16,6 @@ public class AddVehiclesView extends javax.swing.JFrame {
     public AddVehiclesView() {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
     }
 
     /**

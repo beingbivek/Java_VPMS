@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 /**
  *
  * @author being
@@ -15,13 +17,16 @@ public class ActivityLogView extends javax.swing.JInternalFrame {
      */
     public ActivityLogView() {
         initComponents();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
         logTable.setModel(new javax.swing.table.DefaultTableModel(
-    new Object [][] {},
-    new String [] {
-        "Log ID", "User ID", "Action", "Timestamp"
-    }
-));
-logTable.setDefaultEditor(Object.class, null);
+            new Object [][] {},
+            new String [] {
+                "Log ID", "User ID", "Action", "Timestamp"
+            }
+        ));
+        logTable.setDefaultEditor(Object.class, null);
 
     }
 

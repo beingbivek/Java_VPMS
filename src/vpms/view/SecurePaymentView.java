@@ -4,6 +4,8 @@
  */
 package vpms.view;
 
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 /**
  *
  * @author being
@@ -15,6 +17,9 @@ public class SecurePaymentView extends javax.swing.JInternalFrame {
      */
     public SecurePaymentView() {
         initComponents();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
     }
 
     /**

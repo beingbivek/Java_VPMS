@@ -19,6 +19,9 @@ public class VehicleTypeAndPriceManagementView extends javax.swing.JInternalFram
      */
     public VehicleTypeAndPriceManagementView() {
         initComponents();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
     }  
 
     /**

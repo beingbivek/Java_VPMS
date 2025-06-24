@@ -312,7 +312,6 @@ public class AdminDashboardView extends javax.swing.JFrame {
         jDesktopPanel.removeAll();
         jDesktopPanel.add(myPanel);
         myPanel.setVisible(true);
-
         try {                                  // <- maximise
             myPanel.setMaximum(true);            // full-screen inside the desktop
         } catch (java.beans.PropertyVetoException ex) {

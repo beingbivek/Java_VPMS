@@ -180,8 +180,8 @@ public class VehicleNumberCheckView extends javax.swing.JFrame {
     public void addSelectButtonListener(ActionListener l) {
         selectButton.addActionListener(l);
     }
-    public void addAddVehicleButtonListener(ActionListener l) {
-        addVehicleButton.addActionListener(l);
+    public javax.swing.JButton getAddVehicleButtonListener() {
+        return addVehicleButton;
     }
     public String getSearchText() {
         return searchTextField.getText();
