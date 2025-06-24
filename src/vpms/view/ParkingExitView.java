@@ -76,6 +76,8 @@ public class ParkingExitView extends javax.swing.JFrame {
         grandTotalLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         grandTotalLabel.setText("4:00 PM");
 
+        extraPriceTextField.setText("0");
+
         jLabel4.setText("Grand Total :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

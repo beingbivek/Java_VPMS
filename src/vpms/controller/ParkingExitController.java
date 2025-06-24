@@ -200,11 +200,7 @@ public class ParkingExitController {
 
         // Update parking exit
         ParkingDetails exitDetails = new ParkingDetails();
-        exitDetails.setParkingId(parkingDetails.getParkingId());
-        exitDetails.setExitDateTime(vpms.utils.DateAndTimeMethods.getDateAndTime());
-        exitDetails.setExitNote(view.getExitNote().getText());
-        exitDetails.setParkingStatus("Exited");
-        exitDetails.setPenaltyApplied(false); // or true if you want
+        exitDetails.ParkingExitDetails(parkingDetails.getParkingId(), vpms.utils.DateAndTimeMethods.getDateAndTime(), view.getExitNote().getText(), "Exited", false);
         parkingDao.vehicleExit(exitDetails);
         
         // Change button status
