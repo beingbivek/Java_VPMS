@@ -4,6 +4,7 @@
  */
 package vpms.controller;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import vpms.dao.ParkingDao;
 import vpms.dao.SlotInstanceDao;
@@ -17,8 +18,9 @@ public class StaffDashboardContentController {
     public StaffDashboardContentController(StaffDashboardContentView view,int id,VehicleManagementController vmController) {
         this.view = view;
         this.id = id;
-        new SlotGridController(this.view,this.id,vmController); // builds the grid tabs
+        new SlotGridController(this.view,this.id,vmController,StaffDashboardContentController.this); // builds the grid tabs
         this.view.getTicketButton().addActionListener(e -> checkTicket());
+        setParkingStatus();
     }
     
     public void open(){
@@ -39,5 +41,16 @@ public class StaffDashboardContentController {
        } else {
            JOptionPane.showMessageDialog(view, "This Ticket ID is Invalid!");
        }
+    }
+    
+    public void setParkingStatus(){
+        SlotInstanceDao siDao = new SlotInstanceDao();
+        if(siDao.getAvailableSlotCount() == 0){
+            view.getParkingStatusLabel().setForeground(Color.red);
+            view.getParkingStatusLabel().setText("Parking Full!");
+        } else {
+            view.getParkingStatusLabel().setForeground(Color.black);
+            view.getParkingStatusLabel().setText("Parking Status: "+String.valueOf(siDao.getTotalSlotCount()-siDao.getAvailableSlotCount())+"/"+String.valueOf(siDao.getTotalSlotCount()));
+        }
     }
 }

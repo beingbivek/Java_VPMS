@@ -32,6 +32,7 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
         checkTicketIDButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         tabLevels = new javax.swing.JTabbedPane();
+        parkingStatusLabel = new javax.swing.JLabel();
 
         dashboardUpperPanel.setBackground(new java.awt.Color(102, 204, 255));
 
@@ -50,7 +51,7 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
             .addGroup(dashboardUpperPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 647, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ticketIdCheckTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -74,6 +75,9 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
+        parkingStatusLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        parkingStatusLabel.setText("Parking Status");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,16 +85,20 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
             .addComponent(dashboardUpperPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(tabLevels, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(parkingStatusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1049, Short.MAX_VALUE)
+                    .addComponent(tabLevels))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(dashboardUpperPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(tabLevels, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 64, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(parkingStatusLabel)
+                .addGap(38, 38, 38)
+                .addComponent(tabLevels, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         pack();
@@ -102,6 +110,7 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel dashboardUpperPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel parkingStatusLabel;
     private javax.swing.JTabbedPane tabLevels;
     private javax.swing.JTextField ticketIdCheckTextField;
     // End of variables declaration//GEN-END:variables
@@ -113,5 +122,8 @@ public class StaffDashboardContentView extends javax.swing.JInternalFrame {
     }
     public javax.swing.JButton getTicketButton(){
         return checkTicketIDButton;
+    }
+    public javax.swing.JLabel getParkingStatusLabel(){
+        return parkingStatusLabel;
     }
 }

@@ -21,12 +21,14 @@ public class SlotGridController {
     private final SlotInstanceDao siDao = new SlotInstanceDao();
     ParkingDao parkingDao = new ParkingDao();
     private final VehicleManagementController vmController;
+    private StaffDashboardContentController s;
     int id;
 
-    public SlotGridController(StaffDashboardContentView v,int id,VehicleManagementController vmController) {
+    public SlotGridController(StaffDashboardContentView v,int id,VehicleManagementController vmController,StaffDashboardContentController s) {
         this.view = v;
         this.id = id;
         this.vmController = vmController;
+        this.s = s;
         try {
             buildTabs();
         } catch (SQLException ex) {
@@ -82,7 +84,7 @@ public class SlotGridController {
                 if (choice == 0) {
                     // Park
                     VehicleNumberCheckView numberCheck = new VehicleNumberCheckView();
-                    new VehicleNumberCheckController(numberCheck,bay,id,vmController).open();
+                    new VehicleNumberCheckController(numberCheck,bay,id,vmController,s).open();
                 }
                 // else: Cancel, do nothing
             }
@@ -102,7 +104,7 @@ public class SlotGridController {
                 int exitParking = JOptionPane.showConfirmDialog(view, info, "Exit Parking?", JOptionPane.INFORMATION_MESSAGE);
                 if(exitParking == 0){
                     ParkingExitView peView = new ParkingExitView();
-                    new ParkingExitController(peView,bay,id).open();
+                    new ParkingExitController(peView,bay,id,s).open();
                 }
             }
 

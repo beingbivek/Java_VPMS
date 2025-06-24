@@ -17,12 +17,14 @@ public class VehicleNumberCheckController {
     private final VehicleDao vehicleDao = new VehicleDao();
     private List<VehicleData> foundVehicles;
     private SlotInstanceData bay;
+    private StaffDashboardContentController s;
     int id;
 
-    public VehicleNumberCheckController(VehicleNumberCheckView view,SlotInstanceData bay,int id, VehicleManagementController vmController) {
+    public VehicleNumberCheckController(VehicleNumberCheckView view,SlotInstanceData bay,int id, VehicleManagementController vmController,StaffDashboardContentController s) {
         this.view = view;
         this.bay = bay;
         this.id = id;
+        this.s = s;
         this.view.addSearchButtonListener(new SearchListener());
         this.view.addSelectButtonListener(new SelectListener());
         this.view.getAddVehicleButtonListener().addActionListener(e -> AddVehicleListener(vmController));
@@ -69,7 +71,7 @@ public class VehicleNumberCheckController {
             }
             VehicleData selected = foundVehicles.get(idx);
             ParkingEntryView entryView = new ParkingEntryView();
-            new ParkingEntryController(entryView, selected, bay,id).open();
+            new ParkingEntryController(entryView, selected, bay,id,s).open();
             view.dispose();
         }
     }

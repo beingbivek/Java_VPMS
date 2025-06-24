@@ -25,16 +25,18 @@ public class ParkingEntryController {
     private final ParkingEntryView view;
     private final ParkingDao parkingDao;
     private final String entrydateTimeString;
+    private StaffDashboardContentController s;
     VehicleData vehicle;
     SlotInstanceData bay;
     int id;
 
-    public ParkingEntryController(ParkingEntryView view,VehicleData selected, SlotInstanceData bay, int id) { //constructor
+    public ParkingEntryController(ParkingEntryView view,VehicleData selected, SlotInstanceData bay, int id,StaffDashboardContentController s) { //constructor
         this.view = view;
         this.parkingDao = new ParkingDao();
         this.vehicle = selected;
         this.bay = bay;
         this.id = id;
+        this.s = s;
         this.entrydateTimeString = DateAndTimeMethods.getDateAndTime();
         this.view.setEntryDateValue(DateAndTimeMethods.splitDateAndTime(entrydateTimeString)[0]);
         this.view.setEntryTimeValue(DateAndTimeMethods.splitDateAndTime(entrydateTimeString)[1]);
@@ -87,6 +89,7 @@ public class ParkingEntryController {
                 if(success){
                     SlotButton btn = new SlotButton(bay);
                     changeStatus(bay,btn,"occupied","Vehicle parked successfully in slot: " + bay.getCode());
+                    s.setParkingStatus();
                     close();
               } else{
                   JOptionPane.showMessageDialog(view,"Failed to park vehicle.","Error",JOptionPane.ERROR_MESSAGE);

@@ -32,16 +32,18 @@ public class ParkingExitController {
     private final ParkingDao parkingDao;
     private final PaymentDao paymentDao;
     private final SlotInstanceData bay;
+    private StaffDashboardContentController s;
     private ParkedDetails parkedDetails;
     private String entryDate; // yyyy-MM-dd
     private String entryTime; // HH:mm:ss
     private String sessionUrl;
     int id;
 
-    public ParkingExitController(ParkingExitView view, SlotInstanceData bay, int id) { //constructor
+    public ParkingExitController(ParkingExitView view, SlotInstanceData bay, int id,StaffDashboardContentController s) { //constructor
         this.view = view;
         this.bay = bay;
         this.id = id;
+        this.s = s;
         this.parkingDao = new ParkingDao();
         this.paymentDao = new PaymentDao();
         initializeContents();        
@@ -206,6 +208,9 @@ public class ParkingExitController {
         // Change button status
         SlotButton btn = new SlotButton(bay);
         changeStatus(bay,btn,"free",bay.getCode()+" Slot is Free!");
+        
+        // Update parking status in dashboard view
+        s.setParkingStatus();
         
         JOptionPane.showMessageDialog(view, "Payment successful. Parking exited.");
         close();

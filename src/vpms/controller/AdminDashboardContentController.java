@@ -54,7 +54,7 @@ public class AdminDashboardContentController {
     
     public void insertDashboardData(){
         this.view.settotalActiveStffsLabel(String.valueOf(uDao.getActiveStaffCount()));
-        this.view.setcurrentlyOccupiedSpacejLabel(String.valueOf(sDao.getAvailableSlotCount())+"/"+String.valueOf(sDao.getTotalSlotCount()));
+        this.view.setcurrentlyOccupiedSpacejLabel(String.valueOf(sDao.getTotalSlotCount()-sDao.getAvailableSlotCount())+"/"+String.valueOf(sDao.getTotalSlotCount()));
         this.view.setvehicleEnteredTodayjLabel(String.valueOf(pDao.getTotalVehicleEntryCount()));
         this.view.vehicleExitedTodayjLabel(String.valueOf(pDao.getExitedVehicleCount()));
         this.view.totalEarningsTodayjLabel(String.valueOf(paDao.getTotalRevenue()));
