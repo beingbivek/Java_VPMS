@@ -41,6 +41,7 @@ public class EditSlotView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(18, 72, 178));
 
         addbutton.setBackground(new java.awt.Color(0, 0, 255));
         addbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
