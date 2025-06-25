@@ -39,6 +39,7 @@ public class SecurePaymentView extends javax.swing.JInternalFrame {
         seachTextField.setText("Search");
 
         cancelTextField.setBackground(new java.awt.Color(204, 0, 0));
+        cancelTextField.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cancelTextField.setForeground(new java.awt.Color(255, 255, 255));
         cancelTextField.setText("Cancel");
 
