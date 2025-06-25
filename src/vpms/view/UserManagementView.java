@@ -48,7 +48,7 @@ public class UserManagementView extends javax.swing.JInternalFrame {
         parkingIconjLabel = new javax.swing.JLabel();
         userIconjLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(235, 193, 152));
+        setBackground(new java.awt.Color(248, 248, 247));
 
         viewNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         viewNameLabel.setText("User Management");
