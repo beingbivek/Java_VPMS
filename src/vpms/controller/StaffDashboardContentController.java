@@ -4,21 +4,53 @@
  */
 package vpms.controller;
 
-import java.sql.SQLException;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import vpms.dao.ParkingDao;
+import vpms.dao.SlotInstanceDao;
+import vpms.model.SlotInstanceData;
+import vpms.view.ParkingExitView;
 import vpms.view.StaffDashboardContentView;
 
 public class StaffDashboardContentController {
     private final StaffDashboardContentView view;
     int id;
-    public StaffDashboardContentController(StaffDashboardContentView view,int id) {
+    public StaffDashboardContentController(StaffDashboardContentView view,int id,VehicleManagementController vmController) {
         this.view = view;
         this.id = id;
-        new SlotGridController(this.view,this.id); // builds the grid tabs
+        new SlotGridController(this.view,this.id,vmController,StaffDashboardContentController.this); // builds the grid tabs
+        this.view.getTicketButton().addActionListener(e -> checkTicket());
+        setParkingStatus();
     }
+    
     public void open(){
         this.view.setVisible(true);
     }
+    
     public void close(){
         this.view.dispose();
+    }
+    
+    public void checkTicket(){
+       int ticketId = Integer.parseInt(view.getTicketIdNumber().getText().trim());
+       int instance_id = new ParkingDao().getInstanceIdFromParkingId(ticketId);
+       if(instance_id != -1){
+           SlotInstanceData bay = new SlotInstanceDao().findByInstanceId(instance_id);
+           ParkingExitView peView = new ParkingExitView();
+           new ParkingExitController(peView,bay,id,StaffDashboardContentController.this).open();
+       } else {
+           JOptionPane.showMessageDialog(view, "This Ticket ID is Invalid!");
+       }
+    }
+    
+    public void setParkingStatus(){
+        SlotInstanceDao siDao = new SlotInstanceDao();
+        if(siDao.getAvailableSlotCount() == 0){
+            view.getParkingStatusLabel().setForeground(Color.red);
+            view.getParkingStatusLabel().setText("Parking Full!");
+        } else {
+            view.getParkingStatusLabel().setForeground(Color.black);
+            view.getParkingStatusLabel().setText("Parking Status: "+String.valueOf(siDao.getTotalSlotCount()-siDao.getAvailableSlotCount())+"/"+String.valueOf(siDao.getTotalSlotCount()));
+        }
     }
 }

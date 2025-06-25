@@ -18,6 +18,8 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
      */
     public EditVehicleTypeAndPriceView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**

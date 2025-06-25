@@ -19,13 +19,15 @@ public class EditVehicleController {
     private final VehicleDao vehicleDao = new VehicleDao();
     private final VehicleTypeAndPriceDao vtDao = new VehicleTypeAndPriceDao();
     private final int vehicleId;
+    private final VehicleManagementController vmController;
     private int currentVehicletandpId = -1;
     int id;
 
-    public EditVehicleController(EditVehiclesView view, int vehicleId,int id) {
+    public EditVehicleController(EditVehiclesView view, int vehicleId,int id,VehicleManagementController vmController) {
         this.view = view;
         this.vehicleId = vehicleId;
         this.id = id;
+        this.vmController = vmController;
         fillVehicleTypeComboBox();
         loadVehicleData();
         view.getBtnUpdateVehicle().addActionListener(new UpdateListener());
@@ -105,6 +107,7 @@ public class EditVehicleController {
             if (success) {
                 ActivityLog log = new ActivityLog(id,"VehicleData Edited, Obj: "+vehicle);
                 new ActivityLogDao().logActivity(log);
+                vmController.loadVehicleTable();
                 JOptionPane.showMessageDialog(view, "Vehicle updated successfully!");
                 close();
             } else {

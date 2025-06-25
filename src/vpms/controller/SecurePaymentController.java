@@ -16,8 +16,12 @@ public class SecurePaymentController {
         this.view = view;
         loadPaymentsTable();
         view.getSearchTextField().addActionListener(e -> filterPayments());
-        // Cancel button closes the window
-        view.getCancelTextField().addActionListener(e -> view.dispose());
+        view.getCancelButton().addActionListener(e -> {view.getSearchTextField().setText(""); loadPaymentsTable();});
+    }
+    
+    public void open(){
+        this.view.setVisible(true);
+        loadPaymentsTable();
     }
 
     private void loadPaymentsTable() {

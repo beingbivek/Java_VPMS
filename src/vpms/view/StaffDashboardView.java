@@ -227,10 +227,10 @@ public class StaffDashboardView extends javax.swing.JFrame {
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
     public javax.swing.JButton getPaymentWindowbtn(){
-        return vehicleWindowButton;
+        return paymentWindowButton;
     }
     public javax.swing.JButton getVehicleWindowbtn(){
-        return paymentWindowButton;
+        return vehicleWindowButton;
     }
     public javax.swing.JDesktopPane getWindowPanel(){
         return jDesktopPanel;

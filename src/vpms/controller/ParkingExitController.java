@@ -5,26 +5,21 @@
 package vpms.controller;
 
 import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vpms.dao.ParkingDao;
 import vpms.dao.PaymentDao;
+import vpms.dao.SlotInstanceDao;
 import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.ParkedDetails;
 import vpms.model.ParkingDetails;
 import vpms.model.PaymentData;
 import vpms.model.SlotInstanceData;
 import vpms.model.StripePaymentModel;
+import vpms.utils.SlotButton;
 import vpms.view.ParkingExitView;
 
 
@@ -37,16 +32,18 @@ public class ParkingExitController {
     private final ParkingDao parkingDao;
     private final PaymentDao paymentDao;
     private final SlotInstanceData bay;
+    private StaffDashboardContentController s;
     private ParkedDetails parkedDetails;
     private String entryDate; // yyyy-MM-dd
     private String entryTime; // HH:mm:ss
     private String sessionUrl;
     int id;
 
-    public ParkingExitController(ParkingExitView view, SlotInstanceData bay, int id) { //constructor
+    public ParkingExitController(ParkingExitView view, SlotInstanceData bay, int id,StaffDashboardContentController s) { //constructor
         this.view = view;
         this.bay = bay;
         this.id = id;
+        this.s = s;
         this.parkingDao = new ParkingDao();
         this.paymentDao = new PaymentDao();
         initializeContents();        
@@ -197,7 +194,7 @@ public class ParkingExitController {
             String.valueOf(totalPrice), // regular price
             "0", // demand price
             "0", // reservation price
-            view.getExtraPrice().getText(), // extra charge
+            ("".equals(view.getExtraPrice().getText()))?"0":view.getExtraPrice().getText(), // extra charge
             method,
             java.time.LocalDateTime.now()
         );
@@ -205,12 +202,15 @@ public class ParkingExitController {
 
         // Update parking exit
         ParkingDetails exitDetails = new ParkingDetails();
-        exitDetails.setParkingId(parkingDetails.getParkingId());
-        exitDetails.setExitDateTime(vpms.utils.DateAndTimeMethods.getDateAndTime());
-        exitDetails.setExitNote(view.getExitNote().getText());
-        exitDetails.setParkingStatus("Exited");
-        exitDetails.setPenaltyApplied(false); // or true if you want
+        exitDetails.ParkingExitDetails(parkingDetails.getParkingId(), vpms.utils.DateAndTimeMethods.getDateAndTime(), view.getExitNote().getText(), "Exited", false);
         parkingDao.vehicleExit(exitDetails);
+        
+        // Change button status
+        SlotButton btn = new SlotButton(bay);
+        changeStatus(bay,btn,"free",bay.getCode()+" Slot is Free!");
+        
+        // Update parking status in dashboard view
+        s.setParkingStatus();
         
         JOptionPane.showMessageDialog(view, "Payment successful. Parking exited.");
         close();
@@ -224,6 +224,25 @@ public class ParkingExitController {
                 view.setPayOnlineStatusLabel("Try Again!");
             }
         } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void changeStatus(SlotInstanceData bay, SlotButton btn, String newStatus, String message) {
+        try {
+            boolean ok = new SlotInstanceDao().updateStatus(bay.getInstanceId(), newStatus);
+            if (ok) {
+                btn.setStatus(newStatus);
+                JOptionPane.showMessageDialog(view, message);
+            } else {
+                JOptionPane.showMessageDialog(view,
+                        "Status change failed (DB returned 0 rows).",
+                        "Update error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(view,
+                    "Database error:\n" + ex.getMessage(),
+                    "SQL Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }

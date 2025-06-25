@@ -33,9 +33,7 @@ public ParkingDetails(int parkingId, int vehicleId, String entryDateTime, String
         this.entryNote = exitNote;
         this.exitNote = exitNote;
         this.penaltyApplied = penaltyApplied;
-        
     }
-
 
     public void ParkingEntryDetails(int vehicleId, int slotInstanceId,String entryDateTime, String entryNote, String status, String parkingtype) {
         this.vehicleId = vehicleId;
@@ -46,7 +44,8 @@ public ParkingDetails(int parkingId, int vehicleId, String entryDateTime, String
         this.parkingtype = parkingtype;
     }
 
-    public void ParkingExitDetails(String exitDateTime,String exitNote,String status, boolean penaltyApplied){
+    public void ParkingExitDetails(int parkingId, String exitDateTime,String exitNote,String status, boolean penaltyApplied){
+        this.parkingId = parkingId;
         this.exitDateTime = exitDateTime;
         this.exitNote = exitNote;
         this.parkingStatus = status;

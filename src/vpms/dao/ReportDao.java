@@ -29,28 +29,29 @@ public class ReportDao {
         Connection conn = mySql.openConnection();
         
         String query = """
-            SELECT p.payment_time, v.vehicle_number, pk.entry_time, pk.exit_time,
-                                       CAST(p.regular_price AS DOUBLE) +
-                                       CAST(p.demand_price AS DOUBLE) +
-                                       CAST(p.reservation_price AS DOUBLE) +
-                                       CAST(p.extra_charge AS DOUBLE) AS total_fee
-                                FROM payments p
-                                JOIN vehicle v ON p.vehicle_id = v.id
-                                JOIN parking pk ON p.parking_id = pk.parking_id
-                                WHERE p.payment_time BETWEEN ? AND ?
-                                ORDER BY p.payment_time DESC
-                            """;  
+            SELECT p.payment_time, v.vehicle_number, pk.entryDateTime, pk.exitDateTime,
+                   CAST(p.regular_price AS DOUBLE) +
+                   CAST(p.demand_price AS DOUBLE) +
+                   CAST(p.reservation_price AS DOUBLE) +
+                   CAST(p.extra_charge AS DOUBLE) AS total_fee
+            FROM payments p
+            JOIN vehicles v ON p.vehicle_id = v.vehicle_id
+            JOIN parkings pk ON p.parking_id = pk.parking_id
+            WHERE p.payment_time BETWEEN ? AND ?
+            ORDER BY p.payment_time DESC
+        """;
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setTimestamp(1, Timestamp.valueOf(from));
             stmt.setTimestamp(2, Timestamp.valueOf(to));
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                String exitDateTime = (rs.getTimestamp("exitDateTime") != null) ? rs.getTimestamp("exitDateTime").toString() : "Not Exited";
                 ReportModel report = new ReportModel(
                         rs.getTimestamp("payment_time").toLocalDateTime(),
                         rs.getString("vehicle_number"),
-                        rs.getTimestamp("entry_time").toLocalDateTime(),
-                        rs.getTimestamp("exit_time").toLocalDateTime(),
+                        rs.getTimestamp("entryDateTime").toLocalDateTime(),
+                        exitDateTime,
                         rs.getDouble("total_fee")
                 );
                 reportList.add(report);

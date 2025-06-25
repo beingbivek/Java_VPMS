@@ -98,6 +98,32 @@ public class SlotInstanceDao {
         }
         return set;
     }
+    
+    public SlotInstanceData findByInstanceId(int instanceId) {
+        String sql = """
+            SELECT si.*, s.level_number, v.vehicle_type
+              FROM slot_instances si
+              JOIN slots s ON si.slot_id = s.slot_id
+              JOIN vehicle_type_and_price v ON s.vehicletandp_id = v.id
+             WHERE si.instance_id = ?
+             LIMIT 1
+        """;
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, instanceId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return null;
+    }
+
 
 
     /* ---------- helpers ---------- */

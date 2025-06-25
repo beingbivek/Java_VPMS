@@ -11,15 +11,19 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 public class AddVehiclesController {
     private final AddVehiclesView view;
     private final VehicleDao vehicleDao = new VehicleDao();
     private final VehicleTypeAndPriceDao vtDao = new VehicleTypeAndPriceDao();
+    private final VehicleManagementController parent;
     int id;
 
-    public AddVehiclesController(AddVehiclesView view,int id) {
+    public AddVehiclesController(AddVehiclesView view,int id,VehicleManagementController parent) {
         this.view = view;
+        this.parent = parent;
         fillVehicleTypeComboBox();
         this.id = id;
         view.getBtnSaveVehicle().addActionListener(new SaveListener());
@@ -69,6 +73,9 @@ public class AddVehiclesController {
             boolean success = vehicleDao.registerVehicle(vehicle);
             if (success) {
                 JOptionPane.showMessageDialog(view, "Vehicle added successfully!");
+                parent.loadVehicleTable();
+                ActivityLog log = new ActivityLog(id,"VehicleData added, Obj: "+vehicle);
+                new ActivityLogDao().logActivity(log);
                 close();
             } else {
                 JOptionPane.showMessageDialog(view, "Failed to add vehicle.");

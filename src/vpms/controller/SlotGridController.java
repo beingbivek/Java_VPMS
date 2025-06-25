@@ -6,7 +6,6 @@ import vpms.utils.SlotButton;
 import vpms.view.StaffDashboardContentView;
 import vpms.view.VehicleNumberCheckView;
 import vpms.view.ParkingExitView;
-import vpms.controller.ParkingExitController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,11 +20,15 @@ public class SlotGridController {
     private final StaffDashboardContentView view;
     private final SlotInstanceDao siDao = new SlotInstanceDao();
     ParkingDao parkingDao = new ParkingDao();
+    private final VehicleManagementController vmController;
+    private StaffDashboardContentController s;
     int id;
 
-    public SlotGridController(StaffDashboardContentView v,int id) {
+    public SlotGridController(StaffDashboardContentView v,int id,VehicleManagementController vmController,StaffDashboardContentController s) {
         this.view = v;
         this.id = id;
+        this.vmController = vmController;
+        this.s = s;
         try {
             buildTabs();
         } catch (SQLException ex) {
@@ -81,15 +84,12 @@ public class SlotGridController {
                 if (choice == 0) {
                     // Park
                     VehicleNumberCheckView numberCheck = new VehicleNumberCheckView();
-                    new VehicleNumberCheckController(numberCheck,bay,id).open();
-                } else if (choice == 1) {
-                    // Reserve
-//                    openReservationView(bay);
+                    new VehicleNumberCheckController(numberCheck,bay,id,vmController,s).open();
                 }
                 // else: Cancel, do nothing
             }
 
-            case "reserved" -> JOptionPane.showMessageDialog(view, "Slot is reserved.");
+//            case "reserved" -> JOptionPane.showMessageDialog(view, "Slot is reserved.");
             case "occupied" -> {
                 
                 ParkedDetails details = parkingDao.getActiveParkedBySlotInstanceId(bay.getInstanceId());
@@ -104,11 +104,11 @@ public class SlotGridController {
                 int exitParking = JOptionPane.showConfirmDialog(view, info, "Exit Parking?", JOptionPane.INFORMATION_MESSAGE);
                 if(exitParking == 0){
                     ParkingExitView peView = new ParkingExitView();
-                    new ParkingExitController(peView,bay,id).open();
+                    new ParkingExitController(peView,bay,id,s).open();
                 }
             }
 
-            case "disabled" -> JOptionPane.showMessageDialog(view, "Slot is disabled.");
+//            case "disabled" -> JOptionPane.showMessageDialog(view, "Slot is disabled.");
         }
     }
 

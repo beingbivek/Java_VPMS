@@ -22,8 +22,8 @@ public class SlotButton extends JToggleButton {
     private void applyColour(){
         switch (bay.getStatus()) {
             case "occupied" -> setBackground(new Color(255,87,51));     // red
-            case "reserved" -> setBackground(new Color(255,195,0));     // yellow
-            case "disabled" -> setBackground(Color.DARK_GRAY);          // gray
+//            case "reserved" -> setBackground(new Color(255,195,0));     // yellow
+//            case "disabled" -> setBackground(Color.DARK_GRAY);          // gray
             default         -> setBackground(new Color(52,168,83));     // green (free)
         }
         setForeground(Color.WHITE);

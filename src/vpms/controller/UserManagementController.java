@@ -58,13 +58,13 @@ public class UserManagementController {
     };
     // Set column names
     model.setColumnIdentifiers(new String[] {
-        "ID", "Name", "Type", "Email", "Password", "Phone", "Image"
+        "ID", "Name", "Type", "Email", "Password", "Phone", "Image", "Status"
     });
     // Populate data
     for (UserData u : users) {
         model.addRow(new Object[]{
             u.getId(), u.getName(), u.getType(), u.getEmail(),
-            u.getPassword(), u.getPhone(), u.getImage()
+            u.getPassword(), u.getPhone(), u.getImage(), u.getStatus()
         });
     }
     view.getTable().setModel(model);

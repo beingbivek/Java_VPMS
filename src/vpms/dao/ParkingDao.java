@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import vpms.database.MySqlConnection;
 import vpms.model.ParkingDetails;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import vpms.model.ParkedDetails;
 
 
@@ -24,7 +26,7 @@ public class ParkingDao {
     public boolean registerParkingUser(ParkingDetails parkingDetails) {
         Connection conn= mySql.openConnection();
 
-        String query=  "INSERT INTO parkings (vehicleId,slotInstanceId,entryDateTime,entryNote,parkingStatus,parkingType) VALUES (?,?,?,?,?,?)";
+        String query=  "INSERT INTO parkings (vehicle_id,instance_id,entryDateTime,entryNote,parkingStatus,parkingType) VALUES (?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, parkingDetails.getVehicleId());
@@ -108,6 +110,28 @@ public class ParkingDao {
         return count;
     }
     
+    public int getInstanceIdFromParkingId(int parkingId){
+        String sql = """
+                     SELECT instance_id 
+                     FROM parkings 
+                     WHERE parking_id = ? AND (p.parkingStatus = 'Parked' OR p.exitDateTime IS NULL)
+                     ORDER BY p.entryDateTime DESC LIMIT 1
+                     """;
+        Connection conn = mySql.openConnection();
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, parkingId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("instance_id");
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return -1;
+    }
+    
     // In ParkingDao.java
     public ParkedDetails getActiveParkedBySlotInstanceId(int instanceId) {
         String sql = """
@@ -172,6 +196,32 @@ public class ParkingDao {
             mySql.closeConnection(conn);
         }
         return null;
+    }
+    
+    public List<ParkingDetails> getParkingHistoryByVehicleId(int vehicleId) {
+        List<ParkingDetails> history = new ArrayList<>();
+        String sql = "SELECT * FROM parkings WHERE vehicle_id = ? ORDER BY entryDateTime DESC";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, vehicleId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ParkingDetails details = new ParkingDetails();
+                details.setEntryDateTime(rs.getString("entryDateTime"));
+                details.setExitDateTime(rs.getString("exitDateTime"));
+                details.setParkingStatus(rs.getString("parkingStatus"));
+                details.setEntryNote(rs.getString("entryNote"));
+                details.setExitNote(rs.getString("exitNote"));
+                details.setSlotId(rs.getInt("instance_id"));
+                // Add other fields as needed
+                history.add(details);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return history;
     }
 
 

@@ -15,10 +15,10 @@ public class ReportModel {
     private LocalDateTime paymentTime;
     private String vehicleNumber;
     private LocalDateTime entryTime;
-    private LocalDateTime exitTime;
+    private String exitTime;
     private double totalFee;
     
-    public ReportModel(LocalDateTime paymentTime, String vehicleNumber, LocalDateTime entryTime,LocalDateTime exitTime,double totalFee){
+    public ReportModel(LocalDateTime paymentTime, String vehicleNumber, LocalDateTime entryTime,String exitTime,double totalFee){
         this.paymentTime = paymentTime;
         this.vehicleNumber = vehicleNumber;
         this.entryTime = entryTime;
@@ -35,7 +35,7 @@ public class ReportModel {
     public LocalDateTime getEntryTime(){
         return entryTime;
     }
-    public LocalDateTime getExitTime(){
+    public String getExitTime(){
         return exitTime;
     }
     public double getTotalFee(){

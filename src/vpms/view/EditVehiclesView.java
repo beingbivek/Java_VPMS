@@ -3,14 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vpms.view;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import javax.swing.JOptionPane;
-import java.util.List;
-import java.util.Arrays;
-
-
-import vpms.controller.AddVehiclesController;
 
 /**
  *
@@ -23,6 +15,8 @@ public class EditVehiclesView extends javax.swing.JFrame {
      */
     public EditVehiclesView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**

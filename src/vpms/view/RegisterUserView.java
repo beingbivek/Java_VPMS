@@ -14,6 +14,8 @@ public class RegisterUserView extends javax.swing.JFrame {
      */
     public RegisterUserView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**

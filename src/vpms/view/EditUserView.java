@@ -14,6 +14,8 @@ public class EditUserView extends javax.swing.JFrame {
      */
     public EditUserView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**

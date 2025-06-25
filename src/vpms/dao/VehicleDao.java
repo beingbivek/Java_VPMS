@@ -73,11 +73,13 @@ public class VehicleDao {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     VehicleData v = new VehicleData(
-                        rs.getInt("id"),
-                        rs.getString("type"),
+                        rs.getInt("vehicle_id"),
+                        rs.getString("vehicletandp_id"),
                         rs.getString("vehicle_number"),
                         rs.getString("owner_name"),
-                        rs.getString("owner_contact")
+                        rs.getString("owner_contact"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at")
                     );
                     list.add(v);
                 }

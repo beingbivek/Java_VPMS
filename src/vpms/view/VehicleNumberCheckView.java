@@ -19,6 +19,7 @@ public class VehicleNumberCheckView extends javax.swing.JFrame {
      */
     public VehicleNumberCheckView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -48,11 +49,6 @@ public class VehicleNumberCheckView extends javax.swing.JFrame {
 
         searchButton.setText("Search");
 
-        vehicleList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(vehicleList);
 
         vehicleCheckInfoLabel.setText("Found Vehicle Info");
@@ -184,8 +180,8 @@ public class VehicleNumberCheckView extends javax.swing.JFrame {
     public void addSelectButtonListener(ActionListener l) {
         selectButton.addActionListener(l);
     }
-    public void addAddVehicleButtonListener(ActionListener l) {
-        addVehicleButton.addActionListener(l);
+    public javax.swing.JButton getAddVehicleButtonListener() {
+        return addVehicleButton;
     }
     public String getSearchText() {
         return searchTextField.getText();

@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.List;
+import vpms.dao.ParkingDao;
+import vpms.model.ParkingDetails;
 import vpms.view.AddVehiclesView;
 import vpms.view.EditVehiclesView;
 
@@ -19,9 +21,7 @@ public class VehicleManagementController {
     public VehicleManagementController(VehicleManagementView view,int id) {
         this.view = view;
         this.id = id;
-        setupTable();
         loadVehicleTable();
-
         // Listeners
         view.getAddButton().addActionListener(e -> addVehicle());
         view.getEditButton().addActionListener(e -> editVehicle());
@@ -29,18 +29,21 @@ public class VehicleManagementController {
         view.getCancelButton().addActionListener(e -> loadVehicleTable());
         view.getSearchField().addActionListener(e -> searchVehicle());
     }
-
-    /** Make table non-editable but row-selectable */
-    private void setupTable() {
-        view.getVehicleTable().setDefaultEditor(Object.class, null);
-        view.getVehicleTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-
     /** Load all vehicles into the table */
-    private void loadVehicleTable() {
+    public void loadVehicleTable() {
         List<VehicleData> list = dao.findByNumberLike(""); // Loads all
-        DefaultTableModel model = (DefaultTableModel) view.getVehicleTable().getModel();
-        model.setRowCount(0);
+        
+        // Create a non-editable table model
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        // Set column names
+        model.setColumnIdentifiers(new String[] {
+            "ID", "Owner Name", "Vehicle Type", "Vehicle Number", "Contact", "Created At", "Updated At"
+        });
 
         if (list != null && !list.isEmpty()) {
             for (VehicleData v : list) {
@@ -56,12 +59,21 @@ public class VehicleManagementController {
                 model.addRow(row);
             }
         }
+        view.getVehicleTable().setModel(model);
+        
+        
+        view.getVehicleTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        view.getVehicleTable().getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                showSelectedVehicleParkingHistory();
+            }
+        });
     }
 
     /** Add vehicle (open dialog or new view as needed) */
     private void addVehicle() {
         AddVehiclesView avView = new AddVehiclesView();
-        new AddVehiclesController(avView,id).open();
+        new AddVehiclesController(avView,id,VehicleManagementController.this).open();
     }
 
     /** Edit selected vehicle */
@@ -73,7 +85,7 @@ public class VehicleManagementController {
         }
         int editid = (int) view.getVehicleTable().getValueAt(row, 0);
         EditVehiclesView editView = new EditVehiclesView();
-        new EditVehicleController(editView, editid,id).open();
+        new EditVehicleController(editView, editid,id,VehicleManagementController.this).open();
     }
 
     /** Delete selected vehicle */
@@ -119,4 +131,61 @@ public class VehicleManagementController {
             }
         }
     }
+    
+    private void showSelectedVehicleParkingHistory() {
+        int row = view.getVehicleTable().getSelectedRow();
+        if (row == -1) {
+            view.getSelectedVehicleLabel().setText("Selected Vehicle Parking History");
+            clearParkingHistoryTable();
+            return;
+        }
+
+        int vehicleId = (int) view.getVehicleTable().getValueAt(row, 0);
+        String vehicleNumber = (String) view.getVehicleTable().getValueAt(row, 3); // Vehicle Number column
+
+        // Update label
+        view.getSelectedVehicleLabel().setText(vehicleNumber + " parking history");
+
+        // Fetch parking history
+        List<ParkingDetails> history = new ParkingDao().getParkingHistoryByVehicleId(vehicleId);
+
+        // Build non-editable model
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"Entry Time", "Exit Time", "Status", "Entry Note", "Exit Note", "Slot Instance ID"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        for (ParkingDetails p : history) {
+            model.addRow(new Object[]{
+                p.getEntryDateTime(),
+                p.getExitDateTime(),
+                p.getParkingStatus(),
+                p.getEntryNote(),
+                p.getExitNote(),
+                p.getSlotInstanceId()
+            });
+        }
+        view.getVehicleParkingHistoryTable().setModel(model);
+        view.getVehicleParkingHistoryTable().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        view.getVehicleParkingHistoryTable().setFillsViewportHeight(true);
+    }
+    
+    //Helper
+    private void clearParkingHistoryTable() {
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"Entry Time", "Exit Time", "Status", "Entry Note", "Exit Note", "Slot Instance ID"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        view.getVehicleParkingHistoryTable().setModel(model);
+    }
+
+
 }
