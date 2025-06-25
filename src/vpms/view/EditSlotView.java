@@ -46,7 +46,7 @@ public class EditSlotView extends javax.swing.JFrame {
         addbutton.setBackground(new java.awt.Color(0, 0, 255));
         addbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         addbutton.setForeground(new java.awt.Color(255, 255, 255));
-        addbutton.setText("save");
+        addbutton.setText("Save");
         addbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addbuttonActionPerformed(evt);
