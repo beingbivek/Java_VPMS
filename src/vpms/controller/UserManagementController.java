@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 /**
  * Lists, searches, adds, edits and deletes users.
@@ -20,10 +22,12 @@ public class UserManagementController {
     /* -------------- fields -------------- */
     private final UserManagementView view;
     private final UserDao dao = new UserDao();
+    int id;
 
     /* -------------- ctor -------------- */
-    public UserManagementController(UserManagementView view) {
+    public UserManagementController(UserManagementView view,int id) {
         this.view      = view;
+        this.id = id;
 
         loadUserData();
 
@@ -44,17 +48,28 @@ public class UserManagementController {
 
     /* -------------- table population -------------- */
     private void loadUserData() {
-        List<UserData> users = dao.showUsers();
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);
-
-        for (UserData u : users) {
-            model.addRow(new Object[]{
-                    u.getId(), u.getName(), u.getType(), u.getEmail(),
-                    u.getPassword(), u.getPhone(), u.getImage()
-            });
+    List<UserData> users = dao.showUsers();
+    // Create a non-editable table model
+    DefaultTableModel model = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
         }
+    };
+    // Set column names
+    model.setColumnIdentifiers(new String[] {
+        "ID", "Name", "Type", "Email", "Password", "Phone", "Image", "Status"
+    });
+    // Populate data
+    for (UserData u : users) {
+        model.addRow(new Object[]{
+            u.getId(), u.getName(), u.getType(), u.getEmail(),
+            u.getPassword(), u.getPhone(), u.getImage(), u.getStatus()
+        });
     }
+    view.getTable().setModel(model);
+}
+
 
     /* ===================================================== *
      *  LISTENERS                                            *
@@ -63,7 +78,7 @@ public class UserManagementController {
     class AddUserListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
             RegisterUserView popup = new RegisterUserView();               // JFrame
-            new RegisterUserController(popup, UserManagementController.this)
+            new RegisterUserController(popup, UserManagementController.this,id)
                     .open();                                               // opens as stand-alone window
         }
     }
@@ -84,11 +99,12 @@ public class UserManagementController {
             (String) view.getTable().getValueAt(row,3),   // email
             (String) view.getTable().getValueAt(row,4),   // password
             (String) view.getTable().getValueAt(row,5),   // phone
-            (byte[]) view.getTable().getValueAt(row,6)    // image
+            (byte[]) view.getTable().getValueAt(row,6),   // image
+            (String) view.getTable().getValueAt(row,7)    // status
         );
 
         EditUserView popup = new EditUserView();          // JFrame
-        new EditUserController(popup, selected, UserManagementController.this)
+        new EditUserController(popup, selected, UserManagementController.this,id)
               .open();
     }
 }
@@ -105,11 +121,13 @@ public class UserManagementController {
         if (JOptionPane.showConfirmDialog(view, "Delete selected user?",
                 "Confirm", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
 
-        int id = (int) view.getTable().getValueAt(row, 0);
+        int delete_id = (int) view.getTable().getValueAt(row, 0);
 
         try {
-            if (dao.deleteUser(id)) {
+            if (dao.deleteUser(delete_id)) {
                 JOptionPane.showMessageDialog(view, "User deleted.");
+                ActivityLog log = new ActivityLog(id,"User Deleted, id: "+delete_id);
+                new ActivityLogDao().logActivity(log);
                 loadUserData();                         // refresh table
             } else {
                 JOptionPane.showMessageDialog(view,
@@ -152,7 +170,7 @@ public class UserManagementController {
 
                     model.addRow(new Object[]{
                             u.getId(), u.getName(), u.getType(), u.getEmail(),
-                            u.getPassword(), u.getPhone(), u.getImage()
+                            u.getPassword(), u.getPhone(), u.getImage(), u.getStatus()
                     });
                 }
             }

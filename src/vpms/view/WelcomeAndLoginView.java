@@ -116,7 +116,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
         });
 
         loginButton.setBackground(new java.awt.Color(102, 255, 153));
-        loginButton.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+        loginButton.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
         loginButton.setForeground(new java.awt.Color(51, 0, 153));
         loginButton.setText("Login");
         loginButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(51, 255, 51), new java.awt.Color(153, 102, 255), null, null));
@@ -176,26 +176,25 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(311, 311, 311)
+                                .addGap(334, 334, 334)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(27, 27, 27)
-                                                .addComponent(showPasswordCheckBox))
-                                            .addComponent(jPassword)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(rememberMeCheckBox)
-                                                .addGap(87, 87, 87)
-                                                .addComponent(forgotPasswordLabel))
-                                            .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jEmail)))))
+                                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(showPasswordCheckBox))
+                                    .addComponent(jPassword)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(rememberMeCheckBox)
+                                        .addGap(87, 87, 87)
+                                        .addComponent(forgotPasswordLabel))
+                                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jEmail)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(211, 211, 211)
-                                .addComponent(jLabel1)))
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(311, 311, 311)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(283, 325, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -208,11 +207,11 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
                         .addGap(155, 155, 155)
                         .addComponent(jLabel1)
                         .addGap(60, 60, 60)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
                                 .addComponent(jEmail)
                                 .addGap(18, 18, 18)
                                 .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -4,17 +4,23 @@
  */
 package vpms.view;
 
+import vpms.model.VehicleTypeAndPriceData;
+
 /**
  *
- * @author PRABHASH
+ * @author being
  */
 public class AddSlotView extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddSlotView.class.getName());
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form AddSlotView
      */
     public AddSlotView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
     }
 
     /**
@@ -26,128 +32,90 @@ public class AddSlotView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRegisterButton = new javax.swing.JButton();
+        noOfSlotTF = new javax.swing.JTextField();
+        levelNoTF = new javax.swing.JTextField();
+        vehicleTypecbox = new javax.swing.JComboBox<>();
+        addbutton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jTypeField = new javax.swing.JComboBox<>();
-        jPhoneField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jEmailIdField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jRegisterButton.setBackground(new java.awt.Color(0, 153, 255));
-        jRegisterButton.setText("Register");
-        jRegisterButton.addActionListener(new java.awt.event.ActionListener() {
+        addbutton.setBackground(new java.awt.Color(51, 51, 255));
+        addbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addbutton.setForeground(new java.awt.Color(255, 255, 255));
+        addbutton.setText("save");
+        addbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRegisterButtonActionPerformed(evt);
+                addbuttonActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel1.setText("Enter your slot details");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Add Slot");
 
-        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        jLabel9.setText("VehicleType");
+        jLabel2.setText("Vehicle Type :");
 
-        jTypeField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
-        jTypeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTypeFieldActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Level No:");
 
-        jPhoneField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPhoneFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        jLabel3.setText("No. of Slots");
-
-        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        jLabel7.setText("Level no.");
-
-        jEmailIdField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEmailIdFieldActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("Number of Slots :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 46, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(levelNoTF)
+                    .addComponent(noOfSlotTF)
+                    .addComponent(vehicleTypecbox, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jPhoneField)
-                                    .addComponent(jEmailIdField))
-                                .addGap(75, 75, 75))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(75, Short.MAX_VALUE))))
+                        .addGap(134, 134, 134)
+                        .addComponent(addbutton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jRegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTypeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(vehicleTypecbox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jEmailIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(noOfSlotTF, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(levelNoTF, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(jRegisterButton)
-                .addGap(60, 60, 60))
+                .addGap(30, 30, 30)
+                .addComponent(addbutton)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterButtonActionPerformed
+    private void addbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRegisterButtonActionPerformed
-
-    private void jTypeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTypeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTypeFieldActionPerformed
-
-    private void jPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPhoneFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPhoneFieldActionPerformed
-
-    private void jEmailIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmailIdFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jEmailIdFieldActionPerformed
+    }//GEN-LAST:event_addbuttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,36 +133,35 @@ public class AddSlotView extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddSlotView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddSlotView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddSlotView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddSlotView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddSlotView().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new AddSlotView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jEmailIdField;
+    private javax.swing.JButton addbutton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jPhoneField;
-    private javax.swing.JButton jRegisterButton;
-    private javax.swing.JComboBox<String> jTypeField;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField levelNoTF;
+    private javax.swing.JTextField noOfSlotTF;
+    private javax.swing.JComboBox<VehicleTypeAndPriceData> vehicleTypecbox;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JComboBox<VehicleTypeAndPriceData> getVehicleTypeCombo(){
+        return vehicleTypecbox;
+    }
+    public javax.swing.JButton addSaveButtonListener(){
+        return addbutton;
+    }
+    public javax.swing.JTextField getTxtTotal(){
+        return noOfSlotTF;
+    }
+    public javax.swing.JTextField getTxtLevel(){
+        return levelNoTF;
+    }
 }

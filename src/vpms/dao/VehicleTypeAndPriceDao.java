@@ -19,23 +19,7 @@ public class VehicleTypeAndPriceDao {
 
     public boolean addVehicleTypeAndPrice(VehicleTypeAndPriceData vehicle) {
         Connection conn = mySql.openConnection();
-
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS vehicle_type_and_price ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY, "
-                + "vehicle_type VARCHAR(50), "
-                + "reservation_price VARCHAR(10), "
-                + "regular_price VARCHAR(10), "
-                + "demand_price VARCHAR(10), "
-                + "extra_charge VARCHAR(10), "
-                + "status VARCHAR(20))";
-
-        try {
-            PreparedStatement createStmt = conn.prepareStatement(createTableSQL);
-            createStmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        
         String insertSQL = "INSERT INTO vehicle_type_and_price(vehicle_type, reservation_price, regular_price, demand_price, extra_charge, status) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
@@ -168,4 +152,108 @@ public class VehicleTypeAndPriceDao {
 
         return list.isEmpty() ? null : list;
     }
+    public VehicleTypeAndPriceData findById(int id) throws SQLException {
+    String sql = "SELECT * FROM vehicle_type_and_price WHERE id=?";
+    try (Connection c = mySql.openConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new VehicleTypeAndPriceData(
+                            rs.getInt("id"),
+                            rs.getString("vehicle_type"),
+                            rs.getString("regular_price"),
+                            rs.getString("demand_price"),
+                            rs.getString("reservation_price"),
+                            rs.getString("extra_charge"),
+                            rs.getString("status"));
+                }
+            }
+        }
+        throw new SQLException("VehicleType id not found: " + id);
+    }
+    
+    public String getVehicleTypeByNumber(String vehicleNumber) {
+        String sql = "SELECT vt.vehicle_type FROM vehicles v JOIN vehicle_type_and_price vt ON v.vehicletandp_id = vt.id WHERE v.vehicle_number = ?";
+        Connection conn = mySql.openConnection();
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,vehicleNumber);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getString("vehicle_type");
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    public double getBasePriceForVehicleType(String vehicleType) {
+        String sql = "SELECT regular_price FROM vehicle_type_and_price WHERE vehicle_type = ?";
+        Connection conn = mySql.openConnection();
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,vehicleType);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("regular_price");
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    // Get ID by vehicle type name
+    public int getIdByVehicleType(String vehicleType) {
+        String sql = "SELECT id FROM vehicle_type_and_price WHERE vehicle_type = ?";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, vehicleType);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1; // Not found
+    }
+
+    // Get vehicle type name by ID
+    public String getVehicleTypeById(int id) {
+        String sql = "SELECT vehicle_type FROM vehicle_type_and_price WHERE id = ?";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("vehicle_type");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null; // Not found
+    }
+
+    // Get all vehicle type names (for combobox)
+    public List<String> getAllVehicleTypeNames() {
+        List<String> names = new ArrayList<>();
+        String sql = "SELECT vehicle_type FROM vehicle_type_and_price";
+        try (Connection conn = mySql.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                names.add(rs.getString("vehicle_type"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return names;
+    }
+
 }

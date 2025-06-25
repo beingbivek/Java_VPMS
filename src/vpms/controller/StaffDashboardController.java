@@ -8,13 +8,14 @@ import vpms.model.UserData;
 import vpms.view.StaffDashboardView;
 
 import javax.swing.ImageIcon;
-import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import vpms.utils.ImageHelper;
 import vpms.view.ProfileUpdateView;
+import vpms.view.SecurePaymentView;
 import vpms.view.StaffDashboardContentView;
+import vpms.view.VehicleManagementView;
 import vpms.view.WelcomeAndLoginView;
 /**
  *
@@ -25,27 +26,37 @@ public class StaffDashboardController {
     private UserData user;
     private ProfileUpdateView puView;
     private StaffDashboardContentView sdcView;
+    private SecurePaymentView pView;
+    private VehicleManagementView vView;
+    
     public StaffDashboardController(StaffDashboardView view, UserData user){
         this.view = view;
         this.user = user;
         attachListeners();
         initializeControllers();
         setWelcomeLabel();
+        showDashboard();
         
     }
     
     private void initializeControllers() {
         // Initialize sub-module controllers
+        vView = new VehicleManagementView();
+        VehicleManagementController vmController = new VehicleManagementController(vView,user.getId());
         puView = new ProfileUpdateView();
-        new ProfileUpdateController(puView,user,StaffDashboardController.this);
+        ProfileUpdateController puController = new ProfileUpdateController(puView,user,StaffDashboardController.this);
         sdcView = new StaffDashboardContentView();
-        new StaffDashboardContentController(sdcView);
+        StaffDashboardContentController sdcController = new StaffDashboardContentController(sdcView,user.getId(),vmController);
+        pView = new SecurePaymentView();
+        SecurePaymentController spController = new SecurePaymentController(pView);
         
     }
 
     private void attachListeners() {
         view.getUpdateProfileWindowbtn().addActionListener(e -> showUpdateProfilePanel());
         view.getDesktopWindowbtn().addActionListener(e -> showDashboard());
+        view.getPaymentWindowbtn().addActionListener(e -> showPaymentPanel());
+        view.getVehicleWindowbtn().addActionListener(e -> showVehiclePanel());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
     
@@ -65,6 +76,28 @@ public class StaffDashboardController {
         puView.toFront();
         try {
             puView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showPaymentPanel() {
+        pView.setVisible(true);
+        view.setWindowPanel(pView);
+        pView.toFront();
+        try {
+            pView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showVehiclePanel() {
+        vView.setVisible(true);
+        view.setWindowPanel(vView);
+        vView.toFront();
+        try {
+            vView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
@@ -95,7 +128,7 @@ public class StaffDashboardController {
     private ImageIcon createUserIcon() {
         byte[] imgBytes = user.getImage();
         if (imgBytes != null && imgBytes.length > 0) return new ImageIcon(imgBytes);
-        return new ImageIcon(getClass().getResource("/Icons/ProfileForLogin.jpg"));
+        return new ImageIcon(getClass().getResource("/Icons/ProfileForLogin.png"));
     }
     
     public void updatedUserModel(UserData user){
@@ -104,7 +137,7 @@ public class StaffDashboardController {
         setWelcomeLabel();
     }
     private void logout() {
-        view.dispose();
+        close();
         // Add login screen activation logic here
         WelcomeAndLoginView welcomeView = new WelcomeAndLoginView();
         WelcomeAndLoginController controller = new WelcomeAndLoginController(welcomeView);

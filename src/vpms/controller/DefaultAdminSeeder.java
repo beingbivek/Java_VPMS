@@ -5,6 +5,7 @@
 package vpms.controller;
 import java.io.File;
 import vpms.dao.UserDao;
+import vpms.database.CreateAllTables;
 import vpms.model.UserData;
 import vpms.utils.ImageConverter;
 
@@ -21,11 +22,11 @@ public class DefaultAdminSeeder {
         String defaultName = "Admin";
         String defaultPhone = "9860060060";
         
-        
+        new CreateAllTables();
         UserDao userDao = new UserDao();
         File imgFile = new File("src/Icons/adminperfectsize.png");
         ImageConverter img = new ImageConverter(imgFile);
-        UserData user = new UserData(defaultName,userType,defaultEmail,defaultPassword,defaultPhone,img.returnByteArray());
+        UserData user = new UserData(defaultName, userType, defaultEmail, defaultPassword, defaultPhone, img.returnByteArray(), "Active");
         if(!userDao.checkEmail(defaultEmail)){
             userDao.registerUser(user);
         }

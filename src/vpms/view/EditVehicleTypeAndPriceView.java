@@ -5,6 +5,7 @@
 package vpms.view;
 
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 /**
  *
@@ -17,6 +18,8 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
      */
     public EditVehicleTypeAndPriceView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**
@@ -42,6 +45,7 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
         regularPriceField = new javax.swing.JTextField();
         demandPriceField = new javax.swing.JTextField();
         extraChargeField = new javax.swing.JTextField();
+        cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +58,9 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("DemandPrice");
 
+        updateButton.setBackground(new java.awt.Color(0, 51, 255));
         updateButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        updateButton.setForeground(new java.awt.Color(255, 255, 255));
         updateButton.setText("Submit");
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
@@ -78,18 +84,26 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Edit VehicleType  and VehiclePrice");
 
+        cancelButton.setBackground(new java.awt.Color(255, 0, 0));
+        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(206, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(99, 99, 99)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(statusComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 125, Short.MAX_VALUE)
                             .addComponent(reservationPriceField)
@@ -97,11 +111,16 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
                             .addComponent(regularPriceField)
                             .addComponent(demandPriceField)
                             .addComponent(extraChargeField, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(180, 180, 180))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(updateButton)
-                .addGap(216, 216, 216))
+                        .addGap(180, 180, 180))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cancelButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(updateButton)
+                        .addGap(156, 156, 156))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jLabel1)
+                .addGap(0, 112, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(146, 146, 146)
@@ -109,18 +128,16 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(jLabel4)
                         .addComponent(jLabel6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
+                        .addComponent(jLabel5)
                         .addComponent(jLabel3))
                     .addContainerGap(344, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(76, 76, 76)
+                .addGap(58, 58, 58)
                 .addComponent(vehicleTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(reservationPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,10 +148,14 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(extraChargeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(updateButton)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateButton)
+                    .addComponent(cancelButton))
+                .addContainerGap(125, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(123, 123, 123)
@@ -147,9 +168,7 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addGap(26, 26, 26)
                     .addComponent(jLabel5)
-                    .addGap(18, 18, 18)
-                    .addComponent(jLabel7)
-                    .addContainerGap(194, Short.MAX_VALUE)))
+                    .addContainerGap(232, Short.MAX_VALUE)))
         );
 
         pack();
@@ -158,6 +177,10 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
     private void vehicleTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleTypeComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_vehicleTypeComboBoxActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,6 +218,7 @@ public class EditVehicleTypeAndPriceView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
     private javax.swing.JTextField demandPriceField;
     private javax.swing.JTextField extraChargeField;
     private javax.swing.JLabel jLabel1;
@@ -262,5 +286,8 @@ public String getVehicleType() {
     // Button Listener
     public void addUpdateListener(ActionListener listener) {
         updateButton.addActionListener(listener);
+    }
+    public JButton getCancelButton() {
+    return cancelButton;
     }
 }

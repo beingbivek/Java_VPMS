@@ -19,51 +19,28 @@ import java.util.List;
  */
 public class PaymentDao {
     MySqlConnection mySql = new MySqlConnection();
-    public boolean addPayment (PaymentData payment) {
-        Connection conn = mySql.openConnection();
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS payments ("
-            + "payment_id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "parking_id INT , "
-            + "vehicle_id INT, "
-            + "user_id INT, "
-            + "regular_price VARCHAR(10), "
-            + "demand_price VARCHAR(10), "
-            + "reservation_price VARCHAR(10),"
-            + "extra_charge VARCHAR(10), "
-            + "payment_status VARCHAR(10),"
-            +"payment_time DATETIME,"
-            + "FOREIGN KEY (parking_id) REFERENCES parking(parking_id),"
-            + "FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id),"
-            + "FOREIGN KEY (user_id) REFERENCES vpmsUsers(user_id)"
-            + ")";
-        try{
-            PreparedStatement stmnt = conn.prepareStatement (createTableSQL);
-            stmnt.executeUpdate();
-        }catch(Exception e){
-            
-            
-        }
-        String query ="INSERT INTO payment( parking_id, vehicle_id, user_id, regular_price, demand_price, reservation_price, extra_charge, payment_status, payment_time) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try{
-            PreparedStatement stmnt = conn.prepareStatement (query);
-            stmnt.setInt (1,payment.getPayment_id());
-            stmnt.setInt(2,payment.getParking_id());
-            stmnt.setInt(3,payment.getVehicle_id());
-            stmnt.setInt(4,payment.getUser_id());
-            stmnt.setString(5,payment.getRegularPrice());
-            stmnt.setString(6,payment.getDemandPrice());
-            stmnt.setString(7,payment.getReservationPrice());
-            stmnt.setString(8,payment.getExtraCharge());
-            stmnt.setString(9,payment.getPaymentStatus());
-            stmnt.setString(10, payment.getPaymentTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-     int  result = stmnt.executeUpdate();
-                    return result>0;
-              
-        }catch(Exception e){
-         return false;   
-         
-        }finally{
+    public boolean addPayment(PaymentData payment) {
+        Connection conn = mySql.openConnection();
+
+        String query = "INSERT INTO payments (parking_id, vehicle_id, user_id, regular_price, demand_price, reservation_price, extra_charge, payment_status, payment_time) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(query);
+            stmnt.setInt(1, payment.getParking_id());
+            stmnt.setInt(2, payment.getVehicle_id());
+            stmnt.setInt(3, payment.getUser_id());
+            stmnt.setString(4, payment.getRegularPrice());
+            stmnt.setString(5, payment.getDemandPrice());
+            stmnt.setString(6, payment.getReservationPrice());
+            stmnt.setString(7, payment.getExtraCharge());
+            stmnt.setString(8, payment.getPaymentStatus());
+            stmnt.setString(9, payment.getPaymentTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+            int result = stmnt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            return false;
+        } finally {
             mySql.closeConnection(conn);
         }
     }
@@ -71,7 +48,7 @@ public class PaymentDao {
     public List<PaymentData> showPayments() {
         List<PaymentData> paymentList = new ArrayList<>();
         Connection conn = mySql.openConnection();
-        String sql = "SELECT * FROM payment";
+        String sql = "SELECT * FROM payments";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -88,7 +65,7 @@ public class PaymentDao {
                         result.getString("reservation_price"),
                         result.getString("extra_charge"),
                         result.getString("payment_status"),
-                        result.getTimestamp("payment_time").toLocalDateTime() 
+                        result.getTimestamp("payment_time").toLocalDateTime()
                 );
                 paymentList.add(payment);
             }
@@ -103,7 +80,7 @@ public class PaymentDao {
 
     public boolean updatePayment(PaymentData payment) {
         Connection conn = mySql.openConnection();
-        String sql = "UPDATE payment SET parking_id=?, vehicle_id=?, user_id=?, regular_price=?, demand_price=?, reservation_price=?, extra_charge=?, payment_status=?, payment_time=? WHERE payment_id=?";
+        String sql = "UPDATE payments SET parking_id=?, vehicle_id=?, user_id=?, regular_price=?, demand_price=?, reservation_price=?, extra_charge=?, payment_status=?, payment_time=? WHERE payment_id=?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -115,7 +92,7 @@ public class PaymentDao {
             stmt.setString(6, payment.getReservationPrice());
             stmt.setString(7, payment.getExtraCharge());
             stmt.setString(8, payment.getPaymentStatus());
-            stmt.setTimestamp(9, Timestamp.valueOf(payment.getPaymentTime())); // ✅ Timestamp
+            stmt.setTimestamp(9, Timestamp.valueOf(payment.getPaymentTime()));
             stmt.setInt(10, payment.getPayment_id());
 
             int rows = stmt.executeUpdate();
@@ -130,7 +107,7 @@ public class PaymentDao {
 
     public boolean deletePayment(int paymentId) {
         Connection conn = mySql.openConnection();
-        String sql = "DELETE FROM payment WHERE payment_id=?";
+        String sql = "DELETE FROM payments WHERE payment_id=?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -144,7 +121,89 @@ public class PaymentDao {
             mySql.closeConnection(conn);
         }
     }
-}
+
+    public double getTotalRevenue() {
+        double total = 0;
+        String sql = "SELECT SUM(CAST(regular_price AS DOUBLE)) + SUM(CAST(demand_price AS DOUBLE)) + SUM(CAST(reservation_price AS DOUBLE)) + SUM(CAST(extra_charge AS DOUBLE)) AS total FROM payments";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                total = rs.getDouble("total");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return total;
+    }
+
+    public int getTotalPaymentCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM payments";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return count;
+    }
+    
+    public List<PaymentData> searchPayments(String keyword) {
+        List<PaymentData> paymentList = new ArrayList<>();
+        String sql = "SELECT * FROM payments WHERE " +
+                "CAST(payment_id AS CHAR) LIKE ? OR " +
+                "CAST(parking_id AS CHAR) LIKE ? OR " +
+                "CAST(vehicle_id AS CHAR) LIKE ? OR " +
+                "CAST(user_id AS CHAR) LIKE ? OR " +
+                "regular_price LIKE ? OR " +
+                "demand_price LIKE ? OR " +
+                "reservation_price LIKE ? OR " +
+                "extra_charge LIKE ? OR " +
+                "payment_status LIKE ? OR " +
+                "DATE_FORMAT(payment_time, '%Y-%m-%d %H:%i:%s') LIKE ?";
+
+        Connection conn = mySql.openConnection();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            String likeKeyword = "%" + keyword + "%";
+            for (int i = 1; i <= 10; i++) {
+                pstmt.setString(i, likeKeyword);
+            }
+            ResultSet result = pstmt.executeQuery();
+
+            while (result.next()) {
+                PaymentData payment = new PaymentData(
+                        result.getInt("payment_id"),
+                        result.getInt("parking_id"),
+                        result.getInt("vehicle_id"),
+                        result.getInt("user_id"),
+                        result.getString("regular_price"),
+                        result.getString("demand_price"),
+                        result.getString("reservation_price"),
+                        result.getString("extra_charge"),
+                        result.getString("payment_status"),
+                        result.getTimestamp("payment_time").toLocalDateTime()
+                );
+                paymentList.add(payment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return paymentList;
+    }
+
+} 
+
     
     
 

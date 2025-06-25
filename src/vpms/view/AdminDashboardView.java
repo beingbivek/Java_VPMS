@@ -8,7 +8,6 @@ package vpms.view;
 import java.beans.PropertyVetoException;
 import javax.swing.DefaultDesktopManager;
 import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -62,12 +61,13 @@ public class AdminDashboardView extends javax.swing.JFrame {
         vehicleAndPriceWindowButton = new javax.swing.JButton();
         dashboardWindowButton = new javax.swing.JButton();
         usersWindowButton = new javax.swing.JButton();
-        reportAndLogWindowButton = new javax.swing.JButton();
+        reportWindowButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         pictureLabel = new javax.swing.JLabel();
         vehicleWindowButton = new javax.swing.JButton();
         slotWindowButton = new javax.swing.JButton();
         paymentWindowButton = new javax.swing.JButton();
+        logWindowButton = new javax.swing.JButton();
         jDesktopPanel = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,10 +99,10 @@ public class AdminDashboardView extends javax.swing.JFrame {
             }
         });
 
-        reportAndLogWindowButton.setBackground(new java.awt.Color(153, 153, 255));
-        reportAndLogWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        reportAndLogWindowButton.setForeground(new java.awt.Color(255, 255, 255));
-        reportAndLogWindowButton.setText("Reports and Logs");
+        reportWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        reportWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        reportWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        reportWindowButton.setText("Reports");
 
         logoutButton.setBackground(new java.awt.Color(255, 102, 102));
         logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -126,6 +126,11 @@ public class AdminDashboardView extends javax.swing.JFrame {
         paymentWindowButton.setForeground(new java.awt.Color(255, 255, 255));
         paymentWindowButton.setText("Payments");
 
+        logWindowButton.setBackground(new java.awt.Color(153, 153, 255));
+        logWindowButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        logWindowButton.setForeground(new java.awt.Color(255, 255, 255));
+        logWindowButton.setText("Logs");
+
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
@@ -137,7 +142,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reportWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
                         .addGap(0, 14, Short.MAX_VALUE)
@@ -147,7 +152,8 @@ public class AdminDashboardView extends javax.swing.JFrame {
                     .addComponent(usersWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(slotWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(paymentWindowButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dashboardWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dashboardWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logWindowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sidebarPanelLayout.setVerticalGroup(
@@ -155,9 +161,9 @@ public class AdminDashboardView extends javax.swing.JFrame {
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 67, Short.MAX_VALUE)
                 .addComponent(pictureLabel)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 73, Short.MAX_VALUE)
                 .addComponent(dashboardWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(usersWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,8 +176,10 @@ public class AdminDashboardView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(paymentWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(reportAndLogWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(reportWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(logWindowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -184,7 +192,7 @@ public class AdminDashboardView extends javax.swing.JFrame {
         );
         jDesktopPanelLayout.setVerticalGroup(
             jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 643, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,10 +263,11 @@ public class AdminDashboardView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dashboardWindowButton;
     private javax.swing.JDesktopPane jDesktopPanel;
+    private javax.swing.JButton logWindowButton;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton paymentWindowButton;
     private javax.swing.JLabel pictureLabel;
-    private javax.swing.JButton reportAndLogWindowButton;
+    private javax.swing.JButton reportWindowButton;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JButton slotWindowButton;
     private javax.swing.JButton usersWindowButton;
@@ -278,6 +287,24 @@ public class AdminDashboardView extends javax.swing.JFrame {
     public javax.swing.JButton getAdminDashboardWindowbtn(){
         return dashboardWindowButton;
     }
+    public javax.swing.JButton getVehicleWindowbtn(){
+        return vehicleWindowButton;
+    }
+    public javax.swing.JButton getReportWindowbtn(){
+        return reportWindowButton;
+    }
+    public javax.swing.JButton getLogWindowbtn(){
+        return logWindowButton;
+    }
+    public javax.swing.JButton getSlotWindowbtn(){
+        return slotWindowButton;
+    }
+    public javax.swing.JButton getPaymentWindowbtn(){
+        return paymentWindowButton;
+    }
+    public javax.swing.JButton getVehicleTypeandPriceWindowbtn(){
+        return vehicleAndPriceWindowButton;
+    }
     public javax.swing.JButton getLogoutBtn(){
         return logoutButton;
     }
@@ -285,7 +312,6 @@ public class AdminDashboardView extends javax.swing.JFrame {
         jDesktopPanel.removeAll();
         jDesktopPanel.add(myPanel);
         myPanel.setVisible(true);
-
         try {                                  // <- maximise
             myPanel.setMaximum(true);            // full-screen inside the desktop
         } catch (java.beans.PropertyVetoException ex) {

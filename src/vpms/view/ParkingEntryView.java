@@ -18,6 +18,8 @@ public class ParkingEntryView extends javax.swing.JFrame {
      */
     public ParkingEntryView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**
@@ -32,8 +34,6 @@ public class ParkingEntryView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         entryDateValueLabel = new javax.swing.JLabel();
         entryTimeLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        entryNotejTextField = new javax.swing.JTextPane();
         vehicleEntryjButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -41,8 +41,12 @@ public class ParkingEntryView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        entryVehicleNumberComboBox = new javax.swing.JComboBox<String>();
-        slotNumberComboBox = new javax.swing.JComboBox<String>();
+        vehicleNumberDisplayLabel = new javax.swing.JLabel();
+        slotNumberDisplayLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        entryNoteTextArea = new javax.swing.JTextArea();
+        parkingTypeCB = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,15 +54,13 @@ public class ParkingEntryView extends javax.swing.JFrame {
 
         entryTimeLabel.setText("10:00 AM");
 
-        jScrollPane1.setViewportView(entryNotejTextField);
-
         vehicleEntryjButton.setBackground(new java.awt.Color(40, 40, 224));
         vehicleEntryjButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         vehicleEntryjButton.setForeground(new java.awt.Color(255, 255, 255));
         vehicleEntryjButton.setText("Ok");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Vehicle Entry ");
+        jLabel1.setText("Parking Vehicle Entry ");
 
         jLabel3.setText("Vehicle Number :");
 
@@ -70,73 +72,81 @@ public class ParkingEntryView extends javax.swing.JFrame {
 
         jLabel7.setText("Entry Note : ");
 
-        entryVehicleNumberComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vehicleNumberDisplayLabel.setText("vehiclenum");
 
-        slotNumberComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Slot 1", "Slot 2", "Slot 3", "Slot 4" }));
+        slotNumberDisplayLabel.setText("slotnum");
+
+        entryNoteTextArea.setColumns(20);
+        entryNoteTextArea.setRows(5);
+        jScrollPane2.setViewportView(entryNoteTextArea);
+
+        parkingTypeCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "Reserve", "Demand", "Extra" }));
+
+        jLabel8.setText("Parking Type:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(slotNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(entryDateValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(entryTimeLabel)
-                                    .addComponent(entryVehicleNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(47, 47, 47)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(vehicleEntryjButton)
                 .addGap(41, 41, 41))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(entryTimeLabel)
+                            .addComponent(entryDateValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vehicleNumberDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(slotNumberDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(parkingTypeCB, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel1)
-                .addGap(76, 76, 76)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(parkingTypeCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(entryVehicleNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(vehicleNumberDisplayLabel))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(slotNumberComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(slotNumberDisplayLabel)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(entryDateValueLabel)
+                    .addComponent(jLabel5))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(entryTimeLabel))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(entryTimeLabel)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(entryDateValueLabel)
-                            .addComponent(jLabel5))))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel7)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(vehicleEntryjButton)
                 .addGap(14, 14, 14))
         );
@@ -145,10 +155,7 @@ public class ParkingEntryView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,68 +202,41 @@ public class ParkingEntryView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel entryDateValueLabel;
-    private javax.swing.JTextPane entryNotejTextField;
+    private javax.swing.JTextArea entryNoteTextArea;
     private javax.swing.JLabel entryTimeLabel;
-    private javax.swing.JComboBox<String> entryVehicleNumberComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> slotNumberComboBox;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> parkingTypeCB;
+    private javax.swing.JLabel slotNumberDisplayLabel;
     private javax.swing.JButton vehicleEntryjButton;
+    private javax.swing.JLabel vehicleNumberDisplayLabel;
     // End of variables declaration//GEN-END:variables
-public javax.swing.JComboBox<String> getEntryVehicleNumber(){
-    return entryVehicleNumberComboBox;
-}
-public void loadVehicleNumeberInComboBox(String[] vehicleNumbers){
-    entryVehicleNumberComboBox = new javax.swing.JComboBox<>(vehicleNumbers);
-}
-public javax.swing.JComboBox<String> getSlotNumber(){
-    return slotNumberComboBox;
-}
-public void setEntryDateValue(String value){
-    entryDateValueLabel.setText(value);
-}
-public void setEntryTimeValue(String value){
-    entryTimeLabel.setText (value);
-}
-public javax.swing.JTextPane getEntryNote(){
-    return entryNotejTextField;
-}
-public void entryButtonListener (ActionListener listener){
+    public void setEntryDateValue(String value){
+        entryDateValueLabel.setText(value);
+    }
+    public void setEntryTimeValue(String value){
+        entryTimeLabel.setText (value);
+    }
+    public javax.swing.JTextArea getEntryNote(){
+        return entryNoteTextArea;
+    }
+    public javax.swing.JComboBox<String> getParkingType(){
+        return parkingTypeCB;
+    }
+    public void entryButtonListener (ActionListener listener){
         vehicleEntryjButton.addActionListener(listener);
-    
-
     }
-public void addParkingEntryListener(ActionListener listener){
-    vehicleEntryjButton.addActionListener(listener);
-}
-
-public void clearEntryFields(){
-    if (getEntryVehicleNumber().getItemCount() > 0){
-        getEntryVehicleNumber().setSelectedIndex(0);
+    public void setVehicleNumber(String vehicleNumber){
+        vehicleNumberDisplayLabel.setText(vehicleNumber);
     }
-}
-//if (getSlotNumber().getItemCount() >0){
-//getSlotNumber().setSelectedIndex(0);
-//}
-//getEntryNote().setText("");
-public void updateParkingSlotDisplay(){
-    
-}
-//this.repaint();
-//this.revalidate();
-
-//public void setEntryDateValue(String date){
-//   entryDateValueLabel.setText(date);
-//    
-//}
-//public void setEntryTimeValue(String time){
-//    
-//    
-//}
+    public void setSlotNumber(String slotCode){
+        slotNumberDisplayLabel.setText(slotCode);
+    }
 }

@@ -21,23 +21,7 @@ public class VehicleDao {
     MySqlConnection mySql = new MySqlConnection();
     public boolean registerVehicle(VehicleData vehicleData){
         Connection conn= mySql.openConnection();
-         String createTableSQL = "CREATE TABLE IF NOT EXISTS vehicles ("
-            + "id INT AUTO_INCREMENT PRIMARY KEY, "               
-            + "type VARCHAR(50) NOT NULL, "
-            + "vehicle_number VARCHAR(100) NOT NULL, "
-            + "owner_name VARCHAR(100) NOT NULL, "
-            + "owner_contact VARCHAR(50) NOT NULL, "
-            + "created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, "
-            + "updated_at DATETIME"
-            + ")";
-         String query=  "INSERT INTO vehicles (type, vehicle_number, owner_name, owner_contact,created_at,updated_at) VALUES (?,?,?,?,?,?)";
-         
-        try {
-            PreparedStatement createtbl= conn.prepareStatement(createTableSQL);
-            createtbl.executeUpdate();
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(VehicleDao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        String query=  "INSERT INTO vehicles (vehicletandp_id, vehicle_number, owner_name, owner_contact,created_at,updated_at) VALUES (?,?,?,?,?,?)";
         
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, vehicleData.getType());
@@ -60,23 +44,114 @@ public class VehicleDao {
           
     }
     public String[] showVehicleNumbers() {
-    ArrayList<String> vehicleNumberList = new ArrayList<>();
-    Connection conn = mySql.openConnection();
-    String sql = "SELECT vehicle_number FROM vehicles";
-    
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        ResultSet result = pstmt.executeQuery();
-        while (result.next()) {
-            String number = result.getString("vehicle_number");
-            vehicleNumberList.add(number);
-        }
-    } catch (SQLException ex) {
-        System.out.println(ex);
-    } finally {
-        mySql.closeConnection(conn);
-    }
-    String[] vnum = vehicleNumberList.toArray(new String[0]);
+        ArrayList<String> vehicleNumberList = new ArrayList<>();
+        Connection conn = mySql.openConnection();
+        String sql = "SELECT vehicle_number FROM vehicles";
 
-    return vnum;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                String number = result.getString("vehicle_number");
+                vehicleNumberList.add(number);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        String[] vnum = vehicleNumberList.toArray(new String[0]);
+
+        return vnum;
     }
-}
+    
+    public List<VehicleData> findByNumberLike(String number) {
+        List<VehicleData> list = new ArrayList<>();
+        String sql = "SELECT * FROM vehicles WHERE vehicle_number LIKE ?";
+        Connection c = mySql.openConnection();
+        try (PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, "%" + number + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    VehicleData v = new VehicleData(
+                        rs.getInt("vehicle_id"),
+                        rs.getString("vehicletandp_id"),
+                        rs.getString("vehicle_number"),
+                        rs.getString("owner_name"),
+                        rs.getString("owner_contact"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at")
+                    );
+                    list.add(v);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally{
+            mySql.closeConnection(c);
+        }
+        return list;
+    }
+    
+    public boolean deleteVehicleById(int id) {
+        Connection conn = mySql.openConnection();
+        String sql = "DELETE FROM vehicles WHERE vehicle_id=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return false;
+    }
+    
+    // Get vehicle by ID
+    public VehicleData getVehicleById(int id) {
+        String sql = "SELECT * FROM vehicles WHERE vehicle_id = ?";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new VehicleData(
+                        rs.getInt("vehicle_id"),
+                        String.valueOf(rs.getInt("vehicletandp_id")),
+                        rs.getString("vehicle_number"),
+                        rs.getString("owner_name"),
+                        rs.getString("owner_contact"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at")
+                    );
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return null;
+    }
+
+    // Update vehicle
+    public boolean updateVehicle(VehicleData vehicle) {
+        String sql = "UPDATE vehicles SET vehicletandp_id=?, vehicle_number=?, owner_name=?, owner_contact=?, updated_at=? WHERE vehicle_id=?";
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, vehicle.getType());
+            ps.setString(2, vehicle.getVehicleNumber());
+            ps.setString(3, vehicle.getOwnerName());
+            ps.setString(4, vehicle.getOwnerContact());
+            ps.setString(5, vehicle.getUpdatedAt());
+            ps.setInt(6, vehicle.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return false;
+    }
+
+
+    }

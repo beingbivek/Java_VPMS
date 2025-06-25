@@ -16,15 +16,18 @@ public class UserData {
     private String password;
     private String phone;
     private  byte[] image;
-    public UserData(String name,String type, String email, String password, String phone, byte[] image){
+    private String status;
+    
+    public UserData(String name,String type, String email, String password, String phone, byte[] image, String status){
         this.name= name;
         this.type = type;
         this.email=email;
         this.password=password;
         this.phone = phone;
         this.image=image;
+        this.status = status;
     }
-    public UserData(int id,String name,String type,String email, String password, String phone, byte[] image){
+    public UserData(int id,String name,String type,String email, String password, String phone, byte[] image, String status){
         this.id=id;
         this.name= name;
         this.type = type;
@@ -32,51 +35,71 @@ public class UserData {
         this.password=password;
         this.phone = phone;
         this.image=image;
+        this.status = status;
     }
-    public UserData(){
-        
+
+    public int getId() {
+        return id;
     }
-    public void setId(int id){
-        this.id=id;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    public int getId(){
-        return this.id;
+
+    public String getName() {
+        return name;
     }
-    public void setName(String name){
-        this.name=name;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getName(){
-        return this.name;
+
+    public String getType() {
+        return type;
     }
-    public void setType(String type){
+
+    public void setType(String type) {
         this.type = type;
     }
-    public String getType(){
-        return this.type;
+
+    public String getEmail() {
+        return email;
     }
-    public void setEmail(String email){
-        this.email=email;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public String getEmail(){
-        return this.email;
+
+    public String getPassword() {
+        return password;
     }
-    public void setPassword(String password){
-        this.password=password;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
-    public String getPassword(){
-        return this.password;
+
+    public String getPhone() {
+        return phone;
     }
-    public void setPhone(String phone){
+
+    public void setPhone(String phone) {
         this.phone = phone;
     }
-    public String getPhone(){
-        return this.phone;
+
+    public byte[] getImage() {
+        return image;
     }
-    public void setImage(byte[] image){
-        this.image=image;
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
-    public byte[] getImage(){
-        return this.image;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

@@ -20,9 +20,16 @@ import com.google.gson.JsonParser;
  */
 public class APIKeys {
     public String getStripeKeys(){
+        return urlToKeyConverter("https://dummyjson.com/c/9f7a-d8ca-4849-b801");
+    }
+    
+    public String getMailKeys(){
+        return urlToKeyConverter("https://dummyjson.com/c/28e9-4f7e-4a32-879f");
+    }
+    
+    public String urlToKeyConverter(String Url){
         try {
-            String urlString = "https://dummyjson.com/c/9f7a-d8ca-4849-b801";
-            URL url = new URL(urlString);
+            URL url = new URL(Url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -46,7 +53,6 @@ public class APIKeys {
             e.printStackTrace();
         }
         return null;
-
     }
     
     

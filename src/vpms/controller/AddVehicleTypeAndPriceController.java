@@ -6,26 +6,34 @@ package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import vpms.dao.ActivityLogDao;
 
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
 /**
  *
  * @author PRABHASH
  */
 public class AddVehicleTypeAndPriceController {
-     private AddVehicleTypeAndPriceView view;
+    private AddVehicleTypeAndPriceView view;
     private VehicleTypeAndPriceDao dao;
     private VehicleTypeAndPriceController mainController;
+    int id;
 
-    public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController) {
+    public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController,int id) {
         this.view = view;
-        this.dao = new VehicleTypeAndPriceDao();
+        this.id = id;
+         try {
+             this.dao = new VehicleTypeAndPriceDao();
+         } catch (Exception ex) {
+             System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+         }
         this.mainController = mainController;
 
         this.view.addSubmitListener(new SubmitAction());
+        this.view.getCancelButton().addActionListener(new CancelAction());
     }
 
     public void open() {
@@ -43,13 +51,11 @@ public class AddVehicleTypeAndPriceController {
                 String extraCharge = view.getExtraCharge().trim();
                 String status = view.getStatus();
 
-                
                 if (vehicleType.isEmpty() || regularPrice.isEmpty() || status.isEmpty()) {
                     JOptionPane.showMessageDialog(view, "Vehicle type, regular price, and status are required.");
                     return;
                 }
 
-                
                 if (reservationPrice.isEmpty()) reservationPrice = "0";
                 if (demandPrice.isEmpty()) demandPrice = "0";
                 if (extraCharge.isEmpty()) extraCharge = "0";
@@ -62,13 +68,10 @@ public class AddVehicleTypeAndPriceController {
 
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
+                    ActivityLog log = new ActivityLog(id,"Vehicle Type Added");
+                    new ActivityLogDao().logActivity(log);
                     view.dispose();
-                    
-                VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-                VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                controller.open();  
-    
-    
+                    mainController.loadVehicleTypeData();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to add vehicle type.");
                 }
@@ -76,6 +79,17 @@ public class AddVehicleTypeAndPriceController {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(view, "An error occurred while adding.");
+            }
+        }
+    }
+
+    class CancelAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                view.dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }
