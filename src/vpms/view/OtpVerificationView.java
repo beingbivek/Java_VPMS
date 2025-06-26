@@ -39,18 +39,29 @@ public class OtpVerificationView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 0, 204));
         jLabel2.setText("Forgot Password");
 
         otpTextField.setText("Enter OTP");
+        otpTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                otpTextFieldActionPerformed(evt);
+            }
+        });
 
-        verifyButton.setBackground(new java.awt.Color(0, 255, 255));
+        verifyButton.setBackground(new java.awt.Color(102, 0, 204));
+        verifyButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        verifyButton.setForeground(new java.awt.Color(255, 255, 255));
         verifyButton.setText("Verify");
 
+        backToLoginLabel.setForeground(new java.awt.Color(102, 0, 204));
         backToLoginLabel.setText("<html><u>Back to Login</u></html>");
 
+        jLabel1.setForeground(new java.awt.Color(102, 0, 204));
         jLabel1.setText("OTP sent");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -119,6 +130,10 @@ public class OtpVerificationView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void otpTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otpTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_otpTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
