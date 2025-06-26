@@ -59,7 +59,7 @@ public class ActivityLogView extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(logTable);
 
-        cancelButton.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(0, 102, 102));
         cancelButton.setText("Cancel");
 
@@ -114,7 +114,7 @@ public class ActivityLogView extends javax.swing.JInternalFrame {
                     .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
