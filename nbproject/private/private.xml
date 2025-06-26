@@ -3,25 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/SlotGridController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ParkingEntryController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AddReservationController.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ReservationView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AddReservationView.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ReservationDao.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/ReservationData.java</file>
-            <file>file:/C:/Users/being/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/ReservationController.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/AdminDashboardContentView.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/controller/AdminDashboardContentController.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ActivityLogDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/UserDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ParkingDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/ActivityLog.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/view/ReportView.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/PaymentDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/VehicleDao.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/model/ReportModel.java</file>
-            <file>file:/C:/Users/chand/Documents/NetBeansProjects/Java_VPMS/src/vpms/dao/ReportDao.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/VehicleNumberCheckView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/VehicleTypeAndPriceManagementView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/EditVehiclesView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/ReportView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/SecurePaymentView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/StaffDashboardView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/UserManagementView.java</file>
         </group>
     </open-files>
 </project-private>
