@@ -94,6 +94,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
         jEmail.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jEmail.setText("Email ID");
 
+        emailTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(51, 204, 255), new java.awt.Color(51, 204, 255), new java.awt.Color(0, 204, 255), new java.awt.Color(0, 204, 255)));
         emailTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailTextFieldActionPerformed(evt);
@@ -115,9 +116,9 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
             }
         });
 
-        loginButton.setBackground(new java.awt.Color(102, 255, 153));
+        loginButton.setBackground(new java.awt.Color(22, 181, 234));
         loginButton.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
-        loginButton.setForeground(new java.awt.Color(51, 0, 153));
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login");
         loginButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(51, 255, 51), new java.awt.Color(153, 102, 255), null, null));
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +127,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
             }
         });
 
+        passwordField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 204, 255), new java.awt.Color(0, 204, 255), new java.awt.Color(0, 204, 255), new java.awt.Color(0, 204, 255)));
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
