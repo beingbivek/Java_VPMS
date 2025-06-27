@@ -79,6 +79,7 @@ public class UserManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        userTable.setBackground(new java.awt.Color(204, 255, 204));
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

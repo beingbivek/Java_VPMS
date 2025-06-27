@@ -94,6 +94,7 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
             }
         });
 
+        slotTable.setBackground(new java.awt.Color(255, 255, 204));
         slotTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
