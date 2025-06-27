@@ -42,6 +42,7 @@ public class SecurePaymentView extends javax.swing.JInternalFrame {
 
         seachTextField.setText("Search");
 
+        paymentTable.setBackground(new java.awt.Color(204, 204, 255));
         paymentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
