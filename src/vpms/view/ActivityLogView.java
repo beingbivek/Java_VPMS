@@ -59,7 +59,11 @@ public class ActivityLogView extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(logTable);
 
+<<<<<<< HEAD
         cancelButton.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+=======
+        cancelButton.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+>>>>>>> 38b6fb7f02b141fe3fcdb1bd7e793161ecedbbfa
         cancelButton.setForeground(new java.awt.Color(0, 102, 102));
         cancelButton.setText("Cancel");
 
