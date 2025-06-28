@@ -49,6 +49,7 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
         vehicleTypeTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(17, 72, 183));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Add VehicleType and VehiclePrice");

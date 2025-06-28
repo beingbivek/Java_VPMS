@@ -46,23 +46,16 @@
                   <Component id="jConfirmPassword" alignment="2" max="32767" attributes="0"/>
                   <Component id="jUploadButton" alignment="2" max="32767" attributes="0"/>
                   <Component id="jUpdateButton" alignment="2" min="-2" pref="212" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="159" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jStatusField" min="-2" pref="210" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jStatusField" min="-2" pref="210" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
