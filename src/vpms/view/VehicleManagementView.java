@@ -77,6 +77,7 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
                 "ID", "Name", "Type", "Email", "Password", "Phone", "Image", "Status"
             }
         ));
+        vehicleTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(vehicleTable);
 
         addButton.setBackground(new java.awt.Color(51, 255, 0));

@@ -30,8 +30,8 @@
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Component id="fromjTextField" min="-2" pref="212" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Component id="tojTextField" min="-2" pref="212" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               <Component id="generateReportjButton" min="-2" max="-2" attributes="0"/>
