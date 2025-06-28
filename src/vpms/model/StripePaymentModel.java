@@ -36,7 +36,7 @@ public class StripePaymentModel {
                                 .setUnitAmount(money)  // $20.00 in cents
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                        .setName("Sample Product")  // Product name
+                                        .setName("Parking Fee")  // Product name
                                         .build()
                                 )
                                 .build()

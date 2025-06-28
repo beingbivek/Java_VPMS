@@ -4,9 +4,7 @@
  */
 package vpms.view;
 
-import java.awt.Image;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -20,9 +18,6 @@ public class UserManagementView extends javax.swing.JInternalFrame {
      */
     public UserManagementView() {
         initComponents();
-            ImageIcon icon = new ImageIcon(getClass().getResource("/ImagePicker/profile1.jpg"));
-            Image img = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
-            parkingIconjLabel.setIcon(new ImageIcon(img));
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
