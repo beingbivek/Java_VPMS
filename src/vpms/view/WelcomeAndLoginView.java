@@ -86,7 +86,6 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 153, 153)));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 102, 255));
@@ -115,6 +114,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
             }
         });
 
+        rememberMeCheckBox.setBackground(new java.awt.Color(255, 255, 255));
         rememberMeCheckBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rememberMeCheckBox.setText("Remember Me");
         rememberMeCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +134,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
             }
         });
 
+        showPasswordCheckBox.setBackground(new java.awt.Color(255, 255, 255));
         showPasswordCheckBox.setText("Show");
         showPasswordCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +151,7 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -197,13 +198,12 @@ public class WelcomeAndLoginView extends javax.swing.JFrame {
                     .addComponent(forgotPasswordLabel))
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 640, 590));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 153, 153)));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/Screenshot 2025-05-25 213251.png"))); // NOI18N

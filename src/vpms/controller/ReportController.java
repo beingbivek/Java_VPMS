@@ -1,80 +1,99 @@
 package vpms.controller;
 
+import vpms.dao.ReportDao;
+import vpms.model.ReportModel;
+import vpms.utils.TableEnhancer;
+import vpms.view.ReportView;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import vpms.dao.ReportDao;
-import vpms.model.ReportModel;
-import vpms.view.ReportView;
 
 public class ReportController {
 
     private final ReportView view;
-    private final ReportDao reportDao;
+    private final ReportDao  reportDao;
+    private static final DateTimeFormatter DTF =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public ReportController(ReportView view) {
-        this.view = view;
+        this.view      = view;
         this.reportDao = new ReportDao();
+
         setTodayInTextFields();
         loadTodayReport();
-        this.view.getGenerateReport().addActionListener(e -> generateReportFromInput());
+
+        view.getGenerateReport().addActionListener(e -> generateReportFromInput());
     }
+
+    /* ---------- helpers ---------- */
 
     private void setTodayInTextFields() {
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         view.getFrom().setText(today);
-        view.getTo().setText(today);
+        view.getTo  ().setText(today);
     }
 
     private void loadTodayReport() {
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDateTime from = LocalDate.parse(today, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
-        LocalDateTime to = LocalDate.parse(today, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atTime(23, 59, 59);
-        loadReport(from, to);
+        LocalDate today = LocalDate.now();
+        loadReport(today.atStartOfDay(), today.atTime(23,59,59));
     }
 
-    public void generateReportFromInput() {
+    /* ---------- actions ---------- */
+
+    private void generateReportFromInput() {
         String fromStr = view.getFrom().getText().trim();
-        String toStr = view.getTo().getText().trim();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String toStr   = view.getTo  ().getText().trim();
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         try {
-            LocalDate fromDate = LocalDate.parse(fromStr, dateFormatter);
-            LocalDate toDate = LocalDate.parse(toStr, dateFormatter);
+            LocalDate fromDate = LocalDate.parse(fromStr, df);
+            LocalDate toDate   = LocalDate.parse(toStr,   df);
 
             if (fromDate.isAfter(toDate)) {
-                JOptionPane.showMessageDialog(view, "'From' date cannot be after 'To' date.");
+                JOptionPane.showMessageDialog(view,"'From' date cannot be after 'To' date.");
                 return;
             }
+            loadReport(fromDate.atStartOfDay(), toDate.atTime(23,59,59));
 
-            LocalDateTime from = fromDate.atStartOfDay();
-            LocalDateTime to = toDate.atTime(23, 59, 59);
-            loadReport(from, to);
-
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(view, "Invalid date format. Please use yyyy-MM-dd");
+        } catch (DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(view,"Invalid date format. Please use yyyy-MM-dd");
         }
     }
 
-    public void loadReport(LocalDateTime from, LocalDateTime to) {
-        List<ReportModel> reports = reportDao.getReportByDate(from, to);
-        DefaultTableModel model = (DefaultTableModel) view.getReportTable().getModel();
-        model.setRowCount(0);
+    /* ---------- main load ---------- */
 
-        for (ReportModel r : reports) {
-            model.addRow(new Object[]{
-                    r.getPaymentTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    r.getVehicleNumber(),
-                    r.getEntryTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-                            + " - " +
-                            r.getExitTime(),
-                    r.getTotalFee()
+    public void loadReport(LocalDateTime from, LocalDateTime to) {
+        List<ReportModel> list = reportDao.getReportByDate(from, to);
+
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int r,int c){ return false; }
+        };
+        m.setColumnIdentifiers(new String[]{
+            "Payment Time","Vehicle No.","Entry - Exit","Total Fee"
+        });
+
+        for (ReportModel r : list) {
+
+            m.addRow(new Object[]{
+                r.getPaymentTime().format(DTF),
+                r.getVehicleNumber(),
+                r.getEntryTime().format(DTF) + "  -  " + r.getExitTime(),
+                r.getTotalFee()
             });
         }
 
+        JTable tbl = view.getReportTable();
+        tbl.setModel(m);
+
+        /* beautify header, zebra rows, widths */
+        TableEnhancer.beautifyTable(tbl,new int[]{160,120,320,80});
+
+        /* grand total */
         double total = reportDao.getTotalRevenueByDate(from, to);
         view.getTotal().setText("Rs. " + total);
     }

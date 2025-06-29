@@ -2,61 +2,70 @@ package vpms.controller;
 
 import vpms.dao.ActivityLogDao;
 import vpms.model.ActivityLog;
+import vpms.utils.TableEnhancer;
 import vpms.view.ActivityLogView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ActivityLogController {
+
     private final ActivityLogView view;
-    private final ActivityLogDao dao = new ActivityLogDao();
+    private final ActivityLogDao  dao = new ActivityLogDao();
 
     public ActivityLogController(ActivityLogView view) {
         this.view = view;
-        setupTable();
-        loadAllLogs();
+
+        loadAllLogs();                                    // first fill
 
         view.getSearchTextField().addActionListener(e -> searchLogs());
-        view.getCancelButton().addActionListener(e -> loadAllLogs());
-    }
-    
-    public void open(){
-        this.view.setVisible(true);
-    }
-    
-    private void setupTable() {
-        view.getLogTable().setDefaultEditor(Object.class, null);
-        view.getLogTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        view.getCancelButton().addActionListener(e -> {
+            view.getSearchTextField().setText("");
+            loadAllLogs();
+        });
     }
 
+    public void open() { view.setVisible(true); }
+
+    /* -------- main loaders -------- */
+
     private void loadAllLogs() {
-        List<ActivityLog> logs = dao.showActivities();
-        populateTable(logs);
+        populateTable(dao.showActivities());
     }
 
     private void searchLogs() {
-        String keyword = view.getSearchTextField().getText().trim();
-        if (keyword.isEmpty()) {
-            loadAllLogs();
-            return;
-        }
-        List<ActivityLog> logs = dao.searchActivities(keyword);
-        populateTable(logs);
+        String kw = view.getSearchTextField().getText().trim();
+        if (kw.isEmpty()) { loadAllLogs(); return; }
+        populateTable(dao.searchActivities(kw));
     }
 
+    /* -------- build + beautify model -------- */
+
     private void populateTable(List<ActivityLog> logs) {
-        DefaultTableModel model = (DefaultTableModel) view.getLogTable().getModel();
-        model.setRowCount(0);
+
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int r,int c){ return false; }
+        };
+        m.setColumnIdentifiers(new String[]{
+            "Log ID","User ID","Action","Timestamp"
+        });
+
         for (ActivityLog log : logs) {
-            model.addRow(new Object[]{
+            m.addRow(new Object[]{
                 log.getLog_id(),
                 log.getUser_id(),
                 log.getAction(),
                 log.getTimestamp()
             });
         }
+
+        JTable tbl = view.getLogTable();
+        tbl.setModel(m);
+
+        /* preferred column widths (px) – tweak as you like */
+        TableEnhancer.beautifyTable(
+                tbl,
+                new int[]{60,60,320,160});
     }
 }

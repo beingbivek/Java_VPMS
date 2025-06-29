@@ -107,7 +107,7 @@ public class EditVehicleController {
             if (success) {
                 ActivityLog log = new ActivityLog(id,"VehicleData Edited, Obj: "+vehicle);
                 new ActivityLogDao().logActivity(log);
-                vmController.loadVehicleTable();
+                vmController.refreshTable();
                 JOptionPane.showMessageDialog(view, "Vehicle updated successfully!");
                 close();
             } else {

@@ -33,19 +33,15 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         searchTextField = new javax.swing.JTextField();
-        jCancelButton = new javax.swing.JButton();
-        jEditSlotButton = new javax.swing.JButton();
-        deleteSlotButto = new javax.swing.JButton();
-        jAddSlotButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         slotTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         deleteSlotButton = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        editSlotButton = new javax.swing.JLabel();
+        cancelSearchButton = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        addSlotButton = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -55,42 +51,6 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
         searchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTextFieldActionPerformed(evt);
-            }
-        });
-
-        jCancelButton.setBackground(new java.awt.Color(255, 153, 0));
-        jCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCancelButton.setText("Cancel");
-        jCancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCancelButtonActionPerformed(evt);
-            }
-        });
-
-        jEditSlotButton.setBackground(new java.awt.Color(153, 255, 153));
-        jEditSlotButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jEditSlotButton.setText("Edit Slot");
-        jEditSlotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEditSlotButtonActionPerformed(evt);
-            }
-        });
-
-        deleteSlotButto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        deleteSlotButto.setForeground(new java.awt.Color(255, 51, 51));
-        deleteSlotButto.setText("Delete");
-        deleteSlotButto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteSlotButtoActionPerformed(evt);
-            }
-        });
-
-        jAddSlotButton.setBackground(new java.awt.Color(102, 153, 255));
-        jAddSlotButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jAddSlotButton.setText("Add");
-        jAddSlotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAddSlotButtonActionPerformed(evt);
             }
         });
 
@@ -115,96 +75,61 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
 
         deleteSlotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/deletebutton icon.png"))); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/edit-button-icon.png"))); // NOI18N
+        editSlotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/edit-button-icon.png"))); // NOI18N
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
+        cancelSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/slot.jpg"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/addbutton.png"))); // NOI18N
+        addSlotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/addbutton.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(71, 71, 71)
-                                        .addComponent(jLabel3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(95, 95, 95)
-                                        .addComponent(deleteSlotButto)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCancelButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jAddSlotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jEditSlotButton))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addGap(122, 122, 122)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(12, 12, 12))
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelSearchButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addSlotButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editSlotButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteSlotButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel4)
-                        .addGap(34, 34, 34)
-                        .addComponent(deleteSlotButton)
-                        .addGap(78, 78, 78)))
-                .addGap(16, 16, 16))
+                        .addComponent(jLabel3)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
+                        .addComponent(jLabel7))
+                    .addComponent(jScrollPane2))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
+                        .addGap(50, 50, 50)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jAddSlotButton)
-                            .addComponent(jEditSlotButton)
-                            .addComponent(deleteSlotButto)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel7)))
-                .addGap(60, 60, 60)
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(deleteSlotButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(7, 7, 7))
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addSlotButton)
+                    .addComponent(editSlotButton)
+                    .addComponent(cancelSearchButton)
+                    .addComponent(deleteSlotButton))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(263, 263, 263))
+                .addContainerGap(370, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,50 +139,30 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTextFieldActionPerformed
 
-    private void jCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCancelButtonActionPerformed
-
-    private void jEditSlotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditSlotButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jEditSlotButtonActionPerformed
-
-    private void jAddSlotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddSlotButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jAddSlotButtonActionPerformed
-
-    private void deleteSlotButtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSlotButtoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteSlotButtoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteSlotButto;
+    private javax.swing.JLabel addSlotButton;
+    private javax.swing.JLabel cancelSearchButton;
     private javax.swing.JLabel deleteSlotButton;
-    private javax.swing.JButton jAddSlotButton;
-    private javax.swing.JButton jCancelButton;
-    private javax.swing.JButton jEditSlotButton;
+    private javax.swing.JLabel editSlotButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable slotTable;
     // End of variables declaration//GEN-END:variables
-    public void addAddButtonListener(ActionListener listener){
-        jAddSlotButton.addActionListener(listener);
+    public javax.swing.JLabel addAddButtonListener(){
+        return addSlotButton;
     }
-    public javax.swing.JButton addEditButtonListener(){
-        return jEditSlotButton;
+    public javax.swing.JLabel addEditButtonListener(){
+        return editSlotButton;
     }
     public javax.swing.JLabel addDeleteButtonListener(){
         return deleteSlotButton;
     }
-    public javax.swing.JButton addCancelButtonListener(){
-        return jCancelButton;
+    public javax.swing.JLabel addCancelButtonListener(){
+        return cancelSearchButton;
     }
     public javax.swing.JTextField addSearchButtonListener(){
         return searchTextField;

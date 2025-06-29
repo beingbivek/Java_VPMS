@@ -73,7 +73,7 @@ public class AddVehiclesController {
             boolean success = vehicleDao.registerVehicle(vehicle);
             if (success) {
                 JOptionPane.showMessageDialog(view, "Vehicle added successfully!");
-                parent.loadVehicleTable();
+                parent.refreshTable();
                 ActivityLog log = new ActivityLog(id,"VehicleData added, Obj: "+vehicle);
                 new ActivityLogDao().logActivity(log);
                 close();

@@ -29,6 +29,12 @@ public class StaffDashboardController {
     private SecurePaymentView pView;
     private VehicleManagementView vView;
     
+    private static final java.awt.Color DEFAULT_BG = new java.awt.Color(153,153,255); // purple
+    private static final java.awt.Color DEFAULT_FG = java.awt.Color.WHITE;
+
+    private static final java.awt.Color SELECT_BG  = new java.awt.Color(0,204,204);   // cyan-green
+    private static final java.awt.Color SELECT_FG  = java.awt.Color.WHITE;
+    
     public StaffDashboardController(StaffDashboardView view, UserData user){
         this.view = view;
         this.user = user;
@@ -70,7 +76,24 @@ public class StaffDashboardController {
         view.dispose();
     }
     
+    private void highlightSidebar(javax.swing.JButton selected){
+        javax.swing.JButton[] buttons = {
+            view.getDesktopWindowbtn(),
+            view.getPaymentWindowbtn(),
+            view.getVehicleWindowbtn(),
+            view.getUpdateProfileWindowbtn()
+        };
+        for (javax.swing.JButton b : buttons){
+            b.setOpaque(true);
+            b.setBackground(DEFAULT_BG);
+            b.setForeground(DEFAULT_FG);
+        }
+        selected.setBackground(SELECT_BG);
+        selected.setForeground(SELECT_FG);
+    }
+    
     private void showUpdateProfilePanel() {
+        highlightSidebar(view.getUpdateProfileWindowbtn());
         puView.setVisible(true);
         view.setWindowPanel(puView);
         puView.toFront();
@@ -82,6 +105,7 @@ public class StaffDashboardController {
     }
     
     private void showPaymentPanel() {
+        highlightSidebar(view.getPaymentWindowbtn());
         pView.setVisible(true);
         view.setWindowPanel(pView);
         pView.toFront();
@@ -93,6 +117,7 @@ public class StaffDashboardController {
     }
     
     private void showVehiclePanel() {
+        highlightSidebar(view.getVehicleWindowbtn()); 
         vView.setVisible(true);
         view.setWindowPanel(vView);
         vView.toFront();
@@ -104,6 +129,7 @@ public class StaffDashboardController {
     }
     
     private void showDashboard() {
+        highlightSidebar(view.getDesktopWindowbtn());
         sdcView.setVisible(true);
         view.setWindowPanel(sdcView);
         sdcView.toFront();

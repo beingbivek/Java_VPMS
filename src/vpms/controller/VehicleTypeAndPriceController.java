@@ -1,186 +1,151 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import vpms.dao.*;
+import vpms.model.*;
+import vpms.view.*;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import vpms.dao.ActivityLogDao;
-import vpms.dao.VehicleTypeAndPriceDao;
-import vpms.model.ActivityLog;
-import vpms.model.VehicleTypeAndPriceData;
-import vpms.view.AddVehicleTypeAndPriceView;
-import vpms.view.EditVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceManagementView;
+import vpms.utils.TableEnhancer;
 
-
-/**
- *
- * @author PRABHASH
- */
 public class VehicleTypeAndPriceController {
-    private VehicleTypeAndPriceManagementView view;
-    private VehicleTypeAndPriceDao dao;
-    int id;
 
-    public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view,int id) throws SQLException {
-        this.view = view;
-        this.id = id;
-        this.dao = new VehicleTypeAndPriceDao();
+    /* ---------------- fields ---------------- */
+    private final VehicleTypeAndPriceManagementView view;
+    private final VehicleTypeAndPriceDao dao = new VehicleTypeAndPriceDao();
+    private final int adminId;                       // for logging
+
+    /* --------------- ctor ------------------- */
+    public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view, int adminId) throws SQLException {
+        this.view    = view;
+        this.adminId = adminId;
 
         loadVehicleTypeData();
 
-        this.view.addAddButtonListener(new AddVehicleListener());
-        this.view.addEditButtonListener(new EditVehicleListener());
-        this.view.addDeleteButtonListener(new DeleteVehicleListener());
-        this.view.addCancelButtonListener(new CancelActionListener());
-        this.view.addSearchButtonListener(new SearchListener());
+        /* label-buttons → MouseAdapter */
+        view.addAddButtonListener()   .addMouseListener(new AddListener());
+        view.addEditButtonListener()  .addMouseListener(new EditListener());
+        view.addDeleteButtonListener().addMouseListener(new DeleteListener());
+        view.addCancelButtonListener().addMouseListener(new CancelListener());
+
+        /* search button + ENTER key in text-field */
+        view.getSearchTextField().addActionListener(new SearchListener());
     }
 
-    public void open() {
-        this.view.setVisible(true);
-    }
+    public void open() { view.setVisible(true); }
 
+    /* =============== table fill ============== */
     public void loadVehicleTypeData() {
         List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);
-        view.getTable().setDefaultEditor(Object.class, null);  // disables editing
-        view.getTable().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);  // single row selection
 
-        if (list != null) {
-            for (VehicleTypeAndPriceData data : list) {
-                Object[] row = {
-                    data.getId(),
-                    data.getVehicleType(),
-                    data.getRegularPrice(),
-                    data.getDemandPrice(),
-                    data.getReservationPrice(),
-                    data.getExtraCharge(),
-                    data.getStatus()
-                };
-                model.addRow(row);
-            }
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int r,int c){ return false; }
+        };
+        m.setColumnIdentifiers(new String[]{
+            "ID","Vehicle Type","Regular","Demand","Reservation","Extra","Status"
+        });
+        for (VehicleTypeAndPriceData d : list) {
+            m.addRow(new Object[]{
+                d.getId(), d.getVehicleType(), d.getRegularPrice(),
+                d.getDemandPrice(), d.getReservationPrice(),
+                d.getExtraCharge(), d.getStatus()
+            });
+        }
+        JTable t = view.getTable();
+        t.setModel(m);
+
+        /* ---- beautify ---- */
+        new TableEnhancer().beautifyTable(t, new int[]{50,140,80,80,90,70,80});
+    }
+
+
+    /* =============== ADD ===================== */
+    private class AddListener extends MouseAdapter {
+        @Override public void mouseClicked(MouseEvent e) {
+            AddVehicleTypeAndPriceView add = new AddVehicleTypeAndPriceView();
+            new AddVehicleTypeAndPriceController(add, VehicleTypeAndPriceController.this, adminId).open();
         }
     }
 
-    class AddVehicleListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-//            view.dispose(); // close this page
-            AddVehicleTypeAndPriceView addView = new AddVehicleTypeAndPriceView();
-            AddVehicleTypeAndPriceController controller = new AddVehicleTypeAndPriceController(addView, VehicleTypeAndPriceController.this,id);
-            controller.open(); // go to add page
-        }
-    }
-
-    class EditVehicleListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    /* =============== EDIT ==================== */
+    private class EditListener extends MouseAdapter {
+        @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(view, "Please select a record to edit.");
-                return;
-            }
+            if (row == -1) { JOptionPane.showMessageDialog(view,"Select a record."); return; }
 
-            int id = (int) view.getTable().getValueAt(row, 0);
-            String vehicleType = (String) view.getTable().getValueAt(row, 1);
-            String regularPrice = (String) view.getTable().getValueAt(row, 2);
-            String demandPrice = (String) view.getTable().getValueAt(row, 3);
-            String reservationPrice = (String) view.getTable().getValueAt(row, 4);
-            String extraCharge = (String) view.getTable().getValueAt(row, 5);
-            String status = (String) view.getTable().getValueAt(row, 6);
-
-            VehicleTypeAndPriceData selectedData = new VehicleTypeAndPriceData(
-                    id, vehicleType, reservationPrice, regularPrice, demandPrice, extraCharge, status
+            VehicleTypeAndPriceData d = new VehicleTypeAndPriceData(
+                (int)    view.getTable().getValueAt(row,0),
+                (String) view.getTable().getValueAt(row,1),
+                (String) view.getTable().getValueAt(row,4),   // reservation
+                (String) view.getTable().getValueAt(row,2),   // regular
+                (String) view.getTable().getValueAt(row,3),   // demand
+                (String) view.getTable().getValueAt(row,5),   // extra
+                (String) view.getTable().getValueAt(row,6)    // status
             );
 
-//            view.dispose(); // close this view
-            EditVehicleTypeAndPriceView editView = new EditVehicleTypeAndPriceView();
-            EditVehicleTypeAndPriceController controller;
+            EditVehicleTypeAndPriceView edit = new EditVehicleTypeAndPriceView();
             try {
-                controller = new EditVehicleTypeAndPriceController(editView, selectedData, VehicleTypeAndPriceController.this,id);
-                controller.open(); // go to edit page
+                new EditVehicleTypeAndPriceController(edit, d, VehicleTypeAndPriceController.this, adminId).open();
             } catch (SQLException ex) {
-                System.getLogger(VehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                ex.printStackTrace();
             }
-            
         }
     }
 
-    class DeleteVehicleListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    /* =============== DELETE ================== */
+    private class DeleteListener extends MouseAdapter {
+        @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(view, "Please select a record to delete.");
-                return;
-            }
+            if (row == -1) { JOptionPane.showMessageDialog(view,"Select a record."); return; }
 
-            int confirm = JOptionPane.showConfirmDialog(view, "Are you sure you want to delete this record?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-            if (confirm != JOptionPane.YES_OPTION) return;
+            int delId = (int) view.getTable().getValueAt(row,0);
+            if (JOptionPane.showConfirmDialog(view,"Delete id "+delId+"?","Confirm",
+                    JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
 
-            int delete_id = (int) view.getTable().getValueAt(row, 0);
-            boolean success = dao.deleteVehicleTypeAndPrice(delete_id);
-
-            if (success) {
-                JOptionPane.showMessageDialog(view, "Record deleted successfully.");
-                ActivityLog log = new ActivityLog(id,"Vehicle Type Deleted, id: "+delete_id);
-                new ActivityLogDao().logActivity(log);
+            if (dao.deleteVehicleTypeAndPrice(delId)) {
+                JOptionPane.showMessageDialog(view,"Deleted.");
+                new ActivityLogDao().logActivity(new ActivityLog(
+                        adminId,"VehicleType deleted, id:"+delId));
                 loadVehicleTypeData();
             } else {
-                JOptionPane.showMessageDialog(view, "Failed to delete record.");
+                JOptionPane.showMessageDialog(view,"Delete failed.");
             }
         }
     }
 
-    class CancelActionListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    /* =============== CANCEL (reset) ========== */
+    private class CancelListener extends MouseAdapter {
+        @Override public void mouseClicked(MouseEvent e) {
             view.setSearchTextFieldValue("");
             loadVehicleTypeData();
         }
     }
-    class SearchListener implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String keyword = view.getSearchTextFieldValue().trim().toLowerCase();
 
-        if (keyword.isEmpty() || keyword.equals("search")) {
-            loadVehicleTypeData();
-            return;
-        }
+    /* =============== SEARCH ================== */
+    private class SearchListener implements ActionListener {
+        @Override public void actionPerformed(ActionEvent e) {
+            String kw = view.getSearchTextFieldValue().trim().toLowerCase();
+            if (kw.isEmpty() || kw.equals("search")) { loadVehicleTypeData(); return; }
 
-        List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        model.setRowCount(0);
+            List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
+            DefaultTableModel m = (DefaultTableModel) view.getTable().getModel();
+            m.setRowCount(0);
 
-        for (VehicleTypeAndPriceData data : list) {
-            String idStr = String.valueOf(data.getId());
+            for (VehicleTypeAndPriceData d : list) {
+                if ( String.valueOf(d.getId()).contains(kw) ||
+                     d.getVehicleType().toLowerCase().contains(kw) ||
+                     d.getStatus()     .toLowerCase().contains(kw)) {
 
-            if (idStr.contains(keyword) ||
-                data.getVehicleType().toLowerCase().contains(keyword) ||
-                data.getStatus().toLowerCase().contains(keyword)) {
-
-                Object[] row = {
-                    data.getId(),
-                    data.getVehicleType(),
-                    data.getRegularPrice(),
-                    data.getDemandPrice(),
-                    data.getReservationPrice(),
-                    data.getExtraCharge(),
-                    data.getStatus()
-                };
-                model.addRow(row);
+                    m.addRow(new Object[]{
+                        d.getId(), d.getVehicleType(), d.getRegularPrice(),
+                        d.getDemandPrice(), d.getReservationPrice(),
+                        d.getExtraCharge(), d.getStatus()
+                    });
+                }
             }
         }
     }
 }
-}
-    
-

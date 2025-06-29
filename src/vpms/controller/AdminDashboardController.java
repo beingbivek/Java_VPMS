@@ -3,7 +3,9 @@ package vpms.controller;
 
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
@@ -28,6 +30,12 @@ public class AdminDashboardController {
     private ReportView rView;
     private ActivityLogView alView;
     UserData user;
+    
+    private static final Color DEFAULT_BG = new Color(153,153,255);  // purple buttons
+    private static final Color DEFAULT_FG = Color.white;
+
+    private static final Color SELECT_BG  = new Color(  0,255,153);  // green highlight
+    private static final Color SELECT_FG  = new Color(  0, 51,153);  // dark-blue text
 
     public AdminDashboardController(AdminDashboardView view,UserData user) {
         this.view = view;
@@ -72,8 +80,31 @@ public class AdminDashboardController {
         view.getReportWindowbtn().addActionListener(e -> showReportPanel());
         view.getLogoutBtn().addActionListener(e -> logout());
     }
+    
+    private void highlightSidebar(JButton selected) {
+
+        JButton[] buttons = {
+                view.getAdminDashboardWindowbtn(),
+                view.getUserWindowbtn(),
+                view.getVehicleWindowbtn(),
+                view.getSlotWindowbtn(),
+                view.getVehicleTypeandPriceWindowbtn(),
+                view.getPaymentWindowbtn(),
+                view.getReportWindowbtn(),
+                view.getLogWindowbtn()
+        };
+
+        for (JButton b : buttons) {                // reset every button
+            b.setOpaque(true);                     // ensure bg is painted
+            b.setBackground(DEFAULT_BG);
+            b.setForeground(DEFAULT_FG);
+        }
+        selected.setBackground(SELECT_BG);         // highlight chosen one
+        selected.setForeground(SELECT_FG);
+    }
 
     private void showUsersPanel() {
+        highlightSidebar(view.getUserWindowbtn());
         smView.setVisible(true);
         view.setWindowPanel(smView);
         smView.toFront();
@@ -85,6 +116,7 @@ public class AdminDashboardController {
     }
     
     private void showPaymentPanel() {
+        highlightSidebar(view.getPaymentWindowbtn());
         spView.setVisible(true);
         view.setWindowPanel(spView);
         spView.toFront();
@@ -96,6 +128,7 @@ public class AdminDashboardController {
     }
     
     private void showReportPanel() {
+        highlightSidebar(view.getReportWindowbtn());
         rView.setVisible(true);
         view.setWindowPanel(rView);
         rView.toFront();
@@ -107,6 +140,7 @@ public class AdminDashboardController {
     }
     
     private void showLogPanel() {
+        highlightSidebar(view.getLogWindowbtn());
         alView.setVisible(true);
         view.setWindowPanel(alView);
         alView.toFront();
@@ -118,6 +152,7 @@ public class AdminDashboardController {
     }
 
     private void showDashboard() {
+        highlightSidebar(view.getAdminDashboardWindowbtn());
         adcView.setVisible(true);
         view.setWindowPanel(adcView);
         adcView.toFront();
@@ -129,6 +164,7 @@ public class AdminDashboardController {
     }
     
     private void showSlotsPanel() {
+        highlightSidebar(view.getSlotWindowbtn());
         sView.setVisible(true);
         view.setWindowPanel(sView);
         sView.toFront();
@@ -140,6 +176,7 @@ public class AdminDashboardController {
     }
     
     private void showVehicleTandPPanel() {
+        highlightSidebar(view.getVehicleTypeandPriceWindowbtn());
         vtpView.setVisible(true);
         view.setWindowPanel(vtpView);
         vtpView.toFront();
@@ -151,6 +188,7 @@ public class AdminDashboardController {
     }
     
     private void showVehiclePanel() {
+        highlightSidebar(view.getVehicleWindowbtn());
         vView.setVisible(true);
         view.setWindowPanel(vView);
         vView.toFront();

@@ -32,40 +32,24 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         searchField = new javax.swing.JTextField();
-        editButton = new javax.swing.JButton();
-        deleteUserButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         vehicleTable = new javax.swing.JTable();
-        addButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         parkingHistoryTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         selectedVehicleParkingHistoryLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         viewNameLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        deleteVehicleButton = new javax.swing.JLabel();
+        editVehicleButton = new javax.swing.JLabel();
+        addVehicleButton = new javax.swing.JLabel();
+        cancelSearchButton = new javax.swing.JLabel();
 
         searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
-        searchField.setText("Search                                        ");
+        searchField.setText("Search");
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
-            }
-        });
-
-        editButton.setBackground(new java.awt.Color(255, 255, 153));
-        editButton.setText("Edit Vehicle");
-
-        deleteUserButton.setBackground(new java.awt.Color(255, 51, 51));
-        deleteUserButton.setForeground(new java.awt.Color(255, 255, 255));
-        deleteUserButton.setText("Delete");
-        deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteUserButtonActionPerformed(evt);
             }
         });
 
@@ -78,23 +62,6 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(vehicleTable);
-
-        addButton.setBackground(new java.awt.Color(51, 255, 0));
-        addButton.setText("Add Vehicle");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
-            }
-        });
-
-        cancelButton.setBackground(new java.awt.Color(255, 102, 51));
-        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
 
         parkingHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,23 +81,23 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
 
         selectedVehicleParkingHistoryLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         selectedVehicleParkingHistoryLabel.setForeground(new java.awt.Color(255, 255, 255));
-        selectedVehicleParkingHistoryLabel.setText("Selected Vehicle Parking History");
+        selectedVehicleParkingHistoryLabel.setText("Select a Vehicle to show it's Parking History");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(350, 350, 350)
+                .addContainerGap()
                 .addComponent(selectedVehicleParkingHistoryLabel)
-                .addContainerGap(528, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addComponent(selectedVehicleParkingHistoryLabel)
-                .addGap(27, 27, 27))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
@@ -144,7 +111,7 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(399, 399, 399)
+                .addContainerGap()
                 .addComponent(viewNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -156,13 +123,13 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/deletebutton icon.png"))); // NOI18N
+        deleteVehicleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/deletebutton icon.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/edit-button-icon.png"))); // NOI18N
+        editVehicleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/edit-button-icon.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/addbutton.png"))); // NOI18N
+        addVehicleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/addbutton.png"))); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
+        cancelSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,57 +142,38 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cancelSearchButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addVehicleButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addGap(80, 80, 80)
-                                .addComponent(jLabel2)
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel1)
+                                .addComponent(editVehicleButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteVehicleButton)
                                 .addGap(18, 18, 18))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(228, 228, 228)
-                                .addComponent(cancelButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(editButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(deleteUserButton)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteUserButton)
-                            .addComponent(editButton)
-                            .addComponent(addButton))
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancelSearchButton))
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                            .addComponent(editVehicleButton)
+                            .addComponent(deleteVehicleButton)
+                            .addComponent(addVehicleButton))
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -242,28 +190,12 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
-    private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteUserButtonActionPerformed
-
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addButtonActionPerformed
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JButton deleteUserButton;
-    private javax.swing.JButton editButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel addVehicleButton;
+    private javax.swing.JLabel cancelSearchButton;
+    private javax.swing.JLabel deleteVehicleButton;
+    private javax.swing.JLabel editVehicleButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -275,11 +207,12 @@ public class VehicleManagementView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel viewNameLabel;
     // End of variables declaration//GEN-END:variables
     public javax.swing.JTable getVehicleTable() { return vehicleTable; }
-    public javax.swing.JButton getAddButton() { return addButton; }
-    public javax.swing.JButton getEditButton() { return editButton; }
-    public javax.swing.JButton getDeleteUserButton() { return deleteUserButton; }
-    public javax.swing.JButton getCancelButton() { return cancelButton; }
+    public javax.swing.JLabel getAddButton() { return addVehicleButton; }
+    public javax.swing.JLabel getEditButton() { return editVehicleButton; }
+    public javax.swing.JLabel getDeleteUserButton() { return deleteVehicleButton; }
+    public javax.swing.JLabel getCancelButton() { return cancelSearchButton; }
     public javax.swing.JTextField getSearchField() { return searchField; }
     public javax.swing.JTable getVehicleParkingHistoryTable() { return parkingHistoryTable; }
     public javax.swing.JLabel getSelectedVehicleLabel() {return selectedVehicleParkingHistoryLabel;}
+    public javax.swing.JScrollPane getVehicleParkingHistoryScroll() {return jScrollPane2;}
 }

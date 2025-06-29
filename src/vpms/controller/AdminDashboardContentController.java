@@ -1,93 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vpms.controller;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import vpms.dao.ActivityLogDao;
-import vpms.dao.ParkingDao;
-import vpms.dao.PaymentDao;
-import vpms.dao.SlotInstanceDao;
-import vpms.dao.UserDao;
-import vpms.model.ActivityLog;
-import vpms.model.UserData;
+import vpms.dao.*;
+import vpms.model.*;
+import vpms.utils.TableEnhancer;                
 import vpms.view.AdminDashboardContentView;
 
-/**
- *
- * @author being
- */
 public class AdminDashboardContentController {
+
+    /* ---------- fields ---------- */
     private final AdminDashboardContentView view;
-    UserDao uDao;
-    SlotInstanceDao sDao;
-    ParkingDao pDao;
-    PaymentDao paDao;
-    ActivityLogDao aDao;
-    
-    
+    private final UserDao         uDao = new UserDao();
+    private final SlotInstanceDao sDao = new SlotInstanceDao();
+    private final ParkingDao      pDao = new ParkingDao();
+    private final PaymentDao      paDao= new PaymentDao();
+    private final ActivityLogDao  aDao = new ActivityLogDao();
+
     public AdminDashboardContentController(AdminDashboardContentView view){
         this.view = view;
-        this.uDao = new UserDao();
-       
-        this.sDao = new SlotInstanceDao();
-        this.pDao = new ParkingDao();
-        this.pDao = new ParkingDao();
-        this.paDao = new PaymentDao();
-        this.aDao = new ActivityLogDao();
-        
         insertDashboardData();
         loadRecentActivities();
         loadStaffTable();
     }
-   
-    public void open(){
-        this.view.setVisible(true);
-        insertDashboardData();
-        loadRecentActivities();
-        loadStaffTable();
-    }
-    public void close(){
-        this.view.dispose();
-    }
-    
-    public void insertDashboardData(){
-        this.view.settotalActiveStffsLabel(String.valueOf(uDao.getActiveStaffCount()));
-        this.view.setcurrentlyOccupiedSpacejLabel(String.valueOf(sDao.getTotalSlotCount()-sDao.getAvailableSlotCount())+"/"+String.valueOf(sDao.getTotalSlotCount()));
-        this.view.setvehicleEnteredTodayjLabel(String.valueOf(pDao.getTotalVehicleEntryCount()));
-        this.view.vehicleExitedTodayjLabel(String.valueOf(pDao.getExitedVehicleCount()));
-        this.view.totalEarningsTodayjLabel(String.valueOf(paDao.getTotalRevenue()));
-        
-     
-    }
-    
-    private void loadRecentActivities() {
-        DefaultTableModel m = (DefaultTableModel) view.getActivityTable().getModel();
-        m.setRowCount(0);
 
-        for (ActivityLog l : aDao.fetchLast(30)) {      
+    public void open(){ view.setVisible(true); }
+    public void close(){ view.dispose();       }
+
+    /* ---------- dashboard counters ---------- */
+    public void insertDashboardData(){
+        view.settotalActiveStffsLabel( String.valueOf(uDao.getActiveStaffCount()));
+        view.setcurrentlyOccupiedSpacejLabel(
+            (sDao.getTotalSlotCount()-sDao.getAvailableSlotCount()) + "/" +
+             sDao.getTotalSlotCount());
+        view.setvehicleEnteredTodayjLabel( String.valueOf(pDao.getTotalVehicleEntryCount()));
+        view.vehicleExitedTodayjLabel    ( String.valueOf(pDao.getExitedVehicleCount()));
+        view.totalEarningsTodayjLabel    ( String.valueOf(paDao.getTotalRevenue()));
+    }
+
+    /* =============================================================== *
+     *  ACTIVITY TABLE                                                 *
+     * =============================================================== */
+    private void loadRecentActivities() {
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int r,int c){ return false; }
+        };
+        m.setColumnIdentifiers(new String[]{ "Timestamp","Action","User ID" });
+
+        for (ActivityLog l : aDao.fetchLast(30)) {
             m.addRow(new Object[]{
-                    l.getTimestamp(),                        
-                    l.getAction(),                      
-                    l.getUser_id() 
+                l.getTimestamp(), l.getAction(), l.getUser_id()
             });
         }
+        JTable tbl = view.getActivityTable();
+        tbl.setModel(m);
+
+        /* nice header / zebra / widths */
+        TableEnhancer.beautifyTable(tbl, new int[]{160,420,70});
     }
+
+    /* =============================================================== *
+     *  STAFF TABLE                                                    *
+     * =============================================================== */
     private void loadStaffTable() {
-        DefaultTableModel m = (DefaultTableModel) view.getStaffTable().getModel();
-        m.setRowCount(0);
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int r,int c){ return false; }
+        };
+        m.setColumnIdentifiers(new String[]{ "Name","Staff ID","Status" });
 
         for (UserData u : uDao.showUsers()) {
             if (!"Staff".equalsIgnoreCase(u.getType())) continue;
             m.addRow(new Object[]{ u.getName(), u.getId(), u.getStatus() });
         }
-    }
+        JTable tbl = view.getStaffTable();
+        tbl.setModel(m);
 
+        TableEnhancer.beautifyTable(tbl, new int[]{180,70,80});
     }
-
-    
-    
-  
-    
-  
+}
