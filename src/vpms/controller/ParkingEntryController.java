@@ -16,6 +16,7 @@ import vpms.model.VehicleData;
 import vpms.utils.DateAndTimeMethods;
 import vpms.utils.SlotButton;
 import vpms.view.ParkingEntryView;
+import vpms.view.ParkingTicketView;
 
 /**
  *
@@ -87,10 +88,28 @@ public class ParkingEntryController {
             try{
                 boolean success = parkingDao.registerParkingUser(parkingDetail);
                 if(success){
-                    SlotButton btn = new SlotButton(bay);
-                    changeStatus(bay,btn,"occupied","Vehicle parked successfully in slot: " + bay.getCode());
-                    s.setParkingStatus();
-                    close();
+                    int newId = parkingDao.getActiveParkingDetailsBySlotInstanceId(bay.getInstanceId()).getParkingId();
+                    if (newId > 0) {
+                        /* update slot status */
+                        SlotButton btn = new SlotButton(bay);
+                        changeStatus(bay, btn, "occupied",
+                                     "Vehicle parked in slot: " + bay.getCode());
+                        s.setParkingStatus();
+
+                        /* open ticket window */
+                        ParkingTicketView ticket = new ParkingTicketView();
+                        new ParkingTicketController(ticket,
+                                                    newId,
+                                                    bay.getCode(),
+                                                    entrydateTimeString)
+                                .open();
+
+                        close();
+                    } else {
+                        javax.swing.JOptionPane.showMessageDialog(view,
+                                "Failed to park vehicle.", "Error",
+                                javax.swing.JOptionPane.ERROR_MESSAGE);
+                    }
               } else{
                   JOptionPane.showMessageDialog(view,"Failed to park vehicle.","Error",JOptionPane.ERROR_MESSAGE);
               }
