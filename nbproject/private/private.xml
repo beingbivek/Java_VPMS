@@ -24,6 +24,23 @@
             <file>file:/C:/Project/Java_VPMS/src/vpms/utils/Constants.java</file>
             <file>file:/C:/Project/Java_VPMS/src/vpms/view/AddVehiclesView.java</file>
             <file>file:/C:/Project/Java_VPMS/src/vpms/view/Screenshot%202025-06-27%20004342.png</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/AdminDashboardContentView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/AdminDashboardView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/EditSlotView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/EditUserView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/Screenshot%202025-06-28%20212140.png</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/EditVehicleTypeAndPriceView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/Screenshot%202025-06-28%20212915.png</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/Screenshot%202025-06-28%20213744.png</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/OtpVerificationView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/VehicleManagementView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/ParkingEntryView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/ParkingExitView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/ProfileUpdateView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/ResetStaffPasswordView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/SlotManagementView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/StaffDashboardContentView.java</file>
+            <file>file:/C:/Project/Java_VPMS/src/vpms/view/WelcomeAndLoginView.java</file>
         </group>
     </open-files>
 </project-private>
