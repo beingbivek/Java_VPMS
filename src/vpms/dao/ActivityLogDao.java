@@ -24,7 +24,6 @@ public class ActivityLogDao {
     public boolean logActivity(ActivityLog log) {
         Connection conn = mySql.openConnection();
 
-        // Insert log entry
         String query = "INSERT INTO activity_log (user_id, action) VALUES (?, ?)";
 
         try {
@@ -47,7 +46,7 @@ public class ActivityLogDao {
     public List<ActivityLog> showActivities(){
         List<ActivityLog> logList= new ArrayList<>();
         Connection conn = mySql.openConnection();
-        String sql = "SELECT * FROM activity_log";
+        String sql = "SELECT * FROM activity_log ORDER BY log_id DESC";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet result = pstmt.executeQuery();
             while (result.next()) {
@@ -73,7 +72,7 @@ public class ActivityLogDao {
    public List<ActivityLog> fetchLast(int number){
         List<ActivityLog> logList= new ArrayList<>();
         Connection conn = mySql.openConnection();
-        String sql = "SELECT * FROM activity_log LIMIT ?";
+        String sql = "SELECT * FROM activity_log ORDER BY log_id DESC LIMIT ?";
         
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, number);
@@ -104,7 +103,7 @@ public class ActivityLogDao {
                 "CAST(log_id AS CHAR) LIKE ? OR " +
                 "CAST(user_id AS CHAR) LIKE ? OR " +
                 "action LIKE ? OR " +
-                "DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i:%s') LIKE ?";
+                "DATE_FORMAT(timestamp, '%Y-%m-%d %H:%i:%s') LIKE ? ORDER BY log_id DESC";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             String like = "%" + keyword + "%";
             for (int i = 1; i <= 4; i++) pstmt.setString(i, like);
