@@ -93,7 +93,7 @@ public final class CreateAllTables {
                 slot_index INT NOT NULL,
                 code VARCHAR(15) UNIQUE,
                 status VARCHAR(10) DEFAULT 'free',
-                FOREIGN KEY (slot_id) REFERENCES slots(slot_id)
+                FOREIGN KEY (slot_id) REFERENCES slots(slot_id) ON DELETE CASCADE
             )
         """;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
