@@ -28,18 +28,8 @@ public class VehicleParkingManagementSystem {
         public void run() {
             WelcomeAndLoginView view = new WelcomeAndLoginView();
             new WelcomeAndLoginController(view).open();
-            // For dashbaord
-//            AdminDashboardView view = new AdminDashboardView();
-//            new AdminDashboardController(view).open();
-//              StripePaymentView view = new StripePaymentView();
-//              StripePaymentModel model = new StripePaymentModel();
-//            new StripePaymentController(view,model).open();
         }
     });
-//        DefaultAdminSeeder.insertDefaultAdminIfNotExists();
-//        AdminLoginView view = new AdminLoginView();
-//        AdminLoginController controller = new AdminLoginController(view);
-//        controller.open();
     }
     
 

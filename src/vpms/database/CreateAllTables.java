@@ -93,7 +93,7 @@ public final class CreateAllTables {
                 slot_index INT NOT NULL,
                 code VARCHAR(15) UNIQUE,
                 status VARCHAR(10) DEFAULT 'free',
-                FOREIGN KEY (slot_id) REFERENCES slots(slot_id)
+                FOREIGN KEY (slot_id) REFERENCES slots(slot_id) ON DELETE CASCADE
             )
         """;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -131,7 +131,6 @@ public final class CreateAllTables {
             CREATE TABLE IF NOT EXISTS activity_log (
                 log_id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT,
-                user_type VARCHAR(20),
                 action VARCHAR(255),
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES vpmsUsers(id)

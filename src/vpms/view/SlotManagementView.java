@@ -33,59 +33,28 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         searchTextField = new javax.swing.JTextField();
-        jCancelButton = new javax.swing.JButton();
-        jEditSlotButton = new javax.swing.JButton();
-        deleteSlotButton = new javax.swing.JButton();
-        jAddSlotButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         slotTable = new javax.swing.JTable();
-        searchButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        deleteSlotButton = new javax.swing.JLabel();
+        editSlotButton = new javax.swing.JLabel();
+        cancelSearchButton = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        addSlotButton = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 204, 204));
 
         searchTextField.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        searchTextField.setText("Search                                        ");
+        searchTextField.setText("Search");
+        searchTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 51, 255), null, null, new java.awt.Color(0, 102, 102)));
         searchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTextFieldActionPerformed(evt);
             }
         });
 
-        jCancelButton.setBackground(new java.awt.Color(255, 153, 0));
-        jCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCancelButton.setText("Cancel");
-        jCancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCancelButtonActionPerformed(evt);
-            }
-        });
-
-        jEditSlotButton.setBackground(new java.awt.Color(153, 255, 153));
-        jEditSlotButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jEditSlotButton.setText("Edit Slot");
-        jEditSlotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEditSlotButtonActionPerformed(evt);
-            }
-        });
-
-        deleteSlotButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        deleteSlotButton.setForeground(new java.awt.Color(255, 51, 51));
-        deleteSlotButton.setText("Delete");
-        deleteSlotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteSlotButtonActionPerformed(evt);
-            }
-        });
-
-        jAddSlotButton.setBackground(new java.awt.Color(102, 153, 255));
-        jAddSlotButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jAddSlotButton.setText("Add");
-        jAddSlotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAddSlotButtonActionPerformed(evt);
-            }
-        });
-
+        slotTable.setBackground(new java.awt.Color(255, 255, 204));
         slotTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -99,17 +68,20 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(slotTable);
 
-        searchButton.setBackground(new java.awt.Color(204, 204, 255));
-        searchButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        searchButton.setText("Search");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Slot Management");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/Screenshot 2025-06-25 091631.png"))); // NOI18N
+
+        deleteSlotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/deletebutton icon.png"))); // NOI18N
+
+        editSlotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/edit-button-icon.png"))); // NOI18N
+
+        cancelSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/slot.jpg"))); // NOI18N
+
+        addSlotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/addbutton.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,40 +89,47 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCancelButton)
-                        .addGap(18, 164, Short.MAX_VALUE)
-                        .addComponent(jEditSlotButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jAddSlotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelSearchButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addSlotButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editSlotButton)
+                        .addGap(18, 18, 18)
                         .addComponent(deleteSlotButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
+                        .addComponent(jLabel7))
                     .addComponent(jScrollPane2))
-                .addGap(25, 25, 25))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jEditSlotButton)
-                    .addComponent(jAddSlotButton)
-                    .addComponent(deleteSlotButton)
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addSlotButton)
+                    .addComponent(editSlotButton)
+                    .addComponent(cancelSearchButton)
+                    .addComponent(deleteSlotButton))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(370, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,52 +139,33 @@ public class SlotManagementView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTextFieldActionPerformed
 
-    private void jCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCancelButtonActionPerformed
-
-    private void jEditSlotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditSlotButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jEditSlotButtonActionPerformed
-
-    private void deleteSlotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSlotButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteSlotButtonActionPerformed
-
-    private void jAddSlotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddSlotButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jAddSlotButtonActionPerformed
-
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteSlotButton;
-    private javax.swing.JButton jAddSlotButton;
-    private javax.swing.JButton jCancelButton;
-    private javax.swing.JButton jEditSlotButton;
+    private javax.swing.JLabel addSlotButton;
+    private javax.swing.JLabel cancelSearchButton;
+    private javax.swing.JLabel deleteSlotButton;
+    private javax.swing.JLabel editSlotButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JTable slotTable;
     // End of variables declaration//GEN-END:variables
-    public javax.swing.JButton addAddButtonListener(ActionListener listener){
-        return jAddSlotButton;
+    public javax.swing.JLabel addAddButtonListener(){
+        return addSlotButton;
     }
-    public javax.swing.JButton addEditButtonListener(ActionListener listener){
-        return jEditSlotButton;
+    public javax.swing.JLabel addEditButtonListener(){
+        return editSlotButton;
     }
-    public javax.swing.JButton addDeleteButtonListener(ActionListener listener){
+    public javax.swing.JLabel addDeleteButtonListener(){
         return deleteSlotButton;
     }
-    public javax.swing.JButton addCancelButtonListener(ActionListener listener){
-        return jCancelButton;
+    public javax.swing.JLabel addCancelButtonListener(){
+        return cancelSearchButton;
     }
-    public javax.swing.JButton addSearchButtonListener(ActionListener listener){
-        return searchButton;
+    public javax.swing.JTextField addSearchButtonListener(){
+        return searchTextField;
     }
     public javax.swing.JTable getSlotTable(){
         return slotTable;

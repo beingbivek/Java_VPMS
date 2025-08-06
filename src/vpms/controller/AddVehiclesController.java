@@ -1,91 +1,85 @@
-/*
- *  AddVehiclesController.java – revised so the row records
- *  WHO added the vehicle (userId comes from the logged-in user).
- */
 package vpms.controller;
 
 import vpms.dao.VehicleDao;
+import vpms.dao.VehicleTypeAndPriceDao;
 import vpms.model.VehicleData;
-import vpms.model.UserData;
 import vpms.view.AddVehiclesView;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 public class AddVehiclesController {
-
-    /* ---------- fields ---------- */
     private final AddVehiclesView view;
-    private final UserData        user;          // logged-in user (passed by caller)
-    private final VehicleDao      dao;
+    private final VehicleDao vehicleDao = new VehicleDao();
+    private final VehicleTypeAndPriceDao vtDao = new VehicleTypeAndPriceDao();
+    private final VehicleManagementController parent;
+    int id;
 
-    /* ---------- ctor ---------- */
-    public AddVehiclesController(AddVehiclesView view, UserData user) {
-        this.dao = new VehicleDao();
+    public AddVehiclesController(AddVehiclesView view,int id,VehicleManagementController parent) {
         this.view = view;
-        this.user = user;
-        // If the Save button is in the form, register here, e.g.
-        this.view.addSaveButtonListener().addActionListener(e -> handleSaveVehicle());
+        this.parent = parent;
+        fillVehicleTypeComboBox();
+        this.id = id;
+        view.getBtnSaveVehicle().addActionListener(new SaveListener());
+    }
+    
+    public void open(){
+        this.view.setVisible(true);
+    }
+    
+    public void close(){
+        this.view.dispose();
     }
 
-    public void open()  { view.setVisible(true); }
-    public void close() { view.dispose();        }
-
-    /* ========================================================= *
-     *  P U B L I C   A P I                                      *
-     * ========================================================= */
-    public boolean addVehicle(String type, String vehicleNumber,
-                              String ownerName, String ownerContact,
-                              String createdAt, String updatedAt) throws Exception {
-
-        VehicleData data = new VehicleData(
-                type, vehicleNumber, ownerName, ownerContact,
-                createdAt, updatedAt);  
-        return dao.registerVehicle(data);
+    private void fillVehicleTypeComboBox() {
+        List<String> types = vtDao.getAllVehicleTypeNames();
+        JComboBox<String> combo = view.getVehicleTypeCombobox();
+        combo.removeAllItems();
+        for (String type : types) {
+            combo.addItem(type);
+        }
     }
 
-    /* ========================================================= *
-     *  U I   S A V E   H A N D L E R                            *
-     * ========================================================= */
-    public void handleSaveVehicle() {
+    class SaveListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String vehicleTypeName = (String) view.getVehicleTypeCombobox().getSelectedItem();
+            int vehicletandpId = vtDao.getIdByVehicleType(vehicleTypeName);
 
-        try {
-            /* ---------- read & trim form fields ---------- */
-            String type          = view.getTxtType()         .getText().trim();
             String vehicleNumber = view.getTxtVehicleNumber().getText().trim();
-            String ownerName     = view.getTxtOwnerName()    .getText().trim();
-            String ownerContact  = view.getTxtOwnerContact() .getText().trim();
+            String ownerName = view.getTxtOwnerName().getText().trim();
+            String ownerContact = view.getTxtOwnerContact().getText().trim();
 
-            /* ---------- validate ---------- */
-            if (!vehicleNumber.matches("^[A-Za-z0-9 -]{6,20}$")) {
-                JOptionPane.showMessageDialog(view,
-                        "Vehicle number must be 6–20 characters."); return;
+            // You may want to validate input here
+
+            // Set createdAt and updatedAt
+            String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            VehicleData vehicle = new VehicleData(
+                vehicletandpId + "", // VehicleData expects String for type
+                vehicleNumber,
+                ownerName,
+                ownerContact,
+                now,
+                now
+            );
+
+            boolean success = vehicleDao.registerVehicle(vehicle);
+            if (success) {
+                JOptionPane.showMessageDialog(view, "Vehicle added successfully!");
+                parent.refreshTable();
+                ActivityLog log = new ActivityLog(id,"VehicleData added, Obj: "+vehicle);
+                new ActivityLogDao().logActivity(log);
+                close();
+            } else {
+                JOptionPane.showMessageDialog(view, "Failed to add vehicle.");
             }
-            if (!ownerContact.matches("\\d{10}")) {
-                JOptionPane.showMessageDialog(view,
-                        "Contact must be a 10-digit number."); return;
-            }
-
-            /* ---------- timestamps ---------- */
-            String ts = LocalDateTime.now()
-                                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-            /* ---------- persist ---------- */
-            VehicleData data = new VehicleData(
-                    type, vehicleNumber, ownerName, ownerContact,
-                    ts, ts);                // userId included
-
-            boolean ok = dao.registerVehicle(data);
-
-            JOptionPane.showMessageDialog(view,
-                    ok ? "Vehicle added successfully!"
-                       : "Failed to add vehicle.");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(view,
-                    "Error: " + ex.getMessage());
         }
     }
 }

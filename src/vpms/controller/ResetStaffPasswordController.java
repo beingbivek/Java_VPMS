@@ -32,6 +32,14 @@ public class ResetStaffPasswordController {
         this.view.setVisible(true);
         this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.view.setResizable(false);
+        view.getEmailTextField().addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (view.getEmailTextField().getText().equalsIgnoreCase("email")) {
+                    view.getEmailTextField().setText("");
+                }
+            }
+        });
     }
     public void close(){
         this.view.dispose();

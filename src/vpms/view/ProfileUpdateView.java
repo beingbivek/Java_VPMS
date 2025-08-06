@@ -5,6 +5,7 @@
 package vpms.view;
 
 import java.awt.event.ActionListener;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -17,6 +18,9 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
      */
     public ProfileUpdateView() {
         initComponents();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
     }
 
     /**
@@ -63,12 +67,12 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel3.setText("Email");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(570, 280, 29, 21);
+        jLabel3.setBounds(560, 280, 40, 21);
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
         jLabel7.setText("Phone");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(50, 330, 35, 21);
+        jLabel7.setBounds(50, 330, 40, 21);
 
         jEmailIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +109,7 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
         jLabel6.setBounds(500, 380, 104, 26);
 
         jUploadButton.setBackground(new java.awt.Color(153, 102, 255));
+        jUploadButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jUploadButton.setForeground(new java.awt.Color(255, 255, 255));
         jUploadButton.setText("Upload");
         jUploadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,7 @@ public class ProfileUpdateView extends javax.swing.JInternalFrame {
         jUploadButton.setBounds(110, 200, 100, 23);
 
         jUpdateButton.setBackground(new java.awt.Color(0, 255, 0));
+        jUpdateButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jUpdateButton.setForeground(new java.awt.Color(153, 0, 255));
         jUpdateButton.setText("Save");
         jUpdateButton.addActionListener(new java.awt.event.ActionListener() {

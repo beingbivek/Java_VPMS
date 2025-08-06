@@ -7,9 +7,11 @@ package vpms.controller;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import vpms.dao.ActivityLogDao;
 import vpms.dao.SlotDao;
 import vpms.dao.SlotInstanceDao;
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.SlotData;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddSlotView;
@@ -24,12 +26,14 @@ public class AddSlotController {
     private final VehicleTypeAndPriceDao vtDao = new VehicleTypeAndPriceDao();
     private final SlotManagementController parent;
     private final AddSlotView view;
+    int id;
 
-    public AddSlotController(AddSlotView v, SlotManagementController parent) throws SQLException{
+    public AddSlotController(AddSlotView v, SlotManagementController parent,int id){
         this.slotDao = new SlotDao();
         this.siDao = new SlotInstanceDao();
         this.view   = v;
         this.parent = parent;
+        this.id = id;
         fillVehicleTypes();
         view.addSaveButtonListener().addActionListener(e -> save());
     }
@@ -46,12 +50,14 @@ public class AddSlotController {
 
             VehicleTypeAndPriceData vt = vtDao.findById(vtId);
             siDao.bulkInsert(slotId,totalSlots,
-                             vt.getVehicleType().substring(0,3).toUpperCase(),
+                             vt.getVehicleType().length() <= 3 ? vt.getVehicleType().toUpperCase() : vt.getVehicleType().substring(0,3).toUpperCase(),
                              levelNumber);
 
             JOptionPane.showMessageDialog(view,"Slots created.");
             parent.refresh();        // refresh JTable
-            view.dispose();
+            ActivityLog log = new ActivityLog(id,"Slot Added");
+            new ActivityLogDao().logActivity(log);
+            close();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(view,"Error: "+ex.getMessage());
             ex.printStackTrace();
@@ -60,6 +66,7 @@ public class AddSlotController {
 
     public void open() {
         this.view.setVisible(true);
+        this.view.setResizable(false);
     }
     
     public void close(){
@@ -68,15 +75,40 @@ public class AddSlotController {
     
     private void fillVehicleTypes() {
         try {
-            var list = vtDao.showVehicleTypeAndPrices();              // SELECT *
-            DefaultComboBoxModel<VehicleTypeAndPriceData> model =
-                    new DefaultComboBoxModel<>(list.toArray(
-                            new VehicleTypeAndPriceData[0]));         // generic array[4]
-            view.getVehicleTypeCombo().setModel(model);               // names appear
+            var list = vtDao.showVehicleTypeAndPrices(); 
+            DefaultComboBoxModel<VehicleTypeAndPriceData> model;
+
+            if (list == null || list.isEmpty()) {
+                // Show a placeholder if no data
+                model = new DefaultComboBoxModel<>();
+                model.addElement(new VehicleTypeAndPriceData() {
+                    @Override
+                    public String toString() {
+                        return "No vehicle types available";
+                    }
+                });
+                view.getVehicleTypeCombo().setModel(model);
+                view.getVehicleTypeCombo().setEnabled(false); // Optionally disable
+            } else {
+                model = new DefaultComboBoxModel<>(list.toArray(new VehicleTypeAndPriceData[0]));
+                view.getVehicleTypeCombo().setModel(model);
+                view.getVehicleTypeCombo().setEnabled(true);
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(view,
                     "Could not load vehicle types:\n" + ex.getMessage(),
                     "DB error", JOptionPane.ERROR_MESSAGE);
+            // Optionally clear and disable combo box on error
+            DefaultComboBoxModel<VehicleTypeAndPriceData> model = new DefaultComboBoxModel<>();
+            model.addElement(new VehicleTypeAndPriceData() {
+                @Override
+                public String toString() {
+                    return "No vehicle types available";
+                }
+            });
+            view.getVehicleTypeCombo().setModel(model);
+            view.getVehicleTypeCombo().setEnabled(false);
         }
     }
+
 }

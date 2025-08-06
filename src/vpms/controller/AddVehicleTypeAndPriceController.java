@@ -5,13 +5,13 @@
 package vpms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import vpms.dao.ActivityLogDao;
 
 import vpms.dao.VehicleTypeAndPriceDao;
+import vpms.model.ActivityLog;
 import vpms.model.VehicleTypeAndPriceData;
 import vpms.view.AddVehicleTypeAndPriceView;
-import vpms.view.VehicleTypeAndPriceView;
 /**
  *
  * @author PRABHASH
@@ -20,12 +20,14 @@ public class AddVehicleTypeAndPriceController {
     private AddVehicleTypeAndPriceView view;
     private VehicleTypeAndPriceDao dao;
     private VehicleTypeAndPriceController mainController;
+    int id;
 
-    public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController) {
+    public AddVehicleTypeAndPriceController(AddVehicleTypeAndPriceView view, VehicleTypeAndPriceController mainController,int id) {
         this.view = view;
+        this.id = id;
          try {
              this.dao = new VehicleTypeAndPriceDao();
-         } catch (SQLException ex) {
+         } catch (Exception ex) {
              System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
          }
         this.mainController = mainController;
@@ -66,11 +68,10 @@ public class AddVehicleTypeAndPriceController {
 
                 if (success) {
                     JOptionPane.showMessageDialog(view, "Vehicle type added successfully.");
+                    ActivityLog log = new ActivityLog(id,"Vehicle Type Added");
+                    new ActivityLogDao().logActivity(log);
                     view.dispose();
-
-                    VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-                    VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                    controller.open();
+                    mainController.loadVehicleTypeData();
                 } else {
                     JOptionPane.showMessageDialog(view, "Failed to add vehicle type.");
                 }
@@ -87,11 +88,8 @@ public class AddVehicleTypeAndPriceController {
         public void actionPerformed(ActionEvent e) {
             try {
                 view.dispose();
-                VehicleTypeAndPriceView mainView = new VehicleTypeAndPriceView();
-                VehicleTypeAndPriceController controller = new VehicleTypeAndPriceController(mainView);
-                controller.open();
-            } catch (SQLException ex) {
-                System.getLogger(AddVehicleTypeAndPriceController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

@@ -10,7 +10,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import vpms.view.ProfileUpdateView;
+import vpms.dao.ActivityLogDao;
+import vpms.model.ActivityLog;
 
 /**
  * Popup window for editing a user.
@@ -26,14 +27,18 @@ public class EditUserController {
     private final UserManagementController caller;   // may be null
     private final UserDao                 dao = new UserDao();
     private       UserData                user;      // current record
+    private int userID;
     private       File                    selected;  // new picture
+    int id;
 
     public EditUserController(EditUserView view,
-                              UserData user,
-                              UserManagementController caller) {
+                              int userID,
+                              UserManagementController caller, int id) {
         this.view   = view;
-        this.user   = user;
+        this.userID   = userID;
+        this.user = dao.getUserFromId(userID);
         this.caller = caller;
+        this.id = id;
 
         fillForm();
 
@@ -102,6 +107,8 @@ public class EditUserController {
 
             if (ok) {
                 JOptionPane.showMessageDialog(view,"User updated");
+                ActivityLog log = new ActivityLog(id,"User Edited, Obj: "+user);
+                new ActivityLogDao().logActivity(log);
                 if (caller != null) caller.refreshTable();
                 view.dispose();
             } else {

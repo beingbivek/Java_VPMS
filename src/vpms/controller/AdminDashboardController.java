@@ -3,14 +3,20 @@ package vpms.controller;
 
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import vpms.view.AdminDashboardView;
 import vpms.view.UserManagementView;
-import vpms.controller.UserManagementController;
 import vpms.model.UserData;
+import vpms.view.ActivityLogView;
 import vpms.view.AdminDashboardContentView;
+import vpms.view.ReportView;
+import vpms.view.SecurePaymentView;
 import vpms.view.SlotManagementView;
+import vpms.view.VehicleManagementView;
+import vpms.view.VehicleTypeAndPriceManagementView;
 import vpms.view.WelcomeAndLoginView;
 
 public class AdminDashboardController {
@@ -18,24 +24,46 @@ public class AdminDashboardController {
     private UserManagementView smView;
     private AdminDashboardContentView adcView;
     private SlotManagementView sView;
+    private VehicleTypeAndPriceManagementView vtpView;
+    private VehicleManagementView vView;
+    private SecurePaymentView spView;
+    private ReportView rView;
+    private ActivityLogView alView;
     UserData user;
+    
+    private static final Color DEFAULT_BG = new Color(153,153,255);  // purple buttons
+    private static final Color DEFAULT_FG = Color.white;
+
+    private static final Color SELECT_BG  = new Color(  0,255,153);  // green highlight
+    private static final Color SELECT_FG  = new Color(  0, 51,153);  // dark-blue text
 
     public AdminDashboardController(AdminDashboardView view,UserData user) {
         this.view = view;
         this.user = user;
         initializeControllers();
         attachListeners();
+        showDashboard();
     }
 
     private void initializeControllers() {
         try {
             // Initialize sub-module controllers
             smView = new UserManagementView();
-            new UserManagementController(smView);
+            new UserManagementController(smView,user.getId());
             adcView = new AdminDashboardContentView();
             new AdminDashboardContentController(adcView);
             sView = new SlotManagementView();
-            new SlotManagementController(sView);
+            new SlotManagementController(sView,user.getId());
+            vtpView = new VehicleTypeAndPriceManagementView();
+            new VehicleTypeAndPriceController(vtpView,user.getId());
+            vView = new VehicleManagementView();
+            new VehicleManagementController(vView,user.getId());
+            spView = new SecurePaymentView();
+            new SecurePaymentController(spView);
+            rView = new ReportView();
+            new ReportController(rView);
+            alView = new ActivityLogView();
+            new ActivityLogController(alView);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -45,10 +73,38 @@ public class AdminDashboardController {
         view.getUserWindowbtn().addActionListener(e -> showUsersPanel());
         view.getAdminDashboardWindowbtn().addActionListener(e -> showDashboard());
         view.getSlotWindowbtn().addActionListener(e -> showSlotsPanel());
+        view.getVehicleTypeandPriceWindowbtn().addActionListener(e -> showVehicleTandPPanel());
+        view.getVehicleWindowbtn().addActionListener(e -> showVehiclePanel());
+        view.getPaymentWindowbtn().addActionListener(e -> showPaymentPanel());
+        view.getLogWindowbtn().addActionListener(e -> showLogPanel());
+        view.getReportWindowbtn().addActionListener(e -> showReportPanel());
         view.getLogoutBtn().addActionListener(e -> logout());
+    }
+    
+    private void highlightSidebar(JButton selected) {
+
+        JButton[] buttons = {
+                view.getAdminDashboardWindowbtn(),
+                view.getUserWindowbtn(),
+                view.getVehicleWindowbtn(),
+                view.getSlotWindowbtn(),
+                view.getVehicleTypeandPriceWindowbtn(),
+                view.getPaymentWindowbtn(),
+                view.getReportWindowbtn(),
+                view.getLogWindowbtn()
+        };
+
+        for (JButton b : buttons) {                // reset every button
+            b.setOpaque(true);                     // ensure bg is painted
+            b.setBackground(DEFAULT_BG);
+            b.setForeground(DEFAULT_FG);
+        }
+        selected.setBackground(SELECT_BG);         // highlight chosen one
+        selected.setForeground(SELECT_FG);
     }
 
     private void showUsersPanel() {
+        highlightSidebar(view.getUserWindowbtn());
         smView.setVisible(true);
         view.setWindowPanel(smView);
         smView.toFront();
@@ -58,8 +114,45 @@ public class AdminDashboardController {
             ex.printStackTrace();
         }
     }
+    
+    private void showPaymentPanel() {
+        highlightSidebar(view.getPaymentWindowbtn());
+        spView.setVisible(true);
+        view.setWindowPanel(spView);
+        spView.toFront();
+        try {
+            spView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showReportPanel() {
+        highlightSidebar(view.getReportWindowbtn());
+        rView.setVisible(true);
+        view.setWindowPanel(rView);
+        rView.toFront();
+        try {
+            rView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showLogPanel() {
+        highlightSidebar(view.getLogWindowbtn());
+        alView.setVisible(true);
+        view.setWindowPanel(alView);
+        alView.toFront();
+        try {
+            alView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     private void showDashboard() {
+        highlightSidebar(view.getAdminDashboardWindowbtn());
         adcView.setVisible(true);
         view.setWindowPanel(adcView);
         adcView.toFront();
@@ -71,11 +164,36 @@ public class AdminDashboardController {
     }
     
     private void showSlotsPanel() {
+        highlightSidebar(view.getSlotWindowbtn());
         sView.setVisible(true);
         view.setWindowPanel(sView);
         sView.toFront();
         try {
             sView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showVehicleTandPPanel() {
+        highlightSidebar(view.getVehicleTypeandPriceWindowbtn());
+        vtpView.setVisible(true);
+        view.setWindowPanel(vtpView);
+        vtpView.toFront();
+        try {
+            vtpView.setSelected(true);
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showVehiclePanel() {
+        highlightSidebar(view.getVehicleWindowbtn());
+        vView.setVisible(true);
+        view.setWindowPanel(vView);
+        vView.toFront();
+        try {
+            vView.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }

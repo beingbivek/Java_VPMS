@@ -9,7 +9,7 @@ package vpms.model;
  * @author PRABHASH
  */
 public class VehicleData {
-    private String id;
+    private int id;
     private String type;
     private String vehicleNumber;
     private String ownerName;
@@ -17,10 +17,11 @@ public class VehicleData {
     private String createdAt;
     private String updatedAt;
     
-    public void VehicleData(String id,String type,String vehicleNumber,String ownerName,String ownerContact, String createdAt,String updatedAt){
+    public VehicleData(int id,String type,String vehicleNumber,String ownerName,String ownerContact, String createdAt,String updatedAt){
         this.id = id;
         this.type = type;
         this.vehicleNumber = vehicleNumber;
+        this.ownerName = ownerName;
         this.ownerContact = ownerContact;
         this.ownerName = ownerName;
         this.createdAt = createdAt;
@@ -37,11 +38,20 @@ public class VehicleData {
         this.updatedAt = updatedAt;
     }
     
-    public void setId(String id){
+    public VehicleData(int id,String type,String vehicleNumber,String ownerName,String ownerContact){
+        this.id = id;
+        this.type = type;
+        this.vehicleNumber = vehicleNumber;
+        this.ownerName = ownerName;
+        this.ownerContact = ownerContact;
+        this.ownerName = ownerName;
+    }
+    
+    public void setId(int id){
         this.id = id;
     }
     
-    public String getId(){
+    public int getId(){
         return this.id;
     }
     

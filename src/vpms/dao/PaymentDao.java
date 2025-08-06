@@ -125,14 +125,16 @@ public class PaymentDao {
     public double getTotalRevenue() {
         double total = 0;
         String sql = "SELECT SUM(CAST(regular_price AS DOUBLE)) + SUM(CAST(demand_price AS DOUBLE)) + SUM(CAST(reservation_price AS DOUBLE)) + SUM(CAST(extra_charge AS DOUBLE)) AS total FROM payments";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 total = rs.getDouble("total");
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
         return total;
     }
@@ -140,17 +142,66 @@ public class PaymentDao {
     public int getTotalPaymentCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM payments";
-        try (Connection conn = mySql.openConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
+        Connection conn = mySql.openConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
         }
         return count;
     }
+    
+    public List<PaymentData> searchPayments(String keyword) {
+        List<PaymentData> paymentList = new ArrayList<>();
+        String sql = "SELECT * FROM payments WHERE " +
+                "CAST(payment_id AS CHAR) LIKE ? OR " +
+                "CAST(parking_id AS CHAR) LIKE ? OR " +
+                "CAST(vehicle_id AS CHAR) LIKE ? OR " +
+                "CAST(user_id AS CHAR) LIKE ? OR " +
+                "regular_price LIKE ? OR " +
+                "demand_price LIKE ? OR " +
+                "reservation_price LIKE ? OR " +
+                "extra_charge LIKE ? OR " +
+                "payment_status LIKE ? OR " +
+                "DATE_FORMAT(payment_time, '%Y-%m-%d %H:%i:%s') LIKE ?";
+
+        Connection conn = mySql.openConnection();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            String likeKeyword = "%" + keyword + "%";
+            for (int i = 1; i <= 10; i++) {
+                pstmt.setString(i, likeKeyword);
+            }
+            ResultSet result = pstmt.executeQuery();
+
+            while (result.next()) {
+                PaymentData payment = new PaymentData(
+                        result.getInt("payment_id"),
+                        result.getInt("parking_id"),
+                        result.getInt("vehicle_id"),
+                        result.getInt("user_id"),
+                        result.getString("regular_price"),
+                        result.getString("demand_price"),
+                        result.getString("reservation_price"),
+                        result.getString("extra_charge"),
+                        result.getString("payment_status"),
+                        result.getTimestamp("payment_time").toLocalDateTime()
+                );
+                paymentList.add(payment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return paymentList;
+    }
+
 } 
 
     

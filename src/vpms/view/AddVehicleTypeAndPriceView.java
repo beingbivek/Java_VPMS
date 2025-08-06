@@ -19,6 +19,8 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
      */
     public AddVehicleTypeAndPriceView() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     /**
@@ -39,14 +41,15 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
         statusComboBox = new javax.swing.JComboBox<>();
-        vehicleTypeComboBox = new javax.swing.JComboBox<>();
         reservationPriceField = new javax.swing.JTextField();
         regularPriceField = new javax.swing.JTextField();
         demandPriceField = new javax.swing.JTextField();
         extraChargeField = new javax.swing.JTextField();
         cancelButton = new javax.swing.JButton();
+        vehicleTypeTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(17, 72, 183));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Add VehicleType and VehiclePrice");
@@ -69,7 +72,9 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Status");
 
+        submitButton.setBackground(new java.awt.Color(51, 102, 255));
         submitButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,9 +84,8 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
 
-        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Car", "Bike", "Van", "EV" }));
-
         cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,13 +97,17 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelButton)
+                .addGap(79, 79, 79)
+                .addComponent(submitButton)
+                .addGap(174, 174, 174))
             .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -107,25 +115,23 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
                                     .addGap(42, 42, 42))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel5)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel4)
-                                            .addComponent(jLabel6)))
+                                            .addComponent(jLabel6))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel5)))
                                     .addGap(65, 65, 65)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
-                                        .addComponent(jLabel7))
-                                    .addComponent(jLabel3))
-                                .addGap(73, 73, 73)))
+                                .addComponent(jLabel3)
+                                .addGap(74, 74, 74)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(statusComboBox, 0, 125, Short.MAX_VALUE)
-                            .addComponent(vehicleTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(reservationPriceField)
                             .addComponent(regularPriceField)
                             .addComponent(demandPriceField)
-                            .addComponent(extraChargeField))))
+                            .addComponent(extraChargeField)
+                            .addComponent(vehicleTypeTextField))))
                 .addContainerGap(135, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,12 +143,12 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addGap(83, 83, 83)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(vehicleTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vehicleTypeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -165,8 +171,8 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitButton)
-                    .addComponent(cancelButton))
+                    .addComponent(cancelButton)
+                    .addComponent(submitButton))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
 
@@ -231,10 +237,10 @@ public class AddVehicleTypeAndPriceView extends javax.swing.JFrame {
     private javax.swing.JTextField reservationPriceField;
     private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JButton submitButton;
-    private javax.swing.JComboBox<String> vehicleTypeComboBox;
+    private javax.swing.JTextField vehicleTypeTextField;
     // End of variables declaration//GEN-END:variables
 public String getVehicleType() {
-    return vehicleTypeComboBox.getSelectedItem().toString();
+    return vehicleTypeTextField.getText();
 }
 public String getStatus() {
     return statusComboBox.getSelectedItem().toString();
