@@ -27,14 +27,16 @@ public class EditUserController {
     private final UserManagementController caller;   // may be null
     private final UserDao                 dao = new UserDao();
     private       UserData                user;      // current record
+    private int userID;
     private       File                    selected;  // new picture
     int id;
 
     public EditUserController(EditUserView view,
-                              UserData user,
+                              int userID,
                               UserManagementController caller, int id) {
         this.view   = view;
-        this.user   = user;
+        this.userID   = userID;
+        this.user = dao.getUserFromId(userID);
         this.caller = caller;
         this.id = id;
 

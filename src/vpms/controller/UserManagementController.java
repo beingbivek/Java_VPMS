@@ -77,19 +77,8 @@ public class UserManagementController {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
             if (row == -1) { JOptionPane.showMessageDialog(view,"Select a user."); return; }
-
-            UserData selected = new UserData(
-                (int)    view.getTable().getValueAt(row,0),
-                (String) view.getTable().getValueAt(row,1),
-                (String) view.getTable().getValueAt(row,2),
-                (String) view.getTable().getValueAt(row,3),
-                (String) view.getTable().getValueAt(row,4),
-                (String) view.getTable().getValueAt(row,5),
-                (byte[]) view.getTable().getValueAt(row,6),
-                (String) view.getTable().getValueAt(row,7)
-            );
             EditUserView popup = new EditUserView();
-            new EditUserController(popup,selected,UserManagementController.this,adminId).open();
+            new EditUserController(popup,(int) view.getTable().getValueAt(row,0),UserManagementController.this,adminId).open();
         }
     }
 
