@@ -118,7 +118,6 @@ public class WelcomeAndLoginController {
                 close();
             }
             else if ("admin".equalsIgnoreCase(user.getType())) {
-                view.dispose();
                 AdminDashboardView dashboard = new AdminDashboardView();
                 new AdminDashboardController(dashboard,user).open();
                 rememberEmail(email);
