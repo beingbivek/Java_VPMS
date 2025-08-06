@@ -68,7 +68,7 @@ public class ParkingDao {
 
     public int getTotalVehicleEntryCount() {
         int count = 0;
-        String sql = "SELECT COUNT(*) FROM parkings";
+        String sql = "SELECT COUNT(*) FROM parkings WHERE DATE(entryDateTime) = CURDATE()";
         Connection conn = mySql.openConnection();
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -98,7 +98,7 @@ public class ParkingDao {
 
     public int getExitedVehicleCount() {
         int count = 0;
-        String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Exited'";
+        String sql = "SELECT COUNT(*) FROM parkings WHERE parkingStatus = 'Exited' AND DATE(exitDateTime) = CURDATE()";
         Connection conn = mySql.openConnection();
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
