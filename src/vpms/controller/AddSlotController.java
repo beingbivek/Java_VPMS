@@ -50,7 +50,7 @@ public class AddSlotController {
 
             VehicleTypeAndPriceData vt = vtDao.findById(vtId);
             siDao.bulkInsert(slotId,totalSlots,
-                             vt.getVehicleType().substring(0,3).toUpperCase(),
+                             vt.getVehicleType().length() <= 3 ? vt.getVehicleType().toUpperCase() : vt.getVehicleType().substring(0,3).toUpperCase(),
                              levelNumber);
 
             JOptionPane.showMessageDialog(view,"Slots created.");
@@ -66,6 +66,7 @@ public class AddSlotController {
 
     public void open() {
         this.view.setVisible(true);
+        this.view.setResizable(false);
     }
     
     public void close(){
@@ -74,7 +75,7 @@ public class AddSlotController {
     
     private void fillVehicleTypes() {
         try {
-            var list = vtDao.showVehicleTypeAndPrices(); // SELECT *
+            var list = vtDao.showVehicleTypeAndPrices(); 
             DefaultComboBoxModel<VehicleTypeAndPriceData> model;
 
             if (list == null || list.isEmpty()) {
