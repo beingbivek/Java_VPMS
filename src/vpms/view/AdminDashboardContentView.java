@@ -65,10 +65,10 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         recentActivitiewjTable = new javax.swing.JTable();
         jLabel25 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        staffSearchTextField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         staffManagementjTable = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        cancelSearchButton = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
@@ -400,7 +400,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel25.setText("Staff Management");
 
-        jTextField1.setText("Search");
+        staffSearchTextField.setText("Search");
 
         staffManagementjTable.setBackground(new java.awt.Color(255, 204, 255));
         staffManagementjTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -417,7 +417,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
         staffManagementjTable.setEnabled(false);
         jScrollPane2.setViewportView(staffManagementjTable);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
+        cancelSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagePicker/canclebutton.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -432,9 +432,9 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(staffSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4))
+                        .addComponent(cancelSearchButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(185, 185, 185))
             .addGroup(layout.createSequentialGroup()
@@ -464,8 +464,8 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(staffSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancelSearchButton))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -493,6 +493,7 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cancelSearchButton;
     private javax.swing.JLabel currentlyOccupiedSpacejLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -507,7 +508,6 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -523,9 +523,9 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable recentActivitiewjTable;
     private javax.swing.JTable staffManagementjTable;
+    private javax.swing.JTextField staffSearchTextField;
     private javax.swing.JLabel totalActiveStffsLabel;
     private javax.swing.JLabel totalEarningsTodayjLabel;
     private javax.swing.JLabel vehicleEnteredTodayjLabel;
@@ -552,5 +552,17 @@ public class AdminDashboardContentView extends javax.swing.JInternalFrame {
     
     public javax.swing.JTable getStaffTable() {
     return staffManagementjTable; 
+    }
+    
+    public javax.swing.JTextField searchStaffField(){
+        return staffSearchTextField;
+    }
+    
+    public void setValueInSearchTextField(String s){
+        staffSearchTextField.setText(s);
+    }
+    
+    public javax.swing.JLabel cancelSearchButton(){
+        return cancelSearchButton;
     }
 }
