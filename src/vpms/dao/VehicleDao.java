@@ -39,10 +39,24 @@ public class VehicleDao {
             mySql.closeConnection(conn);
         }
           return false;
-          
-          
-          
     }
+    
+    public String getVehicleNumberFromId(int vehicleId){
+        String sql = "SELECT vehicle_number FROM vehicles WHERE vehicle_id = ?";
+        Connection conn = mySql.openConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, vehicleId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getString(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return "";
+    }
+    
     public String[] showVehicleNumbers() {
         ArrayList<String> vehicleNumberList = new ArrayList<>();
         Connection conn = mySql.openConnection();

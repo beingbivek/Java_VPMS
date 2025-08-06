@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 public class SlotInstanceDao {
 
     private final MySqlConnection mySql = new MySqlConnection();
 
-    /* ---------- bulk create when a new slot collection is inserted ---------- */
     public void bulkInsert(int slotId,int total,String pre,int lvl){
         String sql="INSERT INTO slot_instances(slot_id,slot_index,code,status) VALUES (?,?,?, 'free')";
         Connection conn = mySql.openConnection();
@@ -25,7 +23,7 @@ public class SlotInstanceDao {
                 ps.setString(3,pre+"-L"+lvl+"-S"+String.format("%02d",i));
                 ps.addBatch();
             }
-            ps.executeBatch();          // single network round-trip[4]
+            ps.executeBatch();          
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -34,7 +32,6 @@ public class SlotInstanceDao {
     }
 
 
-    /* ---------- status update ---------- */
     public boolean updateStatus(int instanceId, String status) {
         String sql = "UPDATE slot_instances SET status=? WHERE instance_id=?";
         Connection conn = mySql.openConnection();
@@ -50,7 +47,6 @@ public class SlotInstanceDao {
         return false;
     }
 
-    /* ---------- query by level for grid ---------- */
     public List<SlotInstanceData> findByLevel(int level) {
     String sql = """
         SELECT si.*, s.level_number, v.vehicle_type
@@ -124,9 +120,6 @@ public class SlotInstanceDao {
         return null;
     }
 
-
-
-    /* ---------- helpers ---------- */
     private SlotInstanceData map(ResultSet rs){
         try {
             return new SlotInstanceData(
@@ -146,6 +139,22 @@ public class SlotInstanceDao {
 
     private String buildCode(String prefix,int level,int idx){
         return prefix + "-L" + level + "-S" + String.format("%02d", idx);
+    }
+    
+    public String getSlotCodeFromInstanceId(int instance_id) {
+        String sql = "SELECT code FROM slot_instances WHERE instance_id = ?";
+        Connection conn = mySql.openConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, instance_id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getString(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return "";
     }
 
     public int getTotalSlotCount() {

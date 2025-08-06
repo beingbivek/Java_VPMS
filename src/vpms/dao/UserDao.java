@@ -274,4 +274,20 @@ public class UserDao {
         }
         return count;
     }
+    
+    public String getUserNameFromId(int uId){
+        String sql = "SELECT name FROM vpmsUsers WHERE id = ?";
+        Connection conn = mySql.openConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, uId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getString(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            mySql.closeConnection(conn);
+        }
+        return "";
+    }
 }
