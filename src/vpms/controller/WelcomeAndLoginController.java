@@ -112,10 +112,14 @@ public class WelcomeAndLoginController {
                 JOptionPane.showMessageDialog(view, "Invalid credentials. Try Again!");
             }
             else if ("staff".equalsIgnoreCase(user.getType())){
-                StaffDashboardView dashboard = new StaffDashboardView();
-                new StaffDashboardController(dashboard,user).open();
-                rememberEmail(email);
-                close();
+                if (!"inactive".equalsIgnoreCase(user.getStatus())){
+                    StaffDashboardView dashboard = new StaffDashboardView();
+                    new StaffDashboardController(dashboard,user).open();
+                    rememberEmail(email);
+                    close();
+                } else {
+                    JOptionPane.showMessageDialog(view, "Your account is in Inactive status, contact Admin!");
+                }                
             }
             else if ("admin".equalsIgnoreCase(user.getType())) {
                 AdminDashboardView dashboard = new AdminDashboardView();
