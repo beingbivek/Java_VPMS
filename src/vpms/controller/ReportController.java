@@ -30,7 +30,6 @@ public class ReportController {
         view.getGenerateReport().addActionListener(e -> generateReportFromInput());
     }
 
-    /* ---------- helpers ---------- */
 
     private void setTodayInTextFields() {
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -43,7 +42,6 @@ public class ReportController {
         loadReport(today.atStartOfDay(), today.atTime(23,59,59));
     }
 
-    /* ---------- actions ---------- */
 
     private void generateReportFromInput() {
         String fromStr = view.getFrom().getText().trim();
@@ -65,7 +63,6 @@ public class ReportController {
         }
     }
 
-    /* ---------- main load ---------- */
 
     public void loadReport(LocalDateTime from, LocalDateTime to) {
         List<ReportModel> list = reportDao.getReportByDate(from, to);
@@ -90,10 +87,8 @@ public class ReportController {
         JTable tbl = view.getReportTable();
         tbl.setModel(m);
 
-        /* beautify header, zebra rows, widths */
         TableEnhancer.beautifyTable(tbl,new int[]{160,120,320,80});
 
-        /* grand total */
         double total = reportDao.getTotalRevenueByDate(from, to);
         view.getTotal().setText("Rs. " + total);
     }

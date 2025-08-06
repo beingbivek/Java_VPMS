@@ -14,32 +14,27 @@ import vpms.utils.TableEnhancer;
 
 public class UserManagementController {
 
-    /* -------------- fields -------------- */
     private final UserManagementView view;
     private final UserDao dao = new UserDao();
     private final int adminId;                    // for activity-log
 
-    /* -------------- ctor -------------- */
     public UserManagementController(UserManagementView view, int adminId) {
         this.view     = view;
         this.adminId  = adminId;
 
         loadUserData();
 
-        /* hook label-buttons */
         view.addAddButtonListener()   .addMouseListener(new AddUserListener());
         view.addEditButtonListener()  .addMouseListener(new EditUserListener());
         view.addDeleteButtonListener().addMouseListener(new DeleteUserListener());
         view.addCancelButtonListener().addMouseListener(new CancelListener());
 
-        /* hook real JButton (search) */
         view.addSearchButtonListener().addActionListener(new SearchListener());
     }
 
     public void open()  { view.setVisible(true); }
     public void close() { view.dispose();        }
 
-    /* ============ table population ============ */
     private void loadUserData() {
         List<UserData> users = dao.showUsers();
 
@@ -64,7 +59,6 @@ public class UserManagementController {
     
     public void refreshTable() {loadUserData();}
 
-    /* ============ ADD ============ */
     private class AddUserListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             RegisterUserView popup = new RegisterUserView();
@@ -72,7 +66,6 @@ public class UserManagementController {
         }
     }
 
-    /* ============ EDIT ============ */
     private class EditUserListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
@@ -82,7 +75,6 @@ public class UserManagementController {
         }
     }
 
-    /* ============ DELETE ============ */
     private class DeleteUserListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
@@ -111,7 +103,6 @@ public class UserManagementController {
         }
     }
 
-    /* ============ CANCEL (reset) ============ */
     private class CancelListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             view.setSearchTextFieldValue("");
@@ -119,7 +110,6 @@ public class UserManagementController {
         }
     }
 
-    /* ============ SEARCH ============ */
     private class SearchListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
             String kw = view.getSearchTextFieldValue().trim().toLowerCase();

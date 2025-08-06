@@ -33,6 +33,7 @@ public class EditSlotController {
     
     public void open(){
         this.view.setVisible(true);
+        this.view.setResizable(false);
     }
     
     

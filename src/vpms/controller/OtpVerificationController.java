@@ -34,6 +34,14 @@ public class OtpVerificationController {
         this.view.setVisible(true);
         this.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.view.setResizable(false);
+        view.getOTPTextField().addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (view.getOTPTextField().getText().equalsIgnoreCase("enter otp")) {
+                    view.getOTPTextField().setText("");
+                }
+            }
+        });
     }
     public void close(){
         this.view.dispose();
@@ -50,6 +58,8 @@ public class OtpVerificationController {
                 String password = JOptionPane.showInputDialog(view, "Enter your new password");
                 if (password.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(view, "Password is Empty");
+                } else if (password.trim().length() < 6){
+                    JOptionPane.showMessageDialog(view, "Password should be atleast 6 characters!");
                 } else {
                     ResetPasswordRequest resetPassword = new ResetPasswordRequest(email, password);
                     UserDao userDao = new UserDao();
@@ -57,7 +67,7 @@ public class OtpVerificationController {
                     if (!updateResult) {
                         JOptionPane.showMessageDialog(view, "Failed to reset password, Try Again Later!");
                     } else {
-                        JOptionPane.showMessageDialog(view, "Password has been changed");
+                        JOptionPane.showMessageDialog(view, "Password has been changed successfully!");
                         WelcomeAndLoginView view = new WelcomeAndLoginView();
                         WelcomeAndLoginController controller = new WelcomeAndLoginController(view);
                         controller.open();

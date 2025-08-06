@@ -7,24 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO for the `slots` table
- * Columns:
- *   slot_id         INT  PK  AI
- *   vehicletandp_id INT      NOT NULL   – FK → vehicle_type_and_price(id)
- *   number_of_slot  INT      NOT NULL
- *   level_number    INT      NOT NULL
- *
- * All methods throw SQLException so the caller can decide how to handle /
- * display the error.
- */
 public class SlotDao {
 
     private final MySqlConnection mySql = new MySqlConnection();
 
-    /* ===================================================== *
-     *  C R E A T E                                          *
-     * ===================================================== */
     public int insertReturnId(SlotData s) {
     String sql = "INSERT INTO slots(vehicletandp_id, number_of_slot, level_number) VALUES (?,?,?)";
     Connection conn = mySql.openConnection();
@@ -46,9 +32,6 @@ public class SlotDao {
         return 0;
     }
 
-    /* ===================================================== *
-     *  R E A D                                              *
-     * ===================================================== */
     public SlotData findById(int id) {
         String sql = "SELECT * FROM slots WHERE slot_id = ?";
         Connection conn = mySql.openConnection();
@@ -82,9 +65,6 @@ public class SlotDao {
         return list;
     }
 
-    /* ===================================================== *
-     *  U P D A T E                                          *
-     * ===================================================== */
     public boolean update(SlotData s) {
         String sql = """
             UPDATE slots SET
@@ -109,9 +89,6 @@ public class SlotDao {
         return false;
     }
 
-    /* ===================================================== *
-     *  D E L E T E                                          *
-     * ===================================================== */
     public boolean delete(int id) {
         String sql = "DELETE FROM slots WHERE slot_id = ?";
         Connection conn = mySql.openConnection();
@@ -127,9 +104,6 @@ public class SlotDao {
         return false;
     }
 
-    /* ===================================================== *
-     *  helpers                                              *
-     * ===================================================== */
     private SlotData map(ResultSet rs) {
         try {
             return new SlotData(

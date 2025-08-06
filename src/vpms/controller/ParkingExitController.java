@@ -193,9 +193,9 @@ public class ParkingExitController {
         ParkingDetails parkingDetails = parkingDao.getActiveParkingDetailsBySlotInstanceId(bay.getInstanceId());
         // Save to payments table
         PaymentData payment = new PaymentData(
-            /* parking_id */ parkingDetails.getParkingId(),//getCurrentParkingId(), // get from parkedDetails or DAO
-            /* vehicle_id */ parkingDetails.getVehicleId(),//getCurrentVehicleId(), // get from parkedDetails or DAO
-            /* staff_id */ this.id,     // set as needed
+            parkingDetails.getParkingId(),
+            parkingDetails.getVehicleId(),
+            this.id,    
             String.valueOf(totalPrice), // regular price
             "0", // demand price
             "0", // reservation price

@@ -48,7 +48,7 @@ public class SecurePaymentController {
         m.setColumnIdentifiers(new String[]{
             "Payment ID","Ticket ID","Vehicle Number","Received By",
             "Regular","Demand","Reservation","Extra","Total",
-            "Status","Time"
+            "Payment Method","Time"
         });
         
         VehicleDao vDao = new VehicleDao();

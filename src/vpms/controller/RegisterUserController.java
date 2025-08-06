@@ -13,14 +13,8 @@ import java.io.File;
 import vpms.dao.ActivityLogDao;
 import vpms.model.ActivityLog;
 
-/**
- * Pop-up window (JFrame) for user registration.
- * When launched from UserManagementController it refreshes
- * the table after successful save.
- */
 public class RegisterUserController {
 
-    /* ---------- fields ---------- */
     private final RegisterUserView         view;      // this is a JFrame
     private final UserManagementController caller;    // may be null
     private       File                     selected;   // image file
@@ -39,11 +33,7 @@ public class RegisterUserController {
 
     public void open()  { view.setLocationRelativeTo(null); view.setVisible(true); }
 
-    /* ===================================================== *
-     *  LISTENERS                                            *
-     * ===================================================== */
 
-    /* --- choose image ------------------------------------- */
     private class UploadListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
             JFileChooser fc = new JFileChooser();
@@ -59,7 +49,6 @@ public class RegisterUserController {
     private class RegisterListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
 
-            /* collect form data */
             String name  = view.getNameTextField().getText().trim();
             String email = view.getEmailTextField().getText().trim();
             String phone = view.getPhoneTextField().getText().trim();
@@ -67,7 +56,6 @@ public class RegisterUserController {
             String pwd1  = String.valueOf(view.getPasswordField().getPassword());
             String pwd2  = String.valueOf(view.getConfirmPasswordField().getPassword());
 
-            /* validate */
             if (name.isEmpty()||email.isEmpty()||phone.isEmpty()||pwd1.isEmpty()||pwd2.isEmpty()) {
                 JOptionPane.showMessageDialog(view,"Fill in all the fields"); return;
             }
@@ -75,14 +63,12 @@ public class RegisterUserController {
                 JOptionPane.showMessageDialog(view,"Passwords do not match"); return;
             }
 
-            /* image (default handled by ImageConverter) */
             byte[] img;
             try { img = new ImageConverter(selected).returnByteArray(); }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(view,"Image error"); return;
             }
 
-            /* save */
             String status = view.getStatusField().getSelectedItem().toString();
             UserData u = new UserData(name, type, email, pwd1, phone, img, status);
             if (dao.registerUser(u)) {
@@ -90,7 +76,6 @@ public class RegisterUserController {
                 ActivityLog log = new ActivityLog(id,"User Registered, Obj: "+u);
                 new ActivityLogDao().logActivity(log);
 
-                /* refresh list if we have a caller */
                 if (caller != null) caller.refreshTable();
                 view.dispose();
             } else {

@@ -17,7 +17,7 @@ public class ActivityLogController {
     public ActivityLogController(ActivityLogView view) {
         this.view = view;
 
-        loadAllLogs();                                    // first fill
+        loadAllLogs();                                  
 
         view.getSearchTextField().addActionListener(e -> searchLogs());
         view.getCancelButton().addActionListener(e -> {
@@ -28,7 +28,6 @@ public class ActivityLogController {
 
     public void open() { view.setVisible(true); }
 
-    /* -------- main loaders -------- */
 
     private void loadAllLogs() {
         populateTable(dao.showActivities());
@@ -40,7 +39,6 @@ public class ActivityLogController {
         populateTable(dao.searchActivities(kw));
     }
 
-    /* -------- build + beautify model -------- */
 
     private void populateTable(List<ActivityLog> logs) {
 
@@ -63,7 +61,6 @@ public class ActivityLogController {
         JTable tbl = view.getLogTable();
         tbl.setModel(m);
 
-        /* preferred column widths (px) – tweak as you like */
         TableEnhancer.beautifyTable(
                 tbl,
                 new int[]{60,60,320,160});

@@ -15,12 +15,10 @@ import vpms.utils.TableEnhancer;
 
 public class SlotManagementController {
 
-    /* ------------ fields ------------ */
     private final SlotManagementView view;
     private final SlotDao            slotDao;
-    private final int                userId;           // staff / admin id
+    private final int                userId;     
 
-    /* ------------ ctor ------------ */
     public SlotManagementController(SlotManagementView view, int userId) throws SQLException {
         this.view    = view;
         this.slotDao = new SlotDao();
@@ -31,21 +29,16 @@ public class SlotManagementController {
         view.getSlotTable().setDefaultEditor(Object.class, null);
         view.getSlotTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        /* Toolbar label-buttons → MouseListener */
         view.addAddButtonListener()   .addMouseListener(new AddListener());
         view.addEditButtonListener()  .addMouseListener(new EditListener());
         view.addDeleteButtonListener().addMouseListener(new DeleteListener());
         view.addCancelButtonListener().addMouseListener(new CancelListener());
 
-        /* Search real JButton → ActionListener */
         view.addSearchButtonListener().addActionListener(new SearchListener());
     }
 
     public void open() { view.setVisible(true); }
 
-    /* ===================================================== *
-     *  TABLE REFRESH                                        *
-     * ===================================================== */
     private void loadSlotTable() {
         List<SlotData> rows = slotDao.findAll();
 
@@ -53,7 +46,7 @@ public class SlotManagementController {
             @Override public boolean isCellEditable(int r,int c){ return false; }
         };
         m.setColumnIdentifiers(new String[]{
-            "Slot ID","VT-ID","Total Slots","Level"
+            "Slot ID","Vehicle Type ID","Total Slots","Level"
         });
         for (SlotData s : rows) {
             m.addRow(new Object[]{
@@ -68,9 +61,6 @@ public class SlotManagementController {
     }
 
 
-    /* ===================================================== *
-     *  ADD                                                  *
-     * ===================================================== */
     private class AddListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             AddSlotView popup = new AddSlotView();
@@ -80,9 +70,6 @@ public class SlotManagementController {
         }
     }
 
-    /* ===================================================== *
-     *  EDIT                                                 *
-     * ===================================================== */
     private class EditListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getSlotTable().getSelectedRow();
@@ -99,9 +86,6 @@ public class SlotManagementController {
         }
     }
 
-    /* ===================================================== *
-     *  DELETE                                               *
-     * ===================================================== */
     private class DeleteListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getSlotTable().getSelectedRow();
@@ -123,9 +107,6 @@ public class SlotManagementController {
         }
     }
 
-    /* ===================================================== *
-     *  CANCEL (reload)                                      *
-     * ===================================================== */
     private class CancelListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             view.getSearchText().setText("");
@@ -133,9 +114,6 @@ public class SlotManagementController {
         }
     }
 
-    /* ===================================================== *
-     *  SEARCH                                               *
-     * ===================================================== */
     private class SearchListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
             String kw = view.getSearchText().getText().trim().toLowerCase();
@@ -159,15 +137,11 @@ public class SlotManagementController {
         }
     }
 
-    /* ===================================================== *
-     *  UTIL                                                 *
-     * ===================================================== */
     private void showError(String msg, Exception ex){
         JOptionPane.showMessageDialog(view, msg+"\n"+ex.getMessage(),
                                       "DB error", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     }
 
-    /* Called by Add / Edit controllers after successful save */
     public void refresh() { loadSlotTable(); }
 }

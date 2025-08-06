@@ -64,19 +64,16 @@
                                       <Component id="entryTimeLabel" min="-2" max="-2" attributes="0"/>
                                       <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                                       <Component id="parkingTypeCB" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                                      <Component id="vehicleNumberDisplayLabel" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="135" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="entryDateValueLabel" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                                      <Component id="slotNumberDisplayLabel" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                      <Component id="entryDateValueLabel" min="-2" pref="75" max="-2" attributes="0"/>
+                                      <Component id="slotNumberDisplayLabel" min="-2" pref="145" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="vehicleNumberDisplayLabel" min="-2" pref="75" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

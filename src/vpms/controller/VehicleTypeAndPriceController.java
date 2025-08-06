@@ -13,31 +13,26 @@ import vpms.utils.TableEnhancer;
 
 public class VehicleTypeAndPriceController {
 
-    /* ---------------- fields ---------------- */
     private final VehicleTypeAndPriceManagementView view;
     private final VehicleTypeAndPriceDao dao = new VehicleTypeAndPriceDao();
-    private final int adminId;                       // for logging
+    private final int adminId;                    
 
-    /* --------------- ctor ------------------- */
     public VehicleTypeAndPriceController(VehicleTypeAndPriceManagementView view, int adminId) throws SQLException {
         this.view    = view;
         this.adminId = adminId;
 
         loadVehicleTypeData();
 
-        /* label-buttons → MouseAdapter */
         view.addAddButtonListener()   .addMouseListener(new AddListener());
         view.addEditButtonListener()  .addMouseListener(new EditListener());
         view.addDeleteButtonListener().addMouseListener(new DeleteListener());
         view.addCancelButtonListener().addMouseListener(new CancelListener());
 
-        /* search button + ENTER key in text-field */
         view.getSearchTextField().addActionListener(new SearchListener());
     }
 
     public void open() { view.setVisible(true); }
 
-    /* =============== table fill ============== */
     public void loadVehicleTypeData() {
         List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
 
@@ -57,12 +52,10 @@ public class VehicleTypeAndPriceController {
         JTable t = view.getTable();
         t.setModel(m);
 
-        /* ---- beautify ---- */
         new TableEnhancer().beautifyTable(t, new int[]{50,140,80,80,90,70,80});
     }
 
 
-    /* =============== ADD ===================== */
     private class AddListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             AddVehicleTypeAndPriceView add = new AddVehicleTypeAndPriceView();
@@ -70,7 +63,6 @@ public class VehicleTypeAndPriceController {
         }
     }
 
-    /* =============== EDIT ==================== */
     private class EditListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
@@ -95,7 +87,6 @@ public class VehicleTypeAndPriceController {
         }
     }
 
-    /* =============== DELETE ================== */
     private class DeleteListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             int row = view.getTable().getSelectedRow();
@@ -116,7 +107,6 @@ public class VehicleTypeAndPriceController {
         }
     }
 
-    /* =============== CANCEL (reset) ========== */
     private class CancelListener extends MouseAdapter {
         @Override public void mouseClicked(MouseEvent e) {
             view.setSearchTextFieldValue("");
@@ -124,7 +114,6 @@ public class VehicleTypeAndPriceController {
         }
     }
 
-    /* =============== SEARCH ================== */
     private class SearchListener implements ActionListener {
         @Override public void actionPerformed(ActionEvent e) {
             String kw = view.getSearchTextFieldValue().trim().toLowerCase();
