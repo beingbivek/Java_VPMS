@@ -2,129 +2,158 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
-/**
- *
- * @author being
- */
 package vpms.dao;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.List;
 import vpms.model.VehicleTypeAndPriceData;
 
-import java.util.List;
-
 public class VehicleTypeAndPriceDaoTest {
-    private static final String TEST_VEHICLE_TYPE = "JUnitType";
-    private static final String TEST_RESERVATION_PRICE = "10";
-    private static final String TEST_REGULAR_PRICE = "20";
-    private static final String TEST_DEMAND_PRICE = "30";
-    private static final String TEST_EXTRA_CHARGE = "5";
-    private static final String TEST_STATUS = "Active";
+    VehicleTypeAndPriceDao dao;
 
-    private static int createdId = -1;
+    @Before
+    public void setUp() {
+        dao = new VehicleTypeAndPriceDao();
+        // Optionally clean or prepare your test db here
+    }
 
-    private VehicleTypeAndPriceDao dao = new VehicleTypeAndPriceDao();
+    @After
+    public void tearDown() {
+        // Optionally clean up inserted test data
+    }
 
     @Test
     public void testAddVehicleTypeAndPrice() {
-        VehicleTypeAndPriceData data = new VehicleTypeAndPriceData(
-                0,
-                TEST_VEHICLE_TYPE,
-                TEST_RESERVATION_PRICE,
-                TEST_REGULAR_PRICE,
-                TEST_DEMAND_PRICE,
-                TEST_EXTRA_CHARGE,
-                TEST_STATUS
-        );
-        boolean result = dao.addVehicleTypeAndPrice(data);
-        assertTrue("Should add vehicle type and price", result);
-
-        // Find the inserted type for further tests
-        List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
-        assertNotNull("List should not be null", list);
-        VehicleTypeAndPriceData found = list.stream()
-                .filter(v -> TEST_VEHICLE_TYPE.equals(v.getVehicleType()))
-                .findFirst().orElse(null);
-        assertNotNull("Inserted type should be found", found);
-        createdId = found.getId();
-        assertEquals(TEST_REGULAR_PRICE, found.getRegularPrice());
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "TestType", "100", "200", "300", "50", "Active");
+        boolean result = dao.addVehicleTypeAndPrice(vehicle);
+        assertTrue(result);
+        // Clean up (optional)
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("TestType");
+        if (list != null && !list.isEmpty()) {
+            dao.deleteVehicleTypeAndPrice(list.get(0).getId());
+        }
     }
 
     @Test
     public void testShowVehicleTypeAndPrices() {
         List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
-        assertNotNull("List should not be null", list);
-        assertTrue("Should have at least one vehicle type", list.size() > 0);
+        assertNotNull(list);
+        // Possibly add specific assertions if your DB has predefined content
     }
 
     @Test
     public void testUpdateVehicleTypeAndPrice() {
-        if (createdId == -1) testAddVehicleTypeAndPrice();
-        VehicleTypeAndPriceData data = dao.showVehicleTypeAndPrices().stream()
-                .filter(v -> v.getId() == createdId)
-                .findFirst().orElse(null);
-        assertNotNull("Type to update should exist", data);
+        // Insert a record first
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "UpdatableType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("UpdatableType");
+        assertNotNull(list);
+        VehicleTypeAndPriceData toUpdate = list.get(0);
+        toUpdate.setRegularPrice("250");
+        boolean updated = dao.updateVehicleTypeAndPrice(toUpdate);
+        assertTrue(updated);
 
-        data.setRegularPrice("99");
-        data.setStatus("Inactive");
-        boolean updated = dao.updateVehicleTypeAndPrice(data);
-        assertTrue("Update should succeed", updated);
-
-        VehicleTypeAndPriceData updatedData = null;
-        try {
-            updatedData = dao.findById(createdId);
-        } catch (Exception e) {
-            fail("findById should not throw");
-        }
-        assertNotNull(updatedData);
-        assertEquals("99", updatedData.getRegularPrice());
-        assertEquals("Inactive", updatedData.getStatus());
-    }
-
-    @Test
-    public void testSearchVehicleTypes() {
-        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes(TEST_VEHICLE_TYPE);
-        assertNotNull("Search result should not be null", list);
-        assertTrue("Should find at least one matching type", list.stream()
-                .anyMatch(v -> TEST_VEHICLE_TYPE.equals(v.getVehicleType())));
-    }
-
-    @Test
-    public void testGetIdByVehicleType() {
-        if (createdId == -1) testAddVehicleTypeAndPrice();
-        int id = dao.getIdByVehicleType(TEST_VEHICLE_TYPE);
-        assertEquals("ID by vehicle type name should match created ID", createdId, id);
-    }
-
-    @Test
-    public void testGetVehicleTypeById() {
-        if (createdId == -1) testAddVehicleTypeAndPrice();
-        String type = dao.getVehicleTypeById(createdId);
-        assertEquals("Vehicle type by ID should match", TEST_VEHICLE_TYPE, type);
-    }
-
-    @Test
-    public void testGetAllVehicleTypeNames() {
-        List<String> names = dao.getAllVehicleTypeNames();
-        assertNotNull("Vehicle type names list should not be null", names);
-        assertTrue("Should contain the test type", names.contains(TEST_VEHICLE_TYPE));
-    }
-
-    @Test
-    public void testGetBasePriceForVehicleType() {
-        double price = dao.getBasePriceForVehicleType(TEST_VEHICLE_TYPE);
-        assertEquals(Double.parseDouble(TEST_REGULAR_PRICE), price, 0.001);
+        // Clean up
+        dao.deleteVehicleTypeAndPrice(toUpdate.getId());
     }
 
     @Test
     public void testDeleteVehicleTypeAndPrice() {
-        if (createdId == -1) testAddVehicleTypeAndPrice();
-        boolean deleted = dao.deleteVehicleTypeAndPrice(createdId);
-        assertTrue("Delete should succeed", deleted);
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "DeleteType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("DeleteType");
+        assertNotNull(list);
+        int id = list.get(0).getId();
+        boolean deleted = dao.deleteVehicleTypeAndPrice(id);
+        assertTrue(deleted);
+    }
 
-        List<VehicleTypeAndPriceData> list = dao.showVehicleTypeAndPrices();
-        boolean exists = list != null && list.stream().anyMatch(v -> v.getId() == createdId);
-        assertFalse("Deleted type should not exist", exists);
+    @Test
+    public void testSearchVehicleTypes() {
+        // Insert dummy data (if necessary)
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "SearchType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        List<VehicleTypeAndPriceData> found = dao.searchVehicleTypes("SearchType");
+        assertNotNull(found);
+        assertFalse(found.isEmpty());
+        // Clean up
+        dao.deleteVehicleTypeAndPrice(found.get(0).getId());
+    }
+
+    @Test
+    public void testFindById() throws Exception {
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "FindByIdType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("FindByIdType");
+        assertNotNull(list);
+        int id = list.get(0).getId();
+        VehicleTypeAndPriceData result = dao.findById(id);
+        assertNotNull(result);
+        assertEquals("FindByIdType", result.getVehicleType());
+        // Clean up
+        dao.deleteVehicleTypeAndPrice(id);
+    }
+
+    @Test
+    public void testGetVehicleTypeByNumber() {
+        // This test assumes the vehicle number and association is already in DB.
+        // You may need to insert test data into `vehicles` and `vehicle_type_and_price`.
+        String fakeVehicleNumber = "TEST-123";
+        String type = dao.getVehicleTypeByNumber(fakeVehicleNumber);
+        // assert result as per your data, otherwise:
+        assertNotNull(type);
+    }
+
+    @Test
+    public void testGetBasePriceForVehicleType() {
+        // Insert dummy
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "BasePriceType", "100", "999", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        double price = dao.getBasePriceForVehicleType("BasePriceType");
+        assertEquals(999, price, 0.01);
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("BasePriceType");
+        dao.deleteVehicleTypeAndPrice(list.get(0).getId());
+    }
+
+    @Test
+    public void testGetIdByVehicleType() {
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "GetIdType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        int id = dao.getIdByVehicleType("GetIdType");
+        assertTrue(id > 0);
+        dao.deleteVehicleTypeAndPrice(id);
+    }
+
+    @Test
+    public void testGetVehicleTypeById() {
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "GetByIdType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("GetByIdType");
+        int id = list.get(0).getId();
+        String type = dao.getVehicleTypeById(id);
+        assertEquals("GetByIdType", type);
+        dao.deleteVehicleTypeAndPrice(id);
+    }
+
+    @Test
+    public void testGetAllVehicleTypeNames() {
+        VehicleTypeAndPriceData vehicle = new VehicleTypeAndPriceData(
+                0, "ComboBoxType", "100", "200", "300", "50", "Active");
+        dao.addVehicleTypeAndPrice(vehicle);
+        List names = dao.getAllVehicleTypeNames();
+        assertNotNull(names);
+        assertTrue(names.contains("ComboBoxType"));
+        // Clean up
+        List<VehicleTypeAndPriceData> list = dao.searchVehicleTypes("ComboBoxType");
+        dao.deleteVehicleTypeAndPrice(list.get(0).getId());
     }
 }

@@ -18,7 +18,7 @@ import vpms.model.ActivityLog;
 import java.util.List;
 
 public class ActivityLogDaoTest {
-    private static final int TEST_USER_ID = 101;
+    private static final int TEST_USER_ID = 1;
     private static final String TEST_ACTION = "JUnit Test Action";
     private static int createdLogId = -1;
 
