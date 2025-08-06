@@ -48,10 +48,6 @@ public class VehicleManagementController {
 
     public void open() { view.setVisible(true); }
 
-    /* ================ table population ================ */
-
-
-    /** fills the grid and beautifies it */
     public void loadVehicleTable() {
 
         /* ---------- data ---------- */
@@ -171,15 +167,16 @@ public class VehicleManagementController {
 
         DefaultTableModel m = new DefaultTableModel(
             new String[]{"Entry Time","Exit Time","Status",
-                         "Entry Note","Exit Note","Slot Instance ID"}, 0) {
+                         "Entry Note","Exit Note","Slot Code"}, 0) {
             @Override public boolean isCellEditable(int r,int c){ return false; }
         };
+        SlotInstanceDao siDao = new SlotInstanceDao();
 
         for (ParkingDetails p : history) {
             m.addRow(new Object[]{
                 p.getEntryDateTime(), p.getExitDateTime(),
                 p.getParkingStatus(), p.getEntryNote(),
-                p.getExitNote(), p.getSlotInstanceId()
+                p.getExitNote(), siDao.getSlotCodeFromInstanceId(p.getSlotInstanceId())
             });
         }
         view.getVehicleParkingHistoryTable().setModel(m);
@@ -188,7 +185,6 @@ public class VehicleManagementController {
         new int[]{150,150,80,160,160,90});   
     }
 
-    /* helper to hide + clear history */
     private void hideHistory() {
         view.getVehicleParkingHistoryScroll().setVisible(false);
         clearParkingHistoryTable();
@@ -196,7 +192,7 @@ public class VehicleManagementController {
     private void clearParkingHistoryTable() {
         DefaultTableModel m = new DefaultTableModel(
             new String[]{"Entry Time","Exit Time","Status",
-                         "Entry Note","Exit Note","Slot Instance ID"},0){
+                         "Entry Note","Exit Note","Slot Code"},0){
             @Override public boolean isCellEditable(int r,int c){ return false; }
         };
         view.getVehicleParkingHistoryTable().setModel(m);
