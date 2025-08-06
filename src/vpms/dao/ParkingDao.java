@@ -47,7 +47,7 @@ public class ParkingDao {
     }
 
     public boolean vehicleExit(ParkingDetails parkingDetails) {
-        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ?, penaltyApplied = ? WHERE parkingId = ?";
+        String query = "UPDATE parkings SET exitDateTime = ?, parkingStatus = ?, exitNote = ?, penaltyApplied = ? WHERE parking_id = ?";
         Connection conn= mySql.openConnection();
         try {
             PreparedStatement stmnt = conn.prepareStatement(query);
@@ -59,6 +59,7 @@ public class ParkingDao {
             int result = stmnt.executeUpdate();
             return result > 0;
         } catch(Exception e) {
+            e.printStackTrace();
             return false;
         } finally {
             mySql.closeConnection(conn);
@@ -113,7 +114,7 @@ public class ParkingDao {
     public int getInstanceIdFromParkingId(int parkingId){
         String sql = """
                      SELECT instance_id 
-                     FROM parkings 
+                     FROM parkings p
                      WHERE parking_id = ? AND (p.parkingStatus = 'Parked' OR p.exitDateTime IS NULL)
                      ORDER BY p.entryDateTime DESC LIMIT 1
                      """;

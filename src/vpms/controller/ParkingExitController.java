@@ -21,6 +21,7 @@ import vpms.model.SlotInstanceData;
 import vpms.model.StripePaymentModel;
 import vpms.utils.SlotButton;
 import vpms.view.ParkingExitView;
+import vpms.utils.DateAndTimeMethods;
 
 
 /**
@@ -66,7 +67,7 @@ public class ParkingExitController {
         }
 
         // Split entry datetime into date and time
-        String[] entryParts = vpms.utils.DateAndTimeMethods.splitDateAndTime(parkedDetails.getEntryDateTime());
+        String[] entryParts = DateAndTimeMethods.splitDateAndTime(parkedDetails.getEntryDateTime());
         entryDate = entryParts[0];
         entryTime = entryParts[1];
 
@@ -75,13 +76,17 @@ public class ParkingExitController {
         view.setEntryTimeValueLabel(entryTime);
 
         // Set exit (now) info
-        String[] exitParts = vpms.utils.DateAndTimeMethods.splitDateAndTime(vpms.utils.DateAndTimeMethods.getDateAndTime());
+        String[] exitParts = DateAndTimeMethods.splitDateAndTime(DateAndTimeMethods.getDateAndTime());
         view.setExitDateValue(exitParts[0]);
         view.setExitTimeValue(exitParts[1]);
 
         // Calculate and display price
         calculateAndDisplayPrice();
         view.getVerifyPaymentButton().setVisible(false);
+        
+        // Set Vehicle Number and Slot Code to Labels
+        view.setVehicleNumber(parkedDetails.getVehicleNumber());
+        view.setSlotCode(bay.getCode());
 
         // Add listeners for payment and extra price
         view.getVerifyPaymentButton().addActionListener(e -> verifyPayment());
@@ -103,17 +108,17 @@ public class ParkingExitController {
 
             // Calculate total minutes parked
             long totalMinutes = java.time.Duration.between(entryDT, exitDT).toMinutes();
-            long intervals = totalMinutes / 15; // Each 15 min interval
-            if (totalMinutes % 15 != 0) intervals++; // Partial interval counts as full
+            long intervals = totalMinutes / 15; 
+            if (totalMinutes % 15 != 0) intervals++; // 
 
             // Get vehicle type and base price
             String vehicleNumber = parkedDetails.getVehicleNumber();
             VehicleTypeAndPriceDao vDao = new VehicleTypeAndPriceDao();
-            String vehicleType = vDao.getVehicleTypeByNumber(vehicleNumber); // You may need to add this DAO method
-            double basePrice = vDao.getBasePriceForVehicleType(vehicleType); // You may need to add this DAO method
+            String vehicleType = vDao.getVehicleTypeByNumber(vehicleNumber); 
+            double basePrice = vDao.getBasePriceForVehicleType(vehicleType); 
 
-            // Calculate price: base × 2^intervals
-            totalPrice = basePrice * Math.pow(2, intervals - 1); // intervals-1 because first interval is base price
+            
+            totalPrice = basePrice * intervals; 
 
             // Update view
             view.setTotalPriceLabel(String.format("%.2f", totalPrice));
@@ -202,7 +207,7 @@ public class ParkingExitController {
 
         // Update parking exit
         ParkingDetails exitDetails = new ParkingDetails();
-        exitDetails.ParkingExitDetails(parkingDetails.getParkingId(), vpms.utils.DateAndTimeMethods.getDateAndTime(), view.getExitNote().getText(), "Exited", false);
+        exitDetails.ParkingExitDetails(parkingDetails.getParkingId(), DateAndTimeMethods.getDateAndTime(), view.getExitNote().getText(), "Exited", false);
         parkingDao.vehicleExit(exitDetails);
         
         // Change button status
