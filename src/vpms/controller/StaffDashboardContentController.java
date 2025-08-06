@@ -18,7 +18,7 @@ public class StaffDashboardContentController {
     public StaffDashboardContentController(StaffDashboardContentView view,int id,VehicleManagementController vmController) {
         this.view = view;
         this.id = id;
-        new SlotGridController(this.view,this.id,vmController,StaffDashboardContentController.this); // builds the grid tabs
+        new SlotGridController(this.view,this.id,vmController,StaffDashboardContentController.this);
         this.view.getTicketButton().addActionListener(e -> checkTicket());
         setParkingStatus();
     }
