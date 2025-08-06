@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import vpms.dao.UserDao;
 import vpms.model.ResetPasswordRequest;
 import vpms.view.OtpVerificationView;
@@ -55,23 +56,33 @@ public class OtpVerificationController {
             if (!otp.equals(otpReceived)) {
                 JOptionPane.showMessageDialog(view, "OTP did not Match");
             } else {
-                String password = JOptionPane.showInputDialog(view, "Enter your new password");
-                if (password.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(view, "Password is Empty");
-                } else if (password.trim().length() < 6){
-                    JOptionPane.showMessageDialog(view, "Password should be atleast 6 characters!");
-                } else {
-                    ResetPasswordRequest resetPassword = new ResetPasswordRequest(email, password);
-                    UserDao userDao = new UserDao();
-                    boolean updateResult = userDao.resetPassword(resetPassword);
-                    if (!updateResult) {
-                        JOptionPane.showMessageDialog(view, "Failed to reset password, Try Again Later!");
+                JPasswordField passwordField = new JPasswordField();
+                int option = JOptionPane.showConfirmDialog(
+                    null, 
+                    passwordField, 
+                    "Enter New Password", 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.PLAIN_MESSAGE
+                );
+                if (option == JOptionPane.OK_OPTION) {
+                    String password = String.valueOf(passwordField.getPassword()).trim();
+                    if (password.isEmpty()) {
+                        JOptionPane.showMessageDialog(view, "Password is Empty");
+                    } else if (password.length() < 6){
+                        JOptionPane.showMessageDialog(view, "Password should be atleast 6 characters!");
                     } else {
-                        JOptionPane.showMessageDialog(view, "Password has been changed successfully!");
-                        WelcomeAndLoginView view = new WelcomeAndLoginView();
-                        WelcomeAndLoginController controller = new WelcomeAndLoginController(view);
-                        controller.open();
-                        close();
+                        ResetPasswordRequest resetPassword = new ResetPasswordRequest(email, password);
+                        UserDao userDao = new UserDao();
+                        boolean updateResult = userDao.resetPassword(resetPassword);
+                        if (!updateResult) {
+                            JOptionPane.showMessageDialog(view, "Failed to reset password, Try Again Later!");
+                        } else {
+                            JOptionPane.showMessageDialog(view, "Password has been changed successfully!");
+                            WelcomeAndLoginView view = new WelcomeAndLoginView();
+                            WelcomeAndLoginController controller = new WelcomeAndLoginController(view);
+                            controller.open();
+                            close();
+                        }
                     }
                 }
             }
