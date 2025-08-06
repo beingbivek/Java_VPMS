@@ -1,149 +1,162 @@
-Vehicle Parking Management System (VPMS)
-A modern, desktop-based Vehicle Parking Management System to automate and centralize parking operations for managed facilities. Built with Java Swing, MySQL, and the MVC architectural pattern, VPMS aims to simplify parking slot allocation, improve record-keeping, and maximize operational efficiency.
+# 🚗 Vehicle Parking Management System (VPMS)
 
-🌟 Features
-Admin & Staff Authentication
-Secure login and role-based access control for admins and staff.
+A modern, desktop-based Vehicle Parking Management System designed to automate and centralize parking operations for managed facilities. Built with **Java Swing**, **MySQL**, and the **MVC architectural pattern**, VPMS streamlines slot allocation, enhances record-keeping, and boosts operational efficiency.
 
-User & Staff Management
-Create, edit, and manage users and staff profiles from an intuitive dashboard.
+---
 
-Parking Slot Management
-Dashboard showing real-time slot status, with full/available slot alerts.
+## 🌟 Features
 
-Vehicle Entry & Exit Logging
-Record and track vehicle movements with entry/exit timestamps.
+- **Admin & Staff Authentication**  
+  Secure login with role-based access control.
 
-Parking Fee Calculation
-Automatic computation of parking fees and penalties based on duration.
+- **User & Staff Management**  
+  Create, edit, and manage users and staff via a central dashboard.
 
-Payment Management
-Track payments (cash or online). Support for integrating payment APIs.
+- **Parking Slot Management**  
+  Real-time display of slot status with alerts for full/available spaces.
 
-Reports & Activity Logs
-Generate and export summary and detailed reports of all major operations.
+- **Vehicle Entry & Exit Logging**  
+  Log timestamps for every vehicle movement.
 
-Password Reset via OTP
-Secure, email-based password recovery options for users and staff.
+- **Parking Fee Calculation**  
+  Auto-calculate parking charges and penalties based on duration.
 
-Comprehensive Dashboards
-Analytics on earnings, parking status, and staff activity.
+- **Payment Management**  
+  Record payments (cash/online) with optional API integration.
 
-Planned & Future Features
+- **Reports & Activity Logs**  
+  Export summary or detailed reports of all major operations.
 
-Reservation Functionality:
-Users & staff will soon be able to reserve parking slots in advance, with time-bound space blocking and notifications.
+- **Password Reset via OTP**  
+  Email-based password recovery system.
 
-Mobile/Web Extensions:
-Future versions may offer mobile/web interfaces.
+- **Comprehensive Dashboards**  
+  Analytics for earnings, parking status, and staff activities.
 
-IoT/Smart Sensors:
-Optional: Integration with hardware for automatic slot sensing.
+---
 
-🚗 System Architecture
-Three-Tier MVC Design
+## 🔮 Planned & Future Features
 
-Presentation (View): Java Swing user interfaces.
+- **Reservation Functionality**  
+  Time-bound slot reservation with alerts and notifications.
 
-Application (Controller): Handles all business logic, validation, and flow.
+- **Mobile/Web Extensions**  
+  Mobile or web interface for remote access.
 
-Data Access (Model): JDBC connection to a MySQL database, ensuring all CRUD and reporting operations.
+- **IoT/Smart Sensors**  
+  Optional hardware integration for automatic slot detection.
 
-🚀 Getting Started
-1. Prerequisites
-Java JDK 8 or higher
+---
 
-Apache NetBeans IDE or IntelliJ IDEA
+## 🏛️ System Architecture – MVC Pattern
 
-MySQL Server (local or remote)
+- **Presentation (View):** Java Swing UI
+- **Application (Controller):** Business logic, validation & flow
+- **Data Access (Model):** JDBC + MySQL for CRUD and reporting
 
-MySQL Connector/J JDBC driver
+---
 
-2. Setup Instructions
-Clone the repository:
+## 🚀 Getting Started
 
-bash
-git clone https://github.com/beingbivek/Java_VPMS.git
-Database setup:
+### ✅ Prerequisites
 
-Create a new MySQL database (e.g., vpms_db).
+- Java JDK 8 or higher  
+- Apache NetBeans IDE or IntelliJ IDEA  
+- MySQL Server (local or remote)  
+- MySQL Connector/J JDBC driver  
 
-Run the provided SQL schema or run the Java table initializer.
+### 🛠️ Setup Instructions
 
-Update DB credentials in your configuration file/class (e.g., DBConnection.java).
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/beingbivek/Java_VPMS.git
+   ```
 
-Add JDBC Driver:
+2. **Database Setup**
+   - Create a MySQL database (e.g., `vpms_db`)
+   - Run the provided SQL schema or the Java table initializer
+   - Update DB credentials in `DBConnection.java`
 
-Attach the mysql-connector-java.jar library to your project.
+3. **Add JDBC Driver**
+   - Attach `mysql-connector-java.jar` to your project
 
-Add All Libraries:
+4. **Add Required Libraries**
+   - Right-click project → `Properties` → `Libraries`
+   - Add all JARs from `src/JARFiles`
 
-Right-click on project → Properties → Libraries 
+5. **Build and Run**
+   - Clean and build the project
+   - Run the main class:  
+     `src/vpms/VehicleParkingManagementSystem.java`
 
-Add all jar files from src\JARFiles
+6. **Default Login Credentials**
+   - **Username:** `admin@vpms.com`  
+   - **Password:** `adminvpms123`
 
-Build and Run:
+---
 
-Clean and build the project 
+## 📸 Demo and Screenshots
 
-Run the main class: src\vpms\VehicleParkingManagementSystem.java 
+- 📂 See screenshots in: `/docs/screenshots/`  
+- 🎥 Watch the demo video: [VPMS Demo Video](https://www.youtube.com/watch?v=ia1EOnA97kM&feature=youtu.be)
 
-Login:
-Login using default credentials (username: admin@vpms.com and pass: 
-adminvpms123) 
+---
 
-3. Demo and Screenshots
-See /docs/screenshots/ for key UI screens.
+## 🗂️ Project Structure
 
-Watch the demo video here ([VPMS Demo Video](https://www.youtube.com/watch?v=ia1EOnA97kM&feature=youtu.be)).
-
-🗂️ Project Structure
-text
+```plaintext
 vpms/
-  ├─ view/         // Swing GUI components
-  ├─ controller/   // Application logic controllers
-  ├─ model/        // Domain/data objects
-  ├─ database/     // MySQL connection and schema
-  └─ utils/        // Helpers and shared utilities
-  
-🤝 Contributing
+├── view/        → Java Swing GUI components
+├── controller/  → Application logic
+├── model/       → Domain/data objects
+├── database/    → MySQL connection and schema
+└── utils/       → Shared helpers and utilities
+```
 
-Message me at ([Linked In](https://www.linkedin.com/in/beingbivek/)).
+---
 
-📅 Roadmap
- Admin/staff login & dashboard
+## 🤝 Contributing
 
- Parking slot management
+Want to contribute?  
+Message the author via [LinkedIn](https://www.linkedin.com/in/beingbivek/).
 
- Vehicle entry/exit & fee calculation
+---
 
- Reports and activity logs
+## 🗓️ Roadmap
 
- Password reset and error handling
+- ✅ Admin/staff login & dashboard  
+- ✅ Parking slot management  
+- ✅ Vehicle entry/exit & fee calculation  
+- ✅ Reports and logs  
+- ✅ Password reset system  
+- 🔜 Reservation system  
+- 🧪 Mobile/web app integration  
+- 📊 Advanced analytics  
+- 🧠 IoT auto-slot detection  
 
- Reservation system (coming soon!)
+---
 
- Mobile/web app integration (planned)
+## 📖 References
 
- Advanced analytics (future)
+Please refer to the main project report for full academic and technical references.
 
- IoT sensors for auto-slot detection (future)
+---
 
-📖 References
-See the main project report for full academic and technical references.
+## 📜 License
 
-📜 License
-This project is licensed for educational, non-commercial use for the Coventry University STW4006CEM module.
+Licensed for **educational and non-commercial** use under Coventry University's STW4006CEM module.
 
-👨💻 Authors
-Bivek Thapa
+---
 
-Chandani Rai
+## 👨‍💻 Authors
 
-Prabhash Sigdel
+- **Bivek Thapa**  
+- Chandani Rai  
+- Prabhash Sigdel  
+- Rupesh Yadav  
 
-Rupesh Yadav
+---
 
-📣 Contact
+## 📣 Contact
 
-For queries, contact the main author via Linked In or email address in the profile.
+For any queries, contact the lead author via [LinkedIn](https://www.linkedin.com/in/beingbivek/) or email listed in the profile.
